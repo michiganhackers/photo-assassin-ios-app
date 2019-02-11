@@ -76,17 +76,6 @@ If you are looking for resources to learn iOS or Swift, visit the [Michigan Hack
 * [Standard gitignore](https://github.com/github/gitignore/blob/master/Swift.gitignore)
 * Base classes for handling deeplinks and notifications
 
-To install the specific cocoapods version run
-
-```
-bundle install
-```
-
-Then install the pods
-
-```
-bundle exec pod install
-```
 
 ## Additional configuration
 
