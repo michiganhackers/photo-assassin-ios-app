@@ -76,32 +76,6 @@ If you are looking for resources to learn iOS or Swift, visit the [Michigan Hack
 * [Standard gitignore](https://github.com/github/gitignore/blob/master/Swift.gitignore)
 * Base classes for handling deeplinks and notifications
 
-## Prerequisites:
-This project needs [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/installation.html)
-
-```
-brew install cookiecutter
-```
-
-## Usage
-
-The project uses Cookiecutter for project templating. To create a new project from this template just run:
-
-```
-cookiecutter https://github.com/pgorzelany/iOS-project-template.git
-```
-
-You will get a prompt to give a new app name. Thats it, you should have a new folder with your new app created based on this template!
-
-The project is using cocoapods for managing external libraries and a Gemfile for managing the cocoapods version.
-To install the cocoapod dependencies do the following:
-
-Get Bundler
-
-```
-sudo gem install bundler
-```
-
 To install the specific cocoapods version run
 
 ```

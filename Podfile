@@ -7,12 +7,12 @@ use_frameworks!
 # ignore all warnings from all pods
 inhibit_all_warnings!
 
-target 'Photo Assassin' do
+target 'PhotoAssassin' do
 
   pod 'R.swift', '5.0.0'
   pod 'SwiftLint', '0.29.2'
 
-  target 'Photo AssassinTests' do
+  target 'PhotoAssassinTests' do
     inherit! :search_paths
   end
 end
