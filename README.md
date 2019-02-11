@@ -1,6 +1,6 @@
-# Photo Assassin
+# Photo Assassin iOS App
 
-Supports: iOS 10.x and above
+This repository contains code written by the Michigan Hacker's Core iOS team during the Winter of 2019. Supports: iOS 10.x and above
 
 ## Branches:
 
