@@ -6,6 +6,7 @@ This repository contains code written by the Michigan Hacker's Core iOS team dur
 
 * master - stable app releases
 * develop - development branch, merge your feature branches here
+* (add new branches and their descriptions here)
 
 ## Getting Started:
 
