@@ -25,7 +25,7 @@ opt_in_rules:
 excluded:
   - Carthage
   - Pods
-  - Photo Assassin/Resources/Generated/R.generated.swift
+  - PhotoAssassin/Resources/Generated/R.generated.swift
 identifier_name:
   excluded:
     - id
