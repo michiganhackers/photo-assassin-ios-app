@@ -8,9 +8,10 @@
 import UIKit
 
 class LoginScreenViewController: UIViewController {
-    let titleSize: CGFloat = 56.0
+    let titleSize: CGFloat = 52.0
     let textfieldSeparation: CGFloat = 30.0
     let loginButtonOffset: CGFloat = 100.0
+    let loginButtonHeight: CGFloat = 67.0
 
     lazy var appTitle: UILabel = {
         let label = UILabel(frame: .zero)
@@ -29,10 +30,8 @@ class LoginScreenViewController: UIViewController {
     let passwordField: UITextField = LoginTextField("password", isSecure: true, isEmail: false)
 
     lazy var loginButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setTitle("Login", for: .normal)
-        button.setTitleColor(Colors.text, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = LoginButton("log in", height: loginButtonHeight)
+        button.isEnabled = false
         return button
     }()
 
@@ -74,9 +73,10 @@ class LoginScreenViewController: UIViewController {
                     constant: textfieldSeparation / 2).isActive = true
         passwordField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        loginButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         loginButton.topAnchor.constraint(equalTo: margins.centerYAnchor,
                                          constant: loginButtonOffset).isActive = true
+        loginButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        loginButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
     override func viewWillLayoutSubviews() {
