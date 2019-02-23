@@ -25,9 +25,16 @@ class RootRouter {
     }
 
     func loadMainAppStructure() {
-        // Customize your app structure here
-        let controller = UIViewController()
-        controller.view.backgroundColor = UIColor.red
+        // TODO: Implement logins
+        let isLoggedIn = false
+        var controller: UIViewController
+
+        if isLoggedIn {
+            controller = UIViewController()//MainScreenViewController()
+        } else {
+            controller = LoginScreenViewController()
+        }
+        // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
     }
 }
