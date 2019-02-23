@@ -22,6 +22,7 @@
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		E93545E4221F89D800F2CC2F /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93545E3221F89D800F2CC2F /* LoginScreenViewController.swift */; };
+		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
 		E9FE326722207B92009857CF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326622207B92009857CF /* Colors.swift */; };
 		E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326822207C4F009857CF /* UIColor+hex.swift */; };
 		FCB2C7CB1F57127800481080 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCB2C7CA1F57127800481080 /* Localizable.strings */; };
@@ -64,6 +65,7 @@
 		DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAssassinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.staging.xcconfig"; sourceTree = "<group>"; };
 		E93545E3221F89D800F2CC2F /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
+		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		E9FE326622207B92009857CF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E9FE326822207C4F009857CF /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		FCB2C7CA1F57127800481080 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				E93545E3221F89D800F2CC2F /* LoginScreenViewController.swift */,
+				E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				553FC23C214047CB001D9362 /* R.generated.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
+				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
 			);

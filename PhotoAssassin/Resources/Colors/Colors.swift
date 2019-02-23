@@ -14,5 +14,6 @@ public struct Colors {
     static let endBackgroundGradient = UIColor(hex: 0xFFFFFF, alpha: 0.0)
     static let behindGradient = UIColor(hex: 0xC70000)
     static let text = UIColor(hex: 0xFFFFFF)
-    static let seeThroughContrast = UIColor(hex: 0xFFFFFF, alpha: 0.4)
+    static let seeThroughText = UIColor(hex: 0xFFFFFF, alpha: 0.6)
+    static let seeThroughContrast = UIColor(hex: 0xFFFFFF, alpha: 0.25)
 }
