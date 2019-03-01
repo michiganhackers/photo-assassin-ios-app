@@ -1,5 +1,5 @@
 //
-//  LoginButton.swift
+//  LoginRegisterButton.swift
 //  PhotoAssassin
 //
 //  Created by Thomas Smith on 2/23/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginButton: UIButton {
+class LoginRegisterButton: UIButton {
     let borderWidth: CGFloat = 4.0
     let cornerRadius: CGFloat = 15.0
     let textSize: CGFloat = 30.0

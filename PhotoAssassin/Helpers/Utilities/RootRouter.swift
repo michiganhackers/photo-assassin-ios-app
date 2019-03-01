@@ -32,7 +32,7 @@ class RootRouter {
         if isLoggedIn {
             controller = UIViewController()//MainScreenViewController()
         } else {
-            controller = LoginScreenViewController()
+            controller = LoginViewController()
         }
         // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
