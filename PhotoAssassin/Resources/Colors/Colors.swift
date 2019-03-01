@@ -16,4 +16,9 @@ public struct Colors {
     static let text = UIColor(hex: 0xFFFFFF)
     static let seeThroughText = UIColor(hex: 0xFFFFFF, alpha: 0.6)
     static let seeThroughContrast = UIColor(hex: 0xFFFFFF, alpha: 0.25)
+    static let charcoal = UIColor(hex: 0x594346)
+    static let black = UIColor(hex: 0x212027)
+    static let scarlet = UIColor(hex: 0xF22F08)
+    static let burgundy = UIColor(hex: 0x8D2F23)
+    static let maroon = UIColor(hex: 0x561E18)
 }
