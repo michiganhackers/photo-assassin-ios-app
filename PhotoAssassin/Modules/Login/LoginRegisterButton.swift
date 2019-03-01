@@ -27,8 +27,6 @@ class LoginRegisterButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: height).isActive = true
 
-        let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(
-            withTextStyle: UIFont.TextStyle.headline)
-        titleLabel?.font = UIFont(descriptor: fontDescriptor, size: textSize)
+        titleLabel?.font = R.font.economicaRegular(size: textSize)
     }
 }

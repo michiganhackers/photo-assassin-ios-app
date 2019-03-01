@@ -35,17 +35,16 @@ class LoginTextField: UITextField {
             keyboardType = .emailAddress
         }
         isSecureTextEntry = isSecure
-
-        let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(
-            withTextStyle: UIFont.TextStyle.headline)
-        let inputFont = UIFont(descriptor: fontDescriptor, size: textSize)
+        let inputFont = R.font.economicaRegular(size: textSize) // FIXME: force unwrapping violation
         font = inputFont
 
-        attributedPlaceholder = NSAttributedString(string: textContent,
-            attributes: [
-                .foregroundColor: Colors.seeThroughText,
-                .font: inputFont
-            ]
-        )
+        if let font = inputFont {
+            attributedPlaceholder = NSAttributedString(string: textContent,
+                                                       attributes: [
+                                                        .foregroundColor: Colors.seeThroughText,
+                                                        .font: font
+                ]
+            )
+        }
     }
 }

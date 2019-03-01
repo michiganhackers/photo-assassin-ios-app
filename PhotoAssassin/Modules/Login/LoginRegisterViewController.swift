@@ -23,8 +23,7 @@ class LoginRegisterViewController: UIViewController {
         label.text = "Photo Assassin"
         label.textAlignment = .center
         label.textColor = Colors.text
-        let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.headline)
-        label.font = UIFont(descriptor: descriptor, size: titleSize)
+        label.font = R.font.economicaBold(size: titleSize)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
