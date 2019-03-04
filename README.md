@@ -6,7 +6,6 @@ This repository contains code written by the Michigan Hacker's Core iOS team dur
 
 * master - stable app releases
 * develop - development branch, merge your feature branches here
-* (add new branches and their descriptions here)
 
 ## Getting Started:
 
@@ -24,7 +23,7 @@ Create a Github account to interact with the remote repository.
 
 ## Dependencies:
 
-The project is using cocoapods for managing external libraries and a Gemfile for managing the cocoapods version.
+This project is using cocoapods for managing external libraries and a Gemfile for managing the cocoapods version. You will need to run the following commands in terminal after cloning this repository to your local machine to get the project running inside of Xcode.
 
 Get Bundler
 
