@@ -60,6 +60,7 @@ bundle exec pod install
 ## Contributing
 We use the [GitHub Flow workflow](https://guides.github.com/introduction/flow/).  
 We also use [GitHub's project boards](https://github.com/michiganhackers/photo-assassin-ios-app/projects/2) to manage this project.
+
 If you are looking for resources to learn iOS or Swift, visit the [Michigan Hackers knowledge base](https://github.com/michiganhackers/knowledgebase/blob/master/Technologies/iOS.md).
 
 
