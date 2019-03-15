@@ -45,12 +45,13 @@ bundle exec pod install
 
 ### Core Dependencies
 
-* Swiftlint - A tool to enforce Swift style and conventions.
+* Swiftlint - A tool to enforce Swift style and conventions
 * R.swift - Get strong typed, autocompleted resources like images, fonts and segues in Swift projects
+* Firebase - A realtime database and backend as a service
 
 ## Project structure:
 
-* Resources - fonts, strings, images, generated files etc.
+* Resources - fonts, strings, images, generated files etc
 * SupportingFiles - configuration plist files
 * Models - model objects
 * Modules - contains app modules (UI + Code)
