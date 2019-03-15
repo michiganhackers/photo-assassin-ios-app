@@ -11,7 +11,7 @@ import UIKit
 class LoginRegisterViewController: UIViewController {
     // MARK: - Text and Number Class Constants
     let titleSize: CGFloat = 52.0
-    let textfieldSeparation: CGFloat = 30.0
+    let textfieldSeparation: CGFloat = 16.0
     let loginButtonOffset: CGFloat = 100.0
     let loginButtonHeight: CGFloat = 67.0
     let buttonText: String
@@ -78,19 +78,14 @@ class LoginRegisterViewController: UIViewController {
                constant: -50.0).isActive = true
 
         emailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        emailField.bottomAnchor.constraint(equalTo: margins.centerYAnchor,
-            constant: -textfieldSeparation / 2.0).isActive = true
+        emailField.topAnchor.constraint(equalTo: appTitle.bottomAnchor,
+            constant: view.bounds.height / 20).isActive = true
         emailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
         passwordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        passwordField.topAnchor.constraint(equalTo: margins.centerYAnchor,
-                    constant: textfieldSeparation / 2).isActive = true
+        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor,
+                                           constant: textfieldSeparation).isActive = true
         passwordField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-
-        loginRegisterButton.topAnchor.constraint(equalTo: margins.centerYAnchor,
-                                         constant: loginButtonOffset).isActive = true
-        loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
     // MARK: - Overrides
