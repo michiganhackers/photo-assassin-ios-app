@@ -57,6 +57,11 @@ class LoginRegisterViewController: UIViewController {
         return gradient
     }()
 
+    // MARK: - Custom Functions
+    func shouldEnableSignIn() -> Bool {
+        return emailField.text != "" && passwordField.text != ""
+    }
+
     // MARK: - Set Up Functions
     func addSubviews() {
         view.addSubview(appTitle)
@@ -107,7 +112,7 @@ class LoginRegisterViewController: UIViewController {
 
     @objc
     func fieldEdited() {
-        loginRegisterButton.isEnabled = emailField.text != "" && passwordField.text != ""
+        loginRegisterButton.isEnabled = shouldEnableSignIn()
     }
 
     // MARK: - Initializers

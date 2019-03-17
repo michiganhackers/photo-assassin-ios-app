@@ -9,12 +9,15 @@
 import UIKit
 
 class RegisterViewController: LoginRegisterViewController {
+    // MARK: - Text and Number Class Constants
     let socialMediaButtonHeight: CGFloat = 50.0
     let haveAnAccountTextSize: CGFloat = 25.0
     let socialMediaSpace: CGFloat = 20.0
 
+    // MARK: - UI Elements
     lazy var confirmPasswordField: UITextField = {
         let field = LoginTextField("confirm password", isSecure: true, isEmail: false)
+        field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         return field
     }()
 
@@ -44,8 +47,8 @@ class RegisterViewController: LoginRegisterViewController {
         }
         return button
     }()
-    
-    lazy var facebookRegisterButtion: UIButton = {
+
+    lazy var facebookRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.facebookLogo() {
             button = SocialMediaLoginButton("continue with Facebook",
@@ -57,12 +60,13 @@ class RegisterViewController: LoginRegisterViewController {
         return button
     }()
 
+    // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()
         view.addSubview(confirmPasswordField)
         view.addSubview(haveAnAccountButton)
         view.addSubview(googleRegisterButton)
-        view.addSubview(facebookRegisterButtion)
+        view.addSubview(facebookRegisterButton)
     }
 
     override func setUpConstraints() {
@@ -83,14 +87,22 @@ class RegisterViewController: LoginRegisterViewController {
         haveAnAccountButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor).isActive = true
         haveAnAccountButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
 
-        googleRegisterButton.topAnchor.constraint(equalTo: haveAnAccountButton.bottomAnchor, constant: socialMediaSpace).isActive = true
+        googleRegisterButton.topAnchor.constraint(equalTo: haveAnAccountButton.bottomAnchor,
+                        constant: socialMediaSpace).isActive = true
         googleRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         googleRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        facebookRegisterButtion.topAnchor.constraint(equalTo: googleRegisterButton.bottomAnchor, constant: socialMediaSpace).isActive = true
-        facebookRegisterButtion.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        facebookRegisterButtion.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        facebookRegisterButton.topAnchor.constraint(equalTo: googleRegisterButton.bottomAnchor,
+                        constant: socialMediaSpace).isActive = true
+        facebookRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        facebookRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
+    override func shouldEnableSignIn() -> Bool {
+        return super.shouldEnableSignIn() && confirmPasswordField.text != "" &&
+               confirmPasswordField.text == passwordField.text
+    }
+
+    // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
