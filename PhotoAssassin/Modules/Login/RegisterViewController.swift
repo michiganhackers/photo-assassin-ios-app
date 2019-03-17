@@ -63,16 +63,16 @@ class RegisterViewController: LoginRegisterViewController {
     // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()
-        view.addSubview(confirmPasswordField)
-        view.addSubview(haveAnAccountButton)
-        view.addSubview(googleRegisterButton)
-        view.addSubview(facebookRegisterButton)
+        contentView.addSubview(confirmPasswordField)
+        contentView.addSubview(haveAnAccountButton)
+        contentView.addSubview(googleRegisterButton)
+        contentView.addSubview(facebookRegisterButton)
     }
 
     override func setUpConstraints() {
         super.setUpConstraints()
 
-        let margins = view.layoutMarginsGuide
+        let margins = contentView.layoutMarginsGuide
 
         confirmPasswordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         confirmPasswordField.topAnchor.constraint(equalTo: passwordField.bottomAnchor,
@@ -100,6 +100,10 @@ class RegisterViewController: LoginRegisterViewController {
     override func shouldEnableSignIn() -> Bool {
         return super.shouldEnableSignIn() && confirmPasswordField.text != "" &&
                confirmPasswordField.text == passwordField.text
+    }
+
+    override func getBottomSubview() -> UIView {
+        return facebookRegisterButton
     }
 
     // MARK: - Initializers
