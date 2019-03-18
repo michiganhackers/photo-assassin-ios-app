@@ -62,14 +62,7 @@ class LoginRegisterViewController: UIViewController {
         return button
     }()
 
-    lazy var backgroundGradient: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.colors = [
-            Colors.startBackgroundGradient.cgColor,
-            Colors.endBackgroundGradient.cgColor
-        ]
-        return gradient
-    }()
+    let backgroundGradient = BackgroundGradient()
 
     // MARK: - Custom Functions
     func shouldEnableSignIn() -> Bool {
@@ -88,8 +81,7 @@ class LoginRegisterViewController: UIViewController {
         contentView.addSubview(emailField)
         contentView.addSubview(passwordField)
         contentView.addSubview(loginRegisterButton)
-        view.layer.insertSublayer(backgroundGradient, at: 0)
-        view.backgroundColor = Colors.behindGradient
+        backgroundGradient.addToView(view)
     }
 
     func setUpConstraints() {
@@ -132,7 +124,7 @@ class LoginRegisterViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setUpConstraints()
-        backgroundGradient.frame = view.bounds
+        backgroundGradient.layoutInView(view)
     }
 
     override func viewDidLoad() {
