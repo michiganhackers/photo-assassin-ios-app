@@ -28,11 +28,11 @@ class RegisterViewController: LoginRegisterViewController {
     lazy var googleRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.googleLogo() {
-            button = SocialMediaLoginButton("continue with Google",
+            button = SocialMediaLoginButton("continue with google",
                                             height: socialMediaButtonHeight, image: image)
         } else {
             button = UIButton()
-            button.setTitle("continue with Google", for: .normal)
+            button.setTitle("continue with google", for: .normal)
         }
         return button
     }()
@@ -40,11 +40,11 @@ class RegisterViewController: LoginRegisterViewController {
     lazy var facebookRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.facebookLogo() {
-            button = SocialMediaLoginButton("continue with Facebook",
+            button = SocialMediaLoginButton("continue with facebook",
                                             height: socialMediaButtonHeight, image: image)
         } else {
             button = UIButton()
-            button.setTitle("continue with Facebook", for: .normal)
+            button.setTitle("continue with facebook", for: .normal)
         }
         return button
     }()
@@ -65,7 +65,7 @@ class RegisterViewController: LoginRegisterViewController {
 
         confirmPasswordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         confirmPasswordField.topAnchor.constraint(equalTo: passwordField.bottomAnchor,
-                                           constant: textfieldSeparation).isActive = true
+                                           constant: getTextFieldSeparation()).isActive = true
         confirmPasswordField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
         loginRegisterButton.topAnchor.constraint(equalTo: confirmPasswordField.bottomAnchor,

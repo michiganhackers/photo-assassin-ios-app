@@ -12,7 +12,7 @@ class LoginTextField: UITextField {
     let cornerRadius: CGFloat = 15.0
     let height: CGFloat = 67.0
     let textInsetX: CGFloat = 15.0
-    let textSize: CGFloat = 30.0
+    let textSize: CGFloat = 36.0
 
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: textInsetX, dy: 0)
@@ -35,14 +35,14 @@ class LoginTextField: UITextField {
             keyboardType = .emailAddress
         }
         isSecureTextEntry = isSecure
-        let inputFont = R.font.economicaRegular(size: textSize) // FIXME: force unwrapping violation
+        let inputFont = R.font.economicaBold(size: textSize)
         font = inputFont
 
         if let font = inputFont {
             attributedPlaceholder = NSAttributedString(string: textContent,
-                                                       attributes: [
-                                                        .foregroundColor: Colors.seeThroughText,
-                                                        .font: font
+                attributes: [
+                    .foregroundColor: Colors.seeThroughText,
+                    .font: font
                 ]
             )
         }

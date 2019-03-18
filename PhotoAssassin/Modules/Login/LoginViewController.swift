@@ -10,6 +10,7 @@ import UIKit
 
 class LoginViewController: LoginRegisterViewController {
     // MARK: - Text and Number Class Constants
+    let linkSpacing: CGFloat = 10.0
     let logoSpacing: CGFloat = 10.0
 
     // MARK: - UI Elements
@@ -42,7 +43,9 @@ class LoginViewController: LoginRegisterViewController {
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        registerLink.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor).isActive = true
+        registerLink.topAnchor.constraint(
+            equalTo: loginRegisterButton.bottomAnchor,
+            constant: linkSpacing).isActive = true
         registerLink.centerXAnchor.constraint(
             equalTo: loginRegisterButton.centerXAnchor).isActive = true
 
@@ -53,6 +56,10 @@ class LoginViewController: LoginRegisterViewController {
 
     override func getBottomSubview() -> UIView {
         return assassinLogo
+    }
+
+    override func getTextFieldSeparation() -> CGFloat {
+        return loginButtonOffset
     }
 
     // MARK: - Initializers

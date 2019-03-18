@@ -11,7 +11,7 @@ import UIKit
 class SocialMediaLoginButton: UIButton {
     let borderWidth: CGFloat = 4.0
     let cornerRadius: CGFloat = 15.0
-    let textSize: CGFloat = 30.0
+    let textSize: CGFloat = 27.0
     let leftImageMargin: CGFloat = 10.0
 
     // This override is needed to align the social media logo to the left side
@@ -46,8 +46,10 @@ class SocialMediaLoginButton: UIButton {
         self.init()
         setTitle(label, for: .normal)
         setTitleColor(Colors.seeThroughText, for: .normal)
-        setTitleColor(Colors.seeThroughText, for: .disabled)
-        setTitleColor(Colors.seeThroughText, for: .selected)
+        setTitleColor(Colors.seeThroughContrast, for: .disabled)
+        setTitleColor(Colors.seeThroughContrast, for: .focused)
+        setTitleColor(Colors.seeThroughContrast, for: .highlighted)
+        setTitleColor(Colors.seeThroughContrast, for: .selected)
 
         setImage(image, for: .normal)
 
@@ -60,6 +62,6 @@ class SocialMediaLoginButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: height).isActive = true
 
-        titleLabel?.font = R.font.economicaRegular(size: textSize)
+        titleLabel?.font = R.font.economicaBold(size: textSize)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 class LoginRegisterViewController: UIViewController {
     // MARK: - Text and Number Class Constants
     let titleSize: CGFloat = 52.0
-    let textfieldSeparation: CGFloat = 16.0
+    let textFieldSeparation: CGFloat = 16.0
     let loginButtonOffset: CGFloat = 33.0
     let loginButtonHeight: CGFloat = 67.0
     let buttonText: String
@@ -73,6 +73,10 @@ class LoginRegisterViewController: UIViewController {
         return passwordField
     }
 
+    func getTextFieldSeparation() -> CGFloat {
+        return textFieldSeparation
+    }
+
     // MARK: - Set Up Functions
     func addSubviews() {
         view.addSubview(scrollView)
@@ -114,7 +118,7 @@ class LoginRegisterViewController: UIViewController {
 
         passwordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor,
-                                           constant: textfieldSeparation).isActive = true
+                                           constant: getTextFieldSeparation()).isActive = true
         passwordField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
         getBottomSubview().bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
