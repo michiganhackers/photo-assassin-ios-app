@@ -11,7 +11,6 @@ import UIKit
 class RegisterViewController: LoginRegisterViewController {
     // MARK: - Text and Number Class Constants
     let socialMediaButtonHeight: CGFloat = 50.0
-    let haveAnAccountTextSize: CGFloat = 25.0
     let socialMediaSpace: CGFloat = 20.0
 
     // MARK: - UI Elements
@@ -22,17 +21,7 @@ class RegisterViewController: LoginRegisterViewController {
     }()
 
     lazy var haveAnAccountButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(Colors.burgundy, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = R.font.economicaBold(size: haveAnAccountTextSize)
-        let buttonText = NSMutableAttributedString(string: "Have an account?")
-        buttonText.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue,
-                        range: NSRange(location: 0, length: buttonText.string.count))
-        buttonText.addAttribute(.foregroundColor, value: Colors.burgundy,
-                                range: NSRange(location: 0, length: buttonText.string.count))
-        button.setAttributedTitle(buttonText, for: .normal)
-
+        let button = TransitionLinkButton("Have an account?")
         return button
     }()
 
@@ -79,7 +68,7 @@ class RegisterViewController: LoginRegisterViewController {
                                            constant: textfieldSeparation).isActive = true
         confirmPasswordField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        loginRegisterButton.topAnchor.constraint(equalTo: confirmPasswordField.topAnchor    ,
+        loginRegisterButton.topAnchor.constraint(equalTo: confirmPasswordField.bottomAnchor,
                                                  constant: loginButtonOffset).isActive = true
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
@@ -111,7 +100,8 @@ class RegisterViewController: LoginRegisterViewController {
         super.init(coder: aDecoder)
     }
     init() {
-        super.init(buttonText: "sign up") { (_ email: String, _ password: String) -> Void in
+        super.init(buttonText: "sign up",
+                   screenTitle: "Registration") { (_ email: String, _ password: String) -> Void in
             print("Attempted registration with email \(email) and password \(password)")
         }
     }

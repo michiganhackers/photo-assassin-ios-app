@@ -12,10 +12,11 @@ class LoginRegisterViewController: UIViewController {
     // MARK: - Text and Number Class Constants
     let titleSize: CGFloat = 52.0
     let textfieldSeparation: CGFloat = 16.0
-    let loginButtonOffset: CGFloat = 100.0
+    let loginButtonOffset: CGFloat = 33.0
     let loginButtonHeight: CGFloat = 67.0
     let buttonText: String
     let onButtonTap: (_ email: String, _ password: String) -> Void
+    let screenTitle: String
 
     // MARK: - UI Elements
     lazy var contentView: UIView = {
@@ -33,7 +34,7 @@ class LoginRegisterViewController: UIViewController {
 
     lazy var appTitle: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "Photo Assassin"
+        label.text = screenTitle
         label.textAlignment = .center
         label.textColor = Colors.text
         label.font = R.font.economicaBold(size: titleSize)
@@ -154,11 +155,15 @@ class LoginRegisterViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         self.buttonText = "Button"
         self.onButtonTap = { _, _ in }
+        self.screenTitle = "Title"
         super.init(coder: aDecoder)
     }
-    init(buttonText: String, onButtonTap: @escaping (_ email: String, _ password: String) -> Void) {
+    init(buttonText: String,
+         screenTitle: String,
+         onButtonTap: @escaping (_ email: String, _ password: String) -> Void) {
         self.buttonText = buttonText
         self.onButtonTap = onButtonTap
+        self.screenTitle = screenTitle
         super.init(nibName: nil, bundle: nil)
     }
 }

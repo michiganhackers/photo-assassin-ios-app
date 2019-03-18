@@ -9,21 +9,60 @@
 import UIKit
 
 class LoginViewController: LoginRegisterViewController {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    // MARK: - Text and Number Class Constants
+    let logoSpacing: CGFloat = 10.0
+
+    // MARK: - UI Elements
+    lazy var registerLink: UIButton = {
+        let link = TransitionLinkButton("Register")
+        return link
+    }()
+
+    lazy var assassinLogo: UIImageView = {
+        // TODO
+        let logo = UIImageView(frame: .zero)
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        return logo
+    }()
+
+    // MARK: - Overrides
+    override func addSubviews() {
+        super.addSubviews()
+        contentView.addSubview(registerLink)
+        contentView.addSubview(assassinLogo)
     }
+
     override func setUpConstraints() {
         super.setUpConstraints()
 
-        let margins = view.layoutMarginsGuide
+        let margins = contentView.layoutMarginsGuide
 
-        loginRegisterButton.topAnchor.constraint(equalTo: margins.centerYAnchor,
+        loginRegisterButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor,
                                                  constant: loginButtonOffset).isActive = true
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+
+        registerLink.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor).isActive = true
+        registerLink.centerXAnchor.constraint(
+            equalTo: loginRegisterButton.centerXAnchor).isActive = true
+
+        assassinLogo.topAnchor.constraint(equalTo: registerLink.bottomAnchor).isActive = true
+        assassinLogo.centerXAnchor.constraint(
+            equalTo: registerLink.centerXAnchor).isActive = true
     }
+
+    override func getBottomSubview() -> UIView {
+        return assassinLogo
+    }
+
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
     init() {
-        super.init(buttonText: "log in") { (_ email: String, _ password: String) -> Void in
+        super.init(buttonText: "log in",
+                   screenTitle: "Photo Assassin") { (_ email: String, _ password: String) -> Void in
             print("Attempted log in with email \(email) and password \(password)")
         }
     }
