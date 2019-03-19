@@ -38,6 +38,11 @@ class BackgroundGradient: CAGradientLayer {
         addColors()
     }
 
+    override init(layer: Any) {
+        super.init(layer: layer)
+        addColors()
+    }
+
     override init() {
         super.init()
         addColors()

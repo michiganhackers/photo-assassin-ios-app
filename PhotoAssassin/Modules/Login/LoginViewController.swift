@@ -16,6 +16,7 @@ class LoginViewController: LoginRegisterViewController {
     // MARK: - UI Elements
     lazy var registerLink: UIButton = {
         let link = TransitionLinkButton("Register")
+        link.addTarget(self, action: #selector(registerLinkTapped), for: .touchUpInside)
         return link
     }()
 
@@ -60,6 +61,12 @@ class LoginViewController: LoginRegisterViewController {
 
     override func getTextFieldSeparation() -> CGFloat {
         return loginButtonOffset
+    }
+
+    // MARK: - Event Listeners
+    @objc
+    func registerLinkTapped() {
+        routeTo(screen: .register)
     }
 
     // MARK: - Initializers

@@ -20,8 +20,9 @@ class RegisterViewController: LoginRegisterViewController {
         return field
     }()
 
-    lazy var haveAnAccountButton: UIButton = {
+    lazy var haveAnAccountLink: UIButton = {
         let button = TransitionLinkButton("Have an account?")
+        button.addTarget(self, action: #selector(haveAnAccountTapped), for: .touchUpInside)
         return button
     }()
 
@@ -34,6 +35,7 @@ class RegisterViewController: LoginRegisterViewController {
             button = UIButton()
             button.setTitle("continue with google", for: .normal)
         }
+        button.addTarget(self, action: #selector(googleRegisterTapped), for: .touchUpInside)
         return button
     }()
 
@@ -46,14 +48,31 @@ class RegisterViewController: LoginRegisterViewController {
             button = UIButton()
             button.setTitle("continue with facebook", for: .normal)
         }
+        button.addTarget(self, action: #selector(facebookRegisterTapped), for: .touchUpInside)
         return button
     }()
+
+    // MARK: - Event Listeners
+    @objc
+    func facebookRegisterTapped() {
+        print("Attempted Facebook registration")
+    }
+
+    @objc
+    func googleRegisterTapped() {
+        print("Attempted Google registration")
+    }
+
+    @objc
+    func haveAnAccountTapped() {
+        routeTo(screen: .login)
+    }
 
     // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()
         contentView.addSubview(confirmPasswordField)
-        contentView.addSubview(haveAnAccountButton)
+        contentView.addSubview(haveAnAccountLink)
         contentView.addSubview(googleRegisterButton)
         contentView.addSubview(facebookRegisterButton)
     }
@@ -73,10 +92,10 @@ class RegisterViewController: LoginRegisterViewController {
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        haveAnAccountButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor).isActive = true
-        haveAnAccountButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        haveAnAccountLink.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor).isActive = true
+        haveAnAccountLink.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
 
-        googleRegisterButton.topAnchor.constraint(equalTo: haveAnAccountButton.bottomAnchor,
+        googleRegisterButton.topAnchor.constraint(equalTo: haveAnAccountLink.bottomAnchor,
                         constant: socialMediaSpace).isActive = true
         googleRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         googleRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true

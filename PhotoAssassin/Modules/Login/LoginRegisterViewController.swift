@@ -8,8 +8,9 @@
 
 import UIKit
 
-class LoginRegisterViewController: UIViewController {
+class LoginRegisterViewController: RoutedViewController {
     // MARK: - Text and Number Class Constants
+    let titleOffset: CGFloat = 30.0
     let titleSize: CGFloat = 52.0
     let textFieldSeparation: CGFloat = 16.0
     let loginButtonOffset: CGFloat = 33.0
@@ -58,7 +59,7 @@ class LoginRegisterViewController: UIViewController {
     lazy var loginRegisterButton: UIButton = {
         let button = LoginRegisterButton(buttonText, height: loginButtonHeight)
         button.isEnabled = false
-        button.addTarget(self, action: #selector(loginRegisterButtonTapped), for: .touchDown)
+        button.addTarget(self, action: #selector(loginRegisterButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -103,12 +104,11 @@ class LoginRegisterViewController: UIViewController {
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         contentView.widthAnchor.constraint(equalTo: parentMargins.widthAnchor).isActive = true
 
+        appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
+                                      constant: titleOffset).isActive = true
         appTitle.widthAnchor.constraint(lessThanOrEqualTo: margins.widthAnchor,
                                         multiplier: 1.0).isActive = true
         appTitle.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        NSLayoutConstraint(item: appTitle, attribute: .top, relatedBy: .equal,
-               toItem: margins, attribute: .bottom, multiplier: 0.1,
-               constant: 0.0).isActive = true
 
         emailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         NSLayoutConstraint(item: emailField, attribute: .top, relatedBy: .equal,
