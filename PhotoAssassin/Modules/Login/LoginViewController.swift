@@ -11,7 +11,8 @@ import UIKit
 class LoginViewController: LoginRegisterViewController {
     // MARK: - Text and Number Class Constants
     let linkSpacing: CGFloat = 10.0
-    let logoSpacing: CGFloat = 10.0
+    let logoSpacing: CGFloat = 20.0
+    let maxLogoSizeMultiplier: CGFloat = 0.5
 
     // MARK: - UI Elements
     lazy var registerLink: UIButton = {
@@ -21,8 +22,7 @@ class LoginViewController: LoginRegisterViewController {
     }()
 
     lazy var assassinLogo: UIImageView = {
-        // TODO
-        let logo = UIImageView(frame: .zero)
+        let logo = UIImageView(image: R.image.assassinLogo())
         logo.translatesAutoresizingMaskIntoConstraints = false
         return logo
     }()
@@ -50,13 +50,27 @@ class LoginViewController: LoginRegisterViewController {
         registerLink.centerXAnchor.constraint(
             equalTo: loginRegisterButton.centerXAnchor).isActive = true
 
-        assassinLogo.topAnchor.constraint(equalTo: registerLink.bottomAnchor).isActive = true
+        assassinLogo.topAnchor.constraint(
+            equalTo: registerLink.bottomAnchor,
+            constant: logoSpacing).isActive = true
         assassinLogo.centerXAnchor.constraint(
             equalTo: registerLink.centerXAnchor).isActive = true
+        assassinLogo.widthAnchor.constraint(
+            lessThanOrEqualTo: margins.widthAnchor,
+            multiplier: maxLogoSizeMultiplier).isActive = true
+        assassinLogo.heightAnchor.constraint(equalTo: assassinLogo.widthAnchor).isActive = true
     }
 
     override func getBottomSubview() -> UIView {
         return assassinLogo
+    }
+
+    override func getSpaceAboveTitle() -> CGFloat {
+        return 95.0
+    }
+
+    override func getSpaceBelowTitle() -> CGFloat {
+        return 60.0
     }
 
     override func getTextFieldSeparation() -> CGFloat {

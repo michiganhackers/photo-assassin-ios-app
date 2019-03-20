@@ -10,6 +10,7 @@ import UIKit
 
 class RegisterViewController: LoginRegisterViewController {
     // MARK: - Text and Number Class Constants
+    let linkSpacing: CGFloat = 10.0
     let socialMediaButtonHeight: CGFloat = 50.0
     let socialMediaSpace: CGFloat = 20.0
 
@@ -92,7 +93,8 @@ class RegisterViewController: LoginRegisterViewController {
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        haveAnAccountLink.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor).isActive = true
+        haveAnAccountLink.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor,
+                                               constant: linkSpacing).isActive = true
         haveAnAccountLink.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
 
         googleRegisterButton.topAnchor.constraint(equalTo: haveAnAccountLink.bottomAnchor,

@@ -10,9 +10,7 @@ import UIKit
 
 class LoginRegisterViewController: RoutedViewController {
     // MARK: - Text and Number Class Constants
-    let titleOffset: CGFloat = 30.0
-    let titleSize: CGFloat = 52.0
-    let textFieldSeparation: CGFloat = 16.0
+    let titleSize: CGFloat = 64.0
     let loginButtonOffset: CGFloat = 33.0
     let loginButtonHeight: CGFloat = 67.0
     let buttonText: String
@@ -74,8 +72,16 @@ class LoginRegisterViewController: RoutedViewController {
         return passwordField
     }
 
+    func getSpaceAboveTitle() -> CGFloat {
+        return 40.0
+    }
+
+    func getSpaceBelowTitle() -> CGFloat {
+        return 50.0
+    }
+
     func getTextFieldSeparation() -> CGFloat {
-        return textFieldSeparation
+        return 12.0
     }
 
     // MARK: - Set Up Functions
@@ -93,28 +99,25 @@ class LoginRegisterViewController: RoutedViewController {
         let parentMargins = view.layoutMarginsGuide
         let margins = contentView.layoutMarginsGuide
 
-        scrollView.leftAnchor.constraint(equalTo: parentMargins.leftAnchor).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: parentMargins.rightAnchor).isActive = true
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
-        contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
-        contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        contentView.centerXAnchor.constraint(equalTo: parentMargins.centerXAnchor).isActive = true
         contentView.widthAnchor.constraint(equalTo: parentMargins.widthAnchor).isActive = true
 
-        appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
-                                      constant: titleOffset).isActive = true
-        appTitle.widthAnchor.constraint(lessThanOrEqualTo: margins.widthAnchor,
-                                        multiplier: 1.0).isActive = true
+        appTitle.widthAnchor.constraint(lessThanOrEqualTo: margins.widthAnchor).isActive = true
         appTitle.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
+                                      constant: getSpaceAboveTitle()).isActive = true
 
         emailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        NSLayoutConstraint(item: emailField, attribute: .top, relatedBy: .equal,
-                           toItem: appTitle, attribute: .bottom, multiplier: 1.25,
-                           constant: 0.0).isActive = true
         emailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        emailField.topAnchor.constraint(equalTo: appTitle.bottomAnchor,
+                                        constant: getSpaceBelowTitle()).isActive = true
 
         passwordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor,
