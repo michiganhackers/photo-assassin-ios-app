@@ -9,6 +9,11 @@ import UIKit
 
 class RootRouter {
     // MARK: - Stored View Controllers
+    private lazy var menuVC: UIViewController = {
+        let controller = MenuViewController()
+        controller.router = self
+        return controller
+    }()
     private lazy var registerVC: UIViewController = {
         let controller = RegisterViewController()
         controller.router = self
@@ -24,6 +29,7 @@ class RootRouter {
     enum Screen {
         case login
         case register
+        case menu
     }
 
     // MARK: - Public Functions
@@ -34,6 +40,8 @@ class RootRouter {
             controller = loginVC
         case .register:
             controller = registerVC
+        case .menu:
+            controller = menuVC
         }
         setRootViewController(controller: controller,
                               animatedWithOptions: animatedWithOptions)
@@ -62,7 +70,7 @@ class RootRouter {
         if isLoggedIn {
             controller = UIViewController()//MainScreenViewController()
         } else {
-            controller = registerVC
+            controller = menuVC
         }
         // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
