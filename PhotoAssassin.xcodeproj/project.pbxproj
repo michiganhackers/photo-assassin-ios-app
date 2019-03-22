@@ -29,6 +29,7 @@
 		E9918A322228B78700691ABA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9918A312228B78700691ABA /* LoginViewController.swift */; };
 		E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */; };
 		E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */; };
+		E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5AA26224478220070A53C /* GameLobbyList.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
 		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
 		E9FE326722207B92009857CF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326622207B92009857CF /* Colors.swift */; };
@@ -83,6 +84,7 @@
 		E9918A312228B78700691ABA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
+		E9B5AA26224478220070A53C /* GameLobbyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyList.swift; sourceTree = "<group>"; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
 		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		E9FE326622207B92009857CF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				EE65636122446DCB00885F8B /* MenuViewController.swift */,
+				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -451,7 +454,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -466,7 +469,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		553FC23A2140470C001D9362 /* R.swift */ = {
@@ -479,7 +482,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
+				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -570,6 +573,7 @@
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
 				E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */,
+				E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
