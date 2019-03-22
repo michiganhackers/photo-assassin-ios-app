@@ -16,6 +16,7 @@ class LoginRegisterViewController: UIViewController {
     let loginButtonHeight: CGFloat = 67.0
     let buttonText: String
     let onButtonTap: (_ email: String, _ password: String) -> Void
+    let googleFacebookSeparation: CGFloat = -9.0
 
     // MARK: - UI Elements
     lazy var appTitle: UILabel = {
@@ -48,6 +49,16 @@ class LoginRegisterViewController: UIViewController {
         return button
     }()
 
+    lazy var googleSignIn: UIButton = {
+        let button = SocialMediaSignIn("continue with google", icon: R.image.googleLogo())
+        return button
+    }()
+
+    lazy var facebookSignIn: UIButton = {
+        let button = SocialMediaSignIn("continue with facebook", icon: R.image.facebookLogo())
+        return button
+    }()
+
     lazy var backgroundGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
@@ -65,6 +76,8 @@ class LoginRegisterViewController: UIViewController {
         view.addSubview(loginRegisterButton)
         view.layer.insertSublayer(backgroundGradient, at: 0)
         view.backgroundColor = Colors.behindGradient
+        view.addSubview(googleSignIn)
+        view.addSubview(facebookSignIn)
     }
 
     func setUpConstraints() {
@@ -91,6 +104,17 @@ class LoginRegisterViewController: UIViewController {
                                          constant: loginButtonOffset).isActive = true
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+
+        facebookSignIn.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        facebookSignIn.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        facebookSignIn.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+
+        googleSignIn.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        googleSignIn.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        googleSignIn.bottomAnchor.constraint(equalTo: facebookSignIn.topAnchor, constant:
+            googleFacebookSeparation).isActive = true
+
+
     }
 
     // MARK: - Overrides
