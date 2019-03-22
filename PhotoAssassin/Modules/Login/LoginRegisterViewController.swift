@@ -61,16 +61,6 @@ class LoginRegisterViewController: RoutedViewController {
         return button
     }()
 
-    lazy var googleSignIn: UIButton = {
-        let button = SocialMediaSignIn("continue with google", icon: R.image.googleLogo())
-        return button
-    }()
-
-    lazy var facebookSignIn: UIButton = {
-        let button = SocialMediaSignIn("continue with facebook", icon: R.image.facebookLogo())
-        return button
-    }()
-
     let backgroundGradient = BackgroundGradient()
 
     // MARK: - Custom Functions
@@ -132,7 +122,6 @@ class LoginRegisterViewController: RoutedViewController {
         passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor,
                                            constant: getTextFieldSeparation()).isActive = true
         passwordField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-
 
         getBottomSubview().bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
