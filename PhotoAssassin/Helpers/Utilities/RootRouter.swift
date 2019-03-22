@@ -8,6 +8,36 @@
 import UIKit
 
 class RootRouter {
+    // MARK: - Stored View Controllers
+    private lazy var registerVC: UIViewController = {
+        let controller = RegisterViewController()
+        controller.router = self
+        return controller
+    }()
+    private lazy var loginVC: UIViewController = {
+        let controller = LoginViewController()
+        controller.router = self
+        return controller
+    }()
+
+    // MARK: - Nested Types
+    enum Screen {
+        case login
+        case register
+    }
+
+    // MARK: - Public Functions
+    func transitionTo(screen: Screen, animatedWithOptions: UIView.AnimationOptions?) {
+        var controller: UIViewController
+        switch screen {
+        case .login:
+            controller = loginVC
+        case .register:
+            controller = registerVC
+        }
+        setRootViewController(controller: controller,
+                              animatedWithOptions: animatedWithOptions)
+    }
 
     /** Replaces root view controller. You can specify the replacment animation type.
      If no animation type is specified, there is no animation */
@@ -25,9 +55,16 @@ class RootRouter {
     }
 
     func loadMainAppStructure() {
-        // Customize your app structure here
-        let controller = UIViewController()
-        controller.view.backgroundColor = UIColor.red
+        // TODO: Implement logins
+        let isLoggedIn = false
+        var controller: UIViewController
+
+        if isLoggedIn {
+            controller = UIViewController()//MainScreenViewController()
+        } else {
+            controller = registerVC
+        }
+        // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
     }
 }
