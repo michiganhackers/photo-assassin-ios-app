@@ -31,6 +31,7 @@
 		E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */; };
 		E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5AA26224478220070A53C /* GameLobbyList.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
+		E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */; };
 		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
 		E9FE326722207B92009857CF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326622207B92009857CF /* Colors.swift */; };
 		E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326822207C4F009857CF /* UIColor+hex.swift */; };
@@ -86,6 +87,7 @@
 		E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
 		E9B5AA26224478220070A53C /* GameLobbyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyList.swift; sourceTree = "<group>"; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
+		E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyListCell.swift; sourceTree = "<group>"; };
 		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		E9FE326622207B92009857CF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E9FE326822207C4F009857CF /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			children = (
 				EE65636122446DCB00885F8B /* MenuViewController.swift */,
 				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
+				E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
+				E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */,
 				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
