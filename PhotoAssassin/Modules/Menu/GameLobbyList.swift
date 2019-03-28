@@ -12,9 +12,9 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let borderWidth: CGFloat = 2.0
     let separatorMargin: CGFloat = 5.0
 
-    let gameData = [
-        "Game 1",
-        "Game 2"
+    let gameLobbies = [
+        GameLobby(title: "Game 1", description: "This is a game", numberInLobby: 3),
+        GameLobby(title: "Another Game", description: "This is some other game", numberInLobby: 8)
     ]
 
     lazy var tableView: UITableView = {
@@ -26,7 +26,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }()
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return GameLobbyListCell(data: gameData[indexPath.row])
+        return GameLobbyListCell(lobby: gameLobbies[indexPath.row])
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -34,13 +34,13 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameData.count
+        return gameLobbies.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return GameLobbyListCell.getHeight()
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Returning an empty footer prevents the UITableView from drawing unnecessary
         //  separators where there aren't cells.

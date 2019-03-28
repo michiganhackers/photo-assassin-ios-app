@@ -30,6 +30,7 @@
 		E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */; };
 		E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */; };
 		E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5AA26224478220070A53C /* GameLobbyList.swift */; };
+		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
 		E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */; };
 		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
@@ -86,6 +87,7 @@
 		E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
 		E9B5AA26224478220070A53C /* GameLobbyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyList.swift; sourceTree = "<group>"; };
+		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
 		E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyListCell.swift; sourceTree = "<group>"; };
 		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		2AB31D9E1F38740A00B7D1F3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E9C1D346224D8723006E1069 /* GameLobby.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
+				E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */,
 				E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */,
 				E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */,
 			);

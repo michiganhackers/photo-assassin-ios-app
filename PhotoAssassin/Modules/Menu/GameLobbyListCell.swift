@@ -15,13 +15,13 @@ class GameLobbyListCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    init(data: String) {
+    init(lobby: GameLobby) {
         super.init(style: .subtitle, reuseIdentifier: GameLobbyListCell.cellReuseIdentifer)
 
-        textLabel?.text = data
+        textLabel?.text = lobby.title
         textLabel?.textColor = Colors.text
         textLabel?.font = R.font.economicaBold(size: GameLobbyListCell.textSize)
-        detailTextLabel?.text = "Subtitle"
+        detailTextLabel?.text = lobby.description
         detailTextLabel?.textColor = Colors.text
         detailTextLabel?.font = R.font.economicaRegular(size: GameLobbyListCell.textSize)
 
