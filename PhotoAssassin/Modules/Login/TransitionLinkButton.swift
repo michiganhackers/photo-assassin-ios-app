@@ -26,7 +26,7 @@ class TransitionLinkButton: UIButton {
         )
         buttonText.addAttribute(
             .foregroundColor,
-            value: Colors.burgundy,
+            value: Colors.seeThroughContrast,
             range: NSRange(location: 0, length: buttonText.string.count)
         )
         setAttributedTitle(buttonText, for: .normal)
