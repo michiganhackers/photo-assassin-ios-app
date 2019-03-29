@@ -26,8 +26,8 @@ class RootRouter {
 
     func loadMainAppStructure() {
         // Customize your app structure here
-        let controller = UIViewController()
-        controller.view.backgroundColor = UIColor.red
+        let controller = PhotoTakenViewController()
+        //controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
     }
 }
