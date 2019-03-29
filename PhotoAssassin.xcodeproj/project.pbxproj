@@ -37,6 +37,7 @@
 		E9FE326722207B92009857CF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326622207B92009857CF /* Colors.swift */; };
 		E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326822207C4F009857CF /* UIColor+hex.swift */; };
 		EE65636222446DCB00885F8B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65636122446DCB00885F8B /* MenuViewController.swift */; };
+		EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB40563224D935F004BD0D6 /* LobbyViewController.swift */; };
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
 		FCB2C7CB1F57127800481080 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCB2C7CA1F57127800481080 /* Localizable.strings */; };
@@ -94,6 +95,7 @@
 		E9FE326622207B92009857CF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E9FE326822207C4F009857CF /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		EE65636122446DCB00885F8B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		EEB40563224D935F004BD0D6 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
 		FCB2C7CA1F57127800481080 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				EE65636022446D6F00885F8B /* Menu */,
+				EEB40565224D937E004BD0D6 /* Lobby */,
 				E9B2DFEB224003720093BFC5 /* Shared */,
 				E93545E5221F8AA300F2CC2F /* Login */,
 				2A1DD4E21F38A09700712195 /* Launch */,
@@ -345,6 +348,14 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		EEB40565224D937E004BD0D6 /* Lobby */ = {
+			isa = PBXGroup;
+			children = (
+				EEB40563224D935F004BD0D6 /* LobbyViewController.swift */,
+			);
+			path = Lobby;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -460,7 +471,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -475,7 +486,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		553FC23A2140470C001D9362 /* R.swift */ = {
@@ -488,7 +499,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
+				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -562,6 +573,7 @@
 				E9918A322228B78700691ABA /* LoginViewController.swift in Sources */,
 				2A9222821F38797600A648E6 /* ConfigurationManager.swift in Sources */,
 				E9FE326722207B92009857CF /* Colors.swift in Sources */,
+				EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */,
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
