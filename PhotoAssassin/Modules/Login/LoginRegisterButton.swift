@@ -16,7 +16,7 @@ class LoginRegisterButton: UIButton {
     convenience init(_ label: String, height: CGFloat) {
         self.init()
         setTitle(label, for: .normal)
-        setTitleColor(Colors.seeThroughText, for: .normal)
+        setTitleColor(Colors.mostlyOpaqueText, for: .normal)
         setTitleColor(Colors.seeThroughContrast, for: .disabled)
         setTitleColor(Colors.seeThroughContrast, for: .focused)
         setTitleColor(Colors.seeThroughContrast, for: .highlighted)
