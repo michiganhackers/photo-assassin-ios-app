@@ -15,6 +15,12 @@ class LoginViewController: LoginRegisterViewController {
     let maxLogoSizeMultiplier: CGFloat = 0.5
 
     // MARK: - UI Elements
+    lazy var forgotPasswordLink: UIButton = {
+        let link = TransitionLinkButton("Forgot Password?")
+        link.addTarget(self, action: #selector(forgotPasswordLinkTapped), for: .touchUpInside)
+        return link
+    }()
+
     lazy var registerLink: UIButton = {
         let link = TransitionLinkButton("Register")
         link.addTarget(self, action: #selector(registerLinkTapped), for: .touchUpInside)
@@ -30,6 +36,7 @@ class LoginViewController: LoginRegisterViewController {
     // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()
+        contentView.addSubview(forgotPasswordLink)
         contentView.addSubview(registerLink)
         contentView.addSubview(assassinLogo)
     }
@@ -44,17 +51,21 @@ class LoginViewController: LoginRegisterViewController {
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
+        forgotPasswordLink.topAnchor.constraint(
+            equalTo: loginRegisterButton.bottomAnchor,
+            constant: linkSpacing).isActive = true
+        forgotPasswordLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+
         registerLink.topAnchor.constraint(
             equalTo: loginRegisterButton.bottomAnchor,
             constant: linkSpacing).isActive = true
-        registerLink.centerXAnchor.constraint(
-            equalTo: loginRegisterButton.centerXAnchor).isActive = true
+        registerLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
         assassinLogo.topAnchor.constraint(
             equalTo: registerLink.bottomAnchor,
             constant: logoSpacing).isActive = true
         assassinLogo.centerXAnchor.constraint(
-            equalTo: registerLink.centerXAnchor).isActive = true
+            equalTo: margins.centerXAnchor).isActive = true
         assassinLogo.widthAnchor.constraint(
             lessThanOrEqualTo: margins.widthAnchor,
             multiplier: maxLogoSizeMultiplier).isActive = true
@@ -81,6 +92,11 @@ class LoginViewController: LoginRegisterViewController {
     @objc
     func registerLinkTapped() {
         routeTo(screen: .register)
+    }
+
+    @objc
+    func forgotPasswordLinkTapped() {
+        routeTo(screen: .forgotPassword)
     }
 
     // MARK: - Initializers

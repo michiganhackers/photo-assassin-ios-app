@@ -9,8 +9,8 @@ import UIKit
 
 class RootRouter {
     // MARK: - Stored View Controllers
-    private lazy var registerVC: UIViewController = {
-        let controller = RegisterViewController()
+    private lazy var forgotPasswordVC: UIViewController = {
+        let controller = ForgotPasswordViewController()
         controller.router = self
         return controller
     }()
@@ -19,9 +19,15 @@ class RootRouter {
         controller.router = self
         return controller
     }()
+    private lazy var registerVC: UIViewController = {
+        let controller = RegisterViewController()
+        controller.router = self
+        return controller
+    }()
 
     // MARK: - Nested Types
     enum Screen {
+        case forgotPassword
         case login
         case register
     }
@@ -30,6 +36,8 @@ class RootRouter {
     func transitionTo(screen: Screen, animatedWithOptions: UIView.AnimationOptions?) {
         var controller: UIViewController
         switch screen {
+        case .forgotPassword:
+            controller = forgotPasswordVC
         case .login:
             controller = loginVC
         case .register:
