@@ -10,6 +10,8 @@ import UIKit
 
 class MenuViewController: RoutedViewController {
     let gameLobbyHeightRatio: CGFloat = 0.3
+    let horizontalButtonSpacing: CGFloat = 12.0
+    let verticalButtonSpacing: CGFloat = 18.0
 
     let backgroundGradient = BackgroundGradient()
 
@@ -17,11 +19,29 @@ class MenuViewController: RoutedViewController {
 
     let profileButton = UIBarButtonItem(image: R.image.profileLogo(), style: .plain, target: nil, action: nil)
 
+    let createButton = TranslucentButton("Create")
+    let historyButton = TranslucentButton("History")
+    let activeGamesButton = TranslucentButton("Active Games")
+
     func setUpConstraints() {
-        // TODO
+        let margins = view.layoutMarginsGuide
+        createButton.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        createButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        createButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
+                                            multiplier: 0.5,
+                                            constant: -horizontalButtonSpacing / 2.0).isActive = true
+        historyButton.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        historyButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        historyButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
+                                             multiplier: 0.5,
+                                             constant: -horizontalButtonSpacing / 2.0).isActive = true
+        activeGamesButton.topAnchor.constraint(equalTo: createButton.bottomAnchor,
+                                               constant: verticalButtonSpacing).isActive = true
+        activeGamesButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        activeGamesButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
-    func addButtons() {
+    func addNavButtons() {
         cameraButton.tintColor = .white
         profileButton.tintColor = .white
         if let item = navigationController?.navigationBar.topItem {
@@ -32,7 +52,10 @@ class MenuViewController: RoutedViewController {
     }
 
     func addSubviews() {
-        addButtons()
+        view.addSubview(createButton)
+        view.addSubview(historyButton)
+        view.addSubview(activeGamesButton)
+        addNavButtons()
         backgroundGradient.addToView(view)
     }
 
