@@ -23,6 +23,11 @@
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */; };
+		E925D6F72256B14B008F266B /* MenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6F62256B14B008F266B /* MenuNavigationController.swift */; };
+		E925D6F92256B345008F266B /* RoutedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6F82256B345008F266B /* RoutedNavigationController.swift */; };
+		E925D6FB2256B8A7008F266B /* MenuNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6FA2256B8A7008F266B /* MenuNavigationBar.swift */; };
+		E925D6FD2256C2A2008F266B /* SubsectionGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6FC2256C2A2008F266B /* SubsectionGradient.swift */; };
+		E925D6FF2256C585008F266B /* TranslucentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6FE2256C585008F266B /* TranslucentButton.swift */; };
 		E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */; };
 		E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */; };
 		E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942295D224067A8000D64DB /* RoutedViewController.swift */; };
@@ -81,6 +86,11 @@
 		DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAssassinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.staging.xcconfig"; sourceTree = "<group>"; };
 		E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionLinkButton.swift; sourceTree = "<group>"; };
+		E925D6F62256B14B008F266B /* MenuNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationController.swift; sourceTree = "<group>"; };
+		E925D6F82256B345008F266B /* RoutedNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutedNavigationController.swift; sourceTree = "<group>"; };
+		E925D6FA2256B8A7008F266B /* MenuNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationBar.swift; sourceTree = "<group>"; };
+		E925D6FC2256C2A2008F266B /* SubsectionGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsectionGradient.swift; sourceTree = "<group>"; };
+		E925D6FE2256C585008F266B /* TranslucentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentButton.swift; sourceTree = "<group>"; };
 		E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLoginButton.swift; sourceTree = "<group>"; };
 		E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewController.swift; sourceTree = "<group>"; };
 		E942295D224067A8000D64DB /* RoutedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutedViewController.swift; sourceTree = "<group>"; };
@@ -325,7 +335,10 @@
 			isa = PBXGroup;
 			children = (
 				E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */,
+				E925D6FC2256C2A2008F266B /* SubsectionGradient.swift */,
 				E942295D224067A8000D64DB /* RoutedViewController.swift */,
+				E925D6F82256B345008F266B /* RoutedNavigationController.swift */,
+				E925D6FE2256C585008F266B /* TranslucentButton.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -344,6 +357,8 @@
 				EE65636122446DCB00885F8B /* MenuViewController.swift */,
 				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
 				E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */,
+				E925D6F62256B14B008F266B /* MenuNavigationController.swift */,
+				E925D6FA2256B8A7008F266B /* MenuNavigationBar.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -571,6 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9918A322228B78700691ABA /* LoginViewController.swift in Sources */,
+				E925D6FF2256C585008F266B /* TranslucentButton.swift in Sources */,
 				2A9222821F38797600A648E6 /* ConfigurationManager.swift in Sources */,
 				E9FE326722207B92009857CF /* Colors.swift in Sources */,
 				EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */,
@@ -579,16 +595,20 @@
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
 				E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */,
+				E925D6F92256B345008F266B /* RoutedNavigationController.swift in Sources */,
 				E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */,
 				2A1E77371F384BFC006C84D4 /* AppDelegate.swift in Sources */,
+				E925D6F72256B14B008F266B /* MenuNavigationController.swift in Sources */,
 				553FC23C214047CB001D9362 /* R.generated.swift in Sources */,
 				EE65636222446DCB00885F8B /* MenuViewController.swift in Sources */,
+				E925D6FD2256C2A2008F266B /* SubsectionGradient.swift in Sources */,
 				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
 				E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */,
 				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
+				E925D6FB2256B8A7008F266B /* MenuNavigationBar.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
 				E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */,

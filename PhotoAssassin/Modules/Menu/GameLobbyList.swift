@@ -29,6 +29,11 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return GameLobbyListCell(lobby: gameLobbies[indexPath.row])
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("This is working")
+        print(indexPath.row)
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
