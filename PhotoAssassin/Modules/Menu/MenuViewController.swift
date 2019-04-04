@@ -13,49 +13,26 @@ class MenuViewController: RoutedViewController {
 
     let backgroundGradient = BackgroundGradient()
 
-    let gameLobbyList = GameLobbyList()
-    
-    let navigationBar = UINavigationBar()
-    
     let cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
-    
+
     let profileButton = UIBarButtonItem(image: R.image.profileLogo(), style: .plain, target: nil, action: nil)
 
     func setUpConstraints() {
-        let margins = view.layoutMarginsGuide
-        navigationBar.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        navigationBar.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        navigationBar.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        gameLobbyList.view.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
-        gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        gameLobbyList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        gameLobbyList.view.heightAnchor.constraint(
-            equalTo: margins.heightAnchor, multiplier: gameLobbyHeightRatio).isActive = true
-        
+        // TODO
     }
-    
 
     func addButtons() {
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        let item = UINavigationItem()
         cameraButton.tintColor = .white
         profileButton.tintColor = .white
-        item.leftBarButtonItem = cameraButton
-        item.rightBarButtonItem = profileButton
-        item.title = "Main Menu"
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Economica" , size: 45), NSAttributedString.Key.foregroundColor: UIColor.white]
-//        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationBar.items = [item]
-        view.addSubview(navigationBar)
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
-        navigationBar.isTranslucent = true
-        
+        if let item = navigationController?.navigationBar.topItem {
+            item.leftBarButtonItem = cameraButton
+            item.rightBarButtonItem = profileButton
+            item.title = "Main Menu"
+        }
     }
-    
+
     func addSubviews() {
         addButtons()
-        view.addSubview(gameLobbyList.view)
         backgroundGradient.addToView(view)
     }
 

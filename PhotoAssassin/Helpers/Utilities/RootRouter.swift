@@ -9,8 +9,8 @@ import UIKit
 
 class RootRouter {
     // MARK: - Stored View Controllers
-    private lazy var menuVC: UIViewController = {
-        let controller = MenuViewController()
+    private lazy var menuNavVC: UIViewController = {
+        let controller = MenuNavigationController()
         controller.router = self
         return controller
     }()
@@ -41,7 +41,7 @@ class RootRouter {
         case .register:
             controller = registerVC
         case .menu:
-            controller = menuVC
+            controller = menuNavVC
         }
         setRootViewController(controller: controller,
                               animatedWithOptions: animatedWithOptions)
@@ -70,7 +70,7 @@ class RootRouter {
         if isLoggedIn {
             controller = UIViewController()//MainScreenViewController()
         } else {
-            controller = menuVC
+            controller = menuNavVC
         }
         // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
