@@ -8,10 +8,13 @@
 
 import UIKit
 
-class MenuViewController: RoutedViewController {
+class MenuViewController: NavigatingViewController {
     let gameLobbyHeightRatio: CGFloat = 0.3
     let horizontalButtonSpacing: CGFloat = 12.0
+    let navBarSpacing: CGFloat = 20.0
     let verticalButtonSpacing: CGFloat = 18.0
+
+    let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
     let cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
 
@@ -30,21 +33,23 @@ class MenuViewController: RoutedViewController {
     }()
     @objc
     func bringToActiveGames() {
-        navigationController?.pushViewController(ActiveGamesViewController(), animated: true)
+        push(navigationScreen: .activeGames)
     }
     @objc
     func bringToCreate() {
-        navigationController?.pushViewController(NewGameViewController(), animated: true)
+        push(navigationScreen: .newGame)
     }
 
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
-        createButton.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        createButton.topAnchor.constraint(equalTo: margins.topAnchor,
+                                          constant: navBarSpacing).isActive = true
         createButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         createButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
                                             multiplier: 0.5,
                                             constant: -horizontalButtonSpacing / 2.0).isActive = true
-        historyButton.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        historyButton.topAnchor.constraint(equalTo: margins.topAnchor,
+                                           constant: navBarSpacing).isActive = true
         historyButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         historyButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
                                              multiplier: 0.5,
@@ -56,11 +61,12 @@ class MenuViewController: RoutedViewController {
     }
 
     func addNavButtons() {
+        backButton.tintColor = .white
         cameraButton.tintColor = .white
         profileButton.tintColor = .white
+        navigationItem.backBarButtonItem = backButton
         navigationItem.leftBarButtonItem = cameraButton
         navigationItem.rightBarButtonItem = profileButton
-        navigationItem.title = "Main Menu"
     }
 
     func addSubviews() {
@@ -78,5 +84,14 @@ class MenuViewController: RoutedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
+    }
+
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    init() {
+        super.init(title: "Main Menu")
     }
 }

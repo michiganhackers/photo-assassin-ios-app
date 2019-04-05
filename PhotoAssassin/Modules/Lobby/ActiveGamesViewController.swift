@@ -8,15 +8,13 @@
 
 import UIKit
 
-class ActiveGamesViewController: RoutedViewController {
-
+class ActiveGamesViewController: NavigatingViewController {
+    // MARK: - UI elements
     let gameLobbyList = GameLobbyList()
+
+    // MARK: - Custom functions
     func addSubviews() {
         view.addSubview(gameLobbyList.view)
-    }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setUpConstraints()
     }
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
@@ -25,13 +23,22 @@ class ActiveGamesViewController: RoutedViewController {
         gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         gameLobbyList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
-    func titleCreator() {
-        navigationItem.title = "Active Games"
-    }
+
+    // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleCreator()
         addSubviews()
     }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setUpConstraints()
+    }
 
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    init() {
+        super.init(title: "Active Games")
+    }
 }

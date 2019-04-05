@@ -8,7 +8,8 @@
 
 import UIKit
 
-class NewGameViewController: RoutedViewController {
+class NewGameViewController: NavigatingViewController {
+    // MARK: - UI elements
     lazy var createButton: UIButton = {
         let gameButton = TranslucentButton("Create")
         gameButton.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
@@ -39,10 +40,10 @@ class NewGameViewController: RoutedViewController {
         return titleText
     }()
 
+    // MARK: - Custom functions
     @objc
     func bringToCreate() {
-        print("create a new game")
-        //navigationController?.pushViewController(NewGameViewController(), animated: true)
+        print("Create a new game")
     }
 
     func setUpConstraints() {
@@ -68,6 +69,7 @@ class NewGameViewController: RoutedViewController {
         view.addSubview(addPlayerLabel)
     }
 
+    // MARK: - Overrides
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setUpConstraints()
@@ -75,8 +77,14 @@ class NewGameViewController: RoutedViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "New Game"
         addSubviews()
     }
 
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    init() {
+        super.init(title: "New Game")
+    }
 }
