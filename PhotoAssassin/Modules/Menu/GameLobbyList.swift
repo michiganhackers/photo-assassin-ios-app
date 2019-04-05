@@ -11,6 +11,7 @@ import UIKit
 class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let borderWidth: CGFloat = 2.0
     let separatorMargin: CGFloat = 5.0
+    let footerHeight: CGFloat = 15.0
 
     let gameLobbies = [
         GameLobby(title: "Game 1", description: "This is a game", numberInLobby: 3),
@@ -24,9 +25,11 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         view.delegate = self
         return view
     }()
-
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return footerHeight
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return GameLobbyListCell(lobby: gameLobbies[indexPath.row])
+        return GameLobbyListCell(lobby: gameLobbies[indexPath.section])
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -35,11 +38,11 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return gameLobbies.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameLobbies.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -59,7 +62,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundView = nil
-        tableView.backgroundColor = Colors.charcoal
+        tableView.backgroundColor = nil
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = Colors.text
         tableView.separatorInset = UIEdgeInsets(top: 0.0, left: separatorMargin,

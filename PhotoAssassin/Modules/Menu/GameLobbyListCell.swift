@@ -11,6 +11,7 @@ import UIKit
 class GameLobbyListCell: UITableViewCell {
     static let textSize: CGFloat = 18.0
     static let cellReuseIdentifer = "gameLobbyCell"
+    let edgeCurve: CGFloat = 12.0
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,7 +27,8 @@ class GameLobbyListCell: UITableViewCell {
         detailTextLabel?.font = R.font.economicaRegular(size: GameLobbyListCell.textSize)
 
         backgroundView = nil
-        backgroundColor = nil
+        backgroundColor = Colors.subsectionBackground
+        layer.cornerRadius = edgeCurve
     }
     static func getHeight() -> CGFloat {
         return textSize * 3

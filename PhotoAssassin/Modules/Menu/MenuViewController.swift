@@ -50,11 +50,9 @@ class MenuViewController: RoutedViewController {
     func addNavButtons() {
         cameraButton.tintColor = .white
         profileButton.tintColor = .white
-        if let item = navigationController?.navigationBar.topItem {
-            item.leftBarButtonItem = cameraButton
-            item.rightBarButtonItem = profileButton
-            item.title = "Main Menu"
-        }
+        navigationItem.leftBarButtonItem = cameraButton
+        navigationItem.rightBarButtonItem = profileButton
+        navigationItem.title = "Main Menu"
     }
 
     func addSubviews() {
