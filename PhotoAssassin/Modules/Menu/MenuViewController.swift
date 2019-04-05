@@ -13,15 +13,21 @@ class MenuViewController: RoutedViewController {
     let horizontalButtonSpacing: CGFloat = 12.0
     let verticalButtonSpacing: CGFloat = 18.0
 
-    let backgroundGradient = BackgroundGradient()
-
     let cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
 
     let profileButton = UIBarButtonItem(image: R.image.profileLogo(), style: .plain, target: nil, action: nil)
 
     let createButton = TranslucentButton("Create")
     let historyButton = TranslucentButton("History")
-    let activeGamesButton = TranslucentButton("Active Games")
+    lazy var activeGamesButton: UIButton = {
+        let gameButton = TranslucentButton("Active Games")
+        gameButton.addTarget(self, action: #selector(bringToActiveGames), for: .touchUpInside)
+        return gameButton
+    }()
+    @objc
+    func bringToActiveGames() {
+        navigationController?.pushViewController(ActiveGamesViewController(), animated: true)
+    }
 
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
@@ -56,16 +62,13 @@ class MenuViewController: RoutedViewController {
         view.addSubview(historyButton)
         view.addSubview(activeGamesButton)
         addNavButtons()
-        backgroundGradient.addToView(view)
     }
 
     // MARK: - Overrides
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setUpConstraints()
-        backgroundGradient.layoutInView(view)
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()

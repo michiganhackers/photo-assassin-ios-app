@@ -9,6 +9,7 @@
 import UIKit
 
 class MenuNavigationController: RoutedNavigationController {
+    let backgroundGradient = BackgroundGradient()
     let menuVC = MenuViewController()
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -21,5 +22,13 @@ class MenuNavigationController: RoutedNavigationController {
     init() {
         super.init(navigationBarClass: MenuNavigationBar.self, toolbarClass: nil)
         pushViewController(menuVC, animated: false)
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        backgroundGradient.layoutInView(view)
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        backgroundGradient.addToView(view)
     }
 }
