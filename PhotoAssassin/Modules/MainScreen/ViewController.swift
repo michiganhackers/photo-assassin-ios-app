@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import Photos
 
+var takenPhoto: UIImage = UIImage()
+
 class ViewController: UIViewController {
     // @IBOutlet fileprivate var captureButton: UIButton!
     var captureButton : UIButton = UIButton()
@@ -90,9 +92,9 @@ extension ViewController {
                 return
             }
             
-            try? PHPhotoLibrary.shared().performChangesAndWait {
-                PHAssetChangeRequest.creationRequestForAsset(from: image)
-            }
+            takenPhoto = image;
+            let vc = PhotoTakenViewController()
+            self.present(vc, animated: true, completion: nil)
         }
     }
     
