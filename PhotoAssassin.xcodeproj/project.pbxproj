@@ -39,6 +39,7 @@
 		E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5AA26224478220070A53C /* GameLobbyList.swift */; };
 		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
+		E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */; };
 		E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */; };
 		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
 		E9FE326722207B92009857CF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326622207B92009857CF /* Colors.swift */; };
@@ -105,6 +106,7 @@
 		E9B5AA26224478220070A53C /* GameLobbyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyList.swift; sourceTree = "<group>"; };
 		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
+		E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontResource+orDefault.swift"; sourceTree = "<group>"; };
 		E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyListCell.swift; sourceTree = "<group>"; };
 		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		E9FE326622207B92009857CF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				E9FE326822207C4F009857CF /* UIColor+hex.swift */,
+				E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
+				E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
 				E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */,
 				E925D6F92256B345008F266B /* RoutedNavigationController.swift in Sources */,

@@ -14,24 +14,24 @@ class UserEnterTextField: UITextField {
     let height: CGFloat = 67.0
     let textInsetX: CGFloat = 15.0
     let textSize: CGFloat = 36.0
-    
+
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: textInsetX, dy: 0)
     }
-    
+
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: textInsetX, dy: 0)
     }
-    
+
     convenience init(_ textContent: String) {
         self.init()
         layer.cornerRadius = cornerRadius
         backgroundColor = Colors.seeThroughContrast
         textColor = Colors.text
-        
+
         let inputFont = R.font.economicaBold(size: textSize)
         font = inputFont
-        
+
         if let font = inputFont {
             attributedPlaceholder = NSAttributedString(string: textContent,
                                                        attributes: [
