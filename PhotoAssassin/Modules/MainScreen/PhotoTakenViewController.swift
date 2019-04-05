@@ -12,29 +12,33 @@ class PhotoTakenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor.black
+        let imageView = UIImageView(image: takenPhoto)
+        imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        self.view.addSubview(imageView)
         let clearPhotoButton = UIButton()
         let sendPhotoButton = UIButton()
-        let clearPhotoImage = UIImage(named: "baseline_clear_black_18dp.png")
-        let sendPhotoImage = UIImage(named: "baseline_send_black_18dp.png")
-        sendPhotoButton.frame = CGRect(x: self.view.bounds.width - 40, y: sendPhotoButton.frame.origin.y, width: 30, height: 30)
+        clearPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_clear_black_18dp"), for: .normal)
+        sendPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_send_black_18dp"), for: .normal)
+        sendPhotoButton.frame = CGRect(x: self.view.bounds.width - 40, y: sendPhotoButton.frame.origin.y, width: 50, height: 50)
         clearPhotoButton.frame = CGRect(x: clearPhotoButton.frame.origin.x,
-                                        y: clearPhotoButton.frame.origin.y, width: 30, height: 30)
-
-        clearPhotoButton.setBackgroundImage(clearPhotoImage, for: .normal)
-        sendPhotoButton.setBackgroundImage(sendPhotoImage, for: .normal)
+                                        y: clearPhotoButton.frame.origin.y, width: 50, height: 50)
         self.view.addSubview(clearPhotoButton)
         self.view.addSubview(sendPhotoButton)
         
         clearPhotoButton.translatesAutoresizingMaskIntoConstraints = false
         sendPhotoButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         if #available(iOS 11.0, *) {
             clearPhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
             clearPhotoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20.0).isActive = true
             sendPhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
             sendPhotoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20.0).isActive = true;
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true;
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true;
         } else {
             // Fallback on earlier versions
         }
