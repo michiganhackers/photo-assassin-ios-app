@@ -17,16 +17,24 @@ class MenuViewController: RoutedViewController {
 
     let profileButton = UIBarButtonItem(image: R.image.profileLogo(), style: .plain, target: nil, action: nil)
 
-    let createButton = TranslucentButton("Create")
     let historyButton = TranslucentButton("History")
     lazy var activeGamesButton: UIButton = {
         let gameButton = TranslucentButton("Active Games")
         gameButton.addTarget(self, action: #selector(bringToActiveGames), for: .touchUpInside)
         return gameButton
     }()
+    lazy var createButton: UIButton = {
+        let gameButton = TranslucentButton("Create")
+        gameButton.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
+        return gameButton
+    }()
     @objc
     func bringToActiveGames() {
         navigationController?.pushViewController(ActiveGamesViewController(), animated: true)
+    }
+    @objc
+    func bringToCreate() {
+        navigationController?.pushViewController(NewGameViewController(), animated: true)
     }
 
     func setUpConstraints() {
