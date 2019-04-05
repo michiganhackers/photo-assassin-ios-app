@@ -370,9 +370,9 @@
 		EE65636022446D6F00885F8B /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				EE65636122446DCB00885F8B /* MenuViewController.swift */,
 				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
 				E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */,
+				EE65636122446DCB00885F8B /* MenuViewController.swift */,
 				E925D6F62256B14B008F266B /* MenuNavigationController.swift */,
 				E925D6FA2256B8A7008F266B /* MenuNavigationBar.swift */,
 			);

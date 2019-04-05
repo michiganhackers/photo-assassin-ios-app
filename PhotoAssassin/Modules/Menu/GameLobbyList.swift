@@ -11,10 +11,24 @@ import UIKit
 class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let borderWidth: CGFloat = 2.0
     let separatorMargin: CGFloat = 5.0
+    let footerHeight: CGFloat = 15.0
 
     let gameLobbies = [
         GameLobby(title: "Game 1", description: "This is a game", numberInLobby: 3),
-        GameLobby(title: "Another Game", description: "This is some other game", numberInLobby: 8)
+        GameLobby(title: "Another Game", description: "This is some other game", numberInLobby: 8),
+        GameLobby(title: "Game 3", description: "Yo this is Game 3, B", numberInLobby: 4),
+        GameLobby(title: "Jason's Game", description: "Jason Siegelin is cool", numberInLobby: 6),
+        GameLobby(title: "Z Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "L Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "K Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "J Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "H Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "I Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "N Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "Y Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "W Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "Q Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "P Game", description: "Big Balla Brand", numberInLobby: 2)
     ]
 
     lazy var tableView: UITableView = {
@@ -24,22 +38,27 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         view.delegate = self
         return view
     }()
-
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return footerHeight
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return GameLobbyListCell(lobby: gameLobbies[indexPath.row])
+        return GameLobbyListCell(lobby: gameLobbies[indexPath.section])
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("This is working")
         print(indexPath.row)
+        if let cell = tableView.cellForRow(at: indexPath) as? GameLobbyListCell {
+            cell.addConstraints()
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return gameLobbies.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameLobbies.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -59,7 +78,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundView = nil
-        tableView.backgroundColor = Colors.charcoal
+        tableView.backgroundColor = nil
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = Colors.text
         tableView.separatorInset = UIEdgeInsets(top: 0.0, left: separatorMargin,
