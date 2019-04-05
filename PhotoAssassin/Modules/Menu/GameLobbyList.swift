@@ -15,7 +15,20 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
     let gameLobbies = [
         GameLobby(title: "Game 1", description: "This is a game", numberInLobby: 3),
-        GameLobby(title: "Another Game", description: "This is some other game", numberInLobby: 8)
+        GameLobby(title: "Another Game", description: "This is some other game", numberInLobby: 8),
+        GameLobby(title: "Game 3", description: "Yo this is Game 3, B", numberInLobby: 4),
+        GameLobby(title: "Jason's Game", description: "Jason Siegelin is cool", numberInLobby: 6),
+        GameLobby(title: "Z Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "L Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "K Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "J Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "H Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "I Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "N Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "Y Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "W Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "Q Game", description: "Big Balla Brand", numberInLobby: 2),
+        GameLobby(title: "P Game", description: "Big Balla Brand", numberInLobby: 2)
     ]
 
     lazy var tableView: UITableView = {
@@ -35,6 +48,9 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("This is working")
         print(indexPath.row)
+        if let cell = tableView.cellForRow(at: indexPath) as? GameLobbyListCell {
+            cell.addConstraints()
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
