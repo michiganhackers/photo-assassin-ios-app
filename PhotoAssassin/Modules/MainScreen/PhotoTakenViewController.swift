@@ -13,6 +13,7 @@ class PhotoTakenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
+        
         let imageView = UIImageView(image: takenPhoto)
         imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         self.view.addSubview(imageView)
@@ -20,6 +21,8 @@ class PhotoTakenViewController: UIViewController {
         let sendPhotoButton = UIButton()
         clearPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_clear_black_18dp"), for: .normal)
         sendPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_send_black_18dp"), for: .normal)
+        clearPhotoButton.addTarget(self, action: #selector(clearPhoto), for: .touchUpInside)
+        sendPhotoButton.addTarget(self, action: #selector(sendPhoto), for: .touchUpInside)
         sendPhotoButton.frame = CGRect(x: self.view.bounds.width - 40, y: sendPhotoButton.frame.origin.y, width: 50, height: 50)
         clearPhotoButton.frame = CGRect(x: clearPhotoButton.frame.origin.x,
                                         y: clearPhotoButton.frame.origin.y, width: 50, height: 50)
@@ -66,6 +69,15 @@ class PhotoTakenViewController: UIViewController {
         clearPhotoButton.addConstraint(clearPhotoHeightConstraint)
         sendPhotoButton.addConstraint(sendPhotoHeightConstraint)
         sendPhotoButton.addConstraint(sendPhotoWidthConstraint)
-        // Do any additional setup after loading the view.
+     
+    }
+    
+    @objc func clearPhoto(sender: UIButton) {
+        let vc = ViewController()
+        self.present(vc, animated: true, completion: nil)
+    }
+   
+    @objc func sendPhoto(sender: UIButton) {
+        //Unimplemented Function
     }
 }

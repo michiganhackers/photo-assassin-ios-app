@@ -91,13 +91,13 @@ extension ViewController {
                 print(error ?? "Image capture error")
                 return
             }
-            
+           
             takenPhoto = image;
             let vc = PhotoTakenViewController()
             self.present(vc, animated: true, completion: nil)
         }
     }
-    
+   
     @objc func toggleFlash(sender: UIButton) {
         if cameraController.flashMode == .on {
             cameraController.flashMode = .off
