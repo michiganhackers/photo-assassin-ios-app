@@ -9,7 +9,6 @@
 import UIKit
 
 class UserEnterTextField: UITextField {
-
     let cornerRadius: CGFloat = 15.0
     let height: CGFloat = 67.0
     let textInsetX: CGFloat = 15.0
@@ -32,11 +31,15 @@ class UserEnterTextField: UITextField {
         let inputFont = R.font.economicaBold(size: textSize)
         font = inputFont
 
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+
         if let font = inputFont {
-            attributedPlaceholder = NSAttributedString(string: textContent,
-                                                       attributes: [
-                                                        .foregroundColor: Colors.seeThroughText,
-                                                        .font: font
+            attributedPlaceholder = NSAttributedString(
+                string: textContent,
+                attributes: [
+                    .foregroundColor: Colors.seeThroughText,
+                    .font: font
                 ]
             )
         }
