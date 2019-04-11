@@ -11,30 +11,38 @@ import UIKit
 class NewGameViewController: NavigatingViewController {
     // MARK: - String and number constants
     let pickerButtonSpacing: CGFloat = 10.0
+    let mainTextSize: CGFloat = 36.0
 
     // MARK: - UI elements
     lazy var createButton: UIButton = {
-        let gameButton = TranslucentButton("Create")
-        gameButton.translatesAutoresizingMaskIntoConstraints = false
-        gameButton.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
-        return gameButton
+        let button = TranslucentButton("Create")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
+        return button
     }()
 
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.attributedText = NSAttributedString(string: "Title",
-        attributes: [NSAttributedString.Key.foregroundColor: Colors.seeThroughText,
-                     NSAttributedString.Key.font: R.font.economicaBold.orDefault(size: 36.0)])
+            attributes: [
+                .foregroundColor: Colors.seeThroughText,
+                .font: R.font.economicaBold.orDefault(size: mainTextSize)
+            ]
+        )
         return titleLabel
     }()
 
     lazy var addPlayerLabel: UILabel = {
         let addPlayerLabel = UILabel()
         addPlayerLabel.translatesAutoresizingMaskIntoConstraints = false
-        addPlayerLabel.attributedText = NSAttributedString(string: "Added Players",
-        attributes: [.foregroundColor: Colors.seeThroughText,
-                     .font: R.font.economicaBold.orDefault(size: 36.0)])
+        addPlayerLabel.attributedText = NSAttributedString(
+            string: "Added Players",
+            attributes: [
+                .foregroundColor: Colors.seeThroughText,
+                .font: R.font.economicaBold.orDefault(size: mainTextSize)
+            ]
+        )
         return addPlayerLabel
     }()
 
@@ -42,6 +50,24 @@ class NewGameViewController: NavigatingViewController {
         let titleText = UserEnterTextField("")
         titleText.translatesAutoresizingMaskIntoConstraints = false
         return titleText
+    }()
+
+    lazy var addPlayerButton: UIButton = {
+        let button = UIButton()
+        let textSize: CGFloat = 72.0
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle(
+            NSAttributedString(
+                string: "+",
+                attributes: [
+                    .foregroundColor: Colors.seeThroughText,
+                    .font: R.font.economicaRegular.orDefault(size: textSize),
+                    .baselineOffset: textSize - mainTextSize
+                ]
+            ),
+            for: .normal
+        )
+        return button
     }()
 
     lazy var pickerButton: PickerButton<GameStartTime> = {
@@ -101,14 +127,20 @@ class NewGameViewController: NavigatingViewController {
             equalTo: pickerButton.bottomAnchor,
             constant: pickerButtonSpacing).isActive = true
         addPlayerLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+
+        addPlayerButton.topAnchor.constraint(
+            equalTo: pickerButton.bottomAnchor,
+            constant: pickerButtonSpacing).isActive = true
+        addPlayerButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
     func addSubviews() {
         view.addSubview(createButton)
         view.addSubview(titleLabel)
         view.addSubview(titleTextField)
-        view.addSubview(addPlayerLabel)
         view.addSubview(pickerButton)
+        view.addSubview(addPlayerLabel)
+        view.addSubview(addPlayerButton)
     }
 
     // MARK: - Overrides
