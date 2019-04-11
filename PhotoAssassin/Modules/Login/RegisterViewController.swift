@@ -6,6 +6,7 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import FirebaseAuth
 import UIKit
 
 class RegisterViewController: LoginRegisterViewController {
@@ -125,5 +126,20 @@ class RegisterViewController: LoginRegisterViewController {
                    screenTitle: "Registration") { (_ email: String, _ password: String) -> Void in
             print("Attempted registration with email \(email) and password \(password)")
         }
+    }
+    @objc
+    func user_Registration() {
+        if let email = emailField.text, let password = passwordField.text {
+            Auth.auth().createUser(withEmail: email, password: password) { user, error in
+                if let firebaseError = error {
+                    print(firebaseError.localizedDescription)
+                    return
+                }
+                print("Account Created!")
+            }
+        }
+    }
+    override func loginRegisterButtonTapped() {
+        user_Registration()
     }
 }

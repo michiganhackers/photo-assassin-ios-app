@@ -46,5 +46,10 @@ class LoginTextField: UITextField {
                 ]
             )
         }
+        if #available(iOS 12, *) {
+            self.textContentType = .oneTimeCode
+        } else {
+            self.textContentType = .init(rawValue: "")
+        }
     }
 }
