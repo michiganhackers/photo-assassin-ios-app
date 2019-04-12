@@ -11,6 +11,7 @@ import UIKit
 class PlayerListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private var gradient: SubsectionGradient?
     private let players: [Player]
+    private let cornerRadius: CGFloat = 15.0
 
     lazy var tableView: UITableView = {
         let view = UITableView()
@@ -60,7 +61,12 @@ class PlayerListViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        gradient?.addToView(view)
+        if let gradient = gradient {
+            gradient.addToView(view)
+        } else {
+            view.backgroundColor = Colors.subsectionBackground
+            view.layer.cornerRadius = cornerRadius
+        }
     }
 
     override func viewWillLayoutSubviews() {

@@ -18,7 +18,13 @@ class MenuViewController: NavigatingViewController {
 
     let cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
 
-    let profileButton = UIBarButtonItem(image: R.image.profileLogo(), style: .plain, target: nil, action: nil)
+    lazy var profileButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: R.image.profileLogo(),
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(bringToSocial))
+        return item
+    }()
 
     let historyButton = TranslucentButton("History")
     lazy var activeGamesButton: UIButton = {
@@ -38,6 +44,10 @@ class MenuViewController: NavigatingViewController {
     @objc
     func bringToCreate() {
         push(navigationScreen: .newGame)
+    }
+    @objc
+    func bringToSocial() {
+        push(navigationScreen: .social)
     }
 
     func setUpConstraints() {

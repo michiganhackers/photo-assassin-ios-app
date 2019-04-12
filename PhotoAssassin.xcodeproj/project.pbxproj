@@ -46,6 +46,7 @@
 		E9BF8071225FFD4E002B11C3 /* PlayerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */; };
 		E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8072225FFEA7002B11C3 /* Player.swift */; };
 		E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */; };
+		E9BF8078226016DD002B11C3 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8077226016DD002B11C3 /* SocialViewController.swift */; };
 		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
 		E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */; };
@@ -122,6 +123,7 @@
 		E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCell.swift; sourceTree = "<group>"; };
 		E9BF8072225FFEA7002B11C3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerListViewController.swift; sourceTree = "<group>"; };
+		E9BF8077226016DD002B11C3 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
 		E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontResource+orDefault.swift"; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 		2AB31D9F1F38741400B7D1F3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E9BF80762260167A002B11C3 /* Social */,
 				955DFEBF2256D84900DB40D8 /* NewGame */,
 				EE65636022446D6F00885F8B /* Menu */,
 				EEB40565224D937E004BD0D6 /* Lobby */,
@@ -385,6 +388,14 @@
 				E97F00DB2257F9E100FF8401 /* PickerViewController.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		E9BF80762260167A002B11C3 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				E9BF8077226016DD002B11C3 /* SocialViewController.swift */,
+			);
+			path = Social;
 			sourceTree = "<group>";
 		};
 		E9FE3261222073BF009857CF /* Colors */ = {
@@ -641,6 +652,7 @@
 				E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
+				E9BF8078226016DD002B11C3 /* SocialViewController.swift in Sources */,
 				E97FD39C2259337B0027B8EF /* PickerViewCell.swift in Sources */,
 				E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
