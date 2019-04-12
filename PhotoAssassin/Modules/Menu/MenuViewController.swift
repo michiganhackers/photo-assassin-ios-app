@@ -14,8 +14,6 @@ class MenuViewController: NavigatingViewController {
     let navBarSpacing: CGFloat = 20.0
     let verticalButtonSpacing: CGFloat = 18.0
 
-    let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
     let cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
 
     lazy var profileButton: UIBarButtonItem = {
@@ -71,10 +69,8 @@ class MenuViewController: NavigatingViewController {
     }
 
     func addNavButtons() {
-        backButton.tintColor = .white
         cameraButton.tintColor = .white
         profileButton.tintColor = .white
-        navigationItem.backBarButtonItem = backButton
         navigationItem.leftBarButtonItem = cameraButton
         navigationItem.rightBarButtonItem = profileButton
     }

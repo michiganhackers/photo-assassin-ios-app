@@ -10,43 +10,62 @@ import UIKit
 
 class SocialViewController: NavigatingViewController {
     // MARK: - Class constants
+    let addFriendButtonSpacing: CGFloat = 15.0
     let mainTextSize: CGFloat = 36.0
     let playerListHeight: CGFloat = 250.0
     let usernameFieldSpacing: CGFloat = 25.0
 
     // MARK: - UI elements
-    let profileButton = UIBarButtonItem(image: R.image.profileLogo(), style: .plain, target: nil, action: nil)
-    lazy var friendsLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.attributedText = NSAttributedString(
-            string: "Friends",
-            attributes: [
-                .foregroundColor: Colors.seeThroughText,
-                .font: R.font.economicaBold.orDefault(size: mainTextSize)
-            ]
-        )
-        return label
-    }()
+    lazy var profileButton = UIBarButtonItem(
+        image: R.image.profileLogo(),
+        style: .plain,
+        target: self,
+        action: #selector(transitionToProfile)
+    )
+
+    lazy var friendsLabel = UILabel("Friends", attributes: [
+        .foregroundColor: Colors.seeThroughText,
+        .font: R.font.economicaBold.orDefault(size: mainTextSize)
+    ])
+
     let playerList = PlayerListViewController(
         players: [
-            Player(username: "benjamincarney", name: "Ben", isYourFriend: false),
-            Player(username: "phoebe", name: "Phoebe", isYourFriend: true),
-            Player(username: "casper-h", name: "Casper", isYourFriend: true),
-            Player(username: "tanner", name: "Tanner", isYourFriend: false),
-            Player(username: "thomasebsmith", name: "Thomas", isYourFriend: false)
+            Player(username: "benjamincarney", name: "Ben", relationship: .none),
+            Player(username: "phoebe", name: "Phoebe", relationship: .friend),
+            Player(username: "casper-h", name: "Casper", relationship: .friend),
+            Player(username: "tanner", name: "Tanner", relationship: .none),
+            Player(username: "thomasebsmith", name: "Thomas", relationship: .none)
         ],
         hasGradientBackground: false
     )
-    
-    lazy var usernameField: UITextField = {
+
+    let usernameField: UITextField = {
         let field = UserEnterTextField("Username")
+        field.addTarget(self, action: #selector(usernameFieldEdited), for: .editingChanged)
         return field
     }()
+
+    let addFriendButton: UIButton = {
+        let button = TransparentButton("Add Friend")
+        button.isEnabled = false
+        return button
+    }()
+
+    // MARK: - Event listeners
+    @objc
+    func transitionToProfile() {
+        push(navigationScreen: .profile(Player.myself))
+    }
+
+    @objc
+    func usernameFieldEdited() {
+        addFriendButton.isEnabled = usernameField.text != ""
+    }
 
     // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        addNavButtons()
         addSubviews()
     }
     override func viewWillLayoutSubviews() {
@@ -64,6 +83,7 @@ class SocialViewController: NavigatingViewController {
         view.addSubview(friendsLabel)
         view.addSubview(playerList.view)
         view.addSubview(usernameField)
+        view.addSubview(addFriendButton)
     }
 
     func addConstraints() {
@@ -84,6 +104,12 @@ class SocialViewController: NavigatingViewController {
                                            constant: usernameFieldSpacing).isActive = true
         usernameField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         usernameField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+
+        // "Add Friend" button constraints
+        addFriendButton.topAnchor.constraint(equalTo: usernameField.bottomAnchor,
+                                             constant: addFriendButtonSpacing).isActive = true
+        addFriendButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        addFriendButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
     // MARK: - Initializers

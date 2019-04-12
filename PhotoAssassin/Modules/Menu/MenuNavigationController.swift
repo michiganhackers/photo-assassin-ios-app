@@ -20,6 +20,7 @@ class MenuNavigationController: RoutedNavigationController {
         case activeGames
         case menu
         case newGame
+        case profile(Player)
         case social
     }
 
@@ -32,6 +33,8 @@ class MenuNavigationController: RoutedNavigationController {
             viewControllerToPush = menuVC
         case .newGame:
             viewControllerToPush = newGameVC
+        case let .profile(player):
+            viewControllerToPush = ProfileViewController(player: player)
         case .social:
             viewControllerToPush = socialVC
         }

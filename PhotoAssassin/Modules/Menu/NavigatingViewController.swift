@@ -12,6 +12,8 @@
 import UIKit
 
 class NavigatingViewController: RoutedViewController {
+    private let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
     func push(navigationScreen: MenuNavigationController.Screen) {
         if let navController = navigationController as? MenuNavigationController {
             navController.push(navigationScreen)
@@ -20,6 +22,8 @@ class NavigatingViewController: RoutedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = MenuNavigationTitle(title ?? "")
+        backButton.tintColor = .white
+        navigationItem.backBarButtonItem = backButton
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

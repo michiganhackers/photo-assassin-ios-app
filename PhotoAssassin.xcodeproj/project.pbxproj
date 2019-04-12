@@ -47,6 +47,8 @@
 		E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8072225FFEA7002B11C3 /* Player.swift */; };
 		E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */; };
 		E9BF8078226016DD002B11C3 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8077226016DD002B11C3 /* SocialViewController.swift */; };
+		E9C126D42260F67600015C9B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D32260F67600015C9B /* ProfileViewController.swift */; };
+		E9C126D6226107CC00015C9B /* UILabel+attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D5226107CC00015C9B /* UILabel+attributes.swift */; };
 		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
 		E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */; };
@@ -126,6 +128,8 @@
 		E9BF8072225FFEA7002B11C3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerListViewController.swift; sourceTree = "<group>"; };
 		E9BF8077226016DD002B11C3 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
+		E9C126D32260F67600015C9B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		E9C126D5226107CC00015C9B /* UILabel+attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+attributes.swift"; sourceTree = "<group>"; };
 		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
 		E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontResource+orDefault.swift"; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 		2AB31D9F1F38741400B7D1F3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E9C126D22260F65A00015C9B /* Profile */,
 				E9BF80762260167A002B11C3 /* Social */,
 				955DFEBF2256D84900DB40D8 /* NewGame */,
 				EE65636022446D6F00885F8B /* Menu */,
@@ -289,6 +294,7 @@
 			children = (
 				E9FE326822207C4F009857CF /* UIColor+hex.swift */,
 				E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */,
+				E9C126D5226107CC00015C9B /* UILabel+attributes.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -402,6 +408,14 @@
 				E9BF8077226016DD002B11C3 /* SocialViewController.swift */,
 			);
 			path = Social;
+			sourceTree = "<group>";
+		};
+		E9C126D22260F65A00015C9B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				E9C126D32260F67600015C9B /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		E9FE3261222073BF009857CF /* Colors */ = {
@@ -687,6 +701,8 @@
 				955DFEC32256E92800DB40D8 /* UserEnterTextField.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */,
+				E9C126D6226107CC00015C9B /* UILabel+attributes.swift in Sources */,
+				E9C126D42260F67600015C9B /* ProfileViewController.swift in Sources */,
 				955DFEC12256D8A100DB40D8 /* NewGameViewController.swift in Sources */,
 				E97F00DC2257F9E100FF8401 /* PickerViewController.swift in Sources */,
 				E95AE4CD2257D0520030D35B /* NavigatingViewController.swift in Sources */,

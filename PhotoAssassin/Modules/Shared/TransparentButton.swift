@@ -12,14 +12,25 @@ class TransparentButton: UIButton {
     let cornerRadius: CGFloat = 15.0
     let textSize: CGFloat = 36.0
     let borderWidth: CGFloat = 1.5
+
+    override var isEnabled: Bool {
+        didSet {
+            if self.isEnabled {
+                layer.borderColor = Colors.text.cgColor
+            } else {
+                layer.borderColor = Colors.seeThroughText.cgColor
+            }
+        }
+    }
+
     convenience init(_ label: String) {
         self.init()
         setTitle(label, for: .normal)
         setTitleColor(Colors.text, for: .normal)
-        setTitleColor(Colors.seeThroughContrast, for: .disabled)
-        setTitleColor(Colors.seeThroughContrast, for: .focused)
-        setTitleColor(Colors.seeThroughContrast, for: .highlighted)
-        setTitleColor(Colors.seeThroughContrast, for: .selected)
+        setTitleColor(Colors.seeThroughText, for: .disabled)
+        setTitleColor(Colors.seeThroughText, for: .focused)
+        setTitleColor(Colors.seeThroughText, for: .highlighted)
+        setTitleColor(Colors.seeThroughText, for: .selected)
         titleLabel?.font = R.font.economicaBold(size: textSize)
         layer.cornerRadius = cornerRadius
         backgroundColor = .clear
