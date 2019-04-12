@@ -87,9 +87,9 @@ class NewGameViewController: NavigatingViewController {
 
     let playerList = NewGamePlayerListViewController(
         players: [
-            (Player(username: "benjamincarney", name: "Ben", relationship: .none), .playing),
-            (Player(username: "phoebe", name: "Phoebe", relationship: .friend), .notPlaying),
-            (Player(username: "casper-h", name: "Casper", relationship: .friend), .invited)
+            (Player(username: "benjamincarney", name: "Ben", relationship: .none, bio: "Ben's bio"), .playing),
+            (Player(username: "phoebe", name: "Phoebe", relationship: .friend, bio: "Phoebe's bio"), .notPlaying),
+            (Player(username: "casper-h", name: "Casper", relationship: .friend, bio: "Casper's bio"), .invited)
         ]
     )
 

@@ -16,6 +16,7 @@ class Player {
         case playing
     }
     enum Relationship {
+        case blocked
         case friend
         case myself
         case none
@@ -40,6 +41,7 @@ class Player {
         username: "hi_there_its_me",
         name: "Me",
         relationship: .myself,
+        bio: "Hi. I'm me. I like to play Photo Assassin. This is my profile.",
         stats: Stats(
             deaths: 8,
             gamesWon: 1,
@@ -49,22 +51,34 @@ class Player {
         )
     )
 
+    // MARK: - Public member functions
+    func canAddAsFriend() -> Bool {
+        return relationship == .none
+    }
+    func canBlock() -> Bool {
+        return relationship != .myself && relationship != .blocked
+    }
+
     // MARK: - Public members
     let username: String
     let name: String
     var profilePicture: UIImage?
+    let bio: String
     let relationship: Relationship
     var stats: Stats?
+
     // MARK: - Initializers
     init(username: String,
          name: String,
          relationship: Relationship,
+         bio: String,
          profilePicture: UIImage? = nil,
          stats: Stats? = nil
     ) {
         self.username = username
         self.name = name
         self.relationship = relationship
+        self.bio = bio
         self.profilePicture = profilePicture
         self.stats = stats
     }

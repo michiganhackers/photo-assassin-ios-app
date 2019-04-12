@@ -10,15 +10,29 @@ import UIKit
 
 class ProfileViewController: NavigatingViewController {
     // MARK: - Class members
-    let bodyAttributes: [NSAttributedString.Key: Any] = [
-        .foregroundColor: Colors.seeThroughText,
-        .font: R.font.economicaBold.orDefault(size: 24.0)
-    ]
-    let headingSize: CGFloat = 36.0
+    let addFriendWidthMultiplier: CGFloat = 0.6
+    let bioSpacing: CGFloat = 20.0
+    lazy var blockWidthMultiplier: CGFloat = 1 - addFriendWidthMultiplier
+    let horizontalButtonSpacing: CGFloat = 10.0
     let imageWidthMultiplier: CGFloat = 0.35
     let imageMargin: CGFloat = 15.0
     let imageRounding: CGFloat = 5.0
+    let lineThickness: CGFloat = 3.0
     let navBarSpacing: CGFloat = 40.0
+    let verticalButtonSpacing: CGFloat = 15.0
+
+    let bodyAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: Colors.text,
+        .font: R.font.economicaBold.orDefault(size: 24.0)
+    ]
+    let fadedBodyAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: Colors.seeThroughText,
+        .font: R.font.economicaBold.orDefault(size: 24.0)
+    ]
+    let headingAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: Colors.text,
+        .font: R.font.economicaBold.orDefault(size: 36.0)
+    ]
     let player: Player
 
     // MARK: - UI elements
@@ -30,41 +44,65 @@ class ProfileViewController: NavigatingViewController {
         return view
     }()
 
-    lazy var nameLabel = UILabel(player.name, attributes: [
-        .foregroundColor: Colors.text,
-        .font: R.font.economicaBold.orDefault(size: headingSize)
-    ])
+    lazy var nameLabel = UILabel(player.name, attributes: headingAttributes)
 
-    lazy var usernameLeftLabel = UILabel("Username:", attributes: bodyAttributes)
+    lazy var usernameLeftLabel = UILabel("Username:", attributes: fadedBodyAttributes)
     lazy var usernameRightLabel = UILabel(player.username,
-                                          attributes: bodyAttributes,
+                                          attributes: fadedBodyAttributes,
                                           align: .right)
 
-    lazy var gamesWonLeftLabel = UILabel("Games Won:", attributes: bodyAttributes)
+    lazy var gamesWonLeftLabel = UILabel("Games Won:", attributes: fadedBodyAttributes)
     lazy var gamesWonRightLabel = UILabel(String(player.stats?.gamesWon ?? 0),
-                                          attributes: bodyAttributes,
+                                          attributes: fadedBodyAttributes,
                                           align: .right)
 
-    lazy var winPercentLeftLabel = UILabel("Win %:", attributes: bodyAttributes)
+    lazy var winPercentLeftLabel = UILabel("Win %:", attributes: fadedBodyAttributes)
     lazy var winPercentRightLabel = UILabel(
         "\(Int((player.stats?.winPercentage ?? 0.0) * 100.0))%",
-        attributes: bodyAttributes,
+        attributes: fadedBodyAttributes,
         align: .right
     )
 
-    lazy var percentileLeftLabel = UILabel("Percentile:", attributes: bodyAttributes)
+    lazy var percentileLeftLabel = UILabel("Percentile:", attributes: fadedBodyAttributes)
     lazy var percentileRightLabel = UILabel(
         "\(Int((player.stats?.percentile ?? 0) * 100.0))%",
-        attributes: bodyAttributes,
+        attributes: fadedBodyAttributes,
         align: .right
     )
 
-    lazy var killDeathRatioLeftLabel = UILabel("Kill/Death Ratio:", attributes: bodyAttributes)
+    lazy var killDeathRatioLeftLabel = UILabel("Kill/Death Ratio:", attributes: fadedBodyAttributes)
     lazy var killDeathRatioRightLabel = UILabel(
         String(format: "%.2f", player.stats?.killDeathRatio ?? 0.0),
-        attributes: bodyAttributes,
+        attributes: fadedBodyAttributes,
         align: .right
     )
+
+    lazy var addFriendButton: UIButton = {
+        let button = TranslucentButton("Add Friend")
+        button.isEnabled = player.canAddAsFriend()
+        return button
+    }()
+
+    lazy var blockButton: UIButton = {
+        let button = TranslucentButton("Block")
+        button.isEnabled = player.canBlock()
+        return button
+    }()
+
+    lazy var horizontalLine: UIView = {
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.heightAnchor.constraint(equalToConstant: lineThickness).isActive = true
+        line.backgroundColor = Colors.text
+        return line
+    }()
+
+    lazy var bioLabel = UILabel("Bio", attributes: headingAttributes, align: .center)
+    lazy var bioContent: UILabel = {
+        let label = UILabel(player.bio, attributes: bodyAttributes)
+        label.numberOfLines = 0
+        return label
+    }()
 
     // MARK: - Custom functions
     func addSubviews() {
@@ -80,6 +118,11 @@ class ProfileViewController: NavigatingViewController {
         view.addSubview(percentileRightLabel)
         view.addSubview(killDeathRatioLeftLabel)
         view.addSubview(killDeathRatioRightLabel)
+        view.addSubview(addFriendButton)
+        view.addSubview(blockButton)
+        view.addSubview(horizontalLine)
+        view.addSubview(bioLabel)
+        view.addSubview(bioContent)
     }
 
     func addConsecutiveLabelConstraints(
@@ -114,7 +157,7 @@ class ProfileViewController: NavigatingViewController {
         }
     }
 
-    func addConstraints() {
+    func addImageAndLabelConstraints() {
         let margins = view.layoutMarginsGuide
 
         // Profile picture constraints
@@ -131,7 +174,7 @@ class ProfileViewController: NavigatingViewController {
                                        constant: navBarSpacing).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: profilePicture.rightAnchor,
                                         constant: imageMargin).isActive = true
-        // Username label constraints
+        // User info label constraints
         addConsecutiveLabelConstraints(
             labelPairs: [
                 (usernameLeftLabel, usernameRightLabel),
@@ -145,6 +188,54 @@ class ProfileViewController: NavigatingViewController {
             top: nameLabel.bottomAnchor,
             marginLeft: imageMargin
         )
+    }
+
+    func addButtonAndBioConstraints() {
+        let margins = view.layoutMarginsGuide
+
+        // "Add Friend"/"Block" button constraints
+        blockButton.topAnchor.constraint(
+            greaterThanOrEqualTo: profilePicture.bottomAnchor,
+            constant: verticalButtonSpacing).isActive = true
+        let dynamicButtonY = NSLayoutConstraint(item: blockButton, attribute: .top,
+                           relatedBy: .equal, toItem: killDeathRatioLeftLabel, attribute: .bottom,
+                           multiplier: 1.0, constant: verticalButtonSpacing)
+        dynamicButtonY.priority = .defaultLow
+        dynamicButtonY.isActive = true
+
+        blockButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        blockButton.widthAnchor.constraint(
+            equalTo: margins.widthAnchor,
+            multiplier: blockWidthMultiplier,
+            constant: -horizontalButtonSpacing / 2.0).isActive = true
+
+        addFriendButton.topAnchor.constraint(
+            equalTo: blockButton.topAnchor).isActive = true
+        addFriendButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        addFriendButton.widthAnchor.constraint(
+            equalTo: margins.widthAnchor,
+            multiplier: addFriendWidthMultiplier,
+            constant: -horizontalButtonSpacing / 2.0).isActive = true
+
+        // Horizontal line constraints
+        horizontalLine.topAnchor.constraint(
+            equalTo: addFriendButton.bottomAnchor,
+            constant: verticalButtonSpacing).isActive = true
+        horizontalLine.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        horizontalLine.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+
+        // Bio constraints
+        bioLabel.topAnchor.constraint(equalTo: horizontalLine.bottomAnchor,
+                                      constant: bioSpacing).isActive = true
+        bioLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        bioContent.topAnchor.constraint(equalTo: bioLabel.bottomAnchor).isActive = true
+        bioContent.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        bioContent.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+    }
+
+    func addConstraints() {
+        addImageAndLabelConstraints()
+        addButtonAndBioConstraints()
     }
 
     // MARK: - Overrides
