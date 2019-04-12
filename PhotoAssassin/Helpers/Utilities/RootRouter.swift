@@ -9,7 +9,7 @@ import UIKit
 
 class RootRouter {
     // MARK: - Stored View Controllers
-    private lazy var menuNavVC: UIViewController = {
+    private lazy var menuNavVC: UINavigationController = {
         let controller = MenuNavigationController()
         controller.router = self
         return controller
@@ -71,6 +71,7 @@ class RootRouter {
             controller = UIViewController()//MainScreenViewController()
         } else {
             controller = menuNavVC
+            menuNavVC.pushViewController(AddPlayerViewController(), animated: false)
         }
         // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
