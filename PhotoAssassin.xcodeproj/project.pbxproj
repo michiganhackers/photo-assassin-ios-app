@@ -42,6 +42,10 @@
 		E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */; };
 		E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */; };
 		E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5AA26224478220070A53C /* GameLobbyList.swift */; };
+		E9BF806F225FFC76002B11C3 /* PlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF806E225FFC76002B11C3 /* PlayerListViewController.swift */; };
+		E9BF8071225FFD4E002B11C3 /* PlayerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */; };
+		E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8072225FFEA7002B11C3 /* Player.swift */; };
+		E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */; };
 		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
 		E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */; };
@@ -115,6 +119,10 @@
 		E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
 		E9B5AA26224478220070A53C /* GameLobbyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyList.swift; sourceTree = "<group>"; };
+		E9BF806E225FFC76002B11C3 /* PlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewController.swift; sourceTree = "<group>"; };
+		E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCell.swift; sourceTree = "<group>"; };
+		E9BF8072225FFEA7002B11C3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerListViewController.swift; sourceTree = "<group>"; };
 		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
 		E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontResource+orDefault.swift"; sourceTree = "<group>"; };
@@ -218,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				E9C1D346224D8723006E1069 /* GameLobby.swift */,
+				E9BF8072225FFEA7002B11C3 /* Player.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -344,6 +353,7 @@
 			children = (
 				955DFEC02256D8A100DB40D8 /* NewGameViewController.swift */,
 				EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */,
+				E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */,
 			);
 			path = NewGame;
 			sourceTree = "<group>";
@@ -366,6 +376,8 @@
 			isa = PBXGroup;
 			children = (
 				E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */,
+				E9BF806E225FFC76002B11C3 /* PlayerListViewController.swift */,
+				E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */,
 				E925D6FC2256C2A2008F266B /* SubsectionGradient.swift */,
 				E942295D224067A8000D64DB /* RoutedViewController.swift */,
 				E925D6F82256B345008F266B /* RoutedNavigationController.swift */,
@@ -629,15 +641,18 @@
 				E9FE326722207B92009857CF /* Colors.swift in Sources */,
 				EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */,
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
+				E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
 				E97FD39C2259337B0027B8EF /* PickerViewCell.swift in Sources */,
 				E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
+				E9BF806F225FFC76002B11C3 /* PlayerListViewController.swift in Sources */,
 				E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */,
 				E925D6F92256B345008F266B /* RoutedNavigationController.swift in Sources */,
 				E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */,
 				2A1E77371F384BFC006C84D4 /* AppDelegate.swift in Sources */,
+				E9BF8071225FFD4E002B11C3 /* PlayerListCell.swift in Sources */,
 				E925D6F72256B14B008F266B /* MenuNavigationController.swift in Sources */,
 				553FC23C214047CB001D9362 /* R.generated.swift in Sources */,
 				E95AE4C92257C5350030D35B /* MenuNavigationTitle.swift in Sources */,
@@ -648,6 +663,7 @@
 				EEC0D5602256CCDD00A820E8 /* ActiveGamesViewController.swift in Sources */,
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
+				E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
 				E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */,
 				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
