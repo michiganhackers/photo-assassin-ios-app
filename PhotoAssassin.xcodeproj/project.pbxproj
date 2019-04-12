@@ -54,6 +54,7 @@
 		E9FE326722207B92009857CF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326622207B92009857CF /* Colors.swift */; };
 		E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326822207C4F009857CF /* UIColor+hex.swift */; };
 		EE65636222446DCB00885F8B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65636122446DCB00885F8B /* MenuViewController.swift */; };
+		EE935108226021B200273382 /* TransparentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE935107226021B200273382 /* TransparentButton.swift */; };
 		EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB40563224D935F004BD0D6 /* LobbyViewController.swift */; };
 		EEC0D5602256CCDD00A820E8 /* ActiveGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC0D55F2256CCDD00A820E8 /* ActiveGamesViewController.swift */; };
 		EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */; };
@@ -131,6 +132,7 @@
 		E9FE326622207B92009857CF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E9FE326822207C4F009857CF /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		EE65636122446DCB00885F8B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		EE935107226021B200273382 /* TransparentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentButton.swift; sourceTree = "<group>"; };
 		EEB40563224D935F004BD0D6 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		EEC0D55F2256CCDD00A820E8 /* ActiveGamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveGamesViewController.swift; sourceTree = "<group>"; };
 		EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				E942295D224067A8000D64DB /* RoutedViewController.swift */,
 				E925D6F82256B345008F266B /* RoutedNavigationController.swift */,
 				E925D6FE2256C585008F266B /* TranslucentButton.swift */,
+				EE935107226021B200273382 /* TransparentButton.swift */,
 				955DFEC22256E92800DB40D8 /* UserEnterTextField.swift */,
 				E97FD39922592BCD0027B8EF /* PickerButton.swift */,
 				E97FD39B2259337B0027B8EF /* PickerViewCell.swift */,
@@ -636,6 +639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9918A322228B78700691ABA /* LoginViewController.swift in Sources */,
+				EE935108226021B200273382 /* TransparentButton.swift in Sources */,
 				E925D6FF2256C585008F266B /* TranslucentButton.swift in Sources */,
 				2A9222821F38797600A648E6 /* ConfigurationManager.swift in Sources */,
 				E9FE326722207B92009857CF /* Colors.swift in Sources */,
