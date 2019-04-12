@@ -67,6 +67,7 @@ class NewGameViewController: NavigatingViewController {
             ),
             for: .normal
         )
+        button.addTarget(self, action: #selector(addPlayerButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -79,10 +80,18 @@ class NewGameViewController: NavigatingViewController {
             ],
             defaultRow: 1
         )
-        button.addTarget(self, action: #selector(onPickerButtonTapped),
+        button.addTarget(self, action: #selector(pickerButtonTapped),
                          for: .touchUpInside)
         return button
     }()
+
+    let playerList = NewGamePlayerListViewController(
+        players: [
+            (Player(username: "benjamincarney", name: "Ben", isYourFriend: false), .playing),
+            (Player(username: "phoebe", name: "Phoebe", isYourFriend: true), .notPlaying),
+            (Player(username: "casper-h", name: "Casper", isYourFriend: true), .invited)
+        ]
+    )
 
     // MARK: - Nested types
     enum GameStartTime {
@@ -98,7 +107,12 @@ class NewGameViewController: NavigatingViewController {
     }
 
     @objc
-    func onPickerButtonTapped() {
+    func addPlayerButtonTapped() {
+        print("TODO: Transition to \"Add player\" overlay")
+    }
+
+    @objc
+    func pickerButtonTapped() {
         pickerButton.displayPickerPopover(from: self)
     }
 
@@ -132,6 +146,13 @@ class NewGameViewController: NavigatingViewController {
             equalTo: pickerButton.bottomAnchor,
             constant: pickerButtonSpacing).isActive = true
         addPlayerButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+
+        playerList.view.topAnchor.constraint(
+            equalTo: addPlayerLabel.bottomAnchor
+        ).isActive = true
+        playerList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        playerList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        playerList.view.bottomAnchor.constraint(equalTo: createButton.topAnchor).isActive = true
     }
 
     func addSubviews() {
@@ -141,6 +162,7 @@ class NewGameViewController: NavigatingViewController {
         view.addSubview(pickerButton)
         view.addSubview(addPlayerLabel)
         view.addSubview(addPlayerButton)
+        view.addSubview(playerList.view)
     }
 
     // MARK: - Overrides

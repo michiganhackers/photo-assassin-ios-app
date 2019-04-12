@@ -10,11 +10,12 @@ import UIKit
 
 class SubsectionGradient: CAGradientLayer {
     // MARK: - Private Functions
-    private func addColors() {
+    private func addStyling() {
         colors = [
             Colors.subsectionBackground.cgColor,
             UIColor.clear.cgColor
         ]
+        cornerRadius = 15.0
     }
 
     // MARK: - Public Functions
@@ -30,16 +31,16 @@ class SubsectionGradient: CAGradientLayer {
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        addColors()
+        addStyling()
     }
 
     override init(layer: Any) {
         super.init(layer: layer)
-        addColors()
+        addStyling()
     }
 
     override init() {
         super.init()
-        addColors()
+        addStyling()
     }
 }
