@@ -438,8 +438,6 @@
 		EE65636022446D6F00885F8B /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
-				E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */,
 				EE65636122446DCB00885F8B /* MenuViewController.swift */,
 				E95AE4C82257C5350030D35B /* MenuNavigationTitle.swift */,
 				E95AE4CC2257D0520030D35B /* NavigatingViewController.swift */,
@@ -452,6 +450,8 @@
 		EEB40565224D937E004BD0D6 /* Lobby */ = {
 			isa = PBXGroup;
 			children = (
+				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
+				E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */,
 				EEC0D55F2256CCDD00A820E8 /* ActiveGamesViewController.swift */,
 				EEB40563224D935F004BD0D6 /* LobbyViewController.swift */,
 			);
