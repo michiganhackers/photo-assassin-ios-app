@@ -17,6 +17,7 @@ class ProfileViewController: NavigatingViewController {
     let imageWidthMultiplier: CGFloat = 0.35
     let imageMargin: CGFloat = 15.0
     let imageRounding: CGFloat = 5.0
+    let leftRightSeparation: CGFloat = 3.0
     let lineThickness: CGFloat = 3.0
     let navBarSpacing: CGFloat = 40.0
     let verticalButtonSpacing: CGFloat = 15.0
@@ -153,6 +154,11 @@ class ProfileViewController: NavigatingViewController {
                 equalTo: lastTop
             ).isActive = true
 
+            rightLabel.leftAnchor.constraint(
+                greaterThanOrEqualTo: leftLabel.rightAnchor,
+                constant: leftRightSeparation
+            ).isActive = true
+
             lastTop = leftLabel.bottomAnchor
         }
     }
@@ -164,9 +170,15 @@ class ProfileViewController: NavigatingViewController {
         profilePicture.topAnchor.constraint(equalTo: margins.topAnchor,
                                             constant: navBarSpacing).isActive = true
         profilePicture.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        NSLayoutConstraint(item: profilePicture, attribute: .right,
-                           relatedBy: .equal, toItem: margins, attribute: .right,
-                           multiplier: imageWidthMultiplier, constant: 0.0).isActive = true
+
+        let imageRightConstraint = NSLayoutConstraint(
+            item: profilePicture, attribute: .right,
+            relatedBy: .equal, toItem: margins, attribute: .right,
+            multiplier: imageWidthMultiplier, constant: 0.0
+        )
+        imageRightConstraint.priority = .defaultLow
+        imageRightConstraint.isActive = true
+
         profilePicture.heightAnchor.constraint(equalTo: profilePicture.widthAnchor).isActive = true
 
         // Name label constraints

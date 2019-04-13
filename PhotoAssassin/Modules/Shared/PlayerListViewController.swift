@@ -12,6 +12,7 @@ class PlayerListViewController: UIViewController, UITableViewDataSource, UITable
     private var gradient: SubsectionGradient?
     private let players: [Player]
     private let cornerRadius: CGFloat = 15.0
+    private let onPlayerSelected: ((Player, Int) -> Void)?
 
     lazy var tableView: UITableView = {
         let view = UITableView()
@@ -58,6 +59,10 @@ class PlayerListViewController: UIViewController, UITableViewDataSource, UITable
         return players.count
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onPlayerSelected?(players[indexPath.row], indexPath.row)
+    }
+
     // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,10 +86,15 @@ class PlayerListViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
         self.players = []
+        self.onPlayerSelected = nil
         super.init(coder: aDecoder)
     }
-    init(players list: [Player], hasGradientBackground: Bool) {
+    init(players list: [Player],
+         hasGradientBackground: Bool,
+         onPlayerSelected: ((Player, Int) -> Void)? = nil
+    ) {
         self.players = list
+        self.onPlayerSelected = onPlayerSelected
         if hasGradientBackground {
             self.gradient = SubsectionGradient()
         }

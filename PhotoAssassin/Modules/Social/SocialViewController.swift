@@ -28,7 +28,7 @@ class SocialViewController: NavigatingViewController {
         .font: R.font.economicaBold.orDefault(size: mainTextSize)
     ])
 
-    let playerList = PlayerListViewController(
+    lazy var playerList = PlayerListViewController(
         players: [
             Player(username: "benjamincarney", name: "Ben", relationship: .none, bio: "Ben's bio"),
             Player(username: "phoebe", name: "Phoebe", relationship: .friend, bio: "Phoebe's bio"),
@@ -37,7 +37,9 @@ class SocialViewController: NavigatingViewController {
             Player(username: "thomasebsmith", name: "Thomas", relationship: .none, bio: "Thomas's bio")
         ],
         hasGradientBackground: false
-    )
+    ) { player, _ in
+        self.push(navigationScreen: .profile(player))
+    }
 
     let usernameField: UITextField = {
         let field = UserEnterTextField("Username")
@@ -48,10 +50,16 @@ class SocialViewController: NavigatingViewController {
     let addFriendButton: UIButton = {
         let button = TransparentButton("Add Friend")
         button.isEnabled = false
+        button.addTarget(self, action: #selector(addFriendButtonTapped), for: .touchUpInside)
         return button
     }()
 
     // MARK: - Event listeners
+    @objc
+    func addFriendButtonTapped() {
+        print("TODO: Add friend with username \(usernameField.text ?? "")")
+    }
+
     @objc
     func transitionToProfile() {
         push(navigationScreen: .profile(Player.myself))

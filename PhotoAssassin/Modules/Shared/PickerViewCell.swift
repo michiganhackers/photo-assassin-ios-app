@@ -9,7 +9,7 @@
 import UIKit
 
 class PickerViewCell: UITableViewCell {
-    static let textSize: CGFloat = 36.0
+    static let textSize: CGFloat = 33.0
     static func getHeight() -> CGFloat {
         return textSize * 1.5
     }
