@@ -71,7 +71,6 @@ class RootRouter {
             controller = UIViewController()//MainScreenViewController()
         } else {
             controller = menuNavVC
-            menuNavVC.pushViewController(AddPlayerViewController(), animated: false)
         }
         // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)

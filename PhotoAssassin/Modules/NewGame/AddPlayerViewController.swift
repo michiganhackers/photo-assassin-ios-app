@@ -8,8 +8,7 @@
 
 import UIKit
 
-class AddPlayerViewController: NavigatingViewController {
-
+class AddPlayerViewController: UIViewController {
     let mainTextSize: CGFloat = 24.0
     let spaceBetweenTitleAndInviteFieldTitle: CGFloat = 20.0
     let spaceBetweenInviteFieldTitleAndField: CGFloat = 1.0
@@ -19,12 +18,34 @@ class AddPlayerViewController: NavigatingViewController {
     let spaceBetweenFieldAndBar: CGFloat = 22.0
     let barHeight: CGFloat = 4.0
     lazy var spaceBetweenUserNameAndInvite: CGFloat = spaceBetweenFieldAndBar
-    let cancelButtonItem = UIBarButtonItem(title: "X", style: .plain, target: nil, action: nil)
+
+    // MARK: - UI elements
+    let gradient = BackgroundGradient()
+
+    lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("X", for: .normal)
+        button.setTitleColor(Colors.seeThroughText, for: .normal)
+        button.setTitleColor(Colors.seeThroughContrast, for: .focused)
+        button.addTarget(self, action: #selector(closeViewController), for: .touchUpInside)
+        return button
+    }()
+
+    let titleLabel = UILabel(
+        "Add Player to Game",
+        attributes: [
+            .font: R.font.economicaBold.orDefault(size: 42.0, style: .headline),
+            .foregroundColor: Colors.text
+        ],
+        align: .center
+    )
 
     lazy var inviteLinkField: UITextField = {
         let inviteField = UserEnterTextField("")
         return inviteField
     }()
+
     lazy var inviteFieldTitle: UILabel = {
         let inviteTitle = UILabel()
         inviteTitle.attributedText = NSAttributedString(
@@ -37,6 +58,7 @@ class AddPlayerViewController: NavigatingViewController {
         inviteTitle.translatesAutoresizingMaskIntoConstraints = false
         return inviteTitle
     }()
+
     lazy var separatingBar: UIView = {
         let separateBar = UIView()
         separateBar.backgroundColor = Colors.seeThroughText
@@ -44,14 +66,17 @@ class AddPlayerViewController: NavigatingViewController {
         separateBar.translatesAutoresizingMaskIntoConstraints = false
         return separateBar
     }()
+
     lazy var userNameField: UITextField = {
         let userField = UserEnterTextField("Username")
         return userField
     }()
+
     lazy var inviteButton: UIButton = {
         let button = TransparentButton("Invite")
         return button
     }()
+
     lazy var separatingBarTwo: UIView = {
         let separateBarTwo = UIView()
         separateBarTwo.backgroundColor = Colors.seeThroughText
@@ -59,31 +84,55 @@ class AddPlayerViewController: NavigatingViewController {
         separateBarTwo.translatesAutoresizingMaskIntoConstraints = false
         return separateBarTwo
     }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        gradient.addToView(view)
         addSubviews()
     }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        gradient.layoutInView(view)
+        setUpConstraints()
+    }
+
+    // MARK: - Custom functions
     func addSubviews() {
-        addNavButtons()
+        view.addSubview(cancelButton)
+        view.addSubview(titleLabel)
         view.addSubview(inviteLinkField)
         view.addSubview(inviteFieldTitle)
         view.addSubview(separatingBar)
         view.addSubview(userNameField)
         view.addSubview(inviteButton)
         view.addSubview(separatingBarTwo)
+        view.addSubview(titleLabel)
     }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setUpConstraints()
-    }
-    func addNavButtons() {
-        cancelButtonItem.tintColor = .white
-        navigationItem.leftBarButtonItem = cancelButtonItem
+    func addTitleAndCancelConstraints() {
+        let margins = view.layoutMarginsGuide
+
+        // cancelButton
+        cancelButton.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        cancelButton.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor).isActive = true
+        let cancelButtonLeftConstraint = NSLayoutConstraint(
+            item: cancelButton, attribute: .left,
+            relatedBy: .equal, toItem: margins, attribute: .left,
+            multiplier: 1.0, constant: 0.0
+        )
+        cancelButtonLeftConstraint.priority = .defaultLow
+        cancelButtonLeftConstraint.isActive = true
+        cancelButton.rightAnchor.constraint(lessThanOrEqualTo: titleLabel.leftAnchor).isActive = true
+
+        // titleLabel
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
     }
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
+        addTitleAndCancelConstraints()
         // inviteFieldTitle
-        inviteFieldTitle.topAnchor.constraint(equalTo: margins.topAnchor,
+        inviteFieldTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
                                               constant: spaceBetweenTitleAndInviteFieldTitle).isActive = true
         inviteFieldTitle.leftAnchor.constraint(equalTo: margins.leftAnchor,
                                               constant: inviteTitleIndent).isActive = true
@@ -123,10 +172,10 @@ class AddPlayerViewController: NavigatingViewController {
         separatingBarTwo.rightAnchor.constraint(equalTo: margins.rightAnchor,
                                                constant: -horizontalBarSpacing).isActive = true
     }
-    init() {
-        super.init(title: "Add Player to Game")
-    }
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+
+    // MARK: - Event handlers
+    @objc
+    func closeViewController() {
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }

@@ -80,10 +80,11 @@ class NewGameViewController: NavigatingViewController {
             ],
             defaultRow: 1
         )
-        button.addTarget(self, action: #selector(pickerButtonTapped),
-                         for: .touchUpInside)
+        button.addTarget(self, action: #selector(pickerButtonTapped), for: .touchUpInside)
         return button
     }()
+
+    let addPlayerVC = AddPlayerViewController()
 
     let playerList = NewGamePlayerListViewController(
         players: [
@@ -108,7 +109,9 @@ class NewGameViewController: NavigatingViewController {
 
     @objc
     func addPlayerButtonTapped() {
-        print("TODO: Transition to \"Add player\" overlay")
+        addPlayerVC.modalTransitionStyle = .coverVertical
+        addPlayerVC.modalPresentationStyle = .overFullScreen
+        present(addPlayerVC, animated: true, completion: nil)
     }
 
     @objc
