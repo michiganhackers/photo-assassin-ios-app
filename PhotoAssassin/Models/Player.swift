@@ -12,6 +12,7 @@ class Player {
     // MARK: - Nested types
     enum InvitationStatus {
         case invited
+        case notInvited
         case notPlaying
         case playing
     }

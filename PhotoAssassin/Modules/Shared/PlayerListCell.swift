@@ -9,20 +9,15 @@
 import UIKit
 
 class PlayerListCell: UITableViewCell {
+    static let maxAccessoryWidth: CGFloat = 100.0
     static let textSize: CGFloat = 36.0
-    static let maxWidth: CGFloat = 50.0
     static func getHeight() -> CGFloat {
-        return textSize * 1.25
+        return textSize * 1.4
     }
-    let rightTextLabel = UILabel(frame: CGRect(x: 0, y: 0, width: PlayerListCell.maxWidth, height: textSize))
 
     private func addStyling() {
         textLabel?.textColor = Colors.seeThroughText
         textLabel?.font = R.font.economicaBold(size: PlayerListCell.textSize)
-        rightTextLabel.textColor = Colors.seeThroughText
-        rightTextLabel.font = R.font.economicaBold(size: PlayerListCell.textSize)
-        rightTextLabel.textAlignment = .right
-        accessoryView = rightTextLabel
 
         backgroundView = nil
         backgroundColor = nil

@@ -18,7 +18,7 @@ class NewGamePlayerListViewController: PlayerListViewController {
         var text: String
         var color: UIColor
         switch players[indexPath.row].1 {
-        case .invited:
+        case .invited, .notInvited:
             text = "?"
             color = Colors.unknown
         case .notPlaying:
@@ -28,8 +28,22 @@ class NewGamePlayerListViewController: PlayerListViewController {
             text = "!"
             color = Colors.success
         }
-        cell.rightTextLabel.text = text
-        cell.rightTextLabel.textColor = color
+        if !(cell.accessoryView is UILabel) {
+            let rightTextLabel = UILabel(
+                frame: CGRect(
+                    x: 0,
+                    y: 0,
+                    width: PlayerListCell.maxAccessoryWidth,
+                    height: PlayerListCell.textSize
+                )
+            )
+            rightTextLabel.textColor = Colors.seeThroughText
+            rightTextLabel.font = R.font.economicaBold(size: PlayerListCell.textSize)
+            rightTextLabel.textAlignment = .right
+            rightTextLabel.text = text
+            rightTextLabel.textColor = color
+            cell.accessoryView = rightTextLabel
+        }
         return cell
     }
 
