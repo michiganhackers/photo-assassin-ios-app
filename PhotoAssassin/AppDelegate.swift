@@ -1,10 +1,11 @@
-//
+//   
 //  AppDelegate.swift
 //  Photo Assassin
 //
 //  Copyright © Michigan Hackers. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // App structure
         router.loadMainAppStructure()
 
+        // Firebase configuration
+        FirebaseApp.configure()
         return true
     }
 
