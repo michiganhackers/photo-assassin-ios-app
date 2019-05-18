@@ -17,7 +17,7 @@ public extension UINib {
 
    - returns: The initialized UINib object. An exception is thrown if there were errors during initialization or the nib file could not be located.
    */
-  convenience init(resource: NibResourceType) {
+  public convenience init(resource: NibResourceType) {
     self.init(nibName: resource.name, bundle: resource.bundle)
   }
 }
