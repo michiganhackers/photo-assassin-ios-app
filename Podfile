@@ -11,8 +11,6 @@ target 'PhotoAssassin' do
 
   pod 'R.swift', '5.0.0'
   pod 'SwiftLint', '0.29.2'
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
 
   target 'PhotoAssassinTests' do
     inherit! :search_paths

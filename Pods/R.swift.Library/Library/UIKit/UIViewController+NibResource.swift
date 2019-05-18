@@ -18,7 +18,7 @@ public extension UIViewController {
    
    - returns: A newly initialized UIViewController object.
   */
-  convenience init(nib: NibResourceType) {
+  public convenience init(nib: NibResourceType) {
     self.init(nibName: nib.name, bundle: nib.bundle)
   }
 }
