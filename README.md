@@ -6,7 +6,6 @@ This repository contains code written by the Michigan Hacker's Core iOS team dur
 
 * master - stable app releases
 * develop - development branch, merge your feature branches here
-* (add new branches and their descriptions here)
 
 ## Getting Started:
 
@@ -24,7 +23,7 @@ Create a Github account to interact with the remote repository.
 
 ## Dependencies:
 
-The project is using cocoapods for managing external libraries and a Gemfile for managing the cocoapods version.
+This project is using cocoapods for managing external libraries and a Gemfile for managing the cocoapods version. You will need to run the following commands in terminal after cloning this repository to your local machine to get the project running inside of Xcode.
 
 Get Bundler
 
@@ -46,12 +45,13 @@ bundle exec pod install
 
 ### Core Dependencies
 
-* Swiftlint - A tool to enforce Swift style and conventions.
+* Swiftlint - A tool to enforce Swift style and conventions
 * R.swift - Get strong typed, autocompleted resources like images, fonts and segues in Swift projects
+* Firebase - A realtime database and backend as a service
 
 ## Project structure:
 
-* Resources - fonts, strings, images, generated files etc.
+* Resources - fonts, strings, images, generated files etc
 * SupportingFiles - configuration plist files
 * Models - model objects
 * Modules - contains app modules (UI + Code)
@@ -60,6 +60,7 @@ bundle exec pod install
 ## Contributing
 We use the [GitHub Flow workflow](https://guides.github.com/introduction/flow/).  
 We also use [GitHub's project boards](https://github.com/michiganhackers/photo-assassin-ios-app/projects/2) to manage this project.
+
 If you are looking for resources to learn iOS or Swift, visit the [Michigan Hackers knowledge base](https://github.com/michiganhackers/knowledgebase/blob/master/Technologies/iOS.md).
 
 

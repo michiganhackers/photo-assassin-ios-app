@@ -17,12 +17,26 @@
 		2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABEE6D51F3886D700531205 /* RootRouter.swift */; };
 		453592BAE7D47041D989B3DA /* Pods_PhotoAssassinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */; };
 		553FC23C214047CB001D9362 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FC23B214047CB001D9362 /* R.generated.swift */; };
+		AFBE1EE72256D99100BA5FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */; };
 		BCC899B854AFDB1D82FFE22D /* Pods_PhotoAssassin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 315972CCCCFF02A2AF2F368F /* Pods_PhotoAssassin.framework */; };
 		C72CA237223B301700D8DF82 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CA236223B301700D8DF82 /* CameraController.swift */; };
 		C72CA239223B3ABE00D8DF82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CA238223B3ABE00D8DF82 /* ViewController.swift */; };
 		C90395241FC622D2006F1DC0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395231FC622D2006F1DC0 /* main.swift */; };
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
+		E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */; };
+		E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */; };
+		E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */; };
+		E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942295D224067A8000D64DB /* RoutedViewController.swift */; };
+		E9918A322228B78700691ABA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9918A312228B78700691ABA /* LoginViewController.swift */; };
+		E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */; };
+		E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */; };
+		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
+		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
+		E9FE326722207B92009857CF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326622207B92009857CF /* Colors.swift */; };
+		E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326822207C4F009857CF /* UIColor+hex.swift */; };
+		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
+		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
 		FCB2C7CB1F57127800481080 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCB2C7CA1F57127800481080 /* Localizable.strings */; };
 		FD6FBBD0224DA1E400F783A7 /* PhotoTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FBBCF224DA1E400F783A7 /* PhotoTakenViewController.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +70,8 @@
 		45AEA0686ECF05A538683431 /* Pods-PhotoAssassin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.release.xcconfig"; sourceTree = "<group>"; };
 		553FC23B214047CB001D9362 /* R.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		55F50BE321404BDD00FAC039 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AFBE1EE82256DB8700BA5FBD /* PhotoAssassin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoAssassin.entitlements; sourceTree = "<group>"; };
 		C52A4E7F78583ED8C2BBE440 /* Pods-PhotoAssassin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.debug.xcconfig"; sourceTree = "<group>"; };
 		C72CA236223B301700D8DF82 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		C72CA238223B3ABE00D8DF82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +81,19 @@
 		CD5823A07B8C53621396FBF3 /* Pods-PhotoAssassinTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassinTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassinTests/Pods-PhotoAssassinTests.staging.xcconfig"; sourceTree = "<group>"; };
 		DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAssassinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.staging.xcconfig"; sourceTree = "<group>"; };
+		E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionLinkButton.swift; sourceTree = "<group>"; };
+		E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLoginButton.swift; sourceTree = "<group>"; };
+		E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewController.swift; sourceTree = "<group>"; };
+		E942295D224067A8000D64DB /* RoutedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutedViewController.swift; sourceTree = "<group>"; };
+		E9918A312228B78700691ABA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
+		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
+		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		E9FE326622207B92009857CF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		E9FE326822207C4F009857CF /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
+		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
+		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
 		FCB2C7CA1F57127800481080 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		FD6FBBCF224DA1E400F783A7 /* PhotoTakenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +161,8 @@
 			children = (
 				C90395231FC622D2006F1DC0 /* main.swift */,
 				2A1E77361F384BFC006C84D4 /* AppDelegate.swift */,
+				AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */,
+				AFBE1EE82256DB8700BA5FBD /* PhotoAssassin.entitlements */,
 				2AFB31021F3853C6009C4586 /* Resources */,
 				2AFB31071F38542E009C4586 /* SupportingFiles */,
 				2AB31D9E1F38740A00B7D1F3 /* Models */,
@@ -162,6 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				C72CA235223B2FA200D8DF82 /* MainScreen */,
+				E9B2DFEB224003720093BFC5 /* Shared */,
+				E93545E5221F8AA300F2CC2F /* Login */,
 				2A1DD4E21F38A09700712195 /* Launch */,
 			);
 			path = Modules;
@@ -170,6 +203,8 @@
 		2AB31DA01F38742400B7D1F3 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				EEFDDE982228C29500393C33 /* Economica-Bold.ttf */,
+				EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -203,6 +238,7 @@
 		2AB31DA41F38745300B7D1F3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E9FE326822207C4F009857CF /* UIColor+hex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,6 +246,7 @@
 		2AFB31021F3853C6009C4586 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E9FE3261222073BF009857CF /* Colors */,
 				553FC239214046D0001D9362 /* Generated */,
 				2AB31DA11F38742A00B7D1F3 /* Translations */,
 				2AB31DA01F38742400B7D1F3 /* Fonts */,
@@ -274,6 +311,35 @@
 				FD6FBBCF224DA1E400F783A7 /* PhotoTakenViewController.swift */,
 			);
 			path = MainScreen;
+		E93545E5221F8AA300F2CC2F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */,
+				E9918A312228B78700691ABA /* LoginViewController.swift */,
+				E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */,
+				E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */,
+				E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */,
+				E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */,
+				E9CD529E2221C13300135999 /* LoginRegisterButton.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E9B2DFEB224003720093BFC5 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */,
+				E942295D224067A8000D64DB /* RoutedViewController.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		E9FE3261222073BF009857CF /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				E9FE326622207B92009857CF /* Colors.swift */,
+			);
+			path = Colors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +397,12 @@
 				TargetAttributes = {
 					2A1E77321F384BFC006C84D4 = {
 						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					2A1E77461F384BFD006C84D4 = {
 						CreatedOnToolsVersion = 9.0;
@@ -363,6 +435,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */,
+				AFBE1EE72256D99100BA5FBD /* GoogleService-Info.plist in Resources */,
+				EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */,
 				2ABEE6D41F38856A00531205 /* Configuration.plist in Resources */,
 				FCB2C7CB1F57127800481080 /* Localizable.strings in Resources */,
 				2A1E77411F384BFD006C84D4 /* LaunchScreen.storyboard in Resources */,
@@ -389,13 +464,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -485,15 +566,26 @@
 			files = (
 				C72CA239223B3ABE00D8DF82 /* ViewController.swift in Sources */,
 				C72CA237223B301700D8DF82 /* CameraController.swift in Sources */,
+				E9918A322228B78700691ABA /* LoginViewController.swift in Sources */,
 				2A9222821F38797600A648E6 /* ConfigurationManager.swift in Sources */,
+				E9FE326722207B92009857CF /* Colors.swift in Sources */,
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
+				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
+				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
+				E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */,
+				E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */,
 				2A1E77371F384BFC006C84D4 /* AppDelegate.swift in Sources */,
 				553FC23C214047CB001D9362 /* R.generated.swift in Sources */,
 				FD6FBBD0224DA1E400F783A7 /* PhotoTakenViewController.swift in Sources */,
+				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
+				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
+				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
+				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
+				E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,13 +737,17 @@
 			baseConfigurationReference = C52A4E7F78583ED8C2BBE440 /* Pods-PhotoAssassin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 672U3TN6C4;
+				CODE_SIGN_ENTITLEMENTS = PhotoAssassin/PhotoAssassin.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6WRJB8PAMU;
 				INFOPLIST_FILE = PhotoAssassin/SupportingFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-expression-type-checking=500";
-				PRODUCT_BUNDLE_IDENTIFIER = com.photo.assassin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michiganhackers.photoassassin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -662,13 +758,17 @@
 			baseConfigurationReference = 45AEA0686ECF05A538683431 /* Pods-PhotoAssassin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 672U3TN6C4;
+				CODE_SIGN_ENTITLEMENTS = PhotoAssassin/PhotoAssassin.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6WRJB8PAMU;
 				INFOPLIST_FILE = PhotoAssassin/SupportingFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.photo.assassin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michiganhackers.photoassassin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -776,13 +876,17 @@
 			baseConfigurationReference = DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 672U3TN6C4;
+				CODE_SIGN_ENTITLEMENTS = PhotoAssassin/PhotoAssassin.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6WRJB8PAMU;
 				INFOPLIST_FILE = PhotoAssassin/SupportingFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.photo.assassin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michiganhackers.photoassassin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

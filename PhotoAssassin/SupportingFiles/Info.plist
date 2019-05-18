@@ -26,6 +26,11 @@
 	<string>PhotoAssassin needs the user&apos;s camera to function</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PhotoAssassion needs access to your photos</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Economica-Regular.ttf</string>
+		<string>Economica-Bold.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
