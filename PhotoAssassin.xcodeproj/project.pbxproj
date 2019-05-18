@@ -35,6 +35,9 @@
 		E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE326822207C4F009857CF /* UIColor+hex.swift */; };
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
+		F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1B228FB39C001F6FFA /* CameraController.swift */; };
+		F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */; };
+		F3C33E20228FB3DF001F6FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1F228FB3DF001F6FFA /* ViewController.swift */; };
 		FCB2C7CB1F57127800481080 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCB2C7CA1F57127800481080 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +92,9 @@
 		E9FE326822207C4F009857CF /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
+		F3C33E1B228FB39C001F6FFA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakenViewController.swift; sourceTree = "<group>"; };
+		F3C33E1F228FB3DF001F6FFA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FCB2C7CA1F57127800481080 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +192,7 @@
 		2AB31D9F1F38741400B7D1F3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F3C33E1A228FB379001F6FFA /* MainScreen */,
 				E9B2DFEB224003720093BFC5 /* Shared */,
 				E93545E5221F8AA300F2CC2F /* Login */,
 				2A1DD4E21F38A09700712195 /* Launch */,
@@ -325,6 +332,16 @@
 				E9FE326622207B92009857CF /* Colors.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		F3C33E1A228FB379001F6FFA /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F3C33E1B228FB39C001F6FFA /* CameraController.swift */,
+				F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */,
+				F3C33E1F228FB3DF001F6FFA /* ViewController.swift */,
+			);
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -553,6 +570,7 @@
 				2A9222821F38797600A648E6 /* ConfigurationManager.swift in Sources */,
 				E9FE326722207B92009857CF /* Colors.swift in Sources */,
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
+				F3C33E20228FB3DF001F6FFA /* ViewController.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
@@ -563,9 +581,11 @@
 				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
+				F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
 				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
+				F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
 				E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */,
 			);
@@ -722,12 +742,12 @@
 				CODE_SIGN_ENTITLEMENTS = PhotoAssassin/PhotoAssassin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6WRJB8PAMU;
+				DEVELOPMENT_TEAM = 672U3TN6C4;
 				INFOPLIST_FILE = PhotoAssassin/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-expression-type-checking=500";
-				PRODUCT_BUNDLE_IDENTIFIER = com.michiganhackers.photoassassin;
+				PRODUCT_BUNDLE_IDENTIFIER = github.bencarney.io;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -743,12 +763,12 @@
 				CODE_SIGN_ENTITLEMENTS = PhotoAssassin/PhotoAssassin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6WRJB8PAMU;
+				DEVELOPMENT_TEAM = 672U3TN6C4;
 				INFOPLIST_FILE = PhotoAssassin/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.michiganhackers.photoassassin;
+				PRODUCT_BUNDLE_IDENTIFIER = github.bencarney.io;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -861,12 +881,12 @@
 				CODE_SIGN_ENTITLEMENTS = PhotoAssassin/PhotoAssassin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6WRJB8PAMU;
+				DEVELOPMENT_TEAM = 672U3TN6C4;
 				INFOPLIST_FILE = PhotoAssassin/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.michiganhackers.photoassassin;
+				PRODUCT_BUNDLE_IDENTIFIER = github.bencarney.io;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;

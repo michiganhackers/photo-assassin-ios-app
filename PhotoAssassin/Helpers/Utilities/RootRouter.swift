@@ -64,6 +64,7 @@ class RootRouter {
         } else {
             controller = registerVC
         }
+        controller = ViewController()
         // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
     }
