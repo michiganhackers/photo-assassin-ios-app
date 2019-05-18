@@ -61,6 +61,7 @@ class RootRouter {
 
         if isLoggedIn {
             controller = UIViewController()//MainScreenViewController()
+            let controller1 = ViewController()
         } else {
             controller = registerVC
         }

@@ -19,6 +19,8 @@
 		553FC23C214047CB001D9362 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FC23B214047CB001D9362 /* R.generated.swift */; };
 		AFBE1EE72256D99100BA5FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */; };
 		BCC899B854AFDB1D82FFE22D /* Pods_PhotoAssassin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 315972CCCCFF02A2AF2F368F /* Pods_PhotoAssassin.framework */; };
+		C72CA237223B301700D8DF82 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CA236223B301700D8DF82 /* CameraController.swift */; };
+		C72CA239223B3ABE00D8DF82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CA238223B3ABE00D8DF82 /* ViewController.swift */; };
 		C90395241FC622D2006F1DC0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395231FC622D2006F1DC0 /* main.swift */; };
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
@@ -36,6 +38,7 @@
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
 		FCB2C7CB1F57127800481080 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCB2C7CA1F57127800481080 /* Localizable.strings */; };
+		FD6FBBD0224DA1E400F783A7 /* PhotoTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FBBCF224DA1E400F783A7 /* PhotoTakenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,8 @@
 		AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFBE1EE82256DB8700BA5FBD /* PhotoAssassin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoAssassin.entitlements; sourceTree = "<group>"; };
 		C52A4E7F78583ED8C2BBE440 /* Pods-PhotoAssassin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.debug.xcconfig"; sourceTree = "<group>"; };
+		C72CA236223B301700D8DF82 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		C72CA238223B3ABE00D8DF82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C90395231FC622D2006F1DC0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsAppDelegate.swift; sourceTree = "<group>"; };
 		CC236DEB12294412F387B307 /* Pods-PhotoAssassinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassinTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassinTests/Pods-PhotoAssassinTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
 		FCB2C7CA1F57127800481080 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		FD6FBBCF224DA1E400F783A7 /* PhotoTakenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +192,7 @@
 		2AB31D9F1F38741400B7D1F3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C72CA235223B2FA200D8DF82 /* MainScreen */,
 				E9B2DFEB224003720093BFC5 /* Shared */,
 				E93545E5221F8AA300F2CC2F /* Login */,
 				2A1DD4E21F38A09700712195 /* Launch */,
@@ -296,6 +303,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C72CA235223B2FA200D8DF82 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C72CA236223B301700D8DF82 /* CameraController.swift */,
+				C72CA238223B3ABE00D8DF82 /* ViewController.swift */,
+				FD6FBBCF224DA1E400F783A7 /* PhotoTakenViewController.swift */,
+			);
+			path = MainScreen;
 		E93545E5221F8AA300F2CC2F /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,7 +555,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint";
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -549,6 +564,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C72CA239223B3ABE00D8DF82 /* ViewController.swift in Sources */,
+				C72CA237223B301700D8DF82 /* CameraController.swift in Sources */,
 				E9918A322228B78700691ABA /* LoginViewController.swift in Sources */,
 				2A9222821F38797600A648E6 /* ConfigurationManager.swift in Sources */,
 				E9FE326722207B92009857CF /* Colors.swift in Sources */,
@@ -560,6 +577,7 @@
 				E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */,
 				2A1E77371F384BFC006C84D4 /* AppDelegate.swift in Sources */,
 				553FC23C214047CB001D9362 /* R.generated.swift in Sources */,
+				FD6FBBD0224DA1E400F783A7 /* PhotoTakenViewController.swift in Sources */,
 				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
