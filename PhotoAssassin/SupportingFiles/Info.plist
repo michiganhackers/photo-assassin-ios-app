@@ -22,10 +22,6 @@
 	<string>$(CONFIGURATION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>PhotoAssassin needs the user&apos;s camera to function</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>PhotoAssassion needs access to your photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Economica-Regular.ttf</string>
