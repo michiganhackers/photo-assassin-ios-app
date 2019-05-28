@@ -7,6 +7,8 @@
 
 import Firebase
 import UIKit
+import FBSDKCoreKit
+import FacebookCore
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -28,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Firebase configuration
         FirebaseApp.configure()
+        
+        //Facebook Login configuration
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
 
@@ -47,5 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // To enable full remote notifications functionality you should first register the device with your api service
         //https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/
         notificationsHandler.handleRemoteNotification(with: userInfo)
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
 }
