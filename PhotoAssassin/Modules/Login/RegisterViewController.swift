@@ -6,11 +6,11 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import FirebaseAuth
 import UIKit
 import FBSDKCoreKit
 import FacebookCore
 import FacebookLogin
+import FirebaseAuth
 
 class RegisterViewController: LoginRegisterViewController {
     // MARK: - Text and Number Class Constants
@@ -70,6 +70,8 @@ class RegisterViewController: LoginRegisterViewController {
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 print("Logged in!")
+                let vc = ViewController()
+                self.present(vc, animated: true, completion: nil)
             }
         }
     }
