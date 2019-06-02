@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>PhotoAssassin needs the user's camera to function</string>
+	<string>PhotoAssassin needs the user&apos;s camera to function</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PhotoAssassion needs access to your photos</string>
 	<key>UIAppFonts</key>
@@ -49,6 +49,27 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c</string>
+				<string>fb325089728169540</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>325089728169540</string>
+	<key>FacebookDisplayName</key>
+	<string>photoAssassin</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 </dict>
 </plist>

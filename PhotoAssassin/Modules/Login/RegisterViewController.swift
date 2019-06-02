@@ -6,10 +6,14 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import FirebaseAuth
 import UIKit
+import FBSDKCoreKit
+import FacebookCore
+import FacebookLogin
+import FirebaseAuth
+import GoogleSignIn
 
-class RegisterViewController: LoginRegisterViewController {
+class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - Text and Number Class Constants
     let linkSpacing: CGFloat = 10.0
     let socialMediaButtonHeight: CGFloat = 50.0
@@ -58,16 +62,50 @@ class RegisterViewController: LoginRegisterViewController {
     @objc
     func facebookRegisterTapped() {
         print("Attempted Facebook registration")
+        let loginManager = LoginManager()
+        loginManager.logIn(readPermissions: [ReadPermission.publicProfile], viewController: self) { loginResult in
+            switch loginResult {
+            case .failed(let error):
+                print(error)
+            case .cancelled:
+                print("User cancelled login.")
+            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                print("Logged in!")
+                let vc = ViewController()
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
     }
 
     @objc
     func googleRegisterTapped() {
         print("Attempted Google registration")
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().signIn()
+        //GIDSignIn.sharedInstance().signInSilently()
     }
 
     @objc
     func haveAnAccountTapped() {
         routeTo(screen: .login)
+    }
+    
+    // MARK: - Google Sign-In Methods
+    
+    // Handle errors
+    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+    }
+    
+    // Present a view that prompts the user to sign in with Google
+    func signIn(signIn: GIDSignIn!,
+                presentViewController viewController: UIViewController!) {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    // Dismiss the "Sign in with Google" view
+    func signIn(signIn: GIDSignIn!,
+                dismissViewController viewController: UIViewController!) {
+        self.dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Overrides
