@@ -62,7 +62,7 @@
 		EE65636222446DCB00885F8B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65636122446DCB00885F8B /* MenuViewController.swift */; };
 		EE935108226021B200273382 /* TransparentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE935107226021B200273382 /* TransparentButton.swift */; };
 		EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB40563224D935F004BD0D6 /* LobbyViewController.swift */; };
-		EEC0D5602256CCDD00A820E8 /* ActiveGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC0D55F2256CCDD00A820E8 /* ActiveGamesViewController.swift */; };
+		EEC0D5602256CCDD00A820E8 /* LobbiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */; };
 		EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */; };
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
@@ -146,7 +146,7 @@
 		EE65636122446DCB00885F8B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		EE935107226021B200273382 /* TransparentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentButton.swift; sourceTree = "<group>"; };
 		EEB40563224D935F004BD0D6 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
-		EEC0D55F2256CCDD00A820E8 /* ActiveGamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveGamesViewController.swift; sourceTree = "<group>"; };
+		EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbiesViewController.swift; sourceTree = "<group>"; };
 		EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
@@ -452,7 +452,7 @@
 			children = (
 				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
 				E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */,
-				EEC0D55F2256CCDD00A820E8 /* ActiveGamesViewController.swift */,
+				EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */,
 				EEB40563224D935F004BD0D6 /* LobbyViewController.swift */,
 			);
 			path = Lobby;
@@ -700,7 +700,7 @@
 				E925D6FD2256C2A2008F266B /* SubsectionGradient.swift in Sources */,
 				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
 				E9FC861A2262575C000C5832 /* InviteAccessoryButton.swift in Sources */,
-				EEC0D5602256CCDD00A820E8 /* ActiveGamesViewController.swift in Sources */,
+				EEC0D5602256CCDD00A820E8 /* LobbiesViewController.swift in Sources */,
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
 				E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */,

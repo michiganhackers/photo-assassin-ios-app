@@ -14,10 +14,12 @@ class GameLobby {
     let title: String
     let description: String
     let numberInLobby: Int
+    let capacity: Int
 
-    init(title: String, description: String, numberInLobby: Int) {
+    init(title: String, description: String, numberInLobby: Int, capacity: Int) {
         self.title = title
         self.description = description
         self.numberInLobby = numberInLobby
+        self.capacity = capacity
     }
 }

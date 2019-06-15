@@ -10,7 +10,7 @@ import UIKit
 
 class LobbyViewController: RoutedViewController {
 
-    let lobby = GameLobby(title: "Game Lobby", description: "Specific Game Lobby", numberInLobby: 3)
+    let lobby = GameLobby(title: "Game Lobby", description: "Specific Game Lobby", numberInLobby: 3, capacity: 5)
     let lobbyTitleSize: CGFloat = 36.0
     let lobbyDescriptionSize: CGFloat = 20.0
 

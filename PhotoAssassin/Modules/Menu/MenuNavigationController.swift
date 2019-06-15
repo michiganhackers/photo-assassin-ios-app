@@ -11,7 +11,7 @@ import UIKit
 class MenuNavigationController: RoutedNavigationController {
     let backgroundGradient = BackgroundGradient()
 
-    let activeGamesVC = ActiveGamesViewController()
+    let activeGamesVC = LobbiesViewController()
     let menuVC = MenuViewController()
     let newGameVC = NewGameViewController()
     let socialVC = SocialViewController()

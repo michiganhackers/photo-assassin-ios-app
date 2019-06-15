@@ -9,24 +9,28 @@
 import UIKit
 
 class GameLobbyListCell: UITableViewCell {
-    static let titleTextSize: CGFloat = 30.0
-    static let detailTextSize: CGFloat = 18.0
+    static let horizontalMargin: CGFloat = 15.0
+    static let textSize: CGFloat = 36.0
     static let cellReuseIdentifer = "gameLobbyCell"
     let edgeCurve: CGFloat = 12.0
+
+    let playerCountLabel = UILabel(frame: .zero)
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     init(lobby: GameLobby) {
-        super.init(style: .subtitle, reuseIdentifier: GameLobbyListCell.cellReuseIdentifer)
-        // translatesAutoresizingMaskIntoConstraints = false
+        super.init(style: .default, reuseIdentifier: GameLobbyListCell.cellReuseIdentifer)
         textLabel?.text = lobby.title
         textLabel?.textColor = Colors.text
-        textLabel?.textAlignment = .center
-        textLabel?.font = R.font.economicaBold(size: GameLobbyListCell.titleTextSize)
-        detailTextLabel?.text = "Number of alive users: \(lobby.numberInLobby)"
-        detailTextLabel?.textColor = Colors.text
-        detailTextLabel?.font = R.font.economicaRegular(size: GameLobbyListCell.detailTextSize)
+        textLabel?.textAlignment = .left
+        textLabel?.font = R.font.economicaBold(size: GameLobbyListCell.textSize)
+
+        contentView.addSubview(playerCountLabel)
+        playerCountLabel.textAlignment = .right
+        playerCountLabel.text = "\(lobby.numberInLobby)/\(lobby.capacity)"
+        playerCountLabel.textColor = Colors.text
+        playerCountLabel.font = R.font.economicaBold(size: GameLobbyListCell.textSize)
 
         backgroundView = nil
         backgroundColor = Colors.subsectionBackground
@@ -34,13 +38,21 @@ class GameLobbyListCell: UITableViewCell {
         layer.cornerRadius = edgeCurve
         addConstraints()
     }
+
     func addConstraints() {
         if let titleLabel = textLabel {
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor,
+                constant: GameLobbyListCell.horizontalMargin).isActive = true
+            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+            playerCountLabel.rightAnchor.constraint(equalTo: self.rightAnchor,
+                constant: -GameLobbyListCell.horizontalMargin).isActive = true
+            playerCountLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            playerCountLabel.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     static func getHeight() -> CGFloat {
-        return (detailTextSize + titleTextSize) * 1.5
+        return textSize * 1.7
     }
 }

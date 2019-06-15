@@ -8,7 +8,10 @@
 
 import UIKit
 
-class ActiveGamesViewController: NavigatingViewController {
+class LobbiesViewController: NavigatingViewController {
+    // MARK: - Class constants
+    let topMargin: CGFloat = 40.0
+
     // MARK: - UI elements
     let gameLobbyList = GameLobbyList()
 
@@ -18,7 +21,8 @@ class ActiveGamesViewController: NavigatingViewController {
     }
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
-        gameLobbyList.view.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        gameLobbyList.view.topAnchor.constraint(equalTo: margins.topAnchor,
+                                                constant: topMargin).isActive = true
         gameLobbyList.view.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         gameLobbyList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
@@ -39,6 +43,6 @@ class ActiveGamesViewController: NavigatingViewController {
         super.init(coder: aDecoder)
     }
     init() {
-        super.init(title: "Active Games")
+        super.init(title: "Lobbies")
     }
 }
