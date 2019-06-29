@@ -14,7 +14,9 @@ class MenuViewController: NavigatingViewController {
     let navBarSpacing: CGFloat = 20.0
     let verticalButtonSpacing: CGFloat = 18.0
 
-    let cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
+    lazy var settingsButton = UIBarButtonItem(barButtonSystemItem: .action,
+                                              target: self,
+                                              action: #selector(bringToSettings))
 
     lazy var profileButton: UIBarButtonItem = {
         let item = UIBarButtonItem(image: R.image.profileLogo(),
@@ -44,6 +46,10 @@ class MenuViewController: NavigatingViewController {
         push(navigationScreen: .newGame)
     }
     @objc
+    func bringToSettings() {
+        push(navigationScreen: .settings)
+    }
+    @objc
     func bringToSocial() {
         push(navigationScreen: .social)
     }
@@ -69,9 +75,9 @@ class MenuViewController: NavigatingViewController {
     }
 
     func addNavButtons() {
-        cameraButton.tintColor = .white
+        settingsButton.tintColor = .white
         profileButton.tintColor = .white
-        navigationItem.leftBarButtonItem = cameraButton
+        navigationItem.leftBarButtonItem = settingsButton
         navigationItem.rightBarButtonItem = profileButton
     }
 

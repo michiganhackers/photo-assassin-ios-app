@@ -11,7 +11,7 @@
 
 import UIKit
 
-class NavigatingViewController: RoutedViewController {
+class NavigatingViewController: UIViewController {
     private let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
     func push(navigationScreen: MenuNavigationController.Screen) {
@@ -19,6 +19,17 @@ class NavigatingViewController: RoutedViewController {
             navController.push(navigationScreen)
         }
     }
+    func pop() {
+        if let navController = navigationController as? MenuNavigationController {
+            navController.pop()
+        }
+    }
+    func routeTo(screen: RootRouter.Screen) {
+        if let navController = navigationController as? MenuNavigationController {
+            navController.routeTo(screen: screen)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = MenuNavigationTitle(title ?? "")

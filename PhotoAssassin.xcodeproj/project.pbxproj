@@ -38,6 +38,8 @@
 		E97F00DC2257F9E100FF8401 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F00DB2257F9E100FF8401 /* PickerViewController.swift */; };
 		E97FD39A22592BCD0027B8EF /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97FD39922592BCD0027B8EF /* PickerButton.swift */; };
 		E97FD39C2259337B0027B8EF /* PickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97FD39B2259337B0027B8EF /* PickerViewCell.swift */; };
+		E989E56222C32EFB00484A8C /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989E56122C32EFB00484A8C /* ChangeEmailViewController.swift */; };
+		E989E56422C32F5E00484A8C /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989E56322C32F5E00484A8C /* ChangePasswordViewController.swift */; };
 		E9918A322228B78700691ABA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9918A312228B78700691ABA /* LoginViewController.swift */; };
 		E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */; };
 		E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */; };
@@ -50,9 +52,12 @@
 		E9C126D42260F67600015C9B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D32260F67600015C9B /* ProfileViewController.swift */; };
 		E9C126D6226107CC00015C9B /* UILabel+attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D5226107CC00015C9B /* UILabel+attributes.swift */; };
 		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
+		E9C72B4622BEF47F00FC21EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C72B4522BEF47F00FC21EB /* SettingsViewController.swift */; };
+		E9C72B4822BEF7F400FC21EB /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C72B4722BEF7F400FC21EB /* SettingsCell.swift */; };
 		E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD529E2221C13300135999 /* LoginRegisterButton.swift */; };
 		E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */; };
 		E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */; };
+		E9E45AE722C7AED300663744 /* TranslucentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E45AE622C7AED300663744 /* TranslucentLabel.swift */; };
 		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
 		E9FC861822624723000C5832 /* InvitePlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FC861722624723000C5832 /* InvitePlayerListViewController.swift */; };
 		E9FC861A2262575C000C5832 /* InviteAccessoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FC86192262575C000C5832 /* InviteAccessoryButton.swift */; };
@@ -122,6 +127,8 @@
 		E97F00DB2257F9E100FF8401 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		E97FD39922592BCD0027B8EF /* PickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerButton.swift; sourceTree = "<group>"; };
 		E97FD39B2259337B0027B8EF /* PickerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewCell.swift; sourceTree = "<group>"; };
+		E989E56122C32EFB00484A8C /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
+		E989E56322C32F5E00484A8C /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E9918A312228B78700691ABA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E9B2DFEC224003890093BFC5 /* BackgroundGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
@@ -134,9 +141,12 @@
 		E9C126D32260F67600015C9B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E9C126D5226107CC00015C9B /* UILabel+attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+attributes.swift"; sourceTree = "<group>"; };
 		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
+		E9C72B4522BEF47F00FC21EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E9C72B4722BEF7F400FC21EB /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		E9CD529E2221C13300135999 /* LoginRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterButton.swift; sourceTree = "<group>"; };
 		E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontResource+orDefault.swift"; sourceTree = "<group>"; };
 		E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyListCell.swift; sourceTree = "<group>"; };
+		E9E45AE622C7AED300663744 /* TranslucentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentLabel.swift; sourceTree = "<group>"; };
 		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		E9FC861722624723000C5832 /* InvitePlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitePlayerListViewController.swift; sourceTree = "<group>"; };
 		E9FC86192262575C000C5832 /* InviteAccessoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteAccessoryButton.swift; sourceTree = "<group>"; };
@@ -248,6 +258,7 @@
 		2AB31D9F1F38741400B7D1F3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E9C72B4422BEF42800FC21EB /* Settings */,
 				E9C126D22260F65A00015C9B /* Profile */,
 				E9BF80762260167A002B11C3 /* Social */,
 				955DFEBF2256D84900DB40D8 /* NewGame */,
@@ -407,6 +418,7 @@
 				E97FD39922592BCD0027B8EF /* PickerButton.swift */,
 				E97FD39B2259337B0027B8EF /* PickerViewCell.swift */,
 				E97F00DB2257F9E100FF8401 /* PickerViewController.swift */,
+				E9E45AE622C7AED300663744 /* TranslucentLabel.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -425,6 +437,17 @@
 				E9C126D32260F67600015C9B /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		E9C72B4422BEF42800FC21EB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E989E56122C32EFB00484A8C /* ChangeEmailViewController.swift */,
+				E989E56322C32F5E00484A8C /* ChangePasswordViewController.swift */,
+				E9C72B4522BEF47F00FC21EB /* SettingsViewController.swift */,
+				E9C72B4722BEF7F400FC21EB /* SettingsCell.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		E9FE3261222073BF009857CF /* Colors */ = {
@@ -687,6 +710,7 @@
 				E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
 				E9BF806F225FFC76002B11C3 /* PlayerListViewController.swift in Sources */,
+				E989E56222C32EFB00484A8C /* ChangeEmailViewController.swift in Sources */,
 				E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */,
 				E925D6F92256B345008F266B /* RoutedNavigationController.swift in Sources */,
 				E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */,
@@ -701,13 +725,17 @@
 				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
 				E9FC861A2262575C000C5832 /* InviteAccessoryButton.swift in Sources */,
 				EEC0D5602256CCDD00A820E8 /* LobbiesViewController.swift in Sources */,
+				E9C72B4622BEF47F00FC21EB /* SettingsViewController.swift in Sources */,
+				E9C72B4822BEF7F400FC21EB /* SettingsCell.swift in Sources */,
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
 				E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */,
+				E9E45AE722C7AED300663744 /* TranslucentLabel.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
 				E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */,
 				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
 				E925D6FB2256B8A7008F266B /* MenuNavigationBar.swift in Sources */,
+				E989E56422C32F5E00484A8C /* ChangePasswordViewController.swift in Sources */,
 				955DFEC32256E92800DB40D8 /* UserEnterTextField.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */,

@@ -12,15 +12,21 @@ class MenuNavigationController: RoutedNavigationController {
     let backgroundGradient = BackgroundGradient()
 
     let activeGamesVC = LobbiesViewController()
+    let changeEmailVC = ChangeEmailViewController()
+    let changePasswordVC = ChangePasswordViewController()
     let menuVC = MenuViewController()
     let newGameVC = NewGameViewController()
+    let settingsVC = SettingsViewController()
     let socialVC = SocialViewController()
 
     enum Screen {
         case activeGames
+        case changeEmail
+        case changePassword
         case menu
         case newGame
         case profile(Player)
+        case settings
         case social
     }
 
@@ -29,16 +35,25 @@ class MenuNavigationController: RoutedNavigationController {
         switch screen {
         case .activeGames:
             viewControllerToPush = activeGamesVC
+        case .changeEmail:
+            viewControllerToPush = changeEmailVC
+        case .changePassword:
+            viewControllerToPush = changePasswordVC
         case .menu:
             viewControllerToPush = menuVC
         case .newGame:
             viewControllerToPush = newGameVC
         case let .profile(player):
             viewControllerToPush = ProfileViewController(player: player)
+        case .settings:
+            viewControllerToPush = settingsVC
         case .social:
             viewControllerToPush = socialVC
         }
         pushViewController(viewControllerToPush, animated: true)
+    }
+    func pop() {
+        popViewController(animated: true)
     }
 
     // MARK: - Initializers
