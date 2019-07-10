@@ -12,6 +12,7 @@ import UIKit
 public struct Colors {
     static let startBackgroundGradient = UIColor(hex: 0xAB0000)
     static let endBackgroundGradient = UIColor(hex: 0xFFFFFF, alpha: 0.0)
+    static let subsectionBackground = UIColor(hex: 0xFFFFFF, alpha: 0.25)
     static let behindGradient = UIColor(hex: 0xF22F08)
     static let text = UIColor(hex: 0xFFFFFF)
     static let seeThroughText = UIColor(hex: 0xFFFFFF, alpha: 0.6)
@@ -21,4 +22,7 @@ public struct Colors {
     static let scarlet = UIColor(hex: 0xF22F08)
     static let burgundy = UIColor(hex: 0x8D2F23)
     static let maroon = UIColor(hex: 0x561E18)
+    static let success = UIColor(hex: 0x28BC1B)
+    static let failure = UIColor(hex: 0xFF0505)
+    static let unknown = UIColor(hex: 0xFFF620)
 }
