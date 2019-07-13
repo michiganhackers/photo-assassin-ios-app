@@ -17,9 +17,9 @@
 		2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABEE6D51F3886D700531205 /* RootRouter.swift */; };
 		453592BAE7D47041D989B3DA /* Pods_PhotoAssassinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */; };
 		553FC23C214047CB001D9362 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FC23B214047CB001D9362 /* R.generated.swift */; };
-		AFBE1EE72256D99100BA5FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */; };
 		955DFEC12256D8A100DB40D8 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFEC02256D8A100DB40D8 /* NewGameViewController.swift */; };
 		955DFEC32256E92800DB40D8 /* UserEnterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFEC22256E92800DB40D8 /* UserEnterTextField.swift */; };
+		AFBE1EE72256D99100BA5FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */; };
 		BCC899B854AFDB1D82FFE22D /* Pods_PhotoAssassin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 315972CCCCFF02A2AF2F368F /* Pods_PhotoAssassin.framework */; };
 		C90395241FC622D2006F1DC0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395231FC622D2006F1DC0 /* main.swift */; };
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
@@ -60,6 +60,7 @@
 		E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */; };
 		E9E45AE722C7AED300663744 /* TranslucentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E45AE622C7AED300663744 /* TranslucentLabel.swift */; };
 		E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */; };
+		E9ED300822DA48C600884ACC /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED300722DA48C600884ACC /* NotificationsSettingsViewController.swift */; };
 		E9FC861822624723000C5832 /* InvitePlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FC861722624723000C5832 /* InvitePlayerListViewController.swift */; };
 		E9FC861A2262575C000C5832 /* InviteAccessoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FC86192262575C000C5832 /* InviteAccessoryButton.swift */; };
 		E9FC861C22625F16000C5832 /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FC861B22625F16000C5832 /* UIView+constraints.swift */; };
@@ -69,8 +70,8 @@
 		EE935108226021B200273382 /* TransparentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE935107226021B200273382 /* TransparentButton.swift */; };
 		EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB40563224D935F004BD0D6 /* LobbyViewController.swift */; };
 		EEC0D5602256CCDD00A820E8 /* LobbiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */; };
-		EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */; };
 		EEDBBB05224DA53E008D1CC8 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */; };
+		EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */; };
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
 		F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1B228FB39C001F6FFA /* CameraController.swift */; };
@@ -108,9 +109,9 @@
 		45AEA0686ECF05A538683431 /* Pods-PhotoAssassin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.release.xcconfig"; sourceTree = "<group>"; };
 		553FC23B214047CB001D9362 /* R.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		55F50BE321404BDD00FAC039 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
-		AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		955DFEC02256D8A100DB40D8 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		955DFEC22256E92800DB40D8 /* UserEnterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEnterTextField.swift; sourceTree = "<group>"; };
+		AFBE1EE62256D99100BA5FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFBE1EE82256DB8700BA5FBD /* PhotoAssassin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoAssassin.entitlements; sourceTree = "<group>"; };
 		C52A4E7F78583ED8C2BBE440 /* Pods-PhotoAssassin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.debug.xcconfig"; sourceTree = "<group>"; };
 		C90395231FC622D2006F1DC0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -155,6 +156,7 @@
 		E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyListCell.swift; sourceTree = "<group>"; };
 		E9E45AE622C7AED300663744 /* TranslucentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentLabel.swift; sourceTree = "<group>"; };
 		E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		E9ED300722DA48C600884ACC /* NotificationsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsViewController.swift; sourceTree = "<group>"; };
 		E9FC861722624723000C5832 /* InvitePlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitePlayerListViewController.swift; sourceTree = "<group>"; };
 		E9FC86192262575C000C5832 /* InviteAccessoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteAccessoryButton.swift; sourceTree = "<group>"; };
 		E9FC861B22625F16000C5832 /* UIView+constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
@@ -164,8 +166,8 @@
 		EE935107226021B200273382 /* TransparentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentButton.swift; sourceTree = "<group>"; };
 		EEB40563224D935F004BD0D6 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbiesViewController.swift; sourceTree = "<group>"; };
-		EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
 		EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
 		F3C33E1B228FB39C001F6FFA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				E989E56322C32F5E00484A8C /* ChangePasswordViewController.swift */,
 				E9C72B4522BEF47F00FC21EB /* SettingsViewController.swift */,
 				E9C72B4722BEF7F400FC21EB /* SettingsCell.swift */,
+				E9ED300722DA48C600884ACC /* NotificationsSettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -684,7 +687,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
+				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -791,6 +794,7 @@
 				E925D6FB2256B8A7008F266B /* MenuNavigationBar.swift in Sources */,
 				E989E56422C32F5E00484A8C /* ChangePasswordViewController.swift in Sources */,
 				955DFEC32256E92800DB40D8 /* UserEnterTextField.swift in Sources */,
+				E9ED300822DA48C600884ACC /* NotificationsSettingsViewController.swift in Sources */,
 				EEDBBB05224DA53E008D1CC8 /* ForgotPasswordViewController.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */,

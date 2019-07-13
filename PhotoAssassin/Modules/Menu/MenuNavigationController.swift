@@ -16,6 +16,7 @@ class MenuNavigationController: RoutedNavigationController {
     let changePasswordVC = ChangePasswordViewController()
     let menuVC = MenuViewController()
     let newGameVC = NewGameViewController()
+    let notificationsSettingsVC = NotificationsSettingsViewController()
     let settingsVC = SettingsViewController()
     let socialVC = SocialViewController()
 
@@ -25,6 +26,7 @@ class MenuNavigationController: RoutedNavigationController {
         case changePassword
         case menu
         case newGame
+        case notificationsSettings
         case profile(Player)
         case settings
         case social
@@ -43,6 +45,8 @@ class MenuNavigationController: RoutedNavigationController {
             viewControllerToPush = menuVC
         case .newGame:
             viewControllerToPush = newGameVC
+        case .notificationsSettings:
+            viewControllerToPush = notificationsSettingsVC
         case let .profile(player):
             viewControllerToPush = ProfileViewController(player: player)
         case .settings:

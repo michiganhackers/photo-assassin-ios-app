@@ -76,7 +76,7 @@ class SettingsViewController: NavigatingViewController,
     }
 
     func openNotifications() {
-        print("TODO: Open notifications")
+        push(navigationScreen: .notificationsSettings)
     }
 
     func logout() {
