@@ -32,6 +32,7 @@
 		E925D6FF2256C585008F266B /* TranslucentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6FE2256C585008F266B /* TranslucentButton.swift */; };
 		E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */; };
 		E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */; };
+		E93936792254252D0041A37B /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93936782254252D0041A37B /* ScrollingViewController.swift */; };
 		E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942295D224067A8000D64DB /* RoutedViewController.swift */; };
 		E95AE4C92257C5350030D35B /* MenuNavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95AE4C82257C5350030D35B /* MenuNavigationTitle.swift */; };
 		E95AE4CD2257D0520030D35B /* NavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95AE4CC2257D0520030D35B /* NavigatingViewController.swift */; };
@@ -69,6 +70,7 @@
 		EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB40563224D935F004BD0D6 /* LobbyViewController.swift */; };
 		EEC0D5602256CCDD00A820E8 /* LobbiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */; };
 		EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */; };
+		EEDBBB05224DA53E008D1CC8 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */; };
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
 		F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1B228FB39C001F6FFA /* CameraController.swift */; };
@@ -125,6 +127,7 @@
 		E925D6FE2256C585008F266B /* TranslucentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentButton.swift; sourceTree = "<group>"; };
 		E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLoginButton.swift; sourceTree = "<group>"; };
 		E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewController.swift; sourceTree = "<group>"; };
+		E93936782254252D0041A37B /* ScrollingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
 		E942295D224067A8000D64DB /* RoutedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutedViewController.swift; sourceTree = "<group>"; };
 		E95AE4C82257C5350030D35B /* MenuNavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationTitle.swift; sourceTree = "<group>"; };
 		E95AE4CC2257D0520030D35B /* NavigatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatingViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 		EEB40563224D935F004BD0D6 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbiesViewController.swift; sourceTree = "<group>"; };
 		EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
+		EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
 		F3C33E1B228FB39C001F6FFA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -402,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */,
+				EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */,
 				E9918A312228B78700691ABA /* LoginViewController.swift */,
 				E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */,
 				E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */,
@@ -428,6 +433,7 @@
 				E97FD39B2259337B0027B8EF /* PickerViewCell.swift */,
 				E97F00DB2257F9E100FF8401 /* PickerViewController.swift */,
 				E9E45AE622C7AED300663744 /* TranslucentLabel.swift */,
+				E93936782254252D0041A37B /* ScrollingViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -785,6 +791,7 @@
 				E925D6FB2256B8A7008F266B /* MenuNavigationBar.swift in Sources */,
 				E989E56422C32F5E00484A8C /* ChangePasswordViewController.swift in Sources */,
 				955DFEC32256E92800DB40D8 /* UserEnterTextField.swift in Sources */,
+				EEDBBB05224DA53E008D1CC8 /* ForgotPasswordViewController.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */,
 				EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */,
@@ -797,6 +804,7 @@
 				E95AE4CD2257D0520030D35B /* NavigatingViewController.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
 				E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */,
+				E93936792254252D0041A37B /* ScrollingViewController.swift in Sources */,
 				E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */,
 				E9B5AA27224478220070A53C /* GameLobbyList.swift in Sources */,
 			);

@@ -15,6 +15,7 @@ public struct Colors {
     static let subsectionBackground = UIColor(hex: 0xFFFFFF, alpha: 0.25)
     static let behindGradient = UIColor(hex: 0xF22F08)
     static let text = UIColor(hex: 0xFFFFFF)
+    static let mostlyOpaqueText = UIColor(hex: 0xFFFFFF, alpha: 0.75)
     static let seeThroughText = UIColor(hex: 0xFFFFFF, alpha: 0.6)
     static let seeThroughContrast = UIColor(hex: 0xFFFFFF, alpha: 0.25)
     static let charcoal = UIColor(hex: 0x594346)
