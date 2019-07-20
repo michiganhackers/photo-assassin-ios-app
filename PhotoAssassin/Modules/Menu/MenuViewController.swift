@@ -26,14 +26,14 @@ class MenuViewController: NavigatingViewController {
         return item
     }()
 
-    let historyButton = TranslucentButton("History")
+    let historyButton = TranslucentButton("Find Game")
     lazy var activeGamesButton: UIButton = {
         let gameButton = TranslucentButton("Active Games")
         gameButton.addTarget(self, action: #selector(bringToActiveGames), for: .touchUpInside)
         return gameButton
     }()
     lazy var createButton: UIButton = {
-        let gameButton = TranslucentButton("Create")
+        let gameButton = TranslucentButton("Create Game")
         gameButton.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
         return gameButton
     }()
@@ -59,17 +59,13 @@ class MenuViewController: NavigatingViewController {
         createButton.topAnchor.constraint(equalTo: margins.topAnchor,
                                           constant: navBarSpacing).isActive = true
         createButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        createButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
-                                            multiplier: 0.5,
-                                            constant: -horizontalButtonSpacing / 2.0).isActive = true
-        historyButton.topAnchor.constraint(equalTo: margins.topAnchor,
-                                           constant: navBarSpacing).isActive = true
+        createButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        historyButton.topAnchor.constraint(equalTo: createButton.bottomAnchor,
+                                           constant: horizontalButtonSpacing).isActive = true
+        historyButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         historyButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        historyButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
-                                             multiplier: 0.5,
-                                             constant: -horizontalButtonSpacing / 2.0).isActive = true
-        activeGamesButton.topAnchor.constraint(equalTo: createButton.bottomAnchor,
-                                               constant: verticalButtonSpacing).isActive = true
+        activeGamesButton.topAnchor.constraint(equalTo: historyButton.bottomAnchor,
+                                               constant: horizontalButtonSpacing).isActive = true
         activeGamesButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         activeGamesButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
