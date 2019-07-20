@@ -14,7 +14,8 @@ class MenuViewController: NavigatingViewController {
     let navBarSpacing: CGFloat = 20.0
     let verticalButtonSpacing: CGFloat = 18.0
 
-    lazy var settingsButton = UIBarButtonItem(barButtonSystemItem: .action,
+    lazy var settingsButton = UIBarButtonItem(image: UIImage(named: "Settings Icon"),
+                                              style: .plain,
                                               target: self,
                                               action: #selector(bringToSettings))
 
