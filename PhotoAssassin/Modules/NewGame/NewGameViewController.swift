@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewGameViewController: NavigatingViewController {
+class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
     // MARK: - String and number constants
     let pickerButtonSpacing: CGFloat = 10.0
     let mainTextSize: CGFloat = 36.0
@@ -48,7 +48,9 @@ class NewGameViewController: NavigatingViewController {
 
     lazy var titleTextField: UITextField = {
         let titleText = UserEnterTextField("")
+        titleText.delegate = self
         titleText.translatesAutoresizingMaskIntoConstraints = false
+        titleText.returnKeyType = .done
         return titleText
     }()
 
@@ -121,7 +123,7 @@ class NewGameViewController: NavigatingViewController {
 
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
-        createButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        createButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -10).isActive = true
         createButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         createButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
                                             multiplier: 1.0 / 3.0).isActive = true
@@ -166,6 +168,11 @@ class NewGameViewController: NavigatingViewController {
         view.addSubview(addPlayerLabel)
         view.addSubview(addPlayerButton)
         view.addSubview(playerList.view)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
     // MARK: - Overrides
