@@ -6,12 +6,12 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import UIKit
-import FBSDKCoreKit
 import FacebookCore
 import FacebookLogin
+import FBSDKCoreKit
 import FirebaseAuth
 import GoogleSignIn
+import UIKit
 
 class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - Text and Number Class Constants
@@ -69,10 +69,11 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                 print(error)
             case .cancelled:
                 print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+            case .success(_ /* let grantedPermissions */,
+                          _ /* let declinedPermissions */,
+                          _ /* let accessToken */):
                 print("Logged in!")
-                let vc = ViewController()
-                self.present(vc, animated: true, completion: nil)
+                self.routeTo(screen: .camera)
             }
         }
     }
@@ -89,22 +90,23 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     func haveAnAccountTapped() {
         routeTo(screen: .login)
     }
-    
+
     // MARK: - Google Sign-In Methods
-    
+
     // Handle errors
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+        print("Error signing in: ", error)
     }
-    
+
     // Present a view that prompts the user to sign in with Google
-    func signIn(signIn: GIDSignIn!,
-                presentViewController viewController: UIViewController!) {
+    func sign(_ signIn: GIDSignIn!,
+              present viewController: UIViewController!) {
         self.present(viewController, animated: true, completion: nil)
     }
-    
+
     // Dismiss the "Sign in with Google" view
-    func signIn(signIn: GIDSignIn!,
-                dismissViewController viewController: UIViewController!) {
+    func sign(_ signIn: GIDSignIn!,
+              dismiss viewController: UIViewController!) {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -168,12 +170,13 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     @objc
     func user_Registration() {
         if let email = emailField.text, let password = passwordField.text {
-            Auth.auth().createUser(withEmail: email, password: password) { user, error in
+            Auth.auth().createUser(withEmail: email, password: password) { _ /* user */, error in
                 if let firebaseError = error {
                     print(firebaseError.localizedDescription)
                     return
                 }
                 print("Account Created!")
+                self.routeTo(screen: .camera)
             }
         }
     }

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import FirebaseAuth
 import UIKit
 
 class SettingsViewController: NavigatingViewController,
@@ -80,7 +81,11 @@ class SettingsViewController: NavigatingViewController,
     }
 
     func logout() {
-        print("TODO: Logout")
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Error signing out. Redirecting to login screen anyway.")
+        }
         routeTo(screen: .login)
     }
 

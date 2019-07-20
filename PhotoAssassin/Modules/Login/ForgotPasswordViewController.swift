@@ -6,6 +6,7 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import FirebaseAuth
 import UIKit
 
 class ForgotPasswordViewController: ScrollingViewController {
@@ -119,7 +120,19 @@ class ForgotPasswordViewController: ScrollingViewController {
     @objc
     func resetPasswordTapped() {
         let email = emailField.text ?? ""
-        print("Attempting password reset with email \(email)")
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            var alertText = "An email with instructions for resetting your " +
+                "password has been sent to " + email + "."
+            var alertTitle = "Success"
+            if let theError = error {
+                alertTitle = "Error"
+                print("Error with password reset: \(theError.localizedDescription)")
+                alertText = "An error occurred while resetting your password."
+            }
+            let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Overrides

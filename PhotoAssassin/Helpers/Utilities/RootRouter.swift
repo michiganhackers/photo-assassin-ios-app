@@ -5,12 +5,18 @@
 //  Copyright © Michigan Hackers. All rights reserved.
 //
 
+import FirebaseAuth
 import UIKit
 
 class RootRouter {
     // MARK: - Stored View Controllers
     private lazy var menuNavVC: UINavigationController = {
         let controller = MenuNavigationController()
+        controller.router = self
+        return controller
+    }()
+    private lazy var cameraVC: UIViewController = {
+        let controller = ViewController()
         controller.router = self
         return controller
     }()
@@ -32,6 +38,7 @@ class RootRouter {
 
     // MARK: - Nested Types
     enum Screen {
+        case camera
         case forgotPassword
         case login
         case register
@@ -42,6 +49,8 @@ class RootRouter {
     func transitionTo(screen: Screen, animatedWithOptions: UIView.AnimationOptions?) {
         var controller: UIViewController
         switch screen {
+        case .camera:
+            controller = cameraVC
         case .forgotPassword:
             controller = forgotPasswordVC
         case .login:
@@ -71,16 +80,14 @@ class RootRouter {
     }
 
     func loadMainAppStructure() {
-        // TODO: Implement logins
-        let isLoggedIn = false
+        let isLoggedIn = Auth.auth().currentUser != nil
         var controller: UIViewController
 
         if isLoggedIn {
-            controller = ViewController()
+            controller = cameraVC
         } else {
-            controller = menuNavVC
+            controller = loginVC
         }
-        // controller.view.backgroundColor = UIColor.red
         setRootViewController(controller: controller, animatedWithOptions: nil)
     }
 }

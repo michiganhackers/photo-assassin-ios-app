@@ -14,7 +14,7 @@ class LoginRegisterViewController: RoutedViewController {
     let loginButtonOffset: CGFloat = 33.0
     let loginButtonHeight: CGFloat = 67.0
     let buttonText: String
-    let onButtonTap: (_ email: String, _ password: String) -> Void
+    var onButtonTap: (_ email: String, _ password: String) -> Void
     let screenTitle: String
 
     // MARK: - UI Elements

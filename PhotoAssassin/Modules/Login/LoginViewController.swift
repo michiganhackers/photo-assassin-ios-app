@@ -6,6 +6,7 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import FirebaseAuth
 import UIKit
 
 class LoginViewController: LoginRegisterViewController {
@@ -105,9 +106,15 @@ class LoginViewController: LoginRegisterViewController {
     }
 
     init() {
-        super.init(buttonText: "log in",
-                   screenTitle: "Photo Assassin") { (_ email: String, _ password: String) -> Void in
-            print("Attempted log in with email \(email) and password \(password)")
+        super.init(
+            buttonText: "log in",
+            screenTitle: "Photo Assassin") { (_ email: String, _ password: String) -> Void in
+                // Ignored
+        }
+        self.onButtonTap = { (_ email: String, _ password: String) in
+            Auth.auth().signIn(withEmail: email, password: password) { _ /* user */, _ /* error */ in
+                self.routeTo(screen: .camera)
+            }
         }
     }
 }

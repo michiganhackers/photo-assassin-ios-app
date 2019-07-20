@@ -5,14 +5,14 @@
 //  Copyright © Michigan Hackers. All rights reserved.
 //
 
-import Firebase
-import UIKit
-import FBSDKCoreKit
 import FacebookCore
+import FBSDKCoreKit
+import Firebase
 import GoogleSignIn
+import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-    
+
     var window: UIWindow?
     lazy private var router = RootRouter()
     lazy private var deeplinkHandler = DeeplinkHandler()
@@ -26,19 +26,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Notifications
         notificationsHandler.configure()
 
-        // App structure
-        router.loadMainAppStructure()
-
         // Firebase configuration
         FirebaseApp.configure()
-        
+
         //Facebook Login configuration
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+
         //Google Login configuration
         GIDSignIn.sharedInstance().clientID = "924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
-        
+
+        // App structure
+        router.loadMainAppStructure()
+
         return true
     }
 
@@ -59,34 +59,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/
         notificationsHandler.handleRemoteNotification(with: userInfo)
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return SDKApplicationDelegate.shared.application(app, open: url, options: options) || GIDSignIn.sharedInstance().handle(
+
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return SDKApplicationDelegate.shared.application(app, open: url, options: options) ||
+            GIDSignIn.sharedInstance().handle(
             url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication]
                 as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-        
+
     }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+
+    func sign(_ signIn: GIDSignIn!,
+              didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
+        // Perform any operations when the user disconnects from app here...
     }
-    
+
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("\(error.localizedDescription)")
         } else {
-            // Perform any operations on signed in user here.
-            let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
-            let email = user.profile.email
-            // ...
-            print("Successful Signin")
-            self.window?.rootViewController?.present(ViewController(), animated: true, completion: nil)
+            // Perform any operations on signed in user here..
+            guard let authentication = user.authentication else {
+                return
+            }
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                           accessToken: authentication.accessToken)
+            Auth.auth().signInAndRetrieveData(with: credential) { _, _ in
+                print("Successful sign-in")
+                self.router.transitionTo(screen: .camera, animatedWithOptions: nil)
+            }
         }
     }
 }
