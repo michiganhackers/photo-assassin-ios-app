@@ -9,35 +9,38 @@
 import UIKit
 
 class MenuViewController: NavigatingViewController {
+    // MARK: - Class constants
     let gameLobbyHeightRatio: CGFloat = 0.3
     let horizontalButtonSpacing: CGFloat = 12.0
     let navBarSpacing: CGFloat = 20.0
     let verticalButtonSpacing: CGFloat = 18.0
 
-    lazy var settingsButton = UIBarButtonItem(image: UIImage(named: "Settings Icon"),
+    // MARK: - UI elements
+    lazy var settingsButton = UIBarButtonItem(image: R.image.settingsIcon(),
                                               style: .plain,
                                               target: self,
                                               action: #selector(bringToSettings))
 
-    lazy var profileButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: R.image.profileLogo(),
-                                   style: .plain,
-                                   target: self,
-                                   action: #selector(bringToSocial))
-        return item
-    }()
+    lazy var profileButton = UIBarButtonItem(image: R.image.profileLogo(),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(bringToSocial))
 
     let historyButton = TranslucentButton("Find Game")
+
     lazy var activeGamesButton: UIButton = {
         let gameButton = TranslucentButton("Active Games")
         gameButton.addTarget(self, action: #selector(bringToActiveGames), for: .touchUpInside)
         return gameButton
     }()
+
     lazy var createButton: UIButton = {
         let gameButton = TranslucentButton("Create Game")
         gameButton.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
         return gameButton
     }()
+
+    // MARK: - Custom functions
     @objc
     func bringToActiveGames() {
         push(navigationScreen: .activeGames)
@@ -53,6 +56,12 @@ class MenuViewController: NavigatingViewController {
     @objc
     func bringToSocial() {
         push(navigationScreen: .social)
+    }
+    @objc
+    func onSwipeRight(_ recognizer: UIGestureRecognizer) {
+        if recognizer.state == .ended {
+            routeTo(screen: .camera, animatedWithOptions: [.transitionFlipFromLeft])
+        }
     }
 
     func setUpConstraints() {
@@ -85,6 +94,14 @@ class MenuViewController: NavigatingViewController {
         addNavButtons()
     }
 
+    func setUpGestures() {
+        view.isUserInteractionEnabled = true
+        let recognizer = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeRight))
+        recognizer.direction = .right
+        recognizer.numberOfTouchesRequired = 1
+        view.addGestureRecognizer(recognizer)
+    }
+
     // MARK: - Overrides
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -92,6 +109,7 @@ class MenuViewController: NavigatingViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpGestures()
         addSubviews()
     }
 

@@ -24,9 +24,9 @@ class NavigatingViewController: UIViewController {
             navController.pop()
         }
     }
-    func routeTo(screen: RootRouter.Screen) {
+    func routeTo(screen: RootRouter.Screen, animatedWithOptions options: UIView.AnimationOptions? = nil) {
         if let navController = navigationController as? MenuNavigationController {
-            navController.routeTo(screen: screen)
+            navController.routeTo(screen: screen, animatedWithOptions: options)
         }
     }
 

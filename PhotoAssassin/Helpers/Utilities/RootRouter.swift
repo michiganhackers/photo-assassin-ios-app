@@ -59,6 +59,7 @@ class RootRouter {
             controller = registerVC
         case .menu:
             controller = menuNavVC
+            menuNavVC.popToRootViewController(animated: false)
         }
         setRootViewController(controller: controller,
                               animatedWithOptions: animatedWithOptions)

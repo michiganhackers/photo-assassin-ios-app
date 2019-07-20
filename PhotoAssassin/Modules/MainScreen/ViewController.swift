@@ -38,24 +38,18 @@ class ViewController: RoutedViewController {
     override var prefersStatusBarHidden: Bool { return true }
 }
 
-extension ViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-
+extension ViewController {
     @objc
     func onSwipeLeft(_ recognizer: UIGestureRecognizer) {
         if recognizer.state == .ended {
-            routeTo(screen: .menu)
+            routeTo(screen: .menu, animatedWithOptions: [.transitionFlipFromRight])
         }
     }
 
     func configureGestureRecognizer() {
         view.isUserInteractionEnabled = true
-        view.backgroundColor = .black
+        view.backgroundColor = .black // Since views must be opaque to detect swipes
         let recognizer = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeLeft))
-        recognizer.delegate = self
         recognizer.direction = .left
         recognizer.numberOfTouchesRequired = 1
         view.addGestureRecognizer(recognizer)

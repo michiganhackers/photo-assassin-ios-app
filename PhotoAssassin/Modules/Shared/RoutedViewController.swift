@@ -14,7 +14,7 @@ import UIKit
 
 class RoutedViewController: UIViewController {
     var router: RootRouter?
-    func routeTo(screen: RootRouter.Screen) {
-        router?.transitionTo(screen: screen, animatedWithOptions: nil)
+    func routeTo(screen: RootRouter.Screen, animatedWithOptions options: UIView.AnimationOptions? = nil) {
+        router?.transitionTo(screen: screen, animatedWithOptions: options)
     }
 }
