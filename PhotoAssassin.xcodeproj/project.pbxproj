@@ -74,6 +74,7 @@
 		EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */; };
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
+		F32791A922E7122200E92915 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32791A822E7122200E92915 /* SetupProfileViewController.swift */; };
 		F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1B228FB39C001F6FFA /* CameraController.swift */; };
 		F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */; };
 		F3C33E20228FB3DF001F6FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1F228FB3DF001F6FFA /* ViewController.swift */; };
@@ -170,6 +171,7 @@
 		EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
+		F32791A822E7122200E92915 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		F3C33E1B228FB39C001F6FFA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakenViewController.swift; sourceTree = "<group>"; };
 		F3C33E1F228FB3DF001F6FFA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */,
 				E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */,
 				E9CD529E2221C13300135999 /* LoginRegisterButton.swift */,
+				F32791A822E7122200E92915 /* SetupProfileViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -629,7 +632,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -638,7 +641,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		49E5CF9B1AEE6DDDB18C9E94 /* [CP] Embed Pods Frameworks */ = {
@@ -647,7 +650,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -674,7 +677,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		553FC23A2140470C001D9362 /* R.swift */ = {
@@ -687,7 +690,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
+				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -756,6 +759,7 @@
 				2A9222821F38797600A648E6 /* ConfigurationManager.swift in Sources */,
 				E9FE326722207B92009857CF /* Colors.swift in Sources */,
 				EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */,
+				F32791A922E7122200E92915 /* SetupProfileViewController.swift in Sources */,
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
 				F3C33E20228FB3DF001F6FFA /* ViewController.swift in Sources */,
 				E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */,

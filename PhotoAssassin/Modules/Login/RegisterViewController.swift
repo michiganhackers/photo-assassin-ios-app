@@ -9,6 +9,8 @@
 import FacebookCore
 import FacebookLogin
 import FBSDKCoreKit
+import FBSDKLoginKit
+import Firebase
 import FirebaseAuth
 import GoogleSignIn
 import UIKit
@@ -35,11 +37,11 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     lazy var googleRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.googleLogo() {
-            button = SocialMediaLoginButton("continue with google",
+            button = SocialMediaLoginButton("register with google",
                                             height: socialMediaButtonHeight, image: image)
         } else {
             button = UIButton()
-            button.setTitle("continue with google", for: .normal)
+            button.setTitle("register with google", for: .normal)
         }
         button.addTarget(self, action: #selector(googleRegisterTapped), for: .touchUpInside)
         return button
@@ -48,11 +50,11 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     lazy var facebookRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.facebookLogo() {
-            button = SocialMediaLoginButton("continue with facebook",
+            button = SocialMediaLoginButton("register with facebook",
                                             height: socialMediaButtonHeight, image: image)
         } else {
             button = UIButton()
-            button.setTitle("continue with facebook", for: .normal)
+            button.setTitle("register with facebook", for: .normal)
         }
         button.addTarget(self, action: #selector(facebookRegisterTapped), for: .touchUpInside)
         return button
@@ -63,15 +65,23 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     func facebookRegisterTapped() {
         print("Attempted Facebook registration")
         let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [ReadPermission.publicProfile], viewController: self) { loginResult in
+        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
             switch loginResult {
             case .failed(let error):
                 print(error)
             case .cancelled:
                 print("User cancelled login.")
-            case .success(_ /* let grantedPermissions */,
-                          _ /* let declinedPermissions */,
-                          _ /* let accessToken */):
+            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                guard let accessToken = FBSDKAccessToken.current() else {
+                    print("Failed to get access token")
+                    return
+                }
+                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+                Auth.auth().signInAndRetrieveData(with: credential) { (user, error) in
+                    if let error = error {
+                        print("Login error: \(error.localizedDescription)")
+                    }
+                }
                 print("Logged in!")
                 self.routeTo(screen: .camera)
             }

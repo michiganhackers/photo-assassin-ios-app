@@ -81,11 +81,21 @@ class SettingsViewController: NavigatingViewController,
     }
 
     func logout() {
+        //Try Regular Signout
         do {
             try Auth.auth().signOut()
         } catch {
             print("Error signing out. Redirecting to login screen anyway.")
         }
+        
+        // Try Firebase Signout for Google and Facebook
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
         routeTo(screen: .login)
     }
 

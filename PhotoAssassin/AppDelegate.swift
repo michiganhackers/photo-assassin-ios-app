@@ -7,6 +7,7 @@
 
 import FacebookCore
 import FBSDKCoreKit
+import FBSDKLoginKit
 import Firebase
 import GoogleSignIn
 import UIKit
@@ -33,13 +34,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 
         //Google Login configuration
-        GIDSignIn.sharedInstance().clientID = "924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID =  "924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
 
         // App structure
         router.loadMainAppStructure()
 
         return true
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+        -> Bool {
+            return GIDSignIn.sharedInstance().handle(url,
+            sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                                                     annotation: [:])
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: sourceApplication,
+                                                 annotation: annotation)
     }
 
     func application(_ application: UIApplication,
@@ -58,16 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // To enable full remote notifications functionality you should first register the device with your api service
         //https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/
         notificationsHandler.handleRemoteNotification(with: userInfo)
-    }
-
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return SDKApplicationDelegate.shared.application(app, open: url, options: options) ||
-            GIDSignIn.sharedInstance().handle(
-            url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication]
-                as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-
     }
 
     func sign(_ signIn: GIDSignIn!,
@@ -92,4 +97,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
         }
     }
+    
+    
 }

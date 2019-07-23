@@ -14,7 +14,7 @@ class ForgotPasswordViewController: ScrollingViewController {
     let screenTitle = "Photo Assassin"
     let titleSize: CGFloat = 110.0
     let backgroundGradient = BackgroundGradient()
-    let spaceAboveTitle: CGFloat = 60.0
+    let spaceAboveTitle: CGFloat = 40.0
     let spaceBelowTitle: CGFloat = 15.0
     let resetPasswordHeight: CGFloat = 67.0
     let buttonSpacing: CGFloat = 35.0
