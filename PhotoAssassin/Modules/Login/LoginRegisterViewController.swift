@@ -10,7 +10,7 @@ import UIKit
 
 class LoginRegisterViewController: RoutedViewController {
     // MARK: - Text and Number Class Constants
-    let titleSize: CGFloat = 64.0
+    let titleSize: CGFloat
     let loginButtonOffset: CGFloat = 33.0
     let loginButtonHeight: CGFloat = 67.0
     let buttonText: String
@@ -39,6 +39,16 @@ class LoginRegisterViewController: RoutedViewController {
         label.font = R.font.economicaBold(size: titleSize)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var loginFailed: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = Colors.text
+        label.textAlignment = .center
+        label.font = R.font.economicaBold(size: 24)
+        label.text = "Error: Login Failed"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -88,6 +98,7 @@ class LoginRegisterViewController: RoutedViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(appTitle)
+        contentView.addSubview(loginFailed)
         contentView.addSubview(emailField)
         contentView.addSubview(passwordField)
         contentView.addSubview(loginRegisterButton)
@@ -112,11 +123,14 @@ class LoginRegisterViewController: RoutedViewController {
         appTitle.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
                                       constant: getSpaceAboveTitle()).isActive = true
+        
+        loginFailed.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: getSpaceBelowTitle()).isActive = true
+        loginFailed.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
 
         emailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         emailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        emailField.topAnchor.constraint(equalTo: appTitle.bottomAnchor,
-                                        constant: getSpaceBelowTitle()).isActive = true
+        emailField.topAnchor.constraint(equalTo: loginFailed.bottomAnchor,
+                                        constant: getTextFieldSeparation()).isActive = true
 
         passwordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor,
@@ -154,14 +168,16 @@ class LoginRegisterViewController: RoutedViewController {
         self.buttonText = "Button"
         self.onButtonTap = { _, _ in }
         self.screenTitle = "Title"
+        self.titleSize = 100
         super.init(coder: aDecoder)
     }
     init(buttonText: String,
-         screenTitle: String,
+         screenTitle: String, titleSize: CGFloat,
          onButtonTap: @escaping (_ email: String, _ password: String) -> Void) {
         self.buttonText = buttonText
         self.onButtonTap = onButtonTap
         self.screenTitle = screenTitle
+        self.titleSize = titleSize
         super.init(nibName: nil, bundle: nil)
     }
 }

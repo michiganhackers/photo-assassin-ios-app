@@ -12,7 +12,7 @@ import UIKit
 class ForgotPasswordViewController: ScrollingViewController {
     // MARK: - Text and number class constants
     let screenTitle = "Photo Assassin"
-    let titleSize: CGFloat = 110.0
+    let titleSize: CGFloat = 100.0
     let backgroundGradient = BackgroundGradient()
     let spaceAboveTitle: CGFloat = 40.0
     let spaceBelowTitle: CGFloat = 15.0

@@ -19,8 +19,9 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     let linkSpacing: CGFloat = 10.0
     let logoSpacing: CGFloat = 20.0
     let maxLogoSizeMultiplier: CGFloat = 0.5
-    let socialMediaButtonHeight: CGFloat = 50.0
+    let socialMediaButtonHeight: CGFloat = 80.0
     let socialMediaSpace: CGFloat = 20.0
+    let sizeOfText: CGFloat = 15.0
 
     // MARK: - UI Elements
     lazy var forgotPasswordLink: UIButton = {
@@ -34,18 +35,12 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         link.addTarget(self, action: #selector(registerLinkTapped), for: .touchUpInside)
         return link
     }()
-
-    lazy var assassinLogo: UIImageView = {
-        let logo = UIImageView(image: R.image.assassinLogo())
-        logo.translatesAutoresizingMaskIntoConstraints = false
-        return logo
-    }()
     
     lazy var googleRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.googleLogo() {
             button = SocialMediaLoginButton("continue with google",
-                                            height: socialMediaButtonHeight, image: image)
+                                            height: socialMediaButtonHeight, textSize: sizeOfText, image: image)
         } else {
             button = UIButton()
             button.setTitle("continue with google", for: .normal)
@@ -58,7 +53,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         var button: UIButton
         if let image = R.image.facebookLogo() {
             button = SocialMediaLoginButton("continue with facebook",
-                                            height: socialMediaButtonHeight, image: image)
+                                            height: socialMediaButtonHeight, textSize: sizeOfText,  image: image)
         } else {
             button = UIButton()
             button.setTitle("continue with facebook", for: .normal)
@@ -70,11 +65,10 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()
-        contentView.addSubview(forgotPasswordLink)
-        contentView.addSubview(registerLink)
-        contentView.addSubview(assassinLogo)
         contentView.addSubview(googleRegisterButton)
         contentView.addSubview(facebookRegisterButton)
+        contentView.addSubview(forgotPasswordLink)
+        contentView.addSubview(registerLink)
     }
 
     override func setUpConstraints() {
@@ -86,39 +80,31 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                                                  constant: loginButtonOffset).isActive = true
         loginRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-
-        forgotPasswordLink.topAnchor.constraint(
-            equalTo: loginRegisterButton.bottomAnchor,
-            constant: linkSpacing).isActive = true
-        forgotPasswordLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-
-        registerLink.topAnchor.constraint(
-            equalTo: loginRegisterButton.bottomAnchor,
-            constant: linkSpacing).isActive = true
-        registerLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-
-        assassinLogo.topAnchor.constraint(
-            equalTo: registerLink.bottomAnchor,
-            constant: logoSpacing).isActive = true
-        assassinLogo.centerXAnchor.constraint(
-            equalTo: margins.centerXAnchor).isActive = true
-        assassinLogo.widthAnchor.constraint(
-            lessThanOrEqualTo: margins.widthAnchor,
-            multiplier: maxLogoSizeMultiplier).isActive = true
-        assassinLogo.heightAnchor.constraint(equalTo: assassinLogo.widthAnchor).isActive = true
-        
-        googleRegisterButton.topAnchor.constraint(equalTo: assassinLogo.bottomAnchor,
+        googleRegisterButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor,
                                                   constant: socialMediaSpace).isActive = true
         googleRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        googleRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        facebookRegisterButton.topAnchor.constraint(equalTo: googleRegisterButton.bottomAnchor,
+        googleRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) + 15).isActive = true
+        //googleRegisterButton.heightAnchor.constraint(equalTo: loginRegisterButton.heightAnchor, constant: 50).isActive = true
+        
+        facebookRegisterButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor,
                                                     constant: socialMediaSpace).isActive = true
-        facebookRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        facebookRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) + 15).isActive = true
         facebookRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        //facebookRegisterButton.heightAnchor.constraint(equalTo: loginRegisterButton.heightAnchor, constant: 50).isActive = true
+        
+        forgotPasswordLink.topAnchor.constraint(
+            equalTo: googleRegisterButton.bottomAnchor,
+            constant: linkSpacing).isActive = true
+        forgotPasswordLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        
+        registerLink.topAnchor.constraint(
+            equalTo: googleRegisterButton.bottomAnchor,
+            constant: linkSpacing).isActive = true
+        registerLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
     override func getBottomSubview() -> UIView {
-        return facebookRegisterButton
+        return forgotPasswordLink
     }
 
     override func getSpaceAboveTitle() -> CGFloat {
@@ -130,7 +116,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     }
 
     override func getTextFieldSeparation() -> CGFloat {
-        return loginButtonOffset
+        return 12.0
     }
     
     // MARK: - Google Sign-In Methods
@@ -198,8 +184,8 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
 
     init() {
         super.init(
-            buttonText: "login",
-            screenTitle: "Photo Assassin") { (_ email: String, _ password: String) -> Void in
+            buttonText: "Log In",
+            screenTitle: "Photo Assassin", titleSize: 100) { (_ email: String, _ password: String) -> Void in
                 // Ignored
         }
         self.onButtonTap = { (_ email: String, _ password: String) in

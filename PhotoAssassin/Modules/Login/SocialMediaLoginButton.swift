@@ -11,7 +11,6 @@ import UIKit
 class SocialMediaLoginButton: UIButton {
     let borderWidth: CGFloat = 4.0
     let cornerRadius: CGFloat = 15.0
-    let textSize: CGFloat = 27.0
     let leftImageMargin: CGFloat = 10.0
 
     // This override is needed to align the social media logo to the left side
@@ -42,7 +41,7 @@ class SocialMediaLoginButton: UIButton {
         return imageRect.offsetBy(dx: -remainingWidth / 2.0, dy: 0.0)
     }
 
-    convenience init(_ label: String, height: CGFloat, image: UIImage) {
+    convenience init(_ label: String, height: CGFloat, textSize: CGFloat, image: UIImage) {
         self.init()
         setTitle(label, for: .normal)
         setTitleColor(Colors.seeThroughText, for: .normal)
@@ -63,5 +62,7 @@ class SocialMediaLoginButton: UIButton {
         heightAnchor.constraint(equalToConstant: height).isActive = true
 
         titleLabel?.font = R.font.economicaBold(size: textSize)
+        //titleLabel?.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
 }

@@ -20,6 +20,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     let linkSpacing: CGFloat = 10.0
     let socialMediaButtonHeight: CGFloat = 50.0
     let socialMediaSpace: CGFloat = 20.0
+    let sizeOfText: CGFloat = 27.0
 
     // MARK: - UI Elements
     lazy var confirmPasswordField: UITextField = {
@@ -38,7 +39,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         var button: UIButton
         if let image = R.image.googleLogo() {
             button = SocialMediaLoginButton("register with google",
-                                            height: socialMediaButtonHeight, image: image)
+                                            height: socialMediaButtonHeight, textSize: sizeOfText, image: image)
         } else {
             button = UIButton()
             button.setTitle("register with google", for: .normal)
@@ -51,7 +52,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         var button: UIButton
         if let image = R.image.facebookLogo() {
             button = SocialMediaLoginButton("register with facebook",
-                                            height: socialMediaButtonHeight, image: image)
+                                            height: socialMediaButtonHeight, textSize: sizeOfText, image: image)
         } else {
             button = UIButton()
             button.setTitle("register with facebook", for: .normal)
@@ -151,7 +152,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         googleRegisterButton.topAnchor.constraint(equalTo: haveAnAccountLink.bottomAnchor,
                         constant: socialMediaSpace).isActive = true
         googleRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        googleRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        googleRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true   
         facebookRegisterButton.topAnchor.constraint(equalTo: googleRegisterButton.bottomAnchor,
                         constant: socialMediaSpace).isActive = true
         facebookRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
@@ -173,7 +174,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     }
     init() {
         super.init(buttonText: "sign up",
-                   screenTitle: "Registration") { (_ email: String, _ password: String) -> Void in
+                   screenTitle: "Registration", titleSize: 64) { (_ email: String, _ password: String) -> Void in
             print("Attempted registration with email \(email) and password \(password)")
         }
     }
