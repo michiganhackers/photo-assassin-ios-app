@@ -83,12 +83,12 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         googleRegisterButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor,
                                                   constant: socialMediaSpace).isActive = true
         googleRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        googleRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) + 15).isActive = true
+        googleRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) - 10).isActive = true
         //googleRegisterButton.heightAnchor.constraint(equalTo: loginRegisterButton.heightAnchor, constant: 50).isActive = true
         
         facebookRegisterButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor,
                                                     constant: socialMediaSpace).isActive = true
-        facebookRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) + 15).isActive = true
+        facebookRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) - 10).isActive = true
         facebookRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         //facebookRegisterButton.heightAnchor.constraint(equalTo: loginRegisterButton.heightAnchor, constant: 50).isActive = true
         

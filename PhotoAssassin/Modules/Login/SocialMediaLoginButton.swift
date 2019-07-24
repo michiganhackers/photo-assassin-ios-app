@@ -13,16 +13,16 @@ class SocialMediaLoginButton: UIButton {
     let cornerRadius: CGFloat = 15.0
     let leftImageMargin: CGFloat = 10.0
 
-    // This override is needed to align the social media logo to the left side
+    //  This override is needed to align the social media logo to the left side
     //  of the button. Normally, the button looks like this:
     //    ___________________________
     //   |        _____              |
     //   |       |Image| Title       |   (with the title and image centered)
     //   |       |_____|             |
     //   |___________________________|
-    // We can calculate the amount of "remaining width" - i.e. the width of the
+    //  We can calculate the amount of "remaining width" - i.e. the width of the
     //  button unused by the image, the label, and inset margins.
-    // We can then move the image to the left by remainingWidth / 2. This left-
+    //  We can then move the image to the left by remainingWidth / 2. This left-
     //  aligns the image, and although the label is no longer centered in the
     //  entire container, it still is centered in the space between the image
     //  and the right edge of the button:
@@ -62,7 +62,6 @@ class SocialMediaLoginButton: UIButton {
         heightAnchor.constraint(equalToConstant: height).isActive = true
 
         titleLabel?.font = R.font.economicaBold(size: textSize)
-        //titleLabel?.widthAnchor.constraint(equalToConstant: 300).isActive = true
         titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
 }
