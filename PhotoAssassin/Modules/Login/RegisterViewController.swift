@@ -15,7 +15,7 @@ import FirebaseAuth
 import GoogleSignIn
 import UIKit
 
-class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
+class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate, UITextViewDelegate {
     // MARK: - Text and Number Class Constants
     let linkSpacing: CGFloat = 10.0
     let socialMediaButtonHeight: CGFloat = 50.0
@@ -25,6 +25,9 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - UI Elements
     lazy var confirmPasswordField: UITextField = {
         let field = LoginTextField("confirm password", isSecure: true, isEmail: false)
+        field.delegate = self as? UITextFieldDelegate
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         return field
     }()
@@ -102,7 +105,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         routeTo(screen: .login)
     }
 
-    // MARK: - Google Sign-In Methods
+    // MARK: - Custom Functions
 
     // Handle errors
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
@@ -120,7 +123,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
               dismiss viewController: UIViewController!) {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()

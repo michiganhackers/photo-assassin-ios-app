@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginRegisterViewController: RoutedViewController {
+class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
     // MARK: - Text and Number Class Constants
     let titleSize: CGFloat
     let loginButtonOffset: CGFloat = 33.0
@@ -55,11 +55,17 @@ class LoginRegisterViewController: RoutedViewController {
 
     lazy var emailField: UITextField = {
         let field = LoginTextField("email", isSecure: false, isEmail: true)
+        field.delegate = self as? UITextFieldDelegate
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         return field
     }()
     lazy var passwordField: UITextField = {
         let field = LoginTextField("password", isSecure: true, isEmail: false)
+        field.delegate = self as? UITextFieldDelegate
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         return field
     }()
@@ -74,6 +80,11 @@ class LoginRegisterViewController: RoutedViewController {
     let backgroundGradient = BackgroundGradient()
 
     // MARK: - Custom Functions
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     func shouldEnableSignIn() -> Bool {
         return emailField.text != "" && passwordField.text != ""
     }

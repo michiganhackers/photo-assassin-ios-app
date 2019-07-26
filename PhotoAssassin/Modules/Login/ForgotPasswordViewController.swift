@@ -35,7 +35,6 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
     }()
     
     lazy var emailField: UITextField = {
-        //let field = LoginTextField("Email", isSecure: false, isEmail: true)
         let field = UserEnterTextField("Email")
         field.delegate = self as? UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false

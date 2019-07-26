@@ -119,7 +119,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         return 12.0
     }
     
-    // MARK: - Google Sign-In Methods
+    // MARK: - Custom Functions
     
     // Handle errors
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
