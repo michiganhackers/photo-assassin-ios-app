@@ -81,13 +81,15 @@ class SetupProfileViewController: ScrollingViewController {
         appTitle.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
                                       constant: spaceAboveTitle).isActive = true
-        appTitle.bottomAnchor.constraint(lessThanOrEqualTo: emailField.topAnchor,
+        appTitle.bottomAnchor.constraint(lessThanOrEqualTo: profilePicButton.topAnchor,
                                          constant: -spaceBelowTitle).isActive = true
         
-        emailField.bottomAnchor.constraint(equalTo: resetPasswordButton.topAnchor,
+        profilePicButton.
+        
+        nameField(equalTo: resetPasswordButton.topAnchor,
                                            constant: -buttonSpacing).isActive = true
-        emailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        emailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        nameField(equalTo: margins.leftAnchor).isActive = true
+        nameField(equalTo: margins.rightAnchor).isActive = true
         
         resetPasswordButton.bottomAnchor.constraint(equalTo: loginButton.topAnchor,
                                                     constant: -buttonSpacing).isActive = true
