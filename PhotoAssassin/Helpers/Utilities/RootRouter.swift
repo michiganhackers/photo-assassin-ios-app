@@ -43,6 +43,7 @@ class RootRouter {
         case login
         case register
         case menu
+        case setupProfile
     }
 
     // MARK: - Public Functions
@@ -57,6 +58,8 @@ class RootRouter {
             controller = loginVC
         case .register:
             controller = registerVC
+        case .setupProfile:
+            controller = SetupProfileViewController()
         case .menu:
             controller = menuNavVC
             menuNavVC.popToRootViewController(animated: false)

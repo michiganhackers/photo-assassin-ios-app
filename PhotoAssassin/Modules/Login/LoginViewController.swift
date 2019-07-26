@@ -141,7 +141,8 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - Event Listeners
     @objc
     func registerLinkTapped() {
-        routeTo(screen: .register)
+        let vc = SetupProfileViewController()
+        routeTo(screen: .setupProfile)
     }
 
     @objc
