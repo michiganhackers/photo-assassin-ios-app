@@ -11,11 +11,12 @@ import UIKit
 
 // MARK: - Global Variables
 var userFullName = ""
+var userProfileImage = UIImage()
 
-class SetupProfileViewController: ScrollingViewController {
+class SetupProfileViewController: ScrollingViewController, UITextViewDelegate {
     // MARK: - Text and Number Class Constants
     let screenTitle = "Registration"
-    let titleSize: CGFloat = 100.0
+    let titleSize: CGFloat = 64.0
     let backgroundGradient = BackgroundGradient()
     let spaceAboveTitle: CGFloat = 40.0
     let spaceBelowTitle: CGFloat = 15.0
@@ -45,36 +46,47 @@ class SetupProfileViewController: ScrollingViewController {
         
         let cameraView = UILabel(frame: .zero)
         cameraView.addSubview(button)
+        cameraView.translatesAutoresizingMaskIntoConstraints = false
         
         let finalButton = UIButton()
         finalButton.setBackgroundImage(R.image.profileLogo(), for: .normal)
+        finalButton.translatesAutoresizingMaskIntoConstraints = false
         finalButton.addSubview(cameraView)
         cameraView.topAnchor.constraint(equalTo: finalButton.topAnchor).isActive = true
         cameraView.rightAnchor.constraint(equalTo: finalButton.rightAnchor).isActive = true
-        
         return finalButton
+    }()
+    
+    lazy var nameField: UITextField = {
+        let field = LoginTextField("Full Name", isSecure: false, isEmail: false)
+        field.delegate = self as? UITextFieldDelegate
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.returnKeyType = .done
+        field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
+        return field
     }()
     
     lazy var continueButton: UIButton = {
         let button = LoginRegisterButton("Continue", height: continueHeight)
         button.isEnabled = false
         button.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }()
-    
-    lazy var nameField: UITextField = {
-        let field = LoginTextField("Full Name", isSecure: false, isEmail: false)
-        field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
-        return field
     }()
     
     lazy var accountLink: UIButton = {
         let button = TransitionLinkButton("Have an account? Log in")
         button.addTarget(self, action: #selector(hasAccountTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     // MARK: - Custom Functions
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     func addSubviews() {
         contentView.addSubview(appTitle)
         contentView.addSubview(profilePicButton)
@@ -86,7 +98,7 @@ class SetupProfileViewController: ScrollingViewController {
     
     func setUpConstraints() {
         let margins = contentView.layoutMarginsGuide
-        /*
+        
         appTitle.widthAnchor.constraint(lessThanOrEqualTo: margins.widthAnchor).isActive = true
         appTitle.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
@@ -94,28 +106,25 @@ class SetupProfileViewController: ScrollingViewController {
         appTitle.bottomAnchor.constraint(lessThanOrEqualTo: profilePicButton.topAnchor,
                                          constant: -spaceBelowTitle).isActive = true
         
-        profilePicButton.
+        profilePicButton.widthAnchor.constraint(lessThanOrEqualTo: margins.widthAnchor).isActive = true
+        profilePicButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        profilePicButton.bottomAnchor.constraint(lessThanOrEqualTo: nameField.topAnchor,
+                                         constant: -spaceBelowTitle).isActive = true
         
-        nameField(equalTo: resetPasswordButton.topAnchor,
-                                           constant: -buttonSpacing).isActive = true
-        nameField(equalTo: margins.leftAnchor).isActive = true
-        nameField(equalTo: margins.rightAnchor).isActive = true
-        
-        resetPasswordButton.bottomAnchor.constraint(equalTo: loginButton.topAnchor,
+        nameField.bottomAnchor.constraint(equalTo: continueButton.topAnchor,
                                                     constant: -buttonSpacing).isActive = true
-        resetPasswordButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        resetPasswordButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        nameField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        nameField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         
-        loginButton.bottomAnchor.constraint(equalTo: noAccountLink.topAnchor,
+        continueButton.bottomAnchor.constraint(equalTo: accountLink.topAnchor,
                                             constant: -buttonSpacing).isActive = true
-        loginButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        loginButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        continueButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        continueButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         
-        noAccountLink.bottomAnchor.constraint(equalTo: margins.bottomAnchor,
+        accountLink.bottomAnchor.constraint(equalTo: margins.bottomAnchor,
                                               constant: -spacingFromBottom).isActive = true
-        noAccountLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        noAccountLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
- */
+        accountLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        accountLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
     
     // MARK: - Event Listeners
@@ -132,6 +141,7 @@ class SetupProfileViewController: ScrollingViewController {
     @objc
     func continueTapped() {
         userFullName = nameField.text ?? ""
+        //userProfileImage = profilePicButton
         routeTo(screen: .register)
     }
     
