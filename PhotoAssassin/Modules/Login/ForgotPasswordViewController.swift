@@ -136,7 +136,7 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
 
     @objc
     func noAccountTapped() {
-        routeTo(screen: .register)
+        routeTo(screen: .setupProfile)
     }
 
     @objc
