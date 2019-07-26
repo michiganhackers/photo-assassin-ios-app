@@ -413,11 +413,11 @@
 				EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */,
 				E9918A312228B78700691ABA /* LoginViewController.swift */,
 				E9A60AC8223B28F200D71AA8 /* RegisterViewController.swift */,
+				F32791A822E7122200E92915 /* SetupProfileViewController.swift */,
 				E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */,
 				E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */,
 				E9EB1C8A2220E7ED00424DB9 /* LoginTextField.swift */,
 				E9CD529E2221C13300135999 /* LoginRegisterButton.swift */,
-				F32791A822E7122200E92915 /* SetupProfileViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -690,7 +690,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
+				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

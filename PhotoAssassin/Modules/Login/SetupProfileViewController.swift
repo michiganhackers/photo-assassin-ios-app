@@ -39,10 +39,20 @@ class SetupProfileViewController: ScrollingViewController {
     
     lazy var profilePicButton: UIView = {
         let button = UIButton()
-        button.setImage(UIImage(), for: .normal)
+        button.setImage(R.image.addPhotoIcon(), for: .normal)
+        button.tintColor = UIColor.clear
         button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-        //let imageView =
+        
+        let cameraView = UILabel(frame: .zero)
+        cameraView.addSubview(button)
+        
+        let finalButton = UIButton()
+        finalButton.setBackgroundImage(R.image.profileLogo(), for: .normal)
+        finalButton.addSubview(cameraView)
+        cameraView.topAnchor.constraint(equalTo: finalButton.topAnchor).isActive = true
+        cameraView.rightAnchor.constraint(equalTo: finalButton.rightAnchor).isActive = true
+        
+        return finalButton
     }()
     
     lazy var continueButton: UIButton = {

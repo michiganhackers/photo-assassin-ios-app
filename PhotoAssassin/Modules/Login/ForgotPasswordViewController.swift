@@ -10,9 +10,9 @@ import FirebaseAuth
 import UIKit
 
 class ForgotPasswordViewController: ScrollingViewController {
-    // MARK: - Text and number class constants
-    let screenTitle = "Photo Assassin"
-    let titleSize: CGFloat = 100.0
+    // MARK: - Text and Number Class Constants
+    let screenTitle = "Reset Password"
+    let titleSize: CGFloat = 80.0
     let backgroundGradient = BackgroundGradient()
     let spaceAboveTitle: CGFloat = 40.0
     let spaceBelowTitle: CGFloat = 15.0
@@ -20,21 +20,7 @@ class ForgotPasswordViewController: ScrollingViewController {
     let buttonSpacing: CGFloat = 35.0
     let spacingFromBottom: CGFloat = 10
 
-    // MARK: - UI elements
-    lazy var resetPasswordButton: UIButton = {
-        let button = LoginRegisterButton("Reset Password", height: resetPasswordHeight)
-        button.isEnabled = false
-        button.addTarget(self, action: #selector(resetPasswordTapped), for: .touchUpInside)
-        return button
-    }()
-
-    lazy var loginButton: UIButton = {
-        let button = LoginRegisterButton("Log In", height: resetPasswordHeight)
-        button.isEnabled = true
-        button.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
-        return button
-    }()
-
+    // MARK: - UI Elements
     lazy var appTitle: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = screenTitle
@@ -47,26 +33,39 @@ class ForgotPasswordViewController: ScrollingViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     lazy var emailField: UITextField = {
         let field = LoginTextField("Email", isSecure: false, isEmail: true)
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         return field
     }()
-
+    
+    lazy var resetPasswordButton: UIButton = {
+        let button = LoginRegisterButton("Reset Password", height: resetPasswordHeight)
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(resetPasswordTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var hasAccountLink: UIButton = {
+        let button = TransitionLinkButton("Have an account? Log in")
+        button.addTarget(self, action: #selector(hasAccountTapped), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var noAccountLink: UIButton = {
         let button = TransitionLinkButton("No account? Register")
         button.addTarget(self, action: #selector(noAccountTapped), for: .touchUpInside)
         return button
     }()
 
-    // MARK: - Custom functions
+    // MARK: - Custom Functions
     func addSubviews() {
         contentView.addSubview(appTitle)
         contentView.addSubview(emailField)
         contentView.addSubview(resetPasswordButton)
+        contentView.addSubview(hasAccountLink)
         contentView.addSubview(noAccountLink)
-        contentView.addSubview(loginButton)
         backgroundGradient.addToView(view)
     }
 
@@ -85,15 +84,15 @@ class ForgotPasswordViewController: ScrollingViewController {
         emailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         emailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        resetPasswordButton.bottomAnchor.constraint(equalTo: loginButton.topAnchor,
+        resetPasswordButton.bottomAnchor.constraint(equalTo: hasAccountLink.topAnchor,
                                                     constant: -buttonSpacing).isActive = true
         resetPasswordButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         resetPasswordButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        loginButton.bottomAnchor.constraint(equalTo: noAccountLink.topAnchor,
+        hasAccountLink.bottomAnchor.constraint(equalTo: noAccountLink.topAnchor,
                                             constant: -buttonSpacing).isActive = true
-        loginButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        loginButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        hasAccountLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        hasAccountLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
         noAccountLink.bottomAnchor.constraint(equalTo: margins.bottomAnchor,
                                               constant: -spacingFromBottom).isActive = true
@@ -108,7 +107,7 @@ class ForgotPasswordViewController: ScrollingViewController {
     }
 
     @objc
-    func loginTapped() {
+    func hasAccountTapped() {
         routeTo(screen: .login)
     }
 
