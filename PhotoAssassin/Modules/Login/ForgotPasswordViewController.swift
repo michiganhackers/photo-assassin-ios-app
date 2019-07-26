@@ -9,7 +9,7 @@
 import FirebaseAuth
 import UIKit
 
-class ForgotPasswordViewController: ScrollingViewController {
+class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate {
     // MARK: - Text and Number Class Constants
     let screenTitle = "Reset Password"
     let titleSize: CGFloat = 80.0
@@ -35,7 +35,11 @@ class ForgotPasswordViewController: ScrollingViewController {
     }()
     
     lazy var emailField: UITextField = {
-        let field = LoginTextField("Email", isSecure: false, isEmail: true)
+        //let field = LoginTextField("Email", isSecure: false, isEmail: true)
+        let field = UserEnterTextField("Email")
+        field.delegate = self as? UITextFieldDelegate
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         return field
     }()
@@ -99,8 +103,27 @@ class ForgotPasswordViewController: ScrollingViewController {
         noAccountLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         noAccountLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Checks if input String is a valid email
+    func isValid(_ email: String) -> Bool {
+        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" +
+            "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
+            "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" +
+            "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5" +
+            "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" +
+            "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
+            "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
+        return emailTest.evaluate(with: email)
+    }
 
-    // MARK: - Event listeners
+    // MARK: - Event Listeners
     @objc
     func fieldEdited() {
         resetPasswordButton.isEnabled = emailField.text != ""
@@ -119,19 +142,30 @@ class ForgotPasswordViewController: ScrollingViewController {
     @objc
     func resetPasswordTapped() {
         let email = emailField.text ?? ""
-        Auth.auth().sendPasswordReset(withEmail: email) { error in
-            var alertText = "An email with instructions for resetting your " +
-                "password has been sent to " + email + "."
-            var alertTitle = "Success"
-            if let theError = error {
-                alertTitle = "Error"
-                print("Error with password reset: \(theError.localizedDescription)")
-                alertText = "An error occurred while resetting your password."
+        
+        if isValid(email) {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                var alertText = "An email with instructions for resetting your " +
+                    "password has been sent to " + email + "."
+                var alertTitle = "Success"
+                if let theError = error {
+                    alertTitle = "Error"
+                    print("Error with password reset: \(theError.localizedDescription)")
+                    alertText = "An error occurred while resetting your password."
+                }
+                let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertVC, animated: true, completion: nil)
             }
-            let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+        } else {
+            print("Invalid Email")
+            
+            // Show invalid email notification
+            let alertVC = UIAlertController(title: "Error", message: "Invalid Email", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }
+        
     }
 
     // MARK: - Overrides

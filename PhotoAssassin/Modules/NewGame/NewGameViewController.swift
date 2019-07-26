@@ -9,11 +9,11 @@
 import UIKit
 
 class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
-    // MARK: - String and number constants
+    // MARK: - String and Number Constants
     let pickerButtonSpacing: CGFloat = 10.0
     let mainTextSize: CGFloat = 36.0
 
-    // MARK: - UI elements
+    // MARK: - UI Elements
     lazy var createButton: UIButton = {
         let button = TranslucentButton("Create")
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -96,14 +96,14 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
         ]
     )
 
-    // MARK: - Nested types
+    // MARK: - Nested Types
     enum GameStartTime {
         case tenMinutes
         case thirtyMinutes
         case oneHour
     }
 
-    // MARK: - Custom functions
+    // MARK: - Custom Functions
     @objc
     func bringToCreate() {
         print("TODO: Create a new game")
