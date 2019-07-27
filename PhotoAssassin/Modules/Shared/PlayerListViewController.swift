@@ -10,7 +10,7 @@ import UIKit
 
 class PlayerListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private var gradient: SubsectionGradient?
-    private let players: [Player]
+    private var players: [Player]
     private let cornerRadius: CGFloat = 15.0
     private let onPlayerSelected: ((Player, Int) -> Void)?
 
@@ -27,15 +27,18 @@ class PlayerListViewController: UIViewController, UITableViewDataSource, UITable
         return "playerListReuseIdentifier"
     }
 
+    func update(newPlayers: [Player]) {
+        self.players = newPlayers
+        self.tableView.reloadData()
+    }
+
     // MARK: - Table view data source/delegate methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> PlayerListCell {
         let maybeCell = tableView.dequeueReusableCell(withIdentifier: getReuseIdentifier())
-        if let cell = maybeCell as? PlayerListCell {
-            cell.textLabel?.text = players[indexPath.row].name
-            return cell
-        }
-        let cell = PlayerListCell()
-        cell.textLabel?.text = players[indexPath.row].name
+        var cell: PlayerListCell
+        cell = maybeCell as? PlayerListCell ?? PlayerListCell()
+        cell.textLabel?.text = players[indexPath.row].username
+        cell.accessoryView = ChangeFriendStatusAccessory(player: players[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

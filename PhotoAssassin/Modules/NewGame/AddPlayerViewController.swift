@@ -115,9 +115,9 @@ class AddPlayerViewController: UIViewController {
 
     let nearbyPlayersVC = InvitePlayerListViewController(
         players: [
-            (Player(username: "benjamincarney", name: "Ben", relationship: .none, bio: "Ben's bio"), .notInvited),
-            (Player(username: "calvin", name: "Calvin", relationship: .friend, bio: "Calvin's bio"), .invited),
-            (Player(username: "brandon", name: "Brandon", relationship: .friend, bio: "Brandon's bio"), .playing)
+            (Player(username: "benjamincarney", relationship: .none), .notInvited),
+            (Player(username: "calvin", relationship: .friend), .invited),
+            (Player(username: "brandon", relationship: .friend), .playing)
         ]
     )
 

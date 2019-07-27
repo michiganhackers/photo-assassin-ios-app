@@ -30,11 +30,11 @@ class SocialViewController: NavigatingViewController {
 
     lazy var playerList = PlayerListViewController(
         players: [
-            Player(username: "benjamincarney", name: "Ben", relationship: .none, bio: "Ben's bio"),
-            Player(username: "phoebe", name: "Phoebe", relationship: .friend, bio: "Phoebe's bio"),
-            Player(username: "casper-h", name: "Casper", relationship: .friend, bio: "Casper's bio"),
-            Player(username: "tanner", name: "Tanner", relationship: .none, bio: "Tanner's bio"),
-            Player(username: "thomasebsmith", name: "Thomas", relationship: .none, bio: "Thomas's bio")
+            Player(username: "benjamincarney", relationship: .none),
+            Player(username: "phoebe", relationship: .friend),
+            Player(username: "casper-h", relationship: .friend),
+            Player(username: "tanner", relationship: .none),
+            Player(username: "thomasebsmith", relationship: .none)
         ],
         hasGradientBackground: false
     ) { player, _ in

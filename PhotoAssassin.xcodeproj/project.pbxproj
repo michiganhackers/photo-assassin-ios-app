@@ -31,6 +31,8 @@
 		E925D6FD2256C2A2008F266B /* SubsectionGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6FC2256C2A2008F266B /* SubsectionGradient.swift */; };
 		E925D6FF2256C585008F266B /* TranslucentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6FE2256C585008F266B /* TranslucentButton.swift */; };
 		E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */; };
+		E931468622ECEEFA00206A41 /* PlayerProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931468522ECEEFA00206A41 /* PlayerProfileButton.swift */; };
+		E931468A22ECFC3500206A41 /* ChangeFriendStatusAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931468922ECFC3500206A41 /* ChangeFriendStatusAccessory.swift */; };
 		E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */; };
 		E93936792254252D0041A37B /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93936782254252D0041A37B /* ScrollingViewController.swift */; };
 		E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942295D224067A8000D64DB /* RoutedViewController.swift */; };
@@ -128,6 +130,8 @@
 		E925D6FC2256C2A2008F266B /* SubsectionGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsectionGradient.swift; sourceTree = "<group>"; };
 		E925D6FE2256C585008F266B /* TranslucentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentButton.swift; sourceTree = "<group>"; };
 		E92F9BFD223B367D0045E52A /* SocialMediaLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLoginButton.swift; sourceTree = "<group>"; };
+		E931468522ECEEFA00206A41 /* PlayerProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfileButton.swift; sourceTree = "<group>"; };
+		E931468922ECFC3500206A41 /* ChangeFriendStatusAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeFriendStatusAccessory.swift; sourceTree = "<group>"; };
 		E93545E3221F89D800F2CC2F /* LoginRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewController.swift; sourceTree = "<group>"; };
 		E93936782254252D0041A37B /* ScrollingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
 		E942295D224067A8000D64DB /* RoutedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutedViewController.swift; sourceTree = "<group>"; };
@@ -439,6 +443,8 @@
 				E97F00DB2257F9E100FF8401 /* PickerViewController.swift */,
 				E9E45AE622C7AED300663744 /* TranslucentLabel.swift */,
 				E93936782254252D0041A37B /* ScrollingViewController.swift */,
+				E931468522ECEEFA00206A41 /* PlayerProfileButton.swift */,
+				E931468922ECFC3500206A41 /* ChangeFriendStatusAccessory.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				E97FD39A22592BCD0027B8EF /* PickerButton.swift in Sources */,
 				E925D6FD2256C2A2008F266B /* SubsectionGradient.swift in Sources */,
 				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
+				E931468A22ECFC3500206A41 /* ChangeFriendStatusAccessory.swift in Sources */,
 				E9FC861A2262575C000C5832 /* InviteAccessoryButton.swift in Sources */,
 				EEC0D5602256CCDD00A820E8 /* LobbiesViewController.swift in Sources */,
 				E9C72B4622BEF47F00FC21EB /* SettingsViewController.swift in Sources */,
@@ -811,6 +818,7 @@
 				E97F00DC2257F9E100FF8401 /* PickerViewController.swift in Sources */,
 				E95AE4CD2257D0520030D35B /* NavigatingViewController.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
+				E931468622ECEEFA00206A41 /* PlayerProfileButton.swift in Sources */,
 				E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */,
 				E93936792254252D0041A37B /* ScrollingViewController.swift in Sources */,
 				E9CD529F2221C13300135999 /* LoginRegisterButton.swift in Sources */,

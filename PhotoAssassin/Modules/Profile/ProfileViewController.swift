@@ -10,9 +10,6 @@ import UIKit
 
 class ProfileViewController: NavigatingViewController {
     // MARK: - Class members
-    let addFriendWidthMultiplier: CGFloat = 0.6
-    let bioSpacing: CGFloat = 20.0
-    lazy var blockWidthMultiplier: CGFloat = 1 - addFriendWidthMultiplier
     let horizontalButtonSpacing: CGFloat = 10.0
     let imageWidthMultiplier: CGFloat = 0.35
     let imageMargin: CGFloat = 15.0
@@ -34,6 +31,10 @@ class ProfileViewController: NavigatingViewController {
         .foregroundColor: Colors.text,
         .font: R.font.economicaBold.orDefault(size: 36.0)
     ]
+    let fadedHeadingAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: Colors.seeThroughText,
+        .font: R.font.economicaBold.orDefault(size: 36.0)
+    ]
     let player: Player
 
     // MARK: - UI elements
@@ -45,12 +46,7 @@ class ProfileViewController: NavigatingViewController {
         return view
     }()
 
-    lazy var nameLabel = UILabel(player.name, attributes: headingAttributes)
-
-    lazy var usernameLeftLabel = UILabel("Username:", attributes: fadedBodyAttributes)
-    lazy var usernameRightLabel = UILabel(player.username,
-                                          attributes: fadedBodyAttributes,
-                                          align: .right)
+    lazy var usernameLabel = UILabel(player.username, attributes: headingAttributes)
 
     lazy var gamesWonLeftLabel = UILabel("Games Won:", attributes: fadedBodyAttributes)
     lazy var gamesWonRightLabel = UILabel(String(player.stats?.gamesWon ?? 0),
@@ -78,15 +74,16 @@ class ProfileViewController: NavigatingViewController {
         align: .right
     )
 
-    lazy var addFriendButton: UIButton = {
-        let button = TranslucentButton("Add Friend")
-        button.isEnabled = player.canAddAsFriend()
+    lazy var changeFriendStatusButton: UIButton = {
+        let text = player.relationship == .friend ? "Unfriend" : "Add Friend"
+        let button = TranslucentButton(text)
+        button.addTarget(self, action: #selector(changeFriendStatus), for: .touchUpInside)
         return button
     }()
 
-    lazy var blockButton: UIButton = {
-        let button = TranslucentButton("Block")
-        button.isEnabled = player.canBlock()
+    lazy var historyButton: UIButton = {
+        let button = TranslucentButton("Game History")
+        button.addTarget(self, action: #selector(openGameHistory), for: .touchUpInside)
         return button
     }()
 
@@ -98,19 +95,15 @@ class ProfileViewController: NavigatingViewController {
         return line
     }()
 
-    lazy var bioLabel = UILabel("Bio", attributes: headingAttributes, align: .center)
-    lazy var bioContent: UILabel = {
-        let label = UILabel(player.bio, attributes: bodyAttributes)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var friendsLabel = UILabel("Friends", attributes: fadedHeadingAttributes, align: .left)
+    lazy var friendList = PlayerListViewController(players: [], hasGradientBackground: false) { player, _ in
+        self.push(navigationScreen: .profile(player))
+    }
 
     // MARK: - Custom functions
     func addSubviews() {
         view.addSubview(profilePicture)
-        view.addSubview(nameLabel)
-        view.addSubview(usernameLeftLabel)
-        view.addSubview(usernameRightLabel)
+        view.addSubview(usernameLabel)
         view.addSubview(gamesWonLeftLabel)
         view.addSubview(gamesWonRightLabel)
         view.addSubview(winPercentLeftLabel)
@@ -119,11 +112,13 @@ class ProfileViewController: NavigatingViewController {
         view.addSubview(percentileRightLabel)
         view.addSubview(killDeathRatioLeftLabel)
         view.addSubview(killDeathRatioRightLabel)
-        view.addSubview(addFriendButton)
-        view.addSubview(blockButton)
+        if player.relationship != .myself {
+            view.addSubview(changeFriendStatusButton)
+        }
+        view.addSubview(historyButton)
         view.addSubview(horizontalLine)
-        view.addSubview(bioLabel)
-        view.addSubview(bioContent)
+        view.addSubview(friendsLabel)
+        view.addSubview(friendList.view)
     }
 
     func addConsecutiveLabelConstraints(
@@ -181,15 +176,14 @@ class ProfileViewController: NavigatingViewController {
 
         profilePicture.heightAnchor.constraint(equalTo: profilePicture.widthAnchor).isActive = true
 
-        // Name label constraints
-        nameLabel.topAnchor.constraint(equalTo: margins.topAnchor,
-                                       constant: navBarSpacing).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: profilePicture.rightAnchor,
-                                        constant: imageMargin).isActive = true
+        // Username label constraints
+        usernameLabel.topAnchor.constraint(equalTo: margins.topAnchor,
+                                           constant: navBarSpacing).isActive = true
+        usernameLabel.leftAnchor.constraint(equalTo: profilePicture.rightAnchor,
+                                            constant: imageMargin).isActive = true
         // User info label constraints
         addConsecutiveLabelConstraints(
             labelPairs: [
-                (usernameLeftLabel, usernameRightLabel),
                 (gamesWonLeftLabel, gamesWonRightLabel),
                 (winPercentLeftLabel, winPercentRightLabel),
                 (percentileLeftLabel, percentileRightLabel),
@@ -197,57 +191,73 @@ class ProfileViewController: NavigatingViewController {
             ],
             left: profilePicture.rightAnchor,
             right: margins.rightAnchor,
-            top: nameLabel.bottomAnchor,
+            top: usernameLabel.bottomAnchor,
             marginLeft: imageMargin
         )
     }
 
-    func addButtonAndBioConstraints() {
+    @objc
+    func openGameHistory() {
+        print("TODO: Open game history")
+    }
+
+    @objc
+    func changeFriendStatus() {
+        print("TODO: Change friend status to isFriend == \(player.relationship != .friend)")
+    }
+
+    func addButtonAndFriendListConstraints() {
         let margins = view.layoutMarginsGuide
 
-        // "Add Friend"/"Block" button constraints
-        blockButton.topAnchor.constraint(
+        // "Add Friend"/"Unfriend"/"Game History" button constraints
+        historyButton.topAnchor.constraint(
             greaterThanOrEqualTo: profilePicture.bottomAnchor,
             constant: verticalButtonSpacing).isActive = true
-        let dynamicButtonY = NSLayoutConstraint(item: blockButton, attribute: .top,
+        let dynamicButtonY = NSLayoutConstraint(item: historyButton, attribute: .top,
                            relatedBy: .equal, toItem: killDeathRatioLeftLabel, attribute: .bottom,
                            multiplier: 1.0, constant: verticalButtonSpacing)
         dynamicButtonY.priority = .defaultLow
         dynamicButtonY.isActive = true
 
-        blockButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        blockButton.widthAnchor.constraint(
-            equalTo: margins.widthAnchor,
-            multiplier: blockWidthMultiplier,
-            constant: -horizontalButtonSpacing / 2.0).isActive = true
-
-        addFriendButton.topAnchor.constraint(
-            equalTo: blockButton.topAnchor).isActive = true
-        addFriendButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        addFriendButton.widthAnchor.constraint(
-            equalTo: margins.widthAnchor,
-            multiplier: addFriendWidthMultiplier,
-            constant: -horizontalButtonSpacing / 2.0).isActive = true
+        historyButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        if player.relationship == .myself {
+            historyButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        } else {
+            historyButton.widthAnchor.constraint(
+                equalTo: margins.widthAnchor,
+                multiplier: 0.5,
+                constant: -horizontalButtonSpacing / 2.0).isActive = true
+            changeFriendStatusButton.topAnchor.constraint(
+                equalTo: historyButton.topAnchor).isActive = true
+            changeFriendStatusButton.leftAnchor.constraint(
+                equalTo: margins.leftAnchor).isActive = true
+            changeFriendStatusButton.widthAnchor.constraint(
+                equalTo: margins.widthAnchor,
+                multiplier: 0.5,
+                constant: -horizontalButtonSpacing / 2.0).isActive = true
+        }
 
         // Horizontal line constraints
         horizontalLine.topAnchor.constraint(
-            equalTo: addFriendButton.bottomAnchor,
+            equalTo: historyButton.bottomAnchor,
             constant: verticalButtonSpacing).isActive = true
         horizontalLine.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         horizontalLine.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        // Bio constraints
-        bioLabel.topAnchor.constraint(equalTo: horizontalLine.bottomAnchor,
-                                      constant: bioSpacing).isActive = true
-        bioLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        bioContent.topAnchor.constraint(equalTo: bioLabel.bottomAnchor).isActive = true
-        bioContent.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        bioContent.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        // Friend list constraints
+        friendsLabel.topAnchor.constraint(
+            equalTo: horizontalLine.bottomAnchor,
+            constant: verticalButtonSpacing).isActive = true
+        friendsLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        friendList.view.topAnchor.constraint(equalTo: friendsLabel.bottomAnchor).isActive = true
+        friendList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        friendList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        friendList.view.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
 
     func addConstraints() {
         addImageAndLabelConstraints()
-        addButtonAndBioConstraints()
+        addButtonAndFriendListConstraints()
     }
 
     // MARK: - Overrides
@@ -268,5 +278,8 @@ class ProfileViewController: NavigatingViewController {
     init(player: Player) {
         self.player = player
         super.init(title: "Profile")
+        self.player.loadFriends { friends in
+            friendList.update(newPlayers: friends)
+        }
     }
 }

@@ -17,7 +17,6 @@ class Player {
         case playing
     }
     enum Relationship {
-        case blocked
         case friend
         case myself
         case none
@@ -40,9 +39,7 @@ class Player {
     // MARK: - Static members
     static var myself = Player(
         username: "hi_there_its_me",
-        name: "Me",
         relationship: .myself,
-        bio: "Hi. I'm me. I like to play Photo Assassin. This is my profile.",
         stats: Stats(
             deaths: 8,
             gamesWon: 1,
@@ -56,30 +53,34 @@ class Player {
     func canAddAsFriend() -> Bool {
         return relationship == .none
     }
-    func canBlock() -> Bool {
-        return relationship != .myself && relationship != .blocked
+
+    func loadFriends(completionHandler: ([Player]) -> Void) {
+        // TODO: Grab friends from Firebase based on username
+        let friends = [
+            Player(username: "dummy_friend_1", relationship: .friend),
+            Player(username: "dummy_2_me", relationship: .myself),
+            Player(username: "dummy_3...", relationship: .none)
+        ]
+        self.friends = friends
+        completionHandler(friends)
     }
 
     // MARK: - Public members
-    let username: String
-    let name: String
+    var username: String
+    var relationship: Relationship
+    var friends: [Player]?
     var profilePicture: UIImage?
-    let bio: String
-    let relationship: Relationship
     var stats: Stats?
 
     // MARK: - Initializers
+    // NOTE: Be careful to avoid reference loops with the array of friends.
     init(username: String,
-         name: String,
          relationship: Relationship,
-         bio: String,
          profilePicture: UIImage? = nil,
          stats: Stats? = nil
     ) {
         self.username = username
-        self.name = name
         self.relationship = relationship
-        self.bio = bio
         self.profilePicture = profilePicture
         self.stats = stats
     }

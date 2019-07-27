@@ -90,9 +90,9 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
 
     let playerList = NewGamePlayerListViewController(
         players: [
-            (Player(username: "benjamincarney", name: "Ben", relationship: .none, bio: "Ben's bio"), .playing),
-            (Player(username: "phoebe", name: "Phoebe", relationship: .friend, bio: "Phoebe's bio"), .notPlaying),
-            (Player(username: "casper-h", name: "Casper", relationship: .friend, bio: "Casper's bio"), .invited)
+            (Player(username: "benjamincarney", relationship: .none), .playing),
+            (Player(username: "phoebe", relationship: .friend), .notPlaying),
+            (Player(username: "casper-h", relationship: .friend), .invited)
         ]
     )
 
