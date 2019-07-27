@@ -81,13 +81,15 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate, 
                     return
                 }
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
-                Auth.auth().signInAndRetrieveData(with: credential) { (user, error) in
+                Auth.auth().signIn(with: credential) { (authResult, error) in
                     if let error = error {
                         print("Login error: \(error.localizedDescription)")
+                        return
                     }
+                    // User is signed in
+                    print("Logged in!")
+                    self.routeTo(screen: .camera)
                 }
-                print("Logged in!")
-                self.routeTo(screen: .camera)
             }
         }
     }
