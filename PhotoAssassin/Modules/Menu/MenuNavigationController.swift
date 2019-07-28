@@ -18,7 +18,6 @@ class MenuNavigationController: RoutedNavigationController {
     let newGameVC = NewGameViewController()
     let notificationsSettingsVC = NotificationsSettingsViewController()
     let settingsVC = SettingsViewController()
-    let socialVC = SocialViewController()
 
     enum Screen {
         case activeGames
@@ -29,7 +28,6 @@ class MenuNavigationController: RoutedNavigationController {
         case notificationsSettings
         case profile(Player)
         case settings
-        case social
     }
 
     func push(_ screen: Screen) {
@@ -51,8 +49,6 @@ class MenuNavigationController: RoutedNavigationController {
             viewControllerToPush = ProfileViewController(player: player)
         case .settings:
             viewControllerToPush = settingsVC
-        case .social:
-            viewControllerToPush = socialVC
         }
         pushViewController(viewControllerToPush, animated: true)
     }

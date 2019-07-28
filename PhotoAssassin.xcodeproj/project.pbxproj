@@ -51,7 +51,6 @@
 		E9BF8071225FFD4E002B11C3 /* PlayerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */; };
 		E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8072225FFEA7002B11C3 /* Player.swift */; };
 		E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */; };
-		E9BF8078226016DD002B11C3 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8077226016DD002B11C3 /* SocialViewController.swift */; };
 		E9C126D42260F67600015C9B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D32260F67600015C9B /* ProfileViewController.swift */; };
 		E9C126D6226107CC00015C9B /* UILabel+attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D5226107CC00015C9B /* UILabel+attributes.swift */; };
 		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
@@ -150,7 +149,6 @@
 		E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCell.swift; sourceTree = "<group>"; };
 		E9BF8072225FFEA7002B11C3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerListViewController.swift; sourceTree = "<group>"; };
-		E9BF8077226016DD002B11C3 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		E9C126D32260F67600015C9B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E9C126D5226107CC00015C9B /* UILabel+attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+attributes.swift"; sourceTree = "<group>"; };
 		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
@@ -281,7 +279,6 @@
 				F3C33E1A228FB379001F6FFA /* MainScreen */,
 				E9C72B4422BEF42800FC21EB /* Settings */,
 				E9C126D22260F65A00015C9B /* Profile */,
-				E9BF80762260167A002B11C3 /* Social */,
 				955DFEBF2256D84900DB40D8 /* NewGame */,
 				EE65636022446D6F00885F8B /* Menu */,
 				EEB40565224D937E004BD0D6 /* Lobby */,
@@ -447,14 +444,6 @@
 				E931468922ECFC3500206A41 /* ChangeFriendStatusAccessory.swift */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		E9BF80762260167A002B11C3 /* Social */ = {
-			isa = PBXGroup;
-			children = (
-				E9BF8077226016DD002B11C3 /* SocialViewController.swift */,
-			);
-			path = Social;
 			sourceTree = "<group>";
 		};
 		E9C126D22260F65A00015C9B /* Profile */ = {
@@ -771,7 +760,6 @@
 				E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
-				E9BF8078226016DD002B11C3 /* SocialViewController.swift in Sources */,
 				E97FD39C2259337B0027B8EF /* PickerViewCell.swift in Sources */,
 				E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,

@@ -24,7 +24,7 @@ class MenuViewController: NavigatingViewController {
     lazy var profileButton = UIBarButtonItem(image: R.image.profileLogo(),
                                              style: .plain,
                                              target: self,
-                                             action: #selector(bringToSocial))
+                                             action: #selector(bringToProfile))
 
     let historyButton = TranslucentButton("Find Game")
 
@@ -54,8 +54,8 @@ class MenuViewController: NavigatingViewController {
         push(navigationScreen: .settings)
     }
     @objc
-    func bringToSocial() {
-        push(navigationScreen: .social)
+    func bringToProfile() {
+        push(navigationScreen: .profile(Player.myself))
     }
     @objc
     func onSwipeRight(_ recognizer: UIGestureRecognizer) {

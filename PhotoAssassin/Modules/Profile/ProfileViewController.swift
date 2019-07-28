@@ -95,6 +95,21 @@ class ProfileViewController: NavigatingViewController {
         return line
     }()
 
+    lazy var userSearchField: UITextField = {
+        let field = UserEnterTextField("Search User")
+        let searchButton = UIButton(type: .custom)
+        searchButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        searchButton.setImage(R.image.search()?.withRenderingMode(.alwaysTemplate), for: .normal)
+        searchButton.addTarget(self, action: #selector(searchForUser), for: .touchUpInside)
+        field.rightView = searchButton
+        field.rightViewMode = .always
+        field.tintColor = Colors.text
+        field.returnKeyType = .search
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        return field
+    }()
+
     lazy var friendsLabel = UILabel("Friends", attributes: fadedHeadingAttributes, align: .left)
     lazy var friendList = PlayerListViewController(players: [], hasGradientBackground: false) { player, _ in
         self.push(navigationScreen: .profile(player))
@@ -114,6 +129,8 @@ class ProfileViewController: NavigatingViewController {
         view.addSubview(killDeathRatioRightLabel)
         if player.relationship != .myself {
             view.addSubview(changeFriendStatusButton)
+        } else {
+            view.addSubview(userSearchField)
         }
         view.addSubview(historyButton)
         view.addSubview(horizontalLine)
@@ -206,6 +223,14 @@ class ProfileViewController: NavigatingViewController {
         print("TODO: Change friend status to isFriend == \(player.relationship != .friend)")
     }
 
+    @objc
+    func searchForUser() {
+        if let username = userSearchField.text {
+            print("TODO: Find user with username \(username)")
+            push(navigationScreen: .profile(Player(username: username, relationship: .none)))
+        }
+    }
+
     func addButtonAndFriendListConstraints() {
         let margins = view.layoutMarginsGuide
 
@@ -224,30 +249,36 @@ class ProfileViewController: NavigatingViewController {
             historyButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         } else {
             historyButton.widthAnchor.constraint(
-                equalTo: margins.widthAnchor,
-                multiplier: 0.5,
+                equalTo: margins.widthAnchor, multiplier: 0.5,
                 constant: -horizontalButtonSpacing / 2.0).isActive = true
             changeFriendStatusButton.topAnchor.constraint(
                 equalTo: historyButton.topAnchor).isActive = true
             changeFriendStatusButton.leftAnchor.constraint(
                 equalTo: margins.leftAnchor).isActive = true
             changeFriendStatusButton.widthAnchor.constraint(
-                equalTo: margins.widthAnchor,
-                multiplier: 0.5,
+                equalTo: margins.widthAnchor, multiplier: 0.5,
                 constant: -horizontalButtonSpacing / 2.0).isActive = true
         }
 
         // Horizontal line constraints
-        horizontalLine.topAnchor.constraint(
-            equalTo: historyButton.bottomAnchor,
-            constant: verticalButtonSpacing).isActive = true
+        horizontalLine.topAnchor.constraint(equalTo: historyButton.bottomAnchor,
+                                            constant: verticalButtonSpacing).isActive = true
         horizontalLine.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         horizontalLine.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
+        if player.relationship == .myself {
+            userSearchField.topAnchor.constraint(equalTo: horizontalLine.bottomAnchor,
+                                                 constant: verticalButtonSpacing).isActive = true
+            userSearchField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+            userSearchField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+            friendsLabel.topAnchor.constraint(equalTo: userSearchField.bottomAnchor,
+                                              constant: verticalButtonSpacing).isActive = true
+        } else {
+            friendsLabel.topAnchor.constraint(equalTo: horizontalLine.bottomAnchor,
+                                              constant: verticalButtonSpacing).isActive = true
+        }
+
         // Friend list constraints
-        friendsLabel.topAnchor.constraint(
-            equalTo: horizontalLine.bottomAnchor,
-            constant: verticalButtonSpacing).isActive = true
         friendsLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         friendList.view.topAnchor.constraint(equalTo: friendsLabel.bottomAnchor).isActive = true
         friendList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
