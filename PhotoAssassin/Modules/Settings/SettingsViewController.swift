@@ -84,6 +84,7 @@ class SettingsViewController: NavigatingViewController,
         //Try Regular Signout
         do {
             try Auth.auth().signOut()
+            print("Signed out!")
         } catch {
             print("Error signing out. Redirecting to login screen anyway.")
         }
@@ -92,6 +93,7 @@ class SettingsViewController: NavigatingViewController,
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            print("Signed out!")
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
