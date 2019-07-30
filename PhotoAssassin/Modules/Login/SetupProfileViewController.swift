@@ -38,25 +38,42 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         return label
     }()
     
-    lazy var profilePicButton: UIView = {
+    lazy var profilePicButton: UIImageView = {
         let button = UIButton()
-        button.setImage(R.image.addPhotoIcon(), for: .normal)
-        button.tintColor = .white
+        button.setBackgroundImage(R.image.addPhotoIcon(), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(changePicture), for: .touchUpInside)
         
+        let view = UIImageView()
+        let tintedImage = R.image.profileLogo()?.withRenderingMode(.alwaysTemplate)
+        view.image = tintedImage
+        view.tintColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+        view.addSubview(button)
+        view.topAnchor.constraint(equalTo: button.topAnchor).isActive = true
+        view.rightAnchor.constraint(equalTo: button.rightAnchor).isActive = true
+        
+        /*
         let cameraView = UILabel(frame: .zero)
         cameraView.addSubview(button)
         cameraView.translatesAutoresizingMaskIntoConstraints = false
+        cameraView.topAnchor.constraint(equalTo: button.topAnchor).isActive = true
+        cameraView.rightAnchor.constraint(equalTo: button.rightAnchor).isActive = true
+        cameraView.leftAnchor.constraint(equalTo: button.leftAnchor).isActive = true
+        cameraView.bottomAnchor.constraint(equalTo: button.bottomAnchor).isActive = true
+        button.width.constraint(equalTo: )
         
         let finalButton = UIButton()
-        finalButton.setBackgroundImage(R.image.profileLogo(), for: .normal)
+        let tintedImage = R.image.profileLogo()?.withRenderingMode(.alwaysTemplate)
+        finalButton.setBackgroundImage(tintedImage, for: .normal)
         finalButton.tintColor = .white
         finalButton.translatesAutoresizingMaskIntoConstraints = false
         finalButton.addSubview(cameraView)
         cameraView.topAnchor.constraint(equalTo: finalButton.topAnchor).isActive = true
         cameraView.rightAnchor.constraint(equalTo: finalButton.rightAnchor).isActive = true
-        return finalButton
+        */
+        return view
     }()
     
     lazy var nameField: UITextField = {
