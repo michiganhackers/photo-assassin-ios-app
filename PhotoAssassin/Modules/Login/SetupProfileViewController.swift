@@ -41,8 +41,9 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
     lazy var profilePicButton: UIView = {
         let button = UIButton()
         button.setImage(R.image.addPhotoIcon(), for: .normal)
-        button.tintColor = UIColor.clear
+        button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(changePicture), for: .touchUpInside)
         
         let cameraView = UILabel(frame: .zero)
         cameraView.addSubview(button)
@@ -50,6 +51,7 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         
         let finalButton = UIButton()
         finalButton.setBackgroundImage(R.image.profileLogo(), for: .normal)
+        finalButton.tintColor = .white
         finalButton.translatesAutoresizingMaskIntoConstraints = false
         finalButton.addSubview(cameraView)
         cameraView.topAnchor.constraint(equalTo: finalButton.topAnchor).isActive = true
@@ -104,28 +106,22 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         appTitle.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
                                       constant: spaceAboveTitle).isActive = true
-        appTitle.bottomAnchor.constraint(lessThanOrEqualTo: profilePicButton.topAnchor,
-                                         constant: -spaceBelowTitle).isActive = true
         
-        profilePicButton.bottomAnchor.constraint(equalTo: nameField.topAnchor,
-                                         constant: -spaceBelowTitle).isActive = true
-        profilePicButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        profilePicButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        profilePicButton.heightAnchor.constraint(equalTo: margins.heightAnchor, constant: -4 * contentView.bounds.height / 5).isActive = true
+        profilePicButton.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: spaceBelowTitle).isActive = true
+        profilePicButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        profilePicButton.widthAnchor.constraint(equalTo: appTitle.widthAnchor, constant: -150).isActive = true
+        profilePicButton.heightAnchor.constraint(equalTo: appTitle.widthAnchor, constant: -150).isActive = true
         
-        
-        nameField.bottomAnchor.constraint(equalTo: continueButton.topAnchor,
-                                                    constant: -buttonSpacing).isActive = true
+        nameField.topAnchor.constraint(equalTo: profilePicButton.bottomAnchor, constant: buttonSpacing).isActive = true
         nameField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         nameField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         
-        continueButton.bottomAnchor.constraint(equalTo: hasAccountLink.topAnchor,
-                                            constant: -buttonSpacing).isActive = true
+        continueButton.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: buttonSpacing).isActive = true
         continueButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         continueButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         
-        hasAccountLink.bottomAnchor.constraint(equalTo: margins.bottomAnchor,
-                                              constant: -spacingFromBottom).isActive = true
+        hasAccountLink.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -spacingFromBottom).isActive = true
+        hasAccountLink.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: buttonSpacing).isActive = true
         hasAccountLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         hasAccountLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
@@ -147,6 +143,11 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         //userProfileImage = profilePicButton
         print("continue tapped")
         routeTo(screen: .register)
+    }
+    
+    @objc
+    func changePicture() {
+        print("Change picture")
     }
     
     // MARK: - Overrides
