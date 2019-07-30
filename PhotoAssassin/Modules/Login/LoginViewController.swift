@@ -26,12 +26,14 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - UI Elements
     lazy var forgotPasswordLink: UIButton = {
         let link = TransitionLinkButton("Forgot Password?")
+        link.translatesAutoresizingMaskIntoConstraints = false
         link.addTarget(self, action: #selector(forgotPasswordLinkTapped), for: .touchUpInside)
         return link
     }()
 
     lazy var registerLink: UIButton = {
         let link = TransitionLinkButton("Register")
+        link.translatesAutoresizingMaskIntoConstraints = false
         link.addTarget(self, action: #selector(registerLinkTapped), for: .touchUpInside)
         return link
     }()
@@ -45,6 +47,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             button = UIButton()
             button.setTitle("continue with google", for: .normal)
         }
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(googleLoginTapped), for: .touchUpInside)
         return button
     }()
@@ -58,6 +61,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             button = UIButton()
             button.setTitle("continue with facebook", for: .normal)
         }
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(facebookLoginTapped), for: .touchUpInside)
         return button
     }()
@@ -152,22 +156,39 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     
     @objc
     func facebookLoginTapped() {
-        print("Attempted Facebook login")
+        print("Attempted Facebook registration")
         let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [ReadPermission.publicProfile], viewController: self) { loginResult in
+        
+        // Log out
+        if let currentAccessToken = FBSDKAccessToken.current(), currentAccessToken.appID != FBSDKSettings.appID() {
+            loginManager.logOut()
+        }
+        
+        // Log in
+        loginManager.logIn(readPermissions: [ .publicProfile ], viewController: self) { loginResult in
             switch loginResult {
             case .failed(let error):
                 print(error)
             case .cancelled:
                 print("User cancelled login.")
-            case .success(_ /* let grantedPermissions */,
-                _ /* let declinedPermissions */,
-                _ /* let accessToken */):
+            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 print("Logged in!")
-                self.routeTo(screen: .camera)
+                guard let accessToken = FBSDKAccessToken.current() else {
+                    print("Failed to get access token")
+                    return
+                }
+                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+                Auth.auth().signIn(with: credential) { (authResult, error) in
+                    if let error = error {
+                        print("Login error: \(error.localizedDescription)")
+                        return
+                    }
+                    // User is signed in
+                    print("Logged in!")
+                    self.routeTo(screen: .camera)
+                }
             }
         }
-        
     }
     
     @objc

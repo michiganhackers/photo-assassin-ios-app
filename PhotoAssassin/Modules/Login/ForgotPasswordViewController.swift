@@ -46,18 +46,21 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
     lazy var resetPasswordButton: UIButton = {
         let button = LoginRegisterButton("Reset Password", height: resetPasswordHeight)
         button.isEnabled = false
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(resetPasswordTapped), for: .touchUpInside)
         return button
     }()
     
     lazy var hasAccountLink: UIButton = {
         let button = TransitionLinkButton("Have an account? Log in")
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(hasAccountTapped), for: .touchUpInside)
         return button
     }()
     
     lazy var noAccountLink: UIButton = {
         let button = TransitionLinkButton("No account? Register")
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(noAccountTapped), for: .touchUpInside)
         return button
     }()

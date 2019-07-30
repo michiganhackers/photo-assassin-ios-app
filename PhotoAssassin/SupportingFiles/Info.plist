@@ -21,8 +21,8 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c</string>
-				<string>fb325089728169540</string>
+                <string>com.googleusercontent.apps.924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c</string>
+				<string>fb306114270313529</string>
 			</array>
 		</dict>
 	</array>
@@ -31,9 +31,9 @@
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
 	<key>FacebookAppID</key>
-	<string>325089728169540</string>
+	<string>306114270313529</string>
 	<key>FacebookDisplayName</key>
-	<string>photoAssassin</string>
+	<string>Photo Assassin</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -44,7 +44,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>PhotoAssassin needs the user's camera to function</string>
+	<string>PhotoAssassin needs the user&apos;s camera to function</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PhotoAssassion needs access to your photos</string>
 	<key>UIAppFonts</key>

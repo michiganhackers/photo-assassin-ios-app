@@ -15,7 +15,7 @@ import FirebaseAuth
 import GoogleSignIn
 import UIKit
 
-class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate, UITextViewDelegate {
+class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - Text and Number Class Constants
     let linkSpacing: CGFloat = 10.0
     let socialMediaButtonHeight: CGFloat = 50.0
@@ -34,6 +34,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate, 
 
     lazy var haveAnAccountLink: UIButton = {
         let button = TransitionLinkButton("Have an account?")
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(haveAnAccountTapped), for: .touchUpInside)
         return button
     }()
@@ -47,6 +48,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate, 
             button = UIButton()
             button.setTitle("register with google", for: .normal)
         }
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(googleRegisterTapped), for: .touchUpInside)
         return button
     }()
@@ -60,6 +62,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate, 
             button = UIButton()
             button.setTitle("register with facebook", for: .normal)
         }
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(facebookRegisterTapped), for: .touchUpInside)
         return button
     }()
@@ -69,6 +72,13 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate, 
     func facebookRegisterTapped() {
         print("Attempted Facebook registration")
         let loginManager = LoginManager()
+        
+        // Log out
+        if let currentAccessToken = FBSDKAccessToken.current(), currentAccessToken.appID != FBSDKSettings.appID() {
+            loginManager.logOut()
+        }
+        
+        // Log in
         loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
             switch loginResult {
             case .failed(let error):
