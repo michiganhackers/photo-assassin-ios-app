@@ -12,6 +12,7 @@ target 'PhotoAssassin' do
   pod 'R.swift', '5.0.0'
   pod 'SwiftLint', '0.29.2'
   pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'FacebookCore', '~> 0.5.0'
   pod 'FacebookLogin', '~> 0.5.0'

@@ -17,6 +17,8 @@ PODS:
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.44.1):
     - FBSDKCoreKit
+  - Firebase/Analytics (5.20.1):
+    - Firebase/Core
   - Firebase/Auth (5.20.1):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.4.2)
@@ -98,6 +100,7 @@ DEPENDENCIES:
   - FacebookCore (~> 0.5.0)
   - FacebookLogin (~> 0.5.0)
   - FBSDKLoginKit
+  - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
   - GoogleSignIn
@@ -149,6 +152,6 @@ SPEC CHECKSUMS:
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   SwiftLint: 47df60bdea6e7e902b193b6596db8683aafd86a3
 
-PODFILE CHECKSUM: 876a811f7690afe01b519e808da38f9dc94142b3
+PODFILE CHECKSUM: 2201a81c62e1db51c9c66163f226ebaa255ad32c
 
 COCOAPODS: 1.7.0

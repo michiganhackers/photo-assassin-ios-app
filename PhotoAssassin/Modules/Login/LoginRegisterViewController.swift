@@ -7,6 +7,7 @@
 //  user is not logged in.
 
 import UIKit
+import Firebase
 
 class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
     // MARK: - Text and Number Class Constants
@@ -39,16 +40,6 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
         label.font = R.font.economicaBold(size: titleSize)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    lazy var loginFailed: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.textColor = Colors.text
-        label.textAlignment = .center
-        label.font = R.font.economicaBold(size: 24)
-        label.text = "Error: Login Failed"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -109,7 +100,6 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(appTitle)
-        contentView.addSubview(loginFailed)
         contentView.addSubview(emailField)
         contentView.addSubview(passwordField)
         contentView.addSubview(loginRegisterButton)
@@ -134,13 +124,10 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
         appTitle.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         appTitle.topAnchor.constraint(equalTo: margins.topAnchor,
                                       constant: getSpaceAboveTitle()).isActive = true
-        
-        loginFailed.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: getSpaceBelowTitle()).isActive = true
-        loginFailed.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
 
         emailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         emailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        emailField.topAnchor.constraint(equalTo: loginFailed.bottomAnchor,
+        emailField.topAnchor.constraint(equalTo: appTitle.bottomAnchor,
                                         constant: getTextFieldSeparation()).isActive = true
 
         passwordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
@@ -166,7 +153,22 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
     // MARK: - Event Handlers
     @objc
     func loginRegisterButtonTapped() {
-        onButtonTap(emailField.text ?? "", passwordField.text ?? "")
+        let email = emailField.text ?? ""
+        let password = passwordField.text ?? ""
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
+            guard let strongSelf = self else {
+                let alertTitle = "Error"
+                let alertText = "Login failed"
+                let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(alertVC, animated: true, completion: nil)
+                return
+            }
+            // ...
+            print("Signed In Successfully!")
+            self?.onButtonTap(email, password)
+        }
     }
 
     @objc

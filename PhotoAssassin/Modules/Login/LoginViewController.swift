@@ -169,8 +169,18 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             switch loginResult {
             case .failed(let error):
                 print(error)
+                let alertTitle = "Error"
+                let alertText = "Login failed"
+                let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertVC, animated: true, completion: nil)
             case .cancelled:
                 print("User cancelled login.")
+                let alertTitle = "Error"
+                let alertText = "Login cancelled"
+                let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertVC, animated: true, completion: nil)
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 print("Logged in!")
                 guard let accessToken = FBSDKAccessToken.current() else {
@@ -181,6 +191,11 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                 Auth.auth().signIn(with: credential) { (authResult, error) in
                     if let error = error {
                         print("Login error: \(error.localizedDescription)")
+                        let alertTitle = "Error"
+                        let alertText = "Login failed"
+                        let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+                        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alertVC, animated: true, completion: nil)
                         return
                     }
                     // User is signed in
