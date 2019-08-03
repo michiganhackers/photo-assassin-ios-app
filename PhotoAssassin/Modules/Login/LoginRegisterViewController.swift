@@ -155,18 +155,17 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
     func loginRegisterButtonTapped() {
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
-        
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
-            guard let strongSelf = self else {
-                let alertTitle = "Error"
-                let alertText = "Login failed"
-                let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self?.present(alertVC, animated: true, completion: nil)
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+           if error == nil {
+                print("Signed In Successfully!")
+                self.onButtonTap(email, password)
                 return
             }
-            print("Signed In Successfully!")
-            self?.onButtonTap(email, password)
+            let alertTitle = "Error"
+            let alertText = "Login failed"
+            let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
         }
     }
 
