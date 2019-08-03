@@ -123,6 +123,16 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         hasAccountLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
     
+    func isValidDisplayName(_ displayName: String) -> Bool {
+        let regex = "(?i)^(?![- '])(?![×Þß÷þø])[- '0-9a-zÀ-ÿ]+(?<![- '])$"
+        
+        if (displayName.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil && displayName.count >= 5 && displayName.count <= 20) {
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: - Event Listeners
     @objc
     func fieldEdited() {
@@ -136,10 +146,19 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
     
     @objc
     func continueTapped() {
-        userFullName = nameField.text ?? ""
-        //userProfileImage = profilePicButton
-        print("continue tapped")
-        routeTo(screen: .register)
+        //userProfileImage = profilePicButton as? UIImage
+        if (isValidDisplayName(nameField.text ?? "")) {
+            print("continue tapped")
+            userFullName = nameField.text ?? ""
+            routeTo(screen: .register)
+        } else {
+            print("Not a valid display name")
+            let alertTitle = "Invalid display name"
+            let alertText = "Choose a display name 5 and 20 characters and that contains only alphanumeric characters, spaces, hyphens, and apostrophes."
+            let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+        }
     }
     
     @objc
