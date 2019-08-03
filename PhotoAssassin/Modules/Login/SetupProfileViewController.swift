@@ -125,11 +125,9 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
     
     func isValidDisplayName(_ displayName: String) -> Bool {
         let regex = "(?i)^(?![- '])(?![×Þß÷þø])[- '0-9a-zÀ-ÿ]+(?<![- '])$"
-        
         if (displayName.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil && displayName.count >= 5 && displayName.count <= 20) {
             return true
         }
-        
         return false
     }
     
@@ -146,15 +144,17 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
     
     @objc
     func continueTapped() {
-        //userProfileImage = profilePicButton as? UIImage
         if (isValidDisplayName(nameField.text ?? "")) {
             print("continue tapped")
             userFullName = nameField.text ?? ""
+            //userProfileImage = profilePicButton
             routeTo(screen: .register)
         } else {
             print("Not a valid display name")
             let alertTitle = "Invalid display name"
-            let alertText = "Choose a display name 5 and 20 characters and that contains only alphanumeric characters, spaces, hyphens, and apostrophes."
+            let alertText = "Choose a display name betweeen 5 and 20 characters and that"
+                + "contains only alphanumeric characters, spaces, hyphens, and apostrophes."
+                + "Display name also cannot begin or end with a space, hyphen, or apostrophe"
             let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
