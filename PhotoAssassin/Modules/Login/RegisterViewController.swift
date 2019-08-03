@@ -90,6 +90,8 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                     print("Failed to get access token")
                     return
                 }
+                
+                // Register with Facebook!!
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
                 Auth.auth().signIn(with: credential) { (authResult, error) in
                     if let error = error {
@@ -107,6 +109,8 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     @objc
     func googleRegisterTapped() {
         print("Attempted Google registration")
+        // Register with Google
+        
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().signIn()
         //GIDSignIn.sharedInstance().signInSilently()
@@ -182,31 +186,67 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     override func getBottomSubview() -> UIView {
         return facebookRegisterButton
     }
+    
+    // Checks if input String is a valid email
+    func isValid(_ email: String) -> Bool {
+        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" +
+            "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
+            "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" +
+            "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5" +
+            "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" +
+            "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
+        "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
+        return emailTest.evaluate(with: email)
+    }
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
     init() {
         super.init(buttonText: "sign up",
                    screenTitle: "Registration", titleSize: 64) { (_ email: String, _ password: String) -> Void in
             print("Attempted registration with email \(email) and password \(password)")
         }
     }
+    
     @objc
     func user_Registration() {
         if let email = emailField.text, let password = passwordField.text {
             Auth.auth().createUser(withEmail: email, password: password) { _ /* user */, error in
                 if let firebaseError = error {
                     print(firebaseError.localizedDescription)
+                    let alertTitle = "Error"
+                    let alertText = "Registration failed"
+                    let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertVC, animated: true, completion: nil)
                     return
                 }
+                // TODO: Update user with full name
+                
+
+                // TODO: Update user with profile picture
                 print("Account Created!")
                 self.routeTo(screen: .camera)
             }
         }
     }
+    
     override func loginRegisterButtonTapped() {
-        user_Registration()
+        let password = passwordField.text ?? ""
+        let confirmPassword = confirmPasswordField.text ?? ""
+        if (isValid(emailField.text ?? "") && password.count >= 8 && password == confirmPassword) {
+            user_Registration()
+        } else {
+            let alertTitle = "Error"
+            let alertText = "Email must be valid, password must be at least 8 characters, and password and confirm password must be the same."
+            let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+        }
     }
 }
