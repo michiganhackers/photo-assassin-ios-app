@@ -35,6 +35,11 @@ class RootRouter {
         controller.router = self
         return controller
     }()
+    private lazy var setUpProfileVC: UIViewController = {
+        let controller = SetupProfileViewController()
+        controller.router = self
+        return controller
+    }()
 
     // MARK: - Nested Types
     enum Screen {
@@ -59,7 +64,7 @@ class RootRouter {
         case .register:
             controller = registerVC
         case .setupProfile:
-            controller = SetupProfileViewController()
+            controller = setUpProfileVC
         case .menu:
             controller = menuNavVC
             menuNavVC.popToRootViewController(animated: false)
