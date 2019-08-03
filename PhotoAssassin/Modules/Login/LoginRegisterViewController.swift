@@ -165,7 +165,6 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
                 self?.present(alertVC, animated: true, completion: nil)
                 return
             }
-            // ...
             print("Signed In Successfully!")
             self?.onButtonTap(email, password)
         }

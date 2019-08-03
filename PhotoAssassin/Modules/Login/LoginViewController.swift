@@ -142,6 +142,14 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 
+    func loginFailed() {
+        let alertTitle = "Error"
+        let alertText = "Login failed"
+        let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
     // MARK: - Event Listeners
     @objc
     func registerLinkTapped() {
@@ -168,11 +176,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             switch loginResult {
             case .failed(let error):
                 print(error)
-                let alertTitle = "Error"
-                let alertText = "Login failed"
-                let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertVC, animated: true, completion: nil)
+                self.loginFailed()
             case .cancelled:
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
@@ -185,11 +189,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                 Auth.auth().signIn(with: credential) { (authResult, error) in
                     if let error = error {
                         print("Login error: \(error.localizedDescription)")
-                        let alertTitle = "Error"
-                        let alertText = "Login failed"
-                        let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
-                        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(alertVC, animated: true, completion: nil)
+                        self.loginFailed()
                         return
                     }
                     // User is signed in
@@ -217,12 +217,6 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         super.init(
             buttonText: "Log In",
             screenTitle: "Photo Assassin", titleSize: 100) { (_ email: String, _ password: String) -> Void in
-                // Ignored
-        }
-        self.onButtonTap = { (_ email: String, _ password: String) in
-            Auth.auth().signIn(withEmail: email, password: password) { _ /* user */, _ /* error */ in
-                self.routeTo(screen: .camera)
-            }
         }
     }
 }
