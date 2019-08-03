@@ -26,4 +26,5 @@ public struct Colors {
     static let success = UIColor(hex: 0x28BC1B)
     static let failure = UIColor(hex: 0xFF0505)
     static let unknown = UIColor(hex: 0xFFF620)
+    static let crown = UIColor(hex: 0xFFFF00)
 }

@@ -8,7 +8,9 @@
 
 import UIKit
 
-class GameLobbyListCell: UITableViewCell {
+class GameLobbyListCell: UITableViewCell, GameDataCell {
+    typealias GameDataType = GameLobby
+
     static let horizontalMargin: CGFloat = 15.0
     static let textSize: CGFloat = 36.0
     static let cellReuseIdentifer = "gameLobbyCell"
@@ -16,19 +18,23 @@ class GameLobbyListCell: UITableViewCell {
 
     let playerCountLabel = UILabel(frame: .zero)
 
+    var cell: UITableViewCell {
+        return self
+    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    init(lobby: GameLobby) {
+    required init(gameData: GameLobby) {
         super.init(style: .default, reuseIdentifier: GameLobbyListCell.cellReuseIdentifer)
-        textLabel?.text = lobby.title
+        textLabel?.text = gameData.title
         textLabel?.textColor = Colors.text
         textLabel?.textAlignment = .left
         textLabel?.font = R.font.economicaBold(size: GameLobbyListCell.textSize)
 
         contentView.addSubview(playerCountLabel)
         playerCountLabel.textAlignment = .right
-        playerCountLabel.text = "\(lobby.numberInLobby)/\(lobby.capacity)"
+        playerCountLabel.text = "\(gameData.numberInLobby)/\(gameData.capacity)"
         playerCountLabel.textColor = Colors.text
         playerCountLabel.font = R.font.economicaBold(size: GameLobbyListCell.textSize)
 

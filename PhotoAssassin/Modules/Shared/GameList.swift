@@ -1,28 +1,21 @@
 //
-//  GameLobbyList.swift
+//  GameList.swift
 //  PhotoAssassin
 //
-//  Created by Thomas Smith on 3/21/19.
+//  Created by Thomas Smith on 8/3/19.
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
 import UIKit
 
-class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GameList<CellType: GameDataCell>: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let borderWidth: CGFloat = 2.0
     let separatorMargin: CGFloat = 5.0
     let footerHeight: CGFloat = 8.0
+    
+    let onSelect: ((CellType.GameDataType, Int) -> Void)?
 
-    let gameLobbies = [
-        GameLobby(title: "Game 1", description: "This is a game",
-                  numberInLobby: 3, capacity: 5),
-        GameLobby(title: "Another Game", description: "This is some other game",
-                  numberInLobby: 8, capacity: 20),
-        GameLobby(title: "Game 3", description: "Yo this is Game 3, B",
-                  numberInLobby: 4, capacity: 6),
-        GameLobby(title: "Jason's Game", description: "Jason Siegelin is cool",
-                  numberInLobby: 6, capacity: 100)
-    ]
+    var games: [CellType.GameDataType] = []
 
     lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero)
@@ -35,19 +28,16 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return footerHeight
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return GameLobbyListCell(lobby: gameLobbies[indexPath.section])
+        return CellType(gameData: games[indexPath.section]).cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("This is working")
         print(indexPath.section)
-        if let cell = tableView.cellForRow(at: indexPath) as? GameLobbyListCell {
-            cell.addConstraints()
-        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return gameLobbies.count
+        return games.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +45,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return GameLobbyListCell.getHeight()
+        return CellType.getHeight()
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -63,11 +53,11 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         //  separators where there aren't cells.
         return UIView()
     }
-
+    
     override func loadView() {
         view = tableView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundView = nil
@@ -75,6 +65,15 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = Colors.text
         tableView.separatorInset = UIEdgeInsets(top: 0.0, left: separatorMargin,
-                                      bottom: 0.0, right: separatorMargin)
+                                                bottom: 0.0, right: separatorMargin)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        self.onSelect = nil
+        super.init(coder: aDecoder)
+    }
+    init(onSelect: @escaping (CellType.GameDataType, Int) -> Void) {
+        self.onSelect = onSelect
+        super.init(nibName: nil, bundle: nil)
     }
 }

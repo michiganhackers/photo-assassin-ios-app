@@ -215,7 +215,7 @@ class ProfileViewController: NavigatingViewController {
 
     @objc
     func openGameHistory() {
-        print("TODO: Open game history")
+        push(navigationScreen: .gameHistory(self.player))
     }
 
     @objc
