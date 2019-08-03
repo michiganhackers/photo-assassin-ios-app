@@ -140,6 +140,14 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func failedRegistration() {
+        let alertTitle = "Error"
+        let alertText = "Registration failed"
+        let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
     // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()
@@ -216,18 +224,40 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     @objc
     func user_Registration() {
         if let email = emailField.text, let password = passwordField.text {
-            Auth.auth().createUser(withEmail: email, password: password) { _ /* user */, error in
+            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if let firebaseError = error {
                     print(firebaseError.localizedDescription)
-                    let alertTitle = "Error"
-                    let alertText = "Registration failed"
-                    let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
+                    self.failedRegistration()
                     return
                 }
-                // TODO: Update user with full name
                 
+                // Create a new document with user.uid
+                let user = authResult?.user
+                if let user = user {
+                    // The user's ID, unique to the Firebase project.
+                    // Do NOT use this value to authenticate with your backend server,
+                    // if you have one. Use getTokenWithCompletion:completion: instead.
+                    let uid = "" + user.uid
+                    let db = Firestore.firestore()
+                    db.collection("users").document(uid).setData([
+                        "currentGames": [],
+                        "deaths": 0,
+                        "displayName": userFullName,
+                        "friends": [],
+                        "id": uid,
+                        "kills": 0,
+                        "longestLifeSeconds": 0,
+                        "pastGames": [],
+                        "profilePicUrl": ""
+                    ]) { err in
+                        if let err = err {
+                            print("Error adding document: \(err)")
+                            self.failedRegistration()
+                        } else {
+                            print("Document added with ID: " + uid)
+                        }
+                    }
+                }
 
                 // TODO: Update user with profile picture
                 print("Account Created!")
