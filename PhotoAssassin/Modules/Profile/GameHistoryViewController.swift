@@ -9,6 +9,9 @@
 import UIKit
 
 class GameHistoryViewController: NavigatingViewController {
+    // MARK: - Class constants
+    static let topMargin: CGFloat = 20.0
+
     // MARK: - Public members
     let player: Player
     lazy var gameList = GameList<GameHistoryCell> { gameStats, _ in
@@ -22,7 +25,8 @@ class GameHistoryViewController: NavigatingViewController {
 
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
-        gameList.view.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        gameList.view.topAnchor.constraint(equalTo: margins.topAnchor,
+                                           constant: type(of: self).topMargin).isActive = true
         gameList.view.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         gameList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         gameList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
@@ -50,6 +54,7 @@ class GameHistoryViewController: NavigatingViewController {
         super.init(title: "Game History")
         self.player.loadGameHistory { gameHistory in
             gameList.games = gameHistory
+            gameList.tableView.reloadData()
         }
     }
 }

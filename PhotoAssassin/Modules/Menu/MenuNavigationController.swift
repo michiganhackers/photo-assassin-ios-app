@@ -9,8 +9,6 @@
 import UIKit
 
 class MenuNavigationController: RoutedNavigationController {
-    let backgroundGradient = BackgroundGradient()
-
     let activeGamesVC = LobbiesViewController()
     let changeEmailVC = ChangeEmailViewController()
     let changePasswordVC = ChangePasswordViewController()
@@ -74,10 +72,8 @@ class MenuNavigationController: RoutedNavigationController {
     // MARK: - Overrides
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        backgroundGradient.layoutInView(view)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        backgroundGradient.addToView(view)
     }
 }

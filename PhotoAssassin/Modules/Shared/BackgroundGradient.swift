@@ -24,8 +24,15 @@ class BackgroundGradient: CAGradientLayer {
 
     // MARK: - Public Functions
     func addToView(_ view: UIView) {
-        view.layer.insertSublayer(self, at: 0)
-        view.backgroundColor = Colors.behindGradient
+        if let tableView = view as? UITableView {
+            let bgView = UIView()
+            tableView.backgroundView = bgView
+            bgView.layer.insertSublayer(self, at: 0)
+            bgView.backgroundColor = Colors.behindGradient
+        } else {
+            view.layer.insertSublayer(self, at: 0)
+            view.backgroundColor = Colors.behindGradient
+        }
     }
 
     func layoutInView(_ view: UIView) {
