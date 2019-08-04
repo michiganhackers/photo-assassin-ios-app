@@ -15,7 +15,7 @@ class GameHistoryViewController: NavigatingViewController {
     // MARK: - Public members
     let player: Player
     lazy var gameList = GameList<GameHistoryCell> { gameStats, _ in
-        print("Selected game \(gameStats.name)")
+        print("Selected game \(gameStats.gameTitle)")
     }
 
     // MARK: - Custom methods

@@ -10,12 +10,6 @@ import UIKit
 
 class Player {
     // MARK: - Nested types
-    struct GameStats {
-        let didWin: Bool
-        let id: String
-        let kills: Int
-        let name: String
-    }
     enum InvitationStatus {
         case invited
         case notInvited
@@ -70,13 +64,13 @@ class Player {
         self.friends = friends
         completionHandler(friends)
     }
-    
+
     func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
         // TODO: Grab game history from Firebase based on username
         let games = [
-            GameStats(didWin: false, id: "0ab", kills: 5, name: "Snipefest"),
-            GameStats(didWin: true, id: "1cd", kills: 15, name: "Mhackers xD lolz"),
-            GameStats(didWin: false, id: "2ef", kills: 21, name: "Bonfire Party")
+            GameStats(gameID: "0ab", gameTitle: "Snipefest", kills: 5, place: 2),
+            GameStats(gameID: "1cd", gameTitle: "Mhackers xD lolz", kills: 15, place: 1),
+            GameStats(gameID: "2ef", gameTitle: "Bonfire Party", kills: 21, place: 7)
         ]
         self.gameHistory = games
         completionHandler(games)

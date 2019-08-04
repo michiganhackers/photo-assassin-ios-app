@@ -24,6 +24,8 @@
 		C90395241FC622D2006F1DC0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395231FC622D2006F1DC0 /* main.swift */; };
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
+		E914C38F22F774FF00E51514 /* LobbyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914C38E22F774FF00E51514 /* LobbyInfo.swift */; };
+		E914C39122F7778500E51514 /* GameStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914C39022F7778500E51514 /* GameStats.swift */; };
 		E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */; };
 		E925D6F72256B14B008F266B /* MenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6F62256B14B008F266B /* MenuNavigationController.swift */; };
 		E925D6F92256B345008F266B /* RoutedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925D6F82256B345008F266B /* RoutedNavigationController.swift */; };
@@ -125,6 +127,8 @@
 		CD5823A07B8C53621396FBF3 /* Pods-PhotoAssassinTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassinTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassinTests/Pods-PhotoAssassinTests.staging.xcconfig"; sourceTree = "<group>"; };
 		DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAssassinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.staging.xcconfig"; sourceTree = "<group>"; };
+		E914C38E22F774FF00E51514 /* LobbyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyInfo.swift; sourceTree = "<group>"; };
+		E914C39022F7778500E51514 /* GameStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStats.swift; sourceTree = "<group>"; };
 		E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionLinkButton.swift; sourceTree = "<group>"; };
 		E925D6F62256B14B008F266B /* MenuNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationController.swift; sourceTree = "<group>"; };
 		E925D6F82256B345008F266B /* RoutedNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutedNavigationController.swift; sourceTree = "<group>"; };
@@ -274,7 +278,9 @@
 			isa = PBXGroup;
 			children = (
 				E9C1D346224D8723006E1069 /* GameLobby.swift */,
+				E914C39022F7778500E51514 /* GameStats.swift */,
 				E9BF8072225FFEA7002B11C3 /* Player.swift */,
+				E914C38E22F774FF00E51514 /* LobbyInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -779,12 +785,14 @@
 				F3C33E20228FB3DF001F6FFA /* ViewController.swift in Sources */,
 				E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
+				E914C38F22F774FF00E51514 /* LobbyInfo.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
 				E97FD39C2259337B0027B8EF /* PickerViewCell.swift in Sources */,
 				E9D7EFE32256F16F009143C6 /* FontResource+orDefault.swift in Sources */,
 				E9A60AC9223B28F200D71AA8 /* RegisterViewController.swift in Sources */,
 				E9BF806F225FFC76002B11C3 /* PlayerListViewController.swift in Sources */,
 				E989E56222C32EFB00484A8C /* ChangeEmailViewController.swift in Sources */,
+				E914C39122F7778500E51514 /* GameStats.swift in Sources */,
 				E92F9BFE223B367D0045E52A /* SocialMediaLoginButton.swift in Sources */,
 				E925D6F92256B345008F266B /* RoutedNavigationController.swift in Sources */,
 				E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */,

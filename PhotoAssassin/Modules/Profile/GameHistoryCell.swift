@@ -9,7 +9,7 @@
 import UIKit
 
 class GameHistoryCell: UITableViewCell, GameDataCell {
-    typealias GameDataType = Player.GameStats
+    typealias GameDataType = GameStats
 
     static let horizontalMargin: CGFloat = 15.0
     static let textSize: CGFloat = 36.0
@@ -28,10 +28,10 @@ class GameHistoryCell: UITableViewCell, GameDataCell {
         self.hasCrown = false
         super.init(coder: aDecoder)
     }
-    required init(gameData: Player.GameStats) {
+    required init(gameData: GameStats) {
         self.hasCrown = gameData.didWin
         super.init(style: .default, reuseIdentifier: GameHistoryCell.cellReuseIdentifer)
-        textLabel?.text = gameData.name
+        textLabel?.text = gameData.gameTitle
         textLabel?.textColor = Colors.text
         textLabel?.textAlignment = .left
         textLabel?.font = R.font.economicaBold(size: GameHistoryCell.textSize)
