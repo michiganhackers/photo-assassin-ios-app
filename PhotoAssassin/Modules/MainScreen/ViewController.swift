@@ -15,7 +15,6 @@ class ViewController: RoutedViewController {
     // @IBOutlet fileprivate var captureButton: UIButton!
     var captureButton: UIButton = UIButton()
 
-    // Flash button
     var toggleFlashButton: UIButton = UIButton()
 
     var toggleCameraButton: UIButton = UIButton()
@@ -53,6 +52,9 @@ extension ViewController {
         recognizer.direction = .left
         recognizer.numberOfTouchesRequired = 1
         view.addGestureRecognizer(recognizer)
+        
+        let zoom = UIPinchGestureRecognizer(target: self, action: #selector(onZoom))
+        view.addGestureRecognizer(zoom)
     }
 
     func configureCameraController() {
@@ -97,10 +99,8 @@ extension ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureGestureRecognizer()
         configureCameraController()
-
         styleCaptureButton()
         styleFlashButton()
         styleCameraButton()
@@ -113,7 +113,6 @@ extension ViewController {
                 print(error ?? "Image capture error")
                 return
             }
-
             takenPhoto = image
             let vcToPresent = PhotoTakenViewController()
             self.present(vcToPresent, animated: true, completion: nil)
@@ -149,5 +148,10 @@ extension ViewController {
         case .none:
             return
         }
+    }
+    
+    @objc
+    func onZoom(_ sender: UIPinchGestureRecognizer) {
+        cameraController.toZoom(sender)
     }
 }

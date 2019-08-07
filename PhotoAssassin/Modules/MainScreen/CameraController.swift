@@ -160,6 +160,46 @@ extension CameraController {
         self.photoOutput?.capturePhoto(with: settings, delegate: self)
         self.photoCaptureCompletionBlock = completion
     }
+    
+    func toZoom(_ sender: UIPinchGestureRecognizer) {
+        if self.currentCameraPosition == .rear {
+            guard let device = self.rearCamera else { return }
+            if sender.state == .changed {
+                let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
+                let pinchVelocityDividerFactor: CGFloat = 5.0
+                
+                do {
+                    try device.lockForConfiguration()
+                    defer { device.unlockForConfiguration() }
+                    
+                    let desiredZoomFactor = device.videoZoomFactor + atan2(sender.velocity, pinchVelocityDividerFactor)
+                    device.videoZoomFactor = max(1.0, min(desiredZoomFactor, maxZoomFactor))
+                    
+                } catch {
+                    print(error)
+                }
+            }
+
+        } else {
+            guard let device = self.frontCamera else { return }
+            if sender.state == .changed {
+                let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
+                let pinchVelocityDividerFactor: CGFloat = 5.0
+                
+                do {
+                    try device.lockForConfiguration()
+                    defer { device.unlockForConfiguration() }
+                    
+                    let desiredZoomFactor = device.videoZoomFactor + atan2(sender.velocity, pinchVelocityDividerFactor)
+                    device.videoZoomFactor = max(1.0, min(desiredZoomFactor, maxZoomFactor))
+                    
+                } catch {
+                    print(error)
+                }
+            }
+
+        }
+    }
 }
 
 extension CameraController {
