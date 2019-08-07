@@ -9,13 +9,22 @@
 import UIKit
 
 class MenuViewController: NavigatingViewController {
-    // MARK: - Class constants
+    // MARK: - Class Constants
     let gameLobbyHeightRatio: CGFloat = 0.3
     let horizontalButtonSpacing: CGFloat = 12.0
     let navBarSpacing: CGFloat = 20.0
     let verticalButtonSpacing: CGFloat = 18.0
 
-    // MARK: - UI elements
+    // MARK: - UI Elements
+    let fadedHeadingAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: Colors.seeThroughText,
+        .font: R.font.economicaBold.orDefault(size: 36.0)
+    ]
+    
+    let gameLobbyList = GameLobbyList()
+    
+    lazy var lobbiesLabel = UILabel("Lobbies", attributes: fadedHeadingAttributes, align: .left)
+    
     lazy var settingsButton = UIBarButtonItem(image: R.image.settingsIcon(),
                                               style: .plain,
                                               target: self,
@@ -26,25 +35,13 @@ class MenuViewController: NavigatingViewController {
                                              target: self,
                                              action: #selector(bringToProfile))
 
-    let historyButton = TranslucentButton("Find Game")
-
-    lazy var activeGamesButton: UIButton = {
-        let gameButton = TranslucentButton("Active Games")
-        gameButton.addTarget(self, action: #selector(bringToActiveGames), for: .touchUpInside)
-        return gameButton
-    }()
-
     lazy var createButton: UIButton = {
         let gameButton = TranslucentButton("Create Game")
         gameButton.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
         return gameButton
     }()
 
-    // MARK: - Custom functions
-    @objc
-    func bringToActiveGames() {
-        push(navigationScreen: .activeGames)
-    }
+    // MARK: - Custom Functions
     @objc
     func bringToCreate() {
         push(navigationScreen: .newGame)
@@ -70,14 +67,15 @@ class MenuViewController: NavigatingViewController {
                                           constant: navBarSpacing).isActive = true
         createButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         createButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        historyButton.topAnchor.constraint(equalTo: createButton.bottomAnchor,
-                                           constant: horizontalButtonSpacing).isActive = true
-        historyButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        historyButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        activeGamesButton.topAnchor.constraint(equalTo: historyButton.bottomAnchor,
-                                               constant: horizontalButtonSpacing).isActive = true
-        activeGamesButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        activeGamesButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        
+        lobbiesLabel.topAnchor.constraint(equalTo: createButton.bottomAnchor,
+                                          constant: verticalButtonSpacing).isActive = true
+        lobbiesLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        
+        gameLobbyList.view.topAnchor.constraint(equalTo: lobbiesLabel.bottomAnchor).isActive = true
+        gameLobbyList.view.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        gameLobbyList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
     func addNavButtons() {
@@ -89,8 +87,8 @@ class MenuViewController: NavigatingViewController {
 
     func addSubviews() {
         view.addSubview(createButton)
-        view.addSubview(historyButton)
-        view.addSubview(activeGamesButton)
+        view.addSubview(lobbiesLabel)
+        view.addSubview(gameLobbyList.view)
         addNavButtons()
     }
 
