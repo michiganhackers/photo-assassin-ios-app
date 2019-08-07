@@ -15,7 +15,7 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
 
     // MARK: - UI Elements
     lazy var createButton: UIButton = {
-        let button = TranslucentButton("Create")
+        let button = TranslucentButton("Create Game")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
         return button
@@ -126,7 +126,7 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
         createButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -10).isActive = true
         createButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         createButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
-                                            multiplier: 1.0 / 3.0).isActive = true
+                                            multiplier: 1.0 / 2.0).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         titleTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
