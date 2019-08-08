@@ -143,7 +143,6 @@ extension CameraController {
         switch currentCameraPosition {
         case .front:
             try switchToRearCamera()
-            
         case .rear:
             try switchToFrontCamera()
         }
@@ -156,7 +155,6 @@ extension CameraController {
         
         let settings = AVCapturePhotoSettings()
         settings.flashMode = self.flashMode
-        
         self.photoOutput?.capturePhoto(with: settings, delegate: self)
         self.photoCaptureCompletionBlock = completion
     }
@@ -167,14 +165,11 @@ extension CameraController {
             if sender.state == .changed {
                 let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
                 let pinchVelocityDividerFactor: CGFloat = 5.0
-                
                 do {
                     try device.lockForConfiguration()
                     defer { device.unlockForConfiguration() }
-                    
                     let desiredZoomFactor = device.videoZoomFactor + atan2(sender.velocity, pinchVelocityDividerFactor)
                     device.videoZoomFactor = max(1.0, min(desiredZoomFactor, maxZoomFactor))
-                    
                 } catch {
                     print(error)
                 }
@@ -185,14 +180,11 @@ extension CameraController {
             if sender.state == .changed {
                 let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
                 let pinchVelocityDividerFactor: CGFloat = 5.0
-                
                 do {
                     try device.lockForConfiguration()
                     defer { device.unlockForConfiguration() }
-                    
                     let desiredZoomFactor = device.videoZoomFactor + atan2(sender.velocity, pinchVelocityDividerFactor)
                     device.videoZoomFactor = max(1.0, min(desiredZoomFactor, maxZoomFactor))
-                    
                 } catch {
                     print(error)
                 }
@@ -224,11 +216,8 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
             
         else if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil),
             let image = UIImage(data: data) {
-            
             self.photoCaptureCompletionBlock?(image, nil)
-        }
-            
-        else {
+        } else {
             self.photoCaptureCompletionBlock?(nil, CameraControllerError.unknown)
         }
     }

@@ -21,7 +21,7 @@ class PhotoTakenViewController: UIViewController {
         clearPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_clear_black_18dp"), for: .normal)
         sendPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_send_black_18dp"), for: .normal)
         clearPhotoButton.addTarget(self, action: #selector(clearPhoto), for: .touchUpInside)
-        sendPhotoButton.addTarget(self, action: #selector(sendPhoto), for: .touchUpInside)
+        sendPhotoButton.addTarget(self, action: #selector(chooseLobby), for: .touchUpInside)
         sendPhotoButton.frame = CGRect(x: self.view.bounds.width - 40, y: sendPhotoButton.frame.origin.y, width: 50, height: 50)
         clearPhotoButton.frame = CGRect(x: clearPhotoButton.frame.origin.x,
                                         y: clearPhotoButton.frame.origin.y, width: 50, height: 50)
@@ -72,11 +72,13 @@ class PhotoTakenViewController: UIViewController {
     }
     
     @objc func clearPhoto(sender: UIButton) {
-        let vc = ViewController()
-        self.present(vc, animated: true, completion: nil)
+        //let vc = ViewController()
+        //self.present(vc, animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    @objc func sendPhoto(sender: UIButton) {
+    @objc func chooseLobby(sender: UIButton) {
         //Unimplemented Function
+        print("Choose Lobby")
     }
 }
