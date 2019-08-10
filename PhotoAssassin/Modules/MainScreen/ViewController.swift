@@ -113,7 +113,11 @@ extension ViewController {
                 print(error ?? "Image capture error")
                 return
             }
-            takenPhoto = image
+            if (self.cameraController.isFront()) {
+                takenPhoto = UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: .leftMirrored)
+            } else {
+                takenPhoto = image
+            }
             let vcToPresent = PhotoTakenViewController()
             self.present(vcToPresent, animated: true, completion: nil)
         }

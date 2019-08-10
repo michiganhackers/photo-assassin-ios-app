@@ -29,6 +29,9 @@ class CameraController: NSObject {
 }
 
 extension CameraController {
+    func isFront() -> Bool {
+        return currentCameraPosition == .front ? true : false
+    }
     func prepare(completionHandler: @escaping (Error?) -> Void) {
         func createCaptureSession() {
             self.captureSession = AVCaptureSession()
