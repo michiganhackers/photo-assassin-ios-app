@@ -8,6 +8,7 @@
 import UIKit
 
 class PhotoTakenViewController: UIViewController {
+    override var prefersStatusBarHidden: Bool { return true }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,10 +17,24 @@ class PhotoTakenViewController: UIViewController {
         let imageView = UIImageView(image: takenPhoto)
         imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         self.view.addSubview(imageView)
+        let clearPhotoTinted = R.image.baseline_clear_black_18dp()?.withRenderingMode(.alwaysTemplate)
         let clearPhotoButton = UIButton()
+        clearPhotoButton.setBackgroundImage(clearPhotoTinted, for: .normal)
+        clearPhotoButton.tintColor = .white
+        clearPhotoButton.layer.shadowColor = UIColor.black.cgColor
+        clearPhotoButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        clearPhotoButton.layer.shadowOpacity = 1.0
+        clearPhotoButton.layer.shadowRadius = 10.0
+        clearPhotoButton.layer.masksToBounds = false
+        let sendPhotoTinted = R.image.baseline_send_black_18dp()?.withRenderingMode(.alwaysTemplate)
         let sendPhotoButton = UIButton()
-        clearPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_clear_black_18dp"), for: .normal)
-        sendPhotoButton.setBackgroundImage(#imageLiteral(resourceName: "baseline_send_black_18dp"), for: .normal)
+        sendPhotoButton.setBackgroundImage(sendPhotoTinted, for: .normal)
+        sendPhotoButton.tintColor = .white
+        sendPhotoButton.layer.shadowColor = UIColor.black.cgColor
+        sendPhotoButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        sendPhotoButton.layer.shadowOpacity = 1.0
+        sendPhotoButton.layer.shadowRadius = 10.0
+        sendPhotoButton.layer.masksToBounds = false
         clearPhotoButton.addTarget(self, action: #selector(clearPhoto), for: .touchUpInside)
         sendPhotoButton.addTarget(self, action: #selector(chooseLobby), for: .touchUpInside)
         sendPhotoButton.frame = CGRect(x: self.view.bounds.width - 40, y: sendPhotoButton.frame.origin.y, width: 50, height: 50)
@@ -33,9 +48,9 @@ class PhotoTakenViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         if #available(iOS 11.0, *) {
-            clearPhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            clearPhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0).isActive = true
             clearPhotoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20.0).isActive = true
-            sendPhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            sendPhotoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0).isActive = true
             sendPhotoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20.0).isActive = true;
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
             imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
