@@ -8,6 +8,7 @@
 import UIKit
 
 class PhotoTakenViewController: UIViewController {
+    // MARK: - Overrides
     override var prefersStatusBarHidden: Bool { return true }
     
     override func viewDidLoad() {
@@ -86,14 +87,21 @@ class PhotoTakenViewController: UIViewController {
         
     }
     
+    // MARK: - Custom Functions
+    func push(navigationScreen: MenuNavigationController.Screen) {
+        if let navController = navigationController as? MenuNavigationController {
+            navController.push(navigationScreen)
+        }
+    }
+    
+    // MARK: - Event Listeners
     @objc func clearPhoto(sender: UIButton) {
-        //let vc = ViewController()
-        //self.present(vc, animated: true, completion: nil)
         dismiss(animated: true, completion: nil)
     }
     
     @objc func chooseLobby(sender: UIButton) {
         //Unimplemented Function
         print("Choose Lobby")
+        push(navigationScreen: .activeGames)
     }
 }
