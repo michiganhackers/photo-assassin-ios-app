@@ -35,7 +35,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return footerHeight
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return GameLobbyListCell(lobby: gameLobbies[indexPath.section])
+        return GameLobbyListCellDetailed(lobby: gameLobbies[indexPath.section])
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -55,7 +55,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return GameLobbyListCell.getHeight()
+        return GameLobbyListCellDetailed.getHeight()
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

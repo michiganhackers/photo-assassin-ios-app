@@ -76,6 +76,7 @@
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
 		F32791A922E7122200E92915 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32791A822E7122200E92915 /* SetupProfileViewController.swift */; };
+		F3BD62132302CF9100127DD0 /* GameLobbyListCellDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD62122302CF9100127DD0 /* GameLobbyListCellDetailed.swift */; };
 		F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1B228FB39C001F6FFA /* CameraController.swift */; };
 		F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */; };
 		F3C33E20228FB3DF001F6FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1F228FB3DF001F6FFA /* ViewController.swift */; };
@@ -174,6 +175,7 @@
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
 		F32791A822E7122200E92915 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
+		F3BD62122302CF9100127DD0 /* GameLobbyListCellDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyListCellDetailed.swift; sourceTree = "<group>"; };
 		F3C33E1B228FB39C001F6FFA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakenViewController.swift; sourceTree = "<group>"; };
 		F3C33E1F228FB3DF001F6FFA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 			children = (
 				E9B5AA26224478220070A53C /* GameLobbyList.swift */,
 				E9DF173C224BEBFD00ECFCA2 /* GameLobbyListCell.swift */,
+				F3BD62122302CF9100127DD0 /* GameLobbyListCellDetailed.swift */,
 				EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */,
 				EEB40563224D935F004BD0D6 /* LobbyViewController.swift */,
 			);
@@ -695,7 +698,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
+				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -794,6 +797,7 @@
 				E9C72B4822BEF7F400FC21EB /* SettingsCell.swift in Sources */,
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
+				F3BD62132302CF9100127DD0 /* GameLobbyListCellDetailed.swift in Sources */,
 				F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */,
 				E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */,
 				E9E45AE722C7AED300663744 /* TranslucentLabel.swift in Sources */,

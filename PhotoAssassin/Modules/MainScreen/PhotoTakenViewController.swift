@@ -7,14 +7,13 @@
 //
 import UIKit
 
-class PhotoTakenViewController: UIViewController {
+class PhotoTakenViewController: NavigatingViewController {
     // MARK: - Overrides
     override var prefersStatusBarHidden: Bool { return true }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
-        
         let imageView = UIImageView(image: takenPhoto)
         imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         self.view.addSubview(imageView)
@@ -87,21 +86,22 @@ class PhotoTakenViewController: UIViewController {
         
     }
     
-    // MARK: - Custom Functions
-    func push(navigationScreen: MenuNavigationController.Screen) {
-        if let navController = navigationController as? MenuNavigationController {
-            navController.push(navigationScreen)
-        }
-    }
-    
     // MARK: - Event Listeners
     @objc func clearPhoto(sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
     @objc func chooseLobby(sender: UIButton) {
-        //Unimplemented Function
-        print("Choose Lobby")
+        //let lobbyVC = LobbiesViewController()
+        //self.present(lobbyVC, animated: true, completion: nil)
         push(navigationScreen: .activeGames)
+    }
+    
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    init() {
+        super.init(title: "")
     }
 }
