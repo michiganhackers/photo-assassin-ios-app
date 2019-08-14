@@ -51,7 +51,8 @@ class GameLobbyListCellDetailed: UITableViewCell {
         targetLabel.translatesAutoresizingMaskIntoConstraints = false
         faceButton.addSubview(targetLabel)
         
-        check.image = R.image.addFriend()
+        check.image = R.image.checkmark()?.withRenderingMode(.alwaysTemplate)
+        check.tintColor = .white
         check.layer.opacity = 0.0
         check.translatesAutoresizingMaskIntoConstraints = false
         faceButton.addSubview(check)
