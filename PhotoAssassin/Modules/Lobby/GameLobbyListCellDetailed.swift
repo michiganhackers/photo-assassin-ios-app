@@ -29,27 +29,34 @@ class GameLobbyListCellDetailed: UITableViewCell {
     
     init(lobby: GameLobby) {
         super.init(style: .default, reuseIdentifier: GameLobbyListCell.cellReuseIdentifer)
-        faceButton.setTitle("hello", for: .normal)
         lobbyName.text = lobby.title
         lobbyName.font = R.font.economicaBold(size: GameLobbyListCellDetailed.textSize)
         lobbyName.textColor = Colors.text
+        lobbyName.backgroundColor = .clear
         lobbyName.isEditable = false
         lobbyName.isSelectable = false
+        lobbyName.frame = CGRect(x: (faceButton.frame.width / 2), y: 20, width: 150, height: 50)
+        lobbyName.translatesAutoresizingMaskIntoConstraints = false
         faceButton.addSubview(lobbyName)
         
         playerCountLabel.text = "Players remaining: \(lobby.numberInLobby)"
         playerCountLabel.textColor = Colors.text
         playerCountLabel.font = R.font.economicaBold(size: GameLobbyListCellDetailed.smallTextSize)
+        playerCountLabel.translatesAutoresizingMaskIntoConstraints = false
         faceButton.addSubview(playerCountLabel)
         
         targetLabel.text = "Target: Jason"
         targetLabel.textColor = Colors.text
         targetLabel.font = R.font.economicaBold(size: GameLobbyListCellDetailed.smallTextSize)
+        targetLabel.translatesAutoresizingMaskIntoConstraints = false
         faceButton.addSubview(targetLabel)
         
         check.image = R.image.addFriend()
+        check.layer.opacity = 0.0
+        check.translatesAutoresizingMaskIntoConstraints = false
         faceButton.addSubview(check)
         addButtonConstraints()
+        faceButton.addTarget(self, action: #selector(selected), for: .touchUpInside)
         addSubview(faceButton)
         backgroundView = nil
         backgroundColor = Colors.subsectionBackground
@@ -79,5 +86,14 @@ class GameLobbyListCellDetailed: UITableViewCell {
     }
     static func getHeight() -> CGFloat {
         return textSize * 5
+    }
+    @objc
+    func selected() {
+        print("selected")
+        if (check.layer.opacity == 0.0) {
+            check.layer.opacity = 1.0
+        } else {
+            check.layer.opacity = 0.0
+        }
     }
 }
