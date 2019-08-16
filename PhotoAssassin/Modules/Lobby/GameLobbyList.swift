@@ -15,13 +15,13 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
     let gameLobbies = [
         GameLobby(title: "Game 1", description: "This is a game",
-                  numberInLobby: 3, capacity: 5),
+                  numberInLobby: 3, capacity: 5, detailed: false),
         GameLobby(title: "Another Game", description: "This is some other game",
-                  numberInLobby: 8, capacity: 20),
+                  numberInLobby: 8, capacity: 20, detailed: true),
         GameLobby(title: "Game 3", description: "Yo this is Game 3, B",
-                  numberInLobby: 4, capacity: 6),
+                  numberInLobby: 4, capacity: 6, detailed: false),
         GameLobby(title: "Jason's Game", description: "Jason Siegelin is cool",
-                  numberInLobby: 6, capacity: 100)
+                  numberInLobby: 6, capacity: 100, detailed: false)
     ]
 
     lazy var tableView: UITableView = {
@@ -35,7 +35,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return footerHeight
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return GameLobbyListCellDetailed(lobby: gameLobbies[indexPath.section])
+        return gameLobbies[indexPath.section].detailed ? GameLobbyListCellDetailed(lobby: gameLobbies[indexPath.section]) : GameLobbyListCell(lobby: gameLobbies[indexPath.section])
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -55,7 +55,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return GameLobbyListCellDetailed.getHeight()
+        return gameLobbies[indexPath.section].detailed ? GameLobbyListCellDetailed.getHeight() : GameLobbyListCell.getHeight()
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
