@@ -18,16 +18,25 @@ class GameStats {
     var isDoneWithGame: Bool {
         return place != nil
     }
-    let gameID: String
-    let gameTitle: String
-    let kills: Int
+    var didStartGame: Bool {
+        return kills != nil
+    }
+    var gameTitle: String {
+        return game.title
+    }
+
+    let game: GameLobby
+    let kills: Int?
     let place: Int?
 
     // NOTE: If place == nil, then the Player is still playing in the game (i.e.
-    //  they are still alive and the game has not yet ended).
-    init(gameID: String, gameTitle: String, kills: Int, place: Int? = nil) {
-        self.gameID = gameID
-        self.gameTitle = gameTitle
+    //  they are still alive and the game has not yet ended). If kills == nil,
+    //  then the Player has not yet started the game.
+    init(game: GameLobby, kills: Int? = nil, place: Int? = nil) {
+        // ASSERTION: The player must not be finished with the game if they have
+        //  not yet started it.
+        assert(place == nil || kills != nil)
+        self.game = game
         self.kills = kills
         self.place = place
     }

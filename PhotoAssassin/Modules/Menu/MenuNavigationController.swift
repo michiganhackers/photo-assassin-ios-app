@@ -22,6 +22,7 @@ class MenuNavigationController: RoutedNavigationController {
         case changeEmail
         case changePassword
         case gameHistory(Player)
+        case lobbyInfo(LobbyInfo)
         case menu
         case newGame
         case notificationsSettings
@@ -40,6 +41,8 @@ class MenuNavigationController: RoutedNavigationController {
             viewControllerToPush = changePasswordVC
         case let .gameHistory(player):
             viewControllerToPush = GameHistoryViewController(player: player)
+        case let .lobbyInfo(info):
+            viewControllerToPush = LobbyViewController(info: info)
         case .menu:
             viewControllerToPush = menuVC
         case .newGame:

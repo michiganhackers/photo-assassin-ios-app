@@ -38,7 +38,7 @@ class GameHistoryCell: UITableViewCell, GameDataCell {
 
         contentView.addSubview(killCountLabel)
         killCountLabel.textAlignment = .right
-        killCountLabel.text = "\(gameData.kills)"
+        killCountLabel.text = "\(gameData.kills ?? 0)"
         killCountLabel.textColor = Colors.text
         killCountLabel.font = R.font.economicaBold(size: GameHistoryCell.textSize)
         if hasCrown {

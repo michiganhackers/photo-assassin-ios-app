@@ -15,17 +15,32 @@ class LobbiesViewController: NavigatingViewController {
     // MARK: - UI elements
     lazy var gameLobbyList: GameList<GameLobbyListCell> = {
         let list = GameList<GameLobbyListCell> { lobby, _ in
-            print("Select lobby \(lobby.title)")
+            // TODO: Grab full lobby info from Firebase
+            self.push(navigationScreen: .lobbyInfo(
+                LobbyInfo(gameLobby: lobby, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: [
+                    LobbyInfo.PlayerWithStatus(
+                        player: Player(username: "Bendudeman", relationship: .none),
+                        relationship: .neutral,
+                        stats: GameStats(game: lobby)
+                    ),
+                    LobbyInfo.PlayerWithStatus(
+                        player: Player(username: "Owain", relationship: .none),
+                        relationship: .neutral,
+                        stats: GameStats(game: lobby)
+                    ),
+                    LobbyInfo.PlayerWithStatus(
+                        player: Player(username: "Vincent", relationship: .none),
+                        relationship: .neutral,
+                        stats: GameStats(game: lobby)
+                    )
+                ])
+            ))
         }
         list.games = [
-            GameLobby(title: "Game 1", description: "This is a game",
-                      numberInLobby: 3, capacity: 5),
-            GameLobby(title: "Another Game", description: "This is some other game",
-                      numberInLobby: 8, capacity: 20),
-            GameLobby(title: "Game 3", description: "Yo this is Game 3, B",
-                      numberInLobby: 4, capacity: 6),
-            GameLobby(title: "Jason's Game", description: "Jason Siegelin is cool",
-                      numberInLobby: 6, capacity: 100)
+            GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, capacity: 5),
+            GameLobby(id: "1cd", title: "Another Game", numberInLobby: 8, capacity: 20),
+            GameLobby(id: "2ef", title: "Game 3", numberInLobby: 4, capacity: 6),
+            GameLobby(id: "3gh", title: "Jason's Game", numberInLobby: 6, capacity: 100)
         ]
         return list
     }()

@@ -15,7 +15,36 @@ class GameHistoryViewController: NavigatingViewController {
     // MARK: - Public members
     let player: Player
     lazy var gameList = GameList<GameHistoryCell> { gameStats, _ in
-        print("Selected game \(gameStats.gameTitle)")
+        // TODO: Get info from Firebase
+        let info = LobbyInfo(
+            gameLobby: gameStats.game,
+            focusedPlayer: LobbyInfo.PlayerWithStatus(
+                player: self.player,
+                relationship: .neutral,
+                stats: gameStats
+            ),
+            myselfPermission: .viewer,
+            otherPlayers: [
+                LobbyInfo.PlayerWithStatus(
+                    player: Player(username: "Bendudeman", relationship: .none),
+                    relationship: .neutral,
+                    stats: GameStats(game: gameStats.game, kills: 3, place: 3)
+                ),
+                LobbyInfo.PlayerWithStatus(
+                    player: Player(username: "Owain", relationship: .none),
+                    relationship: .neutral,
+                    stats: GameStats(game: gameStats.game, kills: 5, place: 2)
+                ),
+                LobbyInfo.PlayerWithStatus(
+                    player: Player(username: "Vincent", relationship: .none),
+                    relationship: .neutral,
+                    stats: GameStats(game: gameStats.game, kills: 0, place: 4)
+                )
+            ],
+            startDate: Date(timeIntervalSince1970: 0.0),
+            endDate: Date(timeIntervalSinceNow: 1.0)
+        )
+        self.push(navigationScreen: .lobbyInfo(info))
     }
 
     // MARK: - Custom methods

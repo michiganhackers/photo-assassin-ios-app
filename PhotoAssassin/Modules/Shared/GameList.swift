@@ -32,8 +32,7 @@ class GameList<CellType: GameDataCell>: UIViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("This is working")
-        print(indexPath.section)
+        onSelect?(games[indexPath.section], indexPath.section)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,11 +52,11 @@ class GameList<CellType: GameDataCell>: UIViewController, UITableViewDelegate, U
         //  separators where there aren't cells.
         return UIView()
     }
-    
+
     override func loadView() {
         view = tableView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundView = nil
