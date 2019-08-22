@@ -81,6 +81,18 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
                                      numberInLobby: 8, capacity: 20, detailed: isDetailed))
+        gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
+                                     numberInLobby: 8, capacity: 20, detailed: isDetailed))
+        gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
+                                     numberInLobby: 8, capacity: 20, detailed: isDetailed))
+        gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
+                                     numberInLobby: 8, capacity: 20, detailed: isDetailed))
+        gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
+                                     numberInLobby: 8, capacity: 20, detailed: isDetailed))
+        gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
+                                     numberInLobby: 8, capacity: 20, detailed: isDetailed))
+        gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
+                                     numberInLobby: 8, capacity: 20, detailed: isDetailed))
         super.init(nibName: nil, bundle: nil)
     }
 
