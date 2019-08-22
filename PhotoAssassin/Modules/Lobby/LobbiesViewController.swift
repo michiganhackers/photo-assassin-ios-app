@@ -11,14 +11,18 @@ import UIKit
 class LobbiesViewController: NavigatingViewController {
     // MARK: - Class constants
     let topMargin: CGFloat = 40.0
+    let backgroundGradient = BackgroundGradient()
+    private let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
     // MARK: - UI elements
-    let gameLobbyList = GameLobbyList()
+    var gameLobbyList = GameLobbyList(isDetailed: false)
 
     // MARK: - Custom functions
     func addSubviews() {
+        backgroundGradient.addToView(view)
         view.addSubview(gameLobbyList.view)
     }
+    
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
         gameLobbyList.view.topAnchor.constraint(equalTo: margins.topAnchor,
@@ -32,9 +36,14 @@ class LobbiesViewController: NavigatingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
+        navigationItem.titleView = MenuNavigationTitle(title ?? "")
+        backButton.tintColor = .white
+        navigationItem.backBarButtonItem = backButton
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        backgroundGradient.layoutInView(view)
         setUpConstraints()
     }
 
@@ -42,7 +51,15 @@ class LobbiesViewController: NavigatingViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    init() {
-        super.init(title: "Lobbies")
+    
+    init(isDetailed: Bool) {
+        gameLobbyList = GameLobbyList(isDetailed: isDetailed)
+        if isDetailed {
+            super.init(title: "Choose Game(s)")
+            self.title = "Choose Game(s)"
+        } else {
+            super.init(title: "Lobbies")
+            self.title = "Lobbies"
+        }
     }
 }

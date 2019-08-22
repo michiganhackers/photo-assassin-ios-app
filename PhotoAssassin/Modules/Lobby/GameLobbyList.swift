@@ -12,17 +12,7 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let borderWidth: CGFloat = 2.0
     let separatorMargin: CGFloat = 5.0
     let footerHeight: CGFloat = 8.0
-
-    let gameLobbies = [
-        GameLobby(title: "Game 1", description: "This is a game",
-                  numberInLobby: 3, capacity: 5, detailed: false),
-        GameLobby(title: "Another Game", description: "This is some other game",
-                  numberInLobby: 8, capacity: 20, detailed: true),
-        GameLobby(title: "Game 3", description: "Yo this is Game 3, B",
-                  numberInLobby: 4, capacity: 6, detailed: false),
-        GameLobby(title: "Jason's Game", description: "Jason Siegelin is cool",
-                  numberInLobby: 6, capacity: 100, detailed: false)
-    ]
+    var gameLobbies = [] as [GameLobby]
 
     lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero)
@@ -39,7 +29,6 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("This is working")
         print(indexPath.section)
         if let cell = tableView.cellForRow(at: indexPath) as? GameLobbyListCell {
             cell.addConstraints()
@@ -77,4 +66,22 @@ class GameLobbyList: UIViewController, UITableViewDelegate, UITableViewDataSourc
         tableView.separatorInset = UIEdgeInsets(top: 0.0, left: separatorMargin,
                                       bottom: 0.0, right: separatorMargin)
     }
+    
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    init(isDetailed: Bool) {
+        // When GameLobbyList is initialized, we fetch from Firebase.
+        // Auth.auth()
+        // for (int i = 0; i < ...; ++i) {}
+        
+        gameLobbies.append(GameLobby(title: "Game 1", description: "This is a game",
+                                     numberInLobby: 3, capacity: 5, detailed: isDetailed))
+        
+        gameLobbies.append(GameLobby(title: "Another Game", description: "This is some other game",
+                                     numberInLobby: 8, capacity: 20, detailed: isDetailed))
+        super.init(nibName: nil, bundle: nil)
+    }
+
 }

@@ -92,9 +92,8 @@ class PhotoTakenViewController: NavigatingViewController {
     }
     
     @objc func chooseLobby(sender: UIButton) {
-        //let lobbyVC = LobbiesViewController()
-        //self.present(lobbyVC, animated: true, completion: nil)
-        push(navigationScreen: .activeGames)
+        let lobbyVC = LobbiesViewController(isDetailed: true)
+        self.present(lobbyVC, animated: true, completion: nil)
     }
     
     // MARK: - Initializers

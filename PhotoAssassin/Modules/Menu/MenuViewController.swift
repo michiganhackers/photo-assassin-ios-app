@@ -21,7 +21,7 @@ class MenuViewController: NavigatingViewController {
         .font: R.font.economicaBold.orDefault(size: 36.0)
     ]
     
-    let gameLobbyList = GameLobbyList()
+    let gameLobbyList = GameLobbyList(isDetailed: false)
     
     lazy var lobbiesLabel = UILabel("Lobbies", attributes: fadedHeadingAttributes, align: .left)
     
