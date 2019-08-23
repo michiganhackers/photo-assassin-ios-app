@@ -11,7 +11,6 @@ import UIKit
 class MenuNavigationController: RoutedNavigationController {
     let backgroundGradient = BackgroundGradient()
 
-    let activeGamesVC = LobbiesViewController(isDetailed: true)
     let changeEmailVC = ChangeEmailViewController()
     let changePasswordVC = ChangePasswordViewController()
     let menuVC = MenuViewController()
@@ -20,7 +19,6 @@ class MenuNavigationController: RoutedNavigationController {
     let settingsVC = SettingsViewController()
 
     enum Screen {
-        case activeGames
         case changeEmail
         case changePassword
         case menu
@@ -33,8 +31,6 @@ class MenuNavigationController: RoutedNavigationController {
     func push(_ screen: Screen) {
         var viewControllerToPush: NavigatingViewController
         switch screen {
-        case .activeGames:
-            viewControllerToPush = activeGamesVC
         case .changeEmail:
             viewControllerToPush = changeEmailVC
         case .changePassword:

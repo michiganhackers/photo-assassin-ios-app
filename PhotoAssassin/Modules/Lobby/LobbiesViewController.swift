@@ -8,39 +8,62 @@
 
 import UIKit
 
-class LobbiesViewController: NavigatingViewController {
+class LobbiesViewController: UIViewController {
+    
     // MARK: - Class Constants
     let topMargin: CGFloat = 40.0
     let middleMargin: CGFloat = 10.0
+    let sideMargin: CGFloat = 5.0
     let backgroundGradient = BackgroundGradient()
-    private let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-    var detail = false
     
+    // MARK: - UI Elements
     lazy var submitButton: UIButton = {
         let gameButton = TranslucentButton("Submit")
         gameButton.addTarget(self, action: #selector(toSubmit), for: .touchUpInside)
         return gameButton
     }()
     
-    // MARK: - UI Elements
+    lazy var titleLabel: UILabel = {
+        let label = MenuNavigationTitle("Choose Game(s)")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var backButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setBackgroundImage(R.image.backButton()?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(toBack), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     var gameLobbyList = GameLobbyList(isDetailed: false)
 
-    // MARK: - Custom functions
+    // MARK: - Custom Functions
     func addSubviews() {
         backgroundGradient.addToView(view)
+        view.addSubview(titleLabel)
+        view.addSubview(backButton)
         view.addSubview(gameLobbyList.view)
         view.addSubview(submitButton)
     }
     
     func setUpConstraints() {
-        let margins = view.layoutMarginsGuide
-        gameLobbyList.view.topAnchor.constraint(equalTo: margins.topAnchor,
+        let margins = self.view.layoutMarginsGuide
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: 50).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -50).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
+        backButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: middleMargin).isActive = true
+        backButton.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: -5.0).isActive = true
+        gameLobbyList.view.topAnchor.constraint(equalTo: backButton.bottomAnchor,
                                                 constant: topMargin).isActive = true
-        gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        gameLobbyList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: sideMargin).isActive = true
+        gameLobbyList.view.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -sideMargin).isActive = true
         submitButton.topAnchor.constraint(equalTo: gameLobbyList.view.bottomAnchor, constant: middleMargin).isActive = true
-        submitButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        submitButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        submitButton.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: sideMargin).isActive = true
+        submitButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -sideMargin).isActive = true
         submitButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -middleMargin).isActive = true
     }
 
@@ -48,13 +71,10 @@ class LobbiesViewController: NavigatingViewController {
     override func viewDidLoad() {
         //super.viewDidLoad()
         addSubviews()
-        navigationItem.titleView = MenuNavigationTitle(title ?? "")
-        backButton.tintColor = .white
-        navigationItem.backBarButtonItem = backButton
     }
     
     override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+        //super.viewWillLayoutSubviews()
         backgroundGradient.layoutInView(view)
         setUpConstraints()
     }
@@ -64,23 +84,20 @@ class LobbiesViewController: NavigatingViewController {
         // TODO: Submit Photo
         print("Submit button pressed")
     }
+    
+    @objc func toBack() {
+        print("back")
+        //self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
     }
     
     init(isDetailed: Bool) {
         gameLobbyList = GameLobbyList(isDetailed: isDetailed)
-        detail = isDetailed
-        if detail {
-            super.init(title: "Choose Game(s)")
-            self.title = "Choose Game(s)"
-        } else {
-            super.init(title: "Lobbies")
-            self.title = "Lobbies"
-        }
-        
+        super.init(nibName: nil, bundle: nil)
     }
 }

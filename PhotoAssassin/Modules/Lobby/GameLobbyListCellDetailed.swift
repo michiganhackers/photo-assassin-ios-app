@@ -6,8 +6,8 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 class GameLobbyListCellDetailed: UITableViewCell {
     static let horizontalMargin: CGFloat = 15.0
