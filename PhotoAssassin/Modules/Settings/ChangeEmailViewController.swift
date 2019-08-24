@@ -6,6 +6,8 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import Firebase
+import FirebaseAuth
 import UIKit
 
 class ChangeEmailViewController: NavigatingViewController {
@@ -87,6 +89,9 @@ class ChangeEmailViewController: NavigatingViewController {
         currentEmailField.text = ""
         newEmailField.text = ""
         passwordField.text = ""
+        
+        
+        
         pop()
     }
 
