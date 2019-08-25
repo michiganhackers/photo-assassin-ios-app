@@ -21,19 +21,21 @@ class LobbiesViewController: NavigatingViewController {
                     LobbyInfo.PlayerWithStatus(
                         player: Player(username: "Bendudeman", relationship: .none),
                         relationship: .neutral,
-                        stats: GameStats(game: lobby)
+                        stats: GameStats(game: lobby, kills: 5)
                     ),
                     LobbyInfo.PlayerWithStatus(
                         player: Player(username: "Owain", relationship: .none),
-                        relationship: .neutral,
-                        stats: GameStats(game: lobby)
+                        relationship: .target,
+                        stats: GameStats(game: lobby, kills: 1)
                     ),
                     LobbyInfo.PlayerWithStatus(
                         player: Player(username: "Vincent", relationship: .none),
-                        relationship: .neutral,
-                        stats: GameStats(game: lobby)
+                        relationship: .dead,
+                        stats: GameStats(game: lobby, kills: 3)
                     )
-                ])
+                ],
+                startDate: Date(timeIntervalSinceNow: 0.0),
+                endDate: nil)
             ))
         }
         list.games = [

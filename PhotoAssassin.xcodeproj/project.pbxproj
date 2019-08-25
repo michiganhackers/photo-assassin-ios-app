@@ -341,9 +341,9 @@
 		2AB31DA41F38745300B7D1F3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */,
 				E9FE326822207C4F009857CF /* UIColor+hex.swift */,
 				E9FC861B22625F16000C5832 /* UIView+constraints.swift */,
-				E9D7EFE22256F16F009143C6 /* FontResource+orDefault.swift */,
 				E9C126D5226107CC00015C9B /* UILabel+attributes.swift */,
 			);
 			path = Extensions;
