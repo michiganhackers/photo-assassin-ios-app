@@ -6,8 +6,13 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import FacebookCore
+import FacebookLogin
+import FBSDKCoreKit
+import FBSDKLoginKit
 import Firebase
 import FirebaseAuth
+import GoogleSignIn
 import UIKit
 
 class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegate {
@@ -113,6 +118,22 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         view.addSubview(confirmPasswordField)
         view.addSubview(submitButton)
     }
+    
+    func passwordChangeFailed() {
+        let alertTitle = "Error"
+        let alertText = "Unsuccessful password change"
+        let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func passwordSuccess() {
+        let alertTitle = "Success"
+        let alertText = "Password changed successfully"
+        let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
 
     // MARK: - Overrides
     override func viewWillLayoutSubviews() {
@@ -139,21 +160,24 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
     func submit() {
         print("Change password")
         
-        // First, re-authenticate user
+        // First, check user's provider
         let user = Auth.auth().currentUser
         let provider = Auth.auth().currentUser?.providerData[0].providerID
         var credential = EmailAuthProvider.credential(withEmail: currentEmailField.text!, password: currentPasswordField.text!)
 
-        if (provider == "google.com") {
-            //credential = GoogleAuthProvider.credential(withIDToken: , accessToken: <#T##String#>)
-        } else {
-            //credential = FacebookAuthProvider.credential(withAccessToken: )
+        if (provider != "password") {
+            let alertTitle = "Error"
+            let alertText = "Password cannot be changed for accounts associated with Google and Facebook"
+            let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
         }
         
         // Prompt the user to re-provide their sign-in credentials
         user?.reauthenticate(with: credential) { error in
             if let error = error {
                 print("Password change unsuccessful")
+                self.passwordChangeFailed()
                 return
             } else {
                 // User re-authenticated.
@@ -163,11 +187,13 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         // Update password
         Auth.auth().currentUser?.updatePassword(to: newPasswordField.text!) { (error) in
             print("Password change unsuccessful")
+            self.passwordChangeFailed()
             return
         }
         
         // Communicate to user that password change was successful
-        print("Password was succesfully changed")
+        print("Password was successfully changed")
+        passwordSuccess()
         
         currentEmailField.text = ""
         currentPasswordField.text = ""

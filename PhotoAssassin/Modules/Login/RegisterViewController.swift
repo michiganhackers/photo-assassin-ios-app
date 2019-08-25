@@ -25,7 +25,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - UI Elements
     lazy var confirmPasswordField: UITextField = {
         let field = LoginTextField("confirm password", isSecure: true, isEmail: false)
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
@@ -110,7 +110,6 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     func googleRegisterTapped() {
         print("Attempted Google registration")
         // Register with Google
-        
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().signIn()
         //GIDSignIn.sharedInstance().signInSilently()
