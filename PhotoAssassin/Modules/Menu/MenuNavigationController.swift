@@ -9,8 +9,6 @@
 import UIKit
 
 class MenuNavigationController: RoutedNavigationController {
-    let backgroundGradient = BackgroundGradient()
-
     let changeEmailVC = ChangeEmailViewController()
     let changePasswordVC = ChangePasswordViewController()
     let menuVC = MenuViewController()
@@ -21,6 +19,8 @@ class MenuNavigationController: RoutedNavigationController {
     enum Screen {
         case changeEmail
         case changePassword
+        case gameHistory(Player)
+        case lobbyInfo(LobbyInfo)
         case menu
         case newGame
         case notificationsSettings
@@ -35,6 +35,10 @@ class MenuNavigationController: RoutedNavigationController {
             viewControllerToPush = changeEmailVC
         case .changePassword:
             viewControllerToPush = changePasswordVC
+        case let .gameHistory(player):
+            viewControllerToPush = GameHistoryViewController(player: player)
+        case let .lobbyInfo(info):
+            viewControllerToPush = LobbyViewController(info: info)
         case .menu:
             viewControllerToPush = menuVC
         case .newGame:
@@ -67,10 +71,8 @@ class MenuNavigationController: RoutedNavigationController {
     // MARK: - Overrides
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        backgroundGradient.layoutInView(view)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        backgroundGradient.addToView(view)
     }
 }

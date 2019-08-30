@@ -88,7 +88,7 @@ class SettingsViewController: NavigatingViewController,
         } catch {
             print("Error signing out. Redirecting to login screen anyway.")
         }
-        
+
         // Try Firebase Signout for Google and Facebook
         let firebaseAuth = Auth.auth()
         do {
@@ -97,14 +97,13 @@ class SettingsViewController: NavigatingViewController,
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
-        
+
         routeTo(screen: .login)
     }
 
     // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundView = nil
         tableView.backgroundColor = nil
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = Colors.text

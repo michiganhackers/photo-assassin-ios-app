@@ -13,10 +13,13 @@ import UIKit
 
 class NavigatingViewController: UIViewController {
     private let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    private let bgGradient = BackgroundGradient()
 
     func push(navigationScreen: MenuNavigationController.Screen) {
         if let navController = navigationController as? MenuNavigationController {
             navController.push(navigationScreen)
+        } else {
+            print("WARNING: Using push(navigationScreen:) from outside a MenuNavigationController")
         }
     }
     func pop() {
@@ -35,6 +38,10 @@ class NavigatingViewController: UIViewController {
         navigationItem.titleView = MenuNavigationTitle(title ?? "")
         backButton.tintColor = .white
         navigationItem.backBarButtonItem = backButton
+        bgGradient.addToView(view)
+    }
+    override func viewWillLayoutSubviews() {
+        bgGradient.layoutInView(view)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

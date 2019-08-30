@@ -11,17 +11,15 @@
 import Foundation
 
 class GameLobby {
+    let id: String
     let title: String
-    let description: String
     let numberInLobby: Int
     let capacity: Int
-    let detailed: Bool
 
-    init(title: String, description: String, numberInLobby: Int, capacity: Int, detailed: Bool) {
+    init(id: String, title: String, numberInLobby: Int, capacity: Int) {
+        self.id = id
         self.title = title
-        self.description = description
         self.numberInLobby = numberInLobby
         self.capacity = capacity
-        self.detailed = detailed
     }
 }

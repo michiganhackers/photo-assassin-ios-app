@@ -26,4 +26,8 @@ public struct Colors {
     static let success = UIColor(hex: 0x28BC1B)
     static let failure = UIColor(hex: 0xFF0505)
     static let unknown = UIColor(hex: 0xFFF620)
+    static let crown = UIColor(hex: 0xFFFF00)
+    static let gold = UIColor(hex: 0xFFD700)
+    static let silver = UIColor(hex: 0xC0C0C0)
+    static let bronze = UIColor(hex: 0xCD7F32)
 }

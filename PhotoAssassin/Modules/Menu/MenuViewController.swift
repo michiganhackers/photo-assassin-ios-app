@@ -20,11 +20,43 @@ class MenuViewController: NavigatingViewController {
         .foregroundColor: Colors.seeThroughText,
         .font: R.font.economicaBold.orDefault(size: 36.0)
     ]
-    
-    let gameLobbyList = GameLobbyList(isDetailed: false)
-    
+
+    lazy var gameLobbyList: GameList<GameLobbyListCell> = {
+        let list = GameList<GameLobbyListCell> { lobby, _ in
+            // TODO: Grab full lobby info from Firebase
+            self.push(navigationScreen: .lobbyInfo(
+                LobbyInfo(gameLobby: lobby, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: [
+                    LobbyInfo.PlayerWithStatus(
+                        player: Player(username: "Bendudeman", relationship: .none),
+                        relationship: .neutral,
+                        stats: GameStats(game: lobby, kills: 5)
+                    ),
+                    LobbyInfo.PlayerWithStatus(
+                        player: Player(username: "Owain", relationship: .none),
+                        relationship: .target,
+                        stats: GameStats(game: lobby, kills: 1)
+                    ),
+                    LobbyInfo.PlayerWithStatus(
+                        player: Player(username: "Vincent", relationship: .none),
+                        relationship: .dead,
+                        stats: GameStats(game: lobby, kills: 3)
+                    )
+                    ],
+                          startDate: Date(timeIntervalSinceNow: 0.0),
+                          endDate: nil)
+                ))
+        }
+        list.games = [
+            GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, capacity: 5),
+            GameLobby(id: "1cd", title: "Another Game", numberInLobby: 8, capacity: 20),
+            GameLobby(id: "2ef", title: "Game 3", numberInLobby: 4, capacity: 6),
+            GameLobby(id: "3gh", title: "Jason's Game", numberInLobby: 6, capacity: 100)
+        ]
+        return list
+    }()
+
     lazy var lobbiesLabel = UILabel("Lobbies", attributes: fadedHeadingAttributes, align: .left)
-    
+
     lazy var settingsButton = UIBarButtonItem(image: R.image.settingsIcon(),
                                               style: .plain,
                                               target: self,
@@ -67,11 +99,11 @@ class MenuViewController: NavigatingViewController {
                                           constant: navBarSpacing).isActive = true
         createButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         createButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        
+
         lobbiesLabel.topAnchor.constraint(equalTo: createButton.bottomAnchor,
                                           constant: verticalButtonSpacing).isActive = true
         lobbiesLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        
+
         gameLobbyList.view.topAnchor.constraint(equalTo: lobbiesLabel.bottomAnchor).isActive = true
         gameLobbyList.view.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true

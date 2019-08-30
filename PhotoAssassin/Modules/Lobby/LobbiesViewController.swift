@@ -9,26 +9,26 @@
 import UIKit
 
 class LobbiesViewController: UIViewController {
-    
+
     // MARK: - Class Constants
     let topMargin: CGFloat = 40.0
     let middleMargin: CGFloat = 10.0
     let sideMargin: CGFloat = 5.0
     let backgroundGradient = BackgroundGradient()
-    
+
     // MARK: - UI Elements
     lazy var submitButton: UIButton = {
         let gameButton = TranslucentButton("Submit")
         gameButton.addTarget(self, action: #selector(toSubmit), for: .touchUpInside)
         return gameButton
     }()
-    
+
     lazy var titleLabel: UILabel = {
         let label = MenuNavigationTitle("Choose Game(s)")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy var backButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setBackgroundImage(R.image.backButton()?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -38,7 +38,19 @@ class LobbiesViewController: UIViewController {
         return button
     }()
 
-    var gameLobbyList = GameLobbyList(isDetailed: false)
+    // MARK: - UI elements
+    lazy var gameLobbyList: GameList<GameLobbyListCellDetailed> = {
+        let list = GameList<GameLobbyListCellDetailed> { _, _ in
+            // Do nothing
+        }
+        list.games = [
+            GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, capacity: 5),
+            GameLobby(id: "1cd", title: "Another Game", numberInLobby: 8, capacity: 20),
+            GameLobby(id: "2ef", title: "Game 3", numberInLobby: 4, capacity: 6),
+            GameLobby(id: "3gh", title: "Jason's Game", numberInLobby: 6, capacity: 100)
+        ]
+        return list
+    }()
 
     // MARK: - Custom Functions
     func addSubviews() {
@@ -48,7 +60,7 @@ class LobbiesViewController: UIViewController {
         view.addSubview(gameLobbyList.view)
         view.addSubview(submitButton)
     }
-    
+
     func setUpConstraints() {
         let margins = self.view.layoutMarginsGuide
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
@@ -69,23 +81,25 @@ class LobbiesViewController: UIViewController {
 
     // MARK: - Overrides
     override func viewDidLoad() {
-        //super.viewDidLoad()
+        super.viewDidLoad()
         addSubviews()
     }
-    
+
     override func viewWillLayoutSubviews() {
         //super.viewWillLayoutSubviews()
         backgroundGradient.layoutInView(view)
         setUpConstraints()
     }
-    
+
     // MARK: - Action Listeners
-    @objc func toSubmit() {
+    @objc
+    func toSubmit() {
         // TODO: Submit Photo
         print("Submit button pressed")
     }
-    
-    @objc func toBack() {
+
+    @objc
+    func toBack() {
         print("back")
         //self.navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
@@ -95,9 +109,8 @@ class LobbiesViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    init(isDetailed: Bool) {
-        gameLobbyList = GameLobbyList(isDetailed: isDetailed)
+
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
 }
