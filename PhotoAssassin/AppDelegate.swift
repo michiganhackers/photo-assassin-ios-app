@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 
         //Google Login configuration
-        GIDSignIn.sharedInstance().clientID =  "924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID =
+            "924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
 
         // App structure
@@ -42,8 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         return true
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
     /*
@@ -101,6 +104,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
         }
     }
-    
-    
 }

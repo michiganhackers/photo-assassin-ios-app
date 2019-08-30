@@ -6,8 +6,8 @@
 //  and registration screens that are presented to the user on start up if the
 //  user is not logged in.
 
-import UIKit
 import Firebase
+import UIKit
 
 class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
     // MARK: - Text and Number Class Constants
@@ -46,7 +46,7 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
 
     lazy var emailField: UITextField = {
         let field = LoginTextField("email", isSecure: false, isEmail: true)
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
@@ -54,7 +54,7 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
     }()
     lazy var passwordField: UITextField = {
         let field = LoginTextField("password", isSecure: true, isEmail: false)
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
@@ -75,7 +75,7 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
+
     func shouldEnableSignIn() -> Bool {
         return emailField.text != "" && passwordField.text != ""
     }
@@ -155,7 +155,7 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
     func loginRegisterButtonTapped() {
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { _ /* user */, error in
            if error == nil {
                 print("Signed In Successfully!")
                 self.onButtonTap(email, password)
@@ -183,7 +183,8 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
         super.init(coder: aDecoder)
     }
     init(buttonText: String,
-         screenTitle: String, titleSize: CGFloat,
+         screenTitle: String,
+         titleSize: CGFloat,
          onButtonTap: @escaping (_ email: String, _ password: String) -> Void) {
         self.buttonText = buttonText
         self.onButtonTap = onButtonTap

@@ -25,34 +25,34 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
     let currentPasswordLabel = TranslucentLabel(text: "Current password", size: labelTextSize)
     let newPasswordLabel = TranslucentLabel(text: "New password", size: labelTextSize)
     let confirmPasswordLabel = TranslucentLabel(text: "Confirm new password", size: labelTextSize)
-    
+
     lazy var currentEmailField: UITextField = {
         let field = LoginTextField("Current Email", isSecure: false, isEmail: true)
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         return field
     }()
-    
+
     lazy var currentPasswordField: UITextField = {
         let field = LoginTextField("Current password", isSecure: true, isEmail: false)
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         return field
     }()
-    
+
     lazy var newPasswordField: UITextField = {
         let field = LoginTextField("New password", isSecure: true, isEmail: false)
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         return field
     }()
-    
+
     lazy var confirmPasswordField: UITextField = {
         let field = LoginTextField("Confirm new password", isSecure: true, isEmail: false)
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         return field
@@ -69,7 +69,7 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         textField.resignFirstResponder()
         return true
     }
-    
+
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
         currentEmail.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
@@ -77,8 +77,10 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         currentEmailField.topAnchor.constraint(equalTo: currentEmail.bottomAnchor).isActive = true
         currentEmailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         currentEmailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        
-        currentPasswordLabel.topAnchor.constraint(equalTo: currentEmailField.bottomAnchor, constant: ChangePasswordViewController.fieldSpacing).isActive = true
+
+        currentPasswordLabel.topAnchor.constraint(
+            equalTo: currentEmailField.bottomAnchor,
+            constant: ChangePasswordViewController.fieldSpacing).isActive = true
         currentPasswordLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         currentPasswordField.topAnchor.constraint(equalTo:
             currentPasswordLabel.bottomAnchor).isActive = true
@@ -118,7 +120,7 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         view.addSubview(confirmPasswordField)
         view.addSubview(submitButton)
     }
-    
+
     func passwordChangeFailed() {
         let alertTitle = "Error"
         let alertText = "Unsuccessful password change"
@@ -126,7 +128,7 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }
-    
+
     func passwordSuccess() {
         let alertTitle = "Success"
         let alertText = "Password changed successfully"
@@ -159,23 +161,34 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
     @objc
     func submit() {
         print("Change password")
-        
+
+        guard let emailText = currentEmailField.text else {
+            return
+        }
+        guard let oldPasswordText = currentPasswordField.text else {
+            return
+        }
+        guard let newPasswordText = newPasswordField.text else {
+            return
+        }
+
         // First, check user's provider
         let user = Auth.auth().currentUser
         let provider = Auth.auth().currentUser?.providerData[0].providerID
-        var credential = EmailAuthProvider.credential(withEmail: currentEmailField.text!, password: currentPasswordField.text!)
+        let credential = EmailAuthProvider.credential(withEmail: emailText,
+                                                      password: oldPasswordText)
 
-        if (provider != "password") {
+        if provider != "password" {
             let alertTitle = "Error"
             let alertText = "Password cannot be changed for accounts associated with Google and Facebook"
             let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }
-        
+
         // Prompt the user to re-provide their sign-in credentials
         user?.reauthenticate(with: credential) { error in
-            if let error = error {
+            if error != nil {
                 print("Password change unsuccessful")
                 self.passwordChangeFailed()
                 return
@@ -185,16 +198,16 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         }
 
         // Update password
-        Auth.auth().currentUser?.updatePassword(to: newPasswordField.text!) { (error) in
+        Auth.auth().currentUser?.updatePassword(to: newPasswordText) { _ /* error */ in
             print("Password change unsuccessful")
             self.passwordChangeFailed()
             return
         }
-        
+
         // Communicate to user that password change was successful
         print("Password was successfully changed")
         passwordSuccess()
-        
+
         currentEmailField.text = ""
         currentPasswordField.text = ""
         newPasswordField.text = ""

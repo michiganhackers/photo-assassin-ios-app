@@ -169,7 +169,7 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
         view.addSubview(addPlayerButton)
         view.addSubview(playerList.view)
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

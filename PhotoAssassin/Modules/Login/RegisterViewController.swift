@@ -72,12 +72,12 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     func facebookRegisterTapped() {
         print("Attempted Facebook registration")
         let loginManager = LoginManager()
-        
+
         // Log out
         if let currentAccessToken = FBSDKAccessToken.current(), currentAccessToken.appID != FBSDKSettings.appID() {
             loginManager.logOut()
         }
-        
+
         // Log in
         loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
             switch loginResult {
@@ -85,15 +85,15 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                 print(error)
             case .cancelled:
                 print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+            case .success(_, _, _ /* let grantedPermissions, let declinedPermissions, let accessToken */):
                 guard let accessToken = FBSDKAccessToken.current() else {
                     print("Failed to get access token")
                     return
                 }
-                
+
                 // Register with Facebook!!
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
-                Auth.auth().signIn(with: credential) { (authResult, error) in
+                Auth.auth().signIn(with: credential) { _ /* authResult */, error in
                     if let error = error {
                         print("Login error: \(error.localizedDescription)")
                         return
@@ -138,7 +138,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
               dismiss viewController: UIViewController!) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     func failedRegistration() {
         let alertTitle = "Error"
         let alertText = "Registration failed"
@@ -146,7 +146,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }
-    
+
     // MARK: - Overrides
     override func addSubviews() {
         super.addSubviews()
@@ -178,7 +178,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         googleRegisterButton.topAnchor.constraint(equalTo: haveAnAccountLink.bottomAnchor,
                         constant: socialMediaSpace).isActive = true
         googleRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        googleRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true   
+        googleRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         facebookRegisterButton.topAnchor.constraint(equalTo: googleRegisterButton.bottomAnchor,
                         constant: socialMediaSpace).isActive = true
         facebookRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
@@ -193,7 +193,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     override func getBottomSubview() -> UIView {
         return facebookRegisterButton
     }
-    
+
     // Checks if input String is a valid email
     func isValid(_ email: String) -> Bool {
         let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" +
@@ -203,8 +203,8 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" +
             "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
         "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
+
+        let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
 
@@ -212,14 +212,14 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     init() {
         super.init(buttonText: "sign up",
                    screenTitle: "Registration", titleSize: 64) { (_ email: String, _ password: String) -> Void in
             print("Attempted registration with email \(email) and password \(password)")
         }
     }
-    
+
     @objc
     func user_Registration() {
         if let email = emailField.text, let password = passwordField.text {
@@ -229,7 +229,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                     self.failedRegistration()
                     return
                 }
-                
+
                 // Create a new document with user.uid
                 let user = authResult?.user
                 if let user = user {
@@ -237,8 +237,8 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                     // Do NOT use this value to authenticate with your backend server,
                     // if you have one. Use getTokenWithCompletion:completion: instead.
                     let uid = "" + user.uid
-                    let db = Firestore.firestore()
-                    db.collection("users").document(uid).setData([
+                    let database = Firestore.firestore()
+                    database.collection("users").document(uid).setData([
                         "currentGames": [],
                         "deaths": 0,
                         "displayName": userFullName,
@@ -264,15 +264,16 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             }
         }
     }
-    
+
     override func loginRegisterButtonTapped() {
         let password = passwordField.text ?? ""
         let confirmPassword = confirmPasswordField.text ?? ""
-        if (isValid(emailField.text ?? "") && password.count >= 8 && password == confirmPassword) {
+        if isValid(emailField.text ?? "") && password.count >= 8 && password == confirmPassword {
             user_Registration()
         } else {
             let alertTitle = "Error"
-            let alertText = "Email must be valid, password must be at least 8 characters, and password and confirm password must be the same."
+            let alertText = "Email must be valid, password must be at least 8 characters, " +
+                            "and password and confirm password must be the same."
             let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)

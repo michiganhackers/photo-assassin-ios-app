@@ -12,7 +12,7 @@ class GameList<CellType: GameDataCell>: UIViewController, UITableViewDelegate, U
     let borderWidth: CGFloat = 2.0
     let separatorMargin: CGFloat = 5.0
     let footerHeight: CGFloat = 8.0
-    
+
     let onSelect: ((CellType.GameDataType, Int) -> Void)?
 
     var games: [CellType.GameDataType] = []

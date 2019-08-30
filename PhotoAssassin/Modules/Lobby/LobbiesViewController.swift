@@ -73,7 +73,8 @@ class LobbiesViewController: UIViewController {
                                                 constant: topMargin).isActive = true
         gameLobbyList.view.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: sideMargin).isActive = true
         gameLobbyList.view.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -sideMargin).isActive = true
-        submitButton.topAnchor.constraint(equalTo: gameLobbyList.view.bottomAnchor, constant: middleMargin).isActive = true
+        submitButton.topAnchor.constraint(
+            equalTo: gameLobbyList.view.bottomAnchor, constant: middleMargin).isActive = true
         submitButton.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: sideMargin).isActive = true
         submitButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -sideMargin).isActive = true
         submitButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -middleMargin).isActive = true

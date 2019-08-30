@@ -33,16 +33,16 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy var emailField: UITextField = {
         let field = UserEnterTextField("Email")
-        field.delegate = self as? UITextFieldDelegate
+        field.delegate = self as UITextFieldDelegate
         field.translatesAutoresizingMaskIntoConstraints = false
         field.returnKeyType = .done
         field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         return field
     }()
-    
+
     lazy var resetPasswordButton: UIButton = {
         let button = LoginRegisterButton("Reset Password", height: resetPasswordHeight)
         button.isEnabled = false
@@ -50,14 +50,14 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
         button.addTarget(self, action: #selector(resetPasswordTapped), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var hasAccountLink: UIButton = {
         let button = TransitionLinkButton("Have an account? Log in")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(hasAccountTapped), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var noAccountLink: UIButton = {
         let button = TransitionLinkButton("No account? Register")
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -105,12 +105,12 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
         noAccountLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         noAccountLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
+
     // Checks if input String is a valid email
     func isValid(_ email: String) -> Bool {
         let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" +
@@ -120,8 +120,8 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
             "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" +
             "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
             "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
+
+        let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
 
@@ -144,7 +144,7 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
     @objc
     func resetPasswordTapped() {
         let email = emailField.text ?? ""
-        
+
         if isValid(email) {
             Auth.auth().sendPasswordReset(withEmail: email) { error in
                 var alertText = "An email with instructions for resetting your " +
@@ -161,13 +161,13 @@ class ForgotPasswordViewController: ScrollingViewController, UITextFieldDelegate
             }
         } else {
             print("Invalid Email")
-            
+
             // Show invalid email notification
             let alertVC = UIAlertController(title: "Error", message: "Invalid Email", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }
-        
+
     }
 
     // MARK: - Overrides

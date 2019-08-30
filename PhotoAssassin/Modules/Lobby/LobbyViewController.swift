@@ -119,6 +119,11 @@ class LobbyViewController: NavigatingViewController {
             lengthLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
             verticalAnchor = lengthLabel.bottomAnchor
         }
+        setUpPlayerCountAndLeaveConstraints(verticalAnchor: verticalAnchor)
+    }
+
+    func setUpPlayerCountAndLeaveConstraints(verticalAnchor: NSLayoutYAxisAnchor) {
+        let margins = view.layoutMarginsGuide
         playersLabel.topAnchor.constraint(equalTo: verticalAnchor,
                                           constant: LobbyViewController.verticalMargin).isActive = true
         playersLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true

@@ -19,7 +19,7 @@ class ViewController: RoutedViewController {
     var toggleCameraButton: UIButton = UIButton()
     var capturePreviewView: UIView = UIView()
     let cameraController = CameraController()
-    
+
     // MARK: - Overrides
     override var prefersStatusBarHidden: Bool { return true }
 }
@@ -33,7 +33,7 @@ extension ViewController {
         recognizer.direction = .left
         recognizer.numberOfTouchesRequired = 1
         view.addGestureRecognizer(recognizer)
-        
+
         let zoom = UIPinchGestureRecognizer(target: self, action: #selector(onZoom))
         view.addGestureRecognizer(zoom)
     }
@@ -77,7 +77,7 @@ extension ViewController {
         toggleCameraButton.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
         capturePreviewView.addSubview(toggleCameraButton)
     }
-    
+
     // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +87,7 @@ extension ViewController {
         styleFlashButton()
         styleCameraButton()
     }
-    
+
     // MARK: - Event Listeners
     @objc
     func onSwipeLeft(_ recognizer: UIGestureRecognizer) {
@@ -103,8 +103,8 @@ extension ViewController {
                 print(error ?? "Image capture error")
                 return
             }
-            if (self.cameraController.isFront()) {
-                takenPhoto = UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: .leftMirrored)
+            if let cgImage = image.cgImage, self.cameraController.isFront() {
+                takenPhoto = UIImage(cgImage: cgImage, scale: image.scale, orientation: .leftMirrored)
             } else {
                 takenPhoto = image
             }
@@ -143,7 +143,7 @@ extension ViewController {
             return
         }
     }
-    
+
     @objc
     func onZoom(_ sender: UIPinchGestureRecognizer) {
         cameraController.toZoom(sender)

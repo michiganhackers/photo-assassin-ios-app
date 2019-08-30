@@ -231,6 +231,32 @@ class ProfileViewController: NavigatingViewController {
         }
     }
 
+    // MARK: - Overrides
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addSubviews()
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        addConstraints()
+    }
+
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        self.player = Player.myself
+        super.init(coder: aDecoder)
+    }
+    init(player: Player) {
+        self.player = player
+        super.init(title: "Profile")
+        self.player.loadFriends { friends in
+            friendList.update(newPlayers: friends)
+        }
+    }
+}
+
+extension ProfileViewController {
+    /* More constraints and overrides */
     func addButtonAndFriendListConstraints() {
         let margins = view.layoutMarginsGuide
 
@@ -239,8 +265,8 @@ class ProfileViewController: NavigatingViewController {
             greaterThanOrEqualTo: profilePicture.bottomAnchor,
             constant: verticalButtonSpacing).isActive = true
         let dynamicButtonY = NSLayoutConstraint(item: historyButton, attribute: .top,
-                           relatedBy: .equal, toItem: killDeathRatioLeftLabel, attribute: .bottom,
-                           multiplier: 1.0, constant: verticalButtonSpacing)
+                                                relatedBy: .equal, toItem: killDeathRatioLeftLabel, attribute: .bottom,
+                                                multiplier: 1.0, constant: verticalButtonSpacing)
         dynamicButtonY.priority = .defaultLow
         dynamicButtonY.isActive = true
 
@@ -251,10 +277,8 @@ class ProfileViewController: NavigatingViewController {
             historyButton.widthAnchor.constraint(
                 equalTo: margins.widthAnchor, multiplier: 0.5,
                 constant: -horizontalButtonSpacing / 2.0).isActive = true
-            changeFriendStatusButton.topAnchor.constraint(
-                equalTo: historyButton.topAnchor).isActive = true
-            changeFriendStatusButton.leftAnchor.constraint(
-                equalTo: margins.leftAnchor).isActive = true
+            changeFriendStatusButton.topAnchor.constraint(equalTo: historyButton.topAnchor).isActive = true
+            changeFriendStatusButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
             changeFriendStatusButton.widthAnchor.constraint(
                 equalTo: margins.widthAnchor, multiplier: 0.5,
                 constant: -horizontalButtonSpacing / 2.0).isActive = true
@@ -289,28 +313,5 @@ class ProfileViewController: NavigatingViewController {
     func addConstraints() {
         addImageAndLabelConstraints()
         addButtonAndFriendListConstraints()
-    }
-
-    // MARK: - Overrides
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addSubviews()
-    }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        addConstraints()
-    }
-
-    // MARK: - Initializers
-    required init?(coder aDecoder: NSCoder) {
-        self.player = Player.myself
-        super.init(coder: aDecoder)
-    }
-    init(player: Player) {
-        self.player = player
-        super.init(title: "Profile")
-        self.player.loadFriends { friends in
-            friendList.update(newPlayers: friends)
-        }
     }
 }

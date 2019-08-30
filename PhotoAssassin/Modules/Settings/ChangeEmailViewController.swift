@@ -89,9 +89,7 @@ class ChangeEmailViewController: NavigatingViewController {
         currentEmailField.text = ""
         newEmailField.text = ""
         passwordField.text = ""
-        
-        
-        
+
         pop()
     }
 

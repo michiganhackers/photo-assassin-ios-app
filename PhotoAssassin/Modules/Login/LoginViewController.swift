@@ -37,7 +37,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         link.addTarget(self, action: #selector(registerLinkTapped), for: .touchUpInside)
         return link
     }()
-    
+
     lazy var googleRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.googleLogo() {
@@ -51,12 +51,12 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         button.addTarget(self, action: #selector(googleLoginTapped), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var facebookRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.facebookLogo() {
             button = SocialMediaLoginButton("continue with facebook",
-                                            height: socialMediaButtonHeight, textSize: sizeOfText,  image: image)
+                                            height: socialMediaButtonHeight, textSize: sizeOfText, image: image)
         } else {
             button = UIButton()
             button.setTitle("continue with facebook", for: .normal)
@@ -87,20 +87,24 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         googleRegisterButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor,
                                                   constant: socialMediaSpace).isActive = true
         googleRegisterButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        googleRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) - 10).isActive = true
-        //googleRegisterButton.heightAnchor.constraint(equalTo: loginRegisterButton.heightAnchor, constant: 50).isActive = true
-        
+        googleRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
+                                                    constant: -(self.view.bounds.width / 2) - 10).isActive = true
+        //googleRegisterButton.heightAnchor.constraint(equalTo: loginRegisterButton.heightAnchor,
+        //       constant: 50).isActive = true
+
         facebookRegisterButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor,
                                                     constant: socialMediaSpace).isActive = true
-        facebookRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -(self.view.bounds.width / 2) - 10).isActive = true
+        facebookRegisterButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
+                                                      constant: -(self.view.bounds.width / 2) - 10).isActive = true
         facebookRegisterButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        //facebookRegisterButton.heightAnchor.constraint(equalTo: loginRegisterButton.heightAnchor, constant: 50).isActive = true
-        
+        //facebookRegisterButton.heightAnchor.constraint(
+        //   equalTo: loginRegisterButton.heightAnchor, constant: 50).isActive = true
+
         forgotPasswordLink.topAnchor.constraint(
             equalTo: googleRegisterButton.bottomAnchor,
             constant: linkSpacing).isActive = true
         forgotPasswordLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        
+
         registerLink.topAnchor.constraint(
             equalTo: googleRegisterButton.bottomAnchor,
             constant: linkSpacing).isActive = true
@@ -122,20 +126,20 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     override func getTextFieldSeparation() -> CGFloat {
         return 12.0
     }
-    
+
     // MARK: - Custom Functions
-    
+
     // Handle errors
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
         print("Error signing in: ", error)
     }
-    
+
     // Present a view that prompts the user to sign in with Google
     func sign(_ signIn: GIDSignIn!,
               present viewController: UIViewController!) {
         self.present(viewController, animated: true, completion: nil)
     }
-    
+
     // Dismiss the "Sign in with Google" view
     func sign(_ signIn: GIDSignIn!,
               dismiss viewController: UIViewController!) {
@@ -149,7 +153,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }
-    
+
     // MARK: - Event Listeners
     @objc
     func registerLinkTapped() {
@@ -160,17 +164,17 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     func forgotPasswordLinkTapped() {
         routeTo(screen: .forgotPassword)
     }
-    
+
     @objc
     func facebookLoginTapped() {
         print("Attempted Facebook registration")
         let loginManager = LoginManager()
-        
+
         // Log out
         if let currentAccessToken = FBSDKAccessToken.current(), currentAccessToken.appID != FBSDKSettings.appID() {
             loginManager.logOut()
         }
-        
+
         // Log in
         loginManager.logIn(readPermissions: [ .publicProfile ], viewController: self) { loginResult in
             switch loginResult {
@@ -179,14 +183,14 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                 self.loginFailed()
             case .cancelled:
                 print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+            case .success(_ /* grantedPermissions */, _ /* declinedPermissions */, _ /* accessToken */):
                 print("Logged in!")
                 guard let accessToken = FBSDKAccessToken.current() else {
                     print("Failed to get access token")
                     return
                 }
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
-                Auth.auth().signIn(with: credential) { (authResult, error) in
+                Auth.auth().signIn(with: credential) { _ /* authResult */, error in
                     if let error = error {
                         print("Login error: \(error.localizedDescription)")
                         self.loginFailed()
@@ -199,7 +203,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             }
         }
     }
-    
+
     @objc
     func googleLoginTapped() {
         print("Attempted Google login")

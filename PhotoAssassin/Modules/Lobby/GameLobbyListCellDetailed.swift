@@ -49,7 +49,7 @@ class GameLobbyListCellDetailed: UITableViewCell, GameDataCell {
         playerCountLabel.font = R.font.economicaBold(size: GameLobbyListCellDetailed.smallTextSize)
         playerCountLabel.translatesAutoresizingMaskIntoConstraints = false
         faceButton.addSubview(playerCountLabel)
-        
+
         targetLabel.text = "Target: Jason"
         targetLabel.textColor = Colors.text
         targetLabel.font = R.font.economicaBold(size: GameLobbyListCellDetailed.smallTextSize)
