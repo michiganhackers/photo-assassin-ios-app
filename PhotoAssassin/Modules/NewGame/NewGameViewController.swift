@@ -12,6 +12,7 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
     // MARK: - Class Constants
     let mainTextSize: CGFloat = 36.0
     let verticalSpacing: CGFloat = 30.0
+    let backend = BackendCaller()
 
     // MARK: - UI Elements
     lazy var titleLabel: UILabel = {
@@ -62,6 +63,19 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
         if let name = titleTextField.text {
             let invitedPlayersList = Array(invitedPlayers)
             print("TODO: Create game with name \(name) and invited players \(invitedPlayersList)")
+            backend.createGame(name: name, invitedUsernames: invitedPlayersList) { result, error in
+                if let actualError = error {
+                    print("Encountered error when creating game:\n\(actualError)")
+                    // TODO: Show error to user
+                }
+                guard let gameID = result else {
+                    print("No gameID passed back but game creation seemed succesful")
+                    self.pop()
+                    return
+                }
+                print("Successful game creation with gameID \(gameID)")
+                self.pop()
+            }
             invitedPlayers = Set<String>()
             titleTextField.text = ""
         }

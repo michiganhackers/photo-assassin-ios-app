@@ -15,6 +15,7 @@ target 'PhotoAssassin' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Functions'
   pod 'FacebookCore', '~> 0.5.0'
   pod 'FacebookLogin', '~> 0.5.0'
   pod 'FBSDKLoginKit'
