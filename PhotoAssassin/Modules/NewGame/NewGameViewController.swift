@@ -9,18 +9,11 @@
 import UIKit
 
 class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
-    // MARK: - String and Number Constants
-    let pickerButtonSpacing: CGFloat = 10.0
+    // MARK: - Class Constants
     let mainTextSize: CGFloat = 36.0
+    let verticalSpacing: CGFloat = 30.0
 
     // MARK: - UI Elements
-    lazy var createButton: UIButton = {
-        let button = TranslucentButton("Create Game")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
-        return button
-    }()
-
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -33,19 +26,6 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
         return titleLabel
     }()
 
-    lazy var addPlayerLabel: UILabel = {
-        let addPlayerLabel = UILabel()
-        addPlayerLabel.translatesAutoresizingMaskIntoConstraints = false
-        addPlayerLabel.attributedText = NSAttributedString(
-            string: "Added Players",
-            attributes: [
-                .foregroundColor: Colors.seeThroughText,
-                .font: R.font.economicaBold.orDefault(size: mainTextSize)
-            ]
-        )
-        return addPlayerLabel
-    }()
-
     lazy var titleTextField: UITextField = {
         let titleText = UserEnterTextField("")
         titleText.delegate = self
@@ -54,47 +34,20 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
         return titleText
     }()
 
-    lazy var addPlayerButton: UIButton = {
-        let button = UIButton()
-        let textSize: CGFloat = 72.0
+    lazy var invitePlayersButton: UIButton = {
+        let button = TransparentButton("Invite Players")
+        button.addTarget(self, action: #selector(invitePlayersButtonTapped), for: .touchUpInside)
+        return button
+    }()
+
+    lazy var createButton: UIButton = {
+        let button = TranslucentButton("Create Game")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setAttributedTitle(
-            NSAttributedString(
-                string: "+",
-                attributes: [
-                    .foregroundColor: Colors.seeThroughText,
-                    .font: R.font.economicaRegular.orDefault(size: textSize),
-                    .baselineOffset: textSize - mainTextSize
-                ]
-            ),
-            for: .normal
-        )
-        button.addTarget(self, action: #selector(addPlayerButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(bringToCreate), for: .touchUpInside)
         return button
     }()
 
-    lazy var pickerButton: PickerButton<GameStartTime> = {
-        let button = PickerButton<GameStartTime>(
-            options: [
-                ("Start game in 10 min", .tenMinutes),
-                ("Start game in 30 min", .thirtyMinutes),
-                ("Start game in 1 hour", .oneHour)
-            ],
-            defaultRow: 1
-        )
-        button.addTarget(self, action: #selector(pickerButtonTapped), for: .touchUpInside)
-        return button
-    }()
-
-    let addPlayerVC = AddPlayerViewController()
-
-    let playerList = NewGamePlayerListViewController(
-        players: [
-            (Player(username: "benjamincarney", relationship: .none), .playing),
-            (Player(username: "phoebe", relationship: .friend), .notPlaying),
-            (Player(username: "casper-h", relationship: .friend), .invited)
-        ]
-    )
+    var invitedPlayers: Set<String> = Set<String>()
 
     // MARK: - Nested Types
     enum GameStartTime {
@@ -106,68 +59,46 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
     // MARK: - Custom Functions
     @objc
     func bringToCreate() {
-        print("TODO: Create a new game")
+        if let name = titleTextField.text {
+            let invitedPlayersList = Array(invitedPlayers)
+            print("TODO: Create game with name \(name) and invited players \(invitedPlayersList)")
+            invitedPlayers = Set<String>()
+            titleTextField.text = ""
+        }
     }
 
     @objc
-    func addPlayerButtonTapped() {
-        addPlayerVC.modalTransitionStyle = .coverVertical
-        addPlayerVC.modalPresentationStyle = .overFullScreen
-        present(addPlayerVC, animated: true, completion: nil)
-    }
-
-    @objc
-    func pickerButtonTapped() {
-        pickerButton.displayPickerPopover(from: self)
+    func invitePlayersButtonTapped() {
+        if let nav = navigationController {
+            let vcToPush = InvitePlayersViewController(alreadyInvited: invitedPlayers) { usernames in
+                self.invitedPlayers = usernames
+            }
+            nav.pushViewController(vcToPush, animated: true)
+        }
     }
 
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
-        createButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -10).isActive = true
-        createButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        createButton.widthAnchor.constraint(equalTo: margins.widthAnchor,
-                                            multiplier: 1.0 / 2.0).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         titleTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         titleTextField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        titleTextField.widthAnchor.constraint(equalTo: margins.widthAnchor,
-                                            multiplier: 1.0).isActive = true
-
-        pickerButton.topAnchor.constraint(
-            equalTo: titleTextField.bottomAnchor,
-            constant: pickerButtonSpacing).isActive = true
-        pickerButton.leftAnchor.constraint(
-            equalTo: margins.leftAnchor).isActive = true
-        pickerButton.rightAnchor.constraint(
-            equalTo: margins.rightAnchor).isActive = true
-
-        addPlayerLabel.topAnchor.constraint(
-            equalTo: pickerButton.bottomAnchor,
-            constant: pickerButtonSpacing).isActive = true
-        addPlayerLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-
-        addPlayerButton.topAnchor.constraint(
-            equalTo: pickerButton.bottomAnchor,
-            constant: pickerButtonSpacing).isActive = true
-        addPlayerButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-
-        playerList.view.topAnchor.constraint(
-            equalTo: addPlayerLabel.bottomAnchor
-        ).isActive = true
-        playerList.view.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        playerList.view.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        playerList.view.bottomAnchor.constraint(equalTo: createButton.topAnchor).isActive = true
+        titleTextField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        invitePlayersButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor,
+                                                 constant: verticalSpacing).isActive = true
+        invitePlayersButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        invitePlayersButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        createButton.topAnchor.constraint(equalTo: invitePlayersButton.bottomAnchor,
+                                                 constant: verticalSpacing).isActive = true
+        createButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        createButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }
 
     func addSubviews() {
-        view.addSubview(createButton)
         view.addSubview(titleLabel)
         view.addSubview(titleTextField)
-        view.addSubview(pickerButton)
-        view.addSubview(addPlayerLabel)
-        view.addSubview(addPlayerButton)
-        view.addSubview(playerList.view)
+        view.addSubview(invitePlayersButton)
+        view.addSubview(createButton)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -13,8 +13,6 @@ class Player {
     enum InvitationStatus {
         case invited
         case notInvited
-        case notPlaying
-        case playing
     }
     enum Relationship {
         case friend

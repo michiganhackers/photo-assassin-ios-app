@@ -56,7 +56,6 @@
 		E9BF806F225FFC76002B11C3 /* PlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF806E225FFC76002B11C3 /* PlayerListViewController.swift */; };
 		E9BF8071225FFD4E002B11C3 /* PlayerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */; };
 		E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF8072225FFEA7002B11C3 /* Player.swift */; };
-		E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */; };
 		E9C126D42260F67600015C9B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D32260F67600015C9B /* ProfileViewController.swift */; };
 		E9C126D6226107CC00015C9B /* UILabel+attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C126D5226107CC00015C9B /* UILabel+attributes.swift */; };
 		E9C1D347224D8723006E1069 /* GameLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1D346224D8723006E1069 /* GameLobby.swift */; };
@@ -78,7 +77,7 @@
 		EEB40564224D935F004BD0D6 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB40563224D935F004BD0D6 /* LobbyViewController.swift */; };
 		EEC0D5602256CCDD00A820E8 /* LobbiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */; };
 		EEDBBB05224DA53E008D1CC8 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */; };
-		EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */; };
+		EEFB1FFD22600B1F0045CFD2 /* InvitePlayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFB1FFC22600B1F0045CFD2 /* InvitePlayersViewController.swift */; };
 		EEFDDE992228C29500393C33 /* Economica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE982228C29500393C33 /* Economica-Bold.ttf */; };
 		EEFDDE9B2228C2AA00393C33 /* Economica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */; };
 		F32791A922E7122200E92915 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32791A822E7122200E92915 /* SetupProfileViewController.swift */; };
@@ -161,7 +160,6 @@
 		E9BF806E225FFC76002B11C3 /* PlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewController.swift; sourceTree = "<group>"; };
 		E9BF8070225FFD4E002B11C3 /* PlayerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCell.swift; sourceTree = "<group>"; };
 		E9BF8072225FFEA7002B11C3 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerListViewController.swift; sourceTree = "<group>"; };
 		E9C126D32260F67600015C9B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E9C126D5226107CC00015C9B /* UILabel+attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+attributes.swift"; sourceTree = "<group>"; };
 		E9C1D346224D8723006E1069 /* GameLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameLobby.swift; path = PhotoAssassin/Models/GameLobby.swift; sourceTree = SOURCE_ROOT; };
@@ -183,7 +181,7 @@
 		EEB40563224D935F004BD0D6 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		EEC0D55F2256CCDD00A820E8 /* LobbiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbiesViewController.swift; sourceTree = "<group>"; };
 		EEDBBB04224DA53E008D1CC8 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
+		EEFB1FFC22600B1F0045CFD2 /* InvitePlayersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitePlayersViewController.swift; sourceTree = "<group>"; };
 		EEFDDE982228C29500393C33 /* Economica-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Bold.ttf"; sourceTree = "<group>"; };
 		EEFDDE9A2228C2AA00393C33 /* Economica-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Economica-Regular.ttf"; sourceTree = "<group>"; };
 		F32791A822E7122200E92915 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
@@ -415,8 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				955DFEC02256D8A100DB40D8 /* NewGameViewController.swift */,
-				EEFB1FFC22600B1F0045CFD2 /* AddPlayerViewController.swift */,
-				E9BF807422600693002B11C3 /* NewGamePlayerListViewController.swift */,
+				EEFB1FFC22600B1F0045CFD2 /* InvitePlayersViewController.swift */,
 				E9FC861722624723000C5832 /* InvitePlayerListViewController.swift */,
 				E9FC86192262575C000C5832 /* InviteAccessoryButton.swift */,
 			);
@@ -789,7 +786,6 @@
 				F32791A922E7122200E92915 /* SetupProfileViewController.swift in Sources */,
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
 				F3C33E20228FB3DF001F6FFA /* ViewController.swift in Sources */,
-				E9BF807522600693002B11C3 /* NewGamePlayerListViewController.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				E914C38F22F774FF00E51514 /* LobbyInfo.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
@@ -835,7 +831,7 @@
 				EEDBBB05224DA53E008D1CC8 /* ForgotPasswordViewController.swift in Sources */,
 				2A1DD4E11F389E2100712195 /* NotificationsHandler.swift in Sources */,
 				F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */,
-				EEFB1FFD22600B1F0045CFD2 /* AddPlayerViewController.swift in Sources */,
+				EEFB1FFD22600B1F0045CFD2 /* InvitePlayersViewController.swift in Sources */,
 				E9FC861822624723000C5832 /* InvitePlayerListViewController.swift in Sources */,
 				E9C126D6226107CC00015C9B /* UILabel+attributes.swift in Sources */,
 				E9C126D42260F67600015C9B /* ProfileViewController.swift in Sources */,

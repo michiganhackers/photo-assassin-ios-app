@@ -10,7 +10,8 @@ import UIKit
 
 class InvitePlayerListViewController: PlayerListViewController {
     // MARK: - Class members
-    private let players: [(Player, Player.InvitationStatus)]
+    private var players: [(Player, Player.InvitationStatus)]
+    private let onInvite: ((String) -> Void)?
 
     // MARK: - Overrides
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,17 +55,21 @@ class InvitePlayerListViewController: PlayerListViewController {
     func inviteButtonTapped(_ sender: InviteAccessoryButton) {
         if let path = sender.indexPath {
             let player = players[path.row].0
-            print("TODO: Invite person with username \(player.username)")
+            onInvite?(player.username)
+            players[path.row].1 = .invited
+            tableView.reloadRows(at: [path], with: .automatic)
         }
     }
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
         self.players = []
+        self.onInvite = nil
         super.init(coder: aDecoder)
     }
-    init(players list: [(Player, Player.InvitationStatus)]) {
+    init(players list: [(Player, Player.InvitationStatus)], onInvite: @escaping (String) -> Void) {
         self.players = list
+        self.onInvite = onInvite
         super.init(players: list.map { $0.0 }, hasGradientBackground: false)
     }
 }
