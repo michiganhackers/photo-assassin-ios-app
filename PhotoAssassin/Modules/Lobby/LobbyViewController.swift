@@ -17,6 +17,7 @@ class LobbyViewController: NavigatingViewController {
     static let verticalMargin: CGFloat = 20.0
     static let horizontalMargin: CGFloat = 15.0
     let info: LobbyInfo
+    let backend = BackendCaller()
 
     // MARK: - UI elements
     lazy var playerList = GameList<LobbyPlayerListCell> { playerWithStatus, _ in
@@ -169,7 +170,14 @@ class LobbyViewController: NavigatingViewController {
 
     @objc
     func startGameTapped() {
-        print("TODO: Start the game")
+        backend.startGame(gameID: info.gameLobby.id) { _, error in
+            if let theError = error {
+                print("Error starting game: \(theError)")
+            } else {
+                print("Successfully started game with ID \(self.info.gameLobby.id)")
+                print("TODO: Reload this lobby's data")
+            }
+        }
     }
 
     @objc
