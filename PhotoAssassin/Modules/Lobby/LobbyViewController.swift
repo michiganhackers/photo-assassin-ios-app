@@ -187,7 +187,7 @@ class LobbyViewController: NavigatingViewController {
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
-        self.info = LobbyInfo(gameLobby: GameLobby(id: "", title: "", numberInLobby: 0, capacity: 0),
+        self.info = LobbyInfo(gameLobby: GameLobby(id: "", title: "", numberInLobby: 0),
                               focusedPlayer: nil,
                               myselfPermission: .viewer,
                               otherPlayers: [])

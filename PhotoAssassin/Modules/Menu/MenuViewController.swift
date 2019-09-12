@@ -47,10 +47,10 @@ class MenuViewController: NavigatingViewController {
                 ))
         }
         list.games = [
-            GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, capacity: 5),
-            GameLobby(id: "1cd", title: "Another Game", numberInLobby: 8, capacity: 20),
-            GameLobby(id: "2ef", title: "Game 3", numberInLobby: 4, capacity: 6),
-            GameLobby(id: "3gh", title: "Jason's Game", numberInLobby: 6, capacity: 100)
+            GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, numberAlive: nil),
+            GameLobby(id: "1cd", title: "Another Game", numberInLobby: 8, numberAlive: nil),
+            GameLobby(id: "2ef", title: "Game 3", numberInLobby: 20, numberAlive: 18),
+            GameLobby(id: "3gh", title: "Jason's Game", numberInLobby: 9, numberAlive: 3)
         ]
         return list
     }()

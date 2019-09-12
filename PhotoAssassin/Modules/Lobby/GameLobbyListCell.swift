@@ -34,7 +34,11 @@ class GameLobbyListCell: UITableViewCell, GameDataCell {
 
         contentView.addSubview(playerCountLabel)
         playerCountLabel.textAlignment = .right
-        playerCountLabel.text = "\(gameData.numberInLobby)/\(gameData.capacity)"
+        if let numAlive = gameData.numberAlive {
+            playerCountLabel.text = "\(numAlive)/\(gameData.numberInLobby)"
+        } else {
+            playerCountLabel.text = "\(gameData.numberInLobby) Waiting"
+        }
         playerCountLabel.textColor = Colors.text
         playerCountLabel.font = R.font.economicaBold(size: GameLobbyListCell.textSize)
 

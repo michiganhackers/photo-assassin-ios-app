@@ -14,12 +14,14 @@ class GameLobby {
     let id: String
     let title: String
     let numberInLobby: Int
-    let capacity: Int
+    let numberAlive: Int?
 
-    init(id: String, title: String, numberInLobby: Int, capacity: Int) {
+    // Note: If numberAlive is nil, the game has not yet started or has ended.
+    //  Otherwise, it is in progress.
+    init(id: String, title: String, numberInLobby: Int, numberAlive: Int? = nil) {
         self.id = id
         self.title = title
         self.numberInLobby = numberInLobby
-        self.capacity = capacity
+        self.numberAlive = numberAlive
     }
 }

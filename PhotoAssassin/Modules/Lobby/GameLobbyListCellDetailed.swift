@@ -44,7 +44,7 @@ class GameLobbyListCellDetailed: UITableViewCell, GameDataCell {
         faceButton.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
         faceButton.contentVerticalAlignment = UIControl.ContentVerticalAlignment.top
 
-        playerCountLabel.text = "Players remaining: \(gameData.numberInLobby)"
+        playerCountLabel.text = "Players remaining: \(gameData.numberAlive ?? 0)"
         playerCountLabel.textColor = Colors.text
         playerCountLabel.font = R.font.economicaBold(size: GameLobbyListCellDetailed.smallTextSize)
         playerCountLabel.translatesAutoresizingMaskIntoConstraints = false
