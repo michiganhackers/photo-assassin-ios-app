@@ -47,4 +47,14 @@ class BackendCaller {
             callback((result?.data as? [String: Any])?["pictureID"] as? String, error)
         }
     }
+    
+    func addUser(displayName: String, callback: @escaping
+        (String?, Error?) -> Void) {
+        type(of: self).functions.httpsCallable("addUser").call([
+            "displayName": displayName
+        ]) { result, error in
+            callback((result?.data as? [String: Any])?["displayName"] as? String,
+                     error)
+        }
+    }
 }
