@@ -18,12 +18,14 @@ class SettingsViewController: NavigatingViewController,
         ("Change Email", R.image.email()),
         ("Change Password", R.image.lock()),
         ("Notifications", R.image.bell()),
+        ("Attributions", R.image.infoA()),
         ("Logout", R.image.exit())
     ]
     lazy var tableActions: [() -> Void] = [
         changeEmail,
         changePassword,
         openNotifications,
+        viewAttributions,
         logout
     ]
 
@@ -99,6 +101,9 @@ class SettingsViewController: NavigatingViewController,
         }
 
         routeTo(screen: .login)
+    }
+    func viewAttributions() {
+        push(navigationScreen: .viewAttributions)
     }
 
     // MARK: - Overrides

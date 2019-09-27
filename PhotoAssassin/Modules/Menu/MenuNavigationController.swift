@@ -15,6 +15,7 @@ class MenuNavigationController: RoutedNavigationController {
     let newGameVC = NewGameViewController()
     let notificationsSettingsVC = NotificationsSettingsViewController()
     let settingsVC = SettingsViewController()
+    let attributionsVC = AttributionsViewController()
 
     enum Screen {
         case changeEmail
@@ -26,6 +27,7 @@ class MenuNavigationController: RoutedNavigationController {
         case notificationsSettings
         case profile(Player)
         case settings
+        case viewAttributions
     }
 
     func push(_ screen: Screen) {
@@ -49,6 +51,8 @@ class MenuNavigationController: RoutedNavigationController {
             viewControllerToPush = ProfileViewController(player: player)
         case .settings:
             viewControllerToPush = settingsVC
+        case .viewAttributions:
+            viewControllerToPush = attributionsVC
         }
         pushViewController(viewControllerToPush, animated: true)
     }

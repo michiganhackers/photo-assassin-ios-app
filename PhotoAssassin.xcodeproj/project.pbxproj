@@ -24,6 +24,7 @@
 		C90395241FC622D2006F1DC0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395231FC622D2006F1DC0 /* main.swift */; };
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
+		DE458EA5233D926500C4B491 /* AttributionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE458EA4233D926500C4B491 /* AttributionsViewController.swift */; };
 		E914C38F22F774FF00E51514 /* LobbyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914C38E22F774FF00E51514 /* LobbyInfo.swift */; };
 		E914C39122F7778500E51514 /* GameStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914C39022F7778500E51514 /* GameStats.swift */; };
 		E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */; };
@@ -129,6 +130,7 @@
 		CD5823A07B8C53621396FBF3 /* Pods-PhotoAssassinTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassinTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassinTests/Pods-PhotoAssassinTests.staging.xcconfig"; sourceTree = "<group>"; };
 		DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAssassinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.staging.xcconfig"; sourceTree = "<group>"; };
+		DE458EA4233D926500C4B491 /* AttributionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionsViewController.swift; sourceTree = "<group>"; };
 		E914C38E22F774FF00E51514 /* LobbyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyInfo.swift; sourceTree = "<group>"; };
 		E914C39022F7778500E51514 /* GameStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStats.swift; sourceTree = "<group>"; };
 		E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionLinkButton.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 			isa = PBXGroup;
 			children = (
 				E989E56122C32EFB00484A8C /* ChangeEmailViewController.swift */,
+				DE458EA4233D926500C4B491 /* AttributionsViewController.swift */,
 				E989E56322C32F5E00484A8C /* ChangePasswordViewController.swift */,
 				E9C72B4522BEF47F00FC21EB /* SettingsViewController.swift */,
 				E9C72B4722BEF7F400FC21EB /* SettingsCell.swift */,
@@ -837,6 +840,7 @@
 				F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */,
 				EEFB1FFD22600B1F0045CFD2 /* InvitePlayersViewController.swift in Sources */,
 				E9FC861822624723000C5832 /* InvitePlayerListViewController.swift in Sources */,
+				DE458EA5233D926500C4B491 /* AttributionsViewController.swift in Sources */,
 				E9C126D6226107CC00015C9B /* UILabel+attributes.swift in Sources */,
 				E9C126D42260F67600015C9B /* ProfileViewController.swift in Sources */,
 				E9FC861C22625F16000C5832 /* UIView+constraints.swift in Sources */,
