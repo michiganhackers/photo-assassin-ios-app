@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         // Firebase configuration
         FirebaseApp.configure()
+        let DB = Firestore.firestore()
 
         //Facebook Login configuration
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)

@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class Player {
+    let DB = Firestore.firestore()
     // MARK: - Nested types
     enum InvitationStatus {
         case invited
@@ -65,6 +67,35 @@ class Player {
 
     func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
         // TODO: Grab game history from Firebase based on username
+        
+        let playerGameHistory = DB.collection("Users").document(Auth.auth().currentUser!.uid).collection("completedGames")
+        
+        playerGameHistory.getDocuments{ (gameHistory, error) in
+            if let error = error{
+                print("Error getting documents: \(error)")
+            }
+            else {
+                for document in gameHistory!.documents{
+                    let game = self.DB.collection("games").document(document.documentID)
+                    let gameUserInfo = game.collection("players").document(Auth.auth().currentUser!.uid)
+                    var didEnd : Bool = false;
+                    game.getDocument { (gameData, error) in
+                        if let gameData = gameData, gameData.exists{
+                            if (gameData.get("status") as! String == "ended"){
+                                didEnd = true;
+                            }
+                            let gameTitle = gameData.get("name")
+                            let gameInfo = GameStats(game: GameLobby(id: game.documentID, title:gameTitle as! String, numberInLobby: 0 ), kills: gameData.get("kills") as! Int, place: gameData.get("place") as! Int, didGameEnd: didEnd)
+                            //completionHandler(gameInfo)
+                        }
+                        else{
+                            print("Error \(error)")
+                        }
+                    }
+                }
+            }
+            
+        }
         let games = [
             GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
                       kills: 5, place: 2),
