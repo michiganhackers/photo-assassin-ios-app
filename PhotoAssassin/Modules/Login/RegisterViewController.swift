@@ -231,25 +231,20 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                     self.failedRegistration()
                     return
                 }
-
+                
                 // Create a new document with user.uid
                 let user = authResult?.user
-                if let user = user {
-                    if let displayName = user.displayName {
-                        self.backend.addUser(displayName: displayName) { result, error in
-                            if let actualError = error {
-                                print("Encountered error when creating game:\n\(actualError)")
-                                // TODO: Show error to user
-                            }
-                            guard let displayName = result else {
-                                print("No displayName passed back but user creation seemed successful")
-                                return
-                            }
-                            print("Successfully added user with displayName \(displayName)")
-                        }
+                self.backend.addUser(displayName: userFullName) { result, error in
+                    if let actualError = error {
+                        print("Encountered error when creating game:\n\(actualError)")
+                        // TODO: Show error to user
                     }
+                    guard let displayName = result else {
+                        print("No displayName passed back but user creation seemed successful")
+                        return
+                    }
+                    print("Successfully added user with displayName \(displayName)")
                 }
-                
                 // TODO: Update user with profile picture
                 print("Account Created!")
                 self.routeTo(screen: .camera)
