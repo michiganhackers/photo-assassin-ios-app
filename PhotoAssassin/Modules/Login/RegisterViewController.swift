@@ -231,9 +231,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                     self.failedRegistration()
                     return
                 }
-                
-                // Create a new document with user.uid
-                let user = authResult?.user
+                // Add user to the database
                 self.backend.addUser(displayName: userFullName) { result, error in
                     if let actualError = error {
                         print("Encountered error when creating game:\n\(actualError)")
