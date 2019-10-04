@@ -648,7 +648,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -657,7 +657,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		49E5CF9B1AEE6DDDB18C9E94 /* [CP] Embed Pods Frameworks */ = {
@@ -666,7 +666,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -703,7 +703,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		553FC23A2140470C001D9362 /* R.swift */ = {
@@ -716,7 +716,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
+				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
