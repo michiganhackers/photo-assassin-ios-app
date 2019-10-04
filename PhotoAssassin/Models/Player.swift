@@ -68,6 +68,7 @@ class Player {
     func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
         // TODO: Grab game history from Firebase based on username
         
+        //DB reference: user's completed games
         let playerGameHistory = DB.collection("Users").document(Auth.auth().currentUser!.uid).collection("completedGames")
         
         playerGameHistory.getDocuments{ (gameHistory, error) in
@@ -75,9 +76,17 @@ class Player {
                 print("Error getting documents: \(error)")
             }
             else {
+                //Looping through each game.
                 for document in gameHistory!.documents{
+                    //PARAM: game ID
+                    //Retrieve game object from COLLECTION: "Games"
                     let game = self.DB.collection("games").document(document.documentID)
+                    
+                    //UNUSED
                     let gameUserInfo = game.collection("players").document(Auth.auth().currentUser!.uid)
+                    
+                    //Retrieving data from game object: Status, Name
+                    //Creating an OBJECT: GameStats from data
                     var didEnd : Bool = false;
                     game.getDocument { (gameData, error) in
                         if let gameData = gameData, gameData.exists{
@@ -85,7 +94,12 @@ class Player {
                                 didEnd = true;
                             }
                             let gameTitle = gameData.get("name")
-                            let gameInfo = GameStats(game: GameLobby(id: game.documentID, title:gameTitle as! String, numberInLobby: 0 ), kills: gameData.get("kills") as! Int, place: gameData.get("place") as! Int, didGameEnd: didEnd)
+                            let gameInfo = GameStats(game:
+                                GameLobby(id: game.documentID,
+                                                title:gameTitle as! String, numberInLobby: 0 ),
+                                kills: gameData.get("kills") as! Int,
+                                place: gameData.get("place") as! Int,
+                                didGameEnd: didEnd)
                             //completionHandler(gameInfo)
                         }
                         else{
