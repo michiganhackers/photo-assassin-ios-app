@@ -69,8 +69,8 @@ class Player {
         // TODO: Grab game history from Firebase based on username
         
         //DB reference: user's completed games
-        let playerGameHistory = DB.collection("Users").document(Auth.auth().currentUser!.uid).collection("completedGames")
-        
+        let playerGameHistory = DB.collection("users").document(Auth.auth().currentUser!.uid).collection("completedGames")
+        var gameStatsArray = [GameStats]()
         playerGameHistory.getDocuments{ (gameHistory, error) in
             if let error = error{
                 print("Error getting documents: \(error)")
@@ -81,26 +81,40 @@ class Player {
                     //PARAM: game ID
                     //Retrieve game object from COLLECTION: "Games"
                     let game = self.DB.collection("games").document(document.documentID)
-                    
+                    var kills: Int?
+                    var place: Int?
                     //UNUSED
                     let gameUserInfo = game.collection("players").document(Auth.auth().currentUser!.uid)
-                    
+                    print(gameUserInfo.documentID)
+                    //TODO: gameUserInfoData is not getting pulled. kills and place are nil
+                    gameUserInfo.getDocument(source: .cache){(gameUserInfoData, error) in
+                        if let gameUserInfoData = gameUserInfoData, gameUserInfoData.exists
+                        {
+                            kills = gameUserInfoData.get("kills") as? Int
+                            place = gameUserInfoData.get("field") as? Int
+                        }
+                    }
+                    print(kills)
+                    print(place)
                     //Retrieving data from game object: Status, Name
                     //Creating an OBJECT: GameStats from data
                     var didEnd : Bool = false;
                     game.getDocument { (gameData, error) in
                         if let gameData = gameData, gameData.exists{
-                            if (gameData.get("status") as! String == "ended"){
+                            if (gameData.get("status") as? String == "ended"){
                                 didEnd = true;
                             }
-                            let gameTitle = gameData.get("name")
+                            guard let gameTitle = gameData.get("name") as? String else { return }
                             let gameInfo = GameStats(game:
                                 GameLobby(id: game.documentID,
-                                                title:gameTitle as! String, numberInLobby: 0 ),
-                                kills: gameData.get("kills") as! Int,
-                                place: gameData.get("place") as! Int,
-                                didGameEnd: didEnd)
+                                                title: gameTitle,
+                                                numberInLobby: 0),
+                                                kills: kills,
+                                                place: place,
+                                                didGameEnd: didEnd)
                             //completionHandler(gameInfo)
+                            gameStatsArray.append(gameInfo)
+                            print("DATA COLLECTION SUCCESSFUL :)")
                         }
                         else{
                             print("Error \(error)")
@@ -110,6 +124,7 @@ class Player {
             }
             
         }
+        /*
         let games = [
             GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
                       kills: 5, place: 2),
@@ -117,9 +132,9 @@ class Player {
                       kills: 15, place: 1),
             GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
                       kills: 21, place: 7)
-        ]
-        self.gameHistory = games
-        completionHandler(games)
+        ]*/
+        self.gameHistory = gameStatsArray;
+        completionHandler(gameStatsArray)
     }
 
     // MARK: - Public members
