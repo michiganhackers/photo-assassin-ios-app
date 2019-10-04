@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
 
 class ProfileViewController: NavigatingViewController {
     // MARK: - Class members
@@ -222,21 +220,6 @@ class ProfileViewController: NavigatingViewController {
 
     @objc
     func changeFriendStatus() {
-        let database = Firestore.firestore()
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let userRef = database.collection("users").document(uid)
-        
-        if (player.relationship != .friend) {
-            // Atomically add a new region to the "regions" array field.
-            userRef.updateData([
-                "friends": FieldValue.arrayUnion(["id"])
-            ])
-        } else {
-            // Atomically remove a region from the "regions" array field.
-            userRef.updateData([
-                "friends": FieldValue.arrayRemove(["id"])
-            ])
-        }
         print("TODO: Change friend status to isFriend == \(player.relationship != .friend)")
     }
 

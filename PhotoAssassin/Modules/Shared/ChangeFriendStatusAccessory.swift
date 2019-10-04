@@ -22,10 +22,10 @@ class ChangeFriendStatusAccessory: UIButton {
     func performAction() {
         if player.relationship == .friend {
             player.relationship = .none
-            print("TODO: Update friend status in Firebase as not a friend")
+            print("TODO: Update friend status in Firebase")
         } else if player.relationship == .none {
             player.relationship = .friend
-            print("TODO: Update friend status in Firebase as a friend")
+            print("TODO: Update friend status in Firebase")
         }
     }
 
