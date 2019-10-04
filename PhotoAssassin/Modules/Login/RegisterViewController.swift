@@ -21,6 +21,8 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     let socialMediaButtonHeight: CGFloat = 50.0
     let socialMediaSpace: CGFloat = 20.0
     let sizeOfText: CGFloat = 27.0
+    
+    let backend = BackendCaller()
 
     // MARK: - UI Elements
     lazy var confirmPasswordField: UITextField = {
@@ -233,31 +235,21 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
                 // Create a new document with user.uid
                 let user = authResult?.user
                 if let user = user {
-                    // The user's ID, unique to the Firebase project.
-                    // Do NOT use this value to authenticate with your backend server,
-                    // if you have one. Use getTokenWithCompletion:completion: instead.
-                    let uid = "" + user.uid
-                    let database = Firestore.firestore()
-                    database.collection("users").document(uid).setData([
-                        "currentGames": [],
-                        "deaths": 0,
-                        "displayName": userFullName,
-                        "friends": [],
-                        "id": uid,
-                        "kills": 0,
-                        "longestLifeSeconds": 0,
-                        "pastGames": [],
-                        "profilePicUrl": ""
-                    ]) { err in
-                        if let err = err {
-                            print("Error adding document: \(err)")
-                            self.failedRegistration()
-                        } else {
-                            print("Document added with ID: " + uid)
+                    if let displayName = user.displayName {
+                        self.backend.addUser(displayName: displayName) { result, error in
+                            if let actualError = error {
+                                print("Encountered error when creating game:\n\(actualError)")
+                                // TODO: Show error to user
+                            }
+                            guard let displayName = result else {
+                                print("No displayName passed back but user creation seemed successful")
+                                return
+                            }
+                            print("Successfully added user with displayName \(displayName)")
                         }
                     }
                 }
-
+                
                 // TODO: Update user with profile picture
                 print("Account Created!")
                 self.routeTo(screen: .camera)

@@ -48,8 +48,7 @@ class BackendCaller {
         }
     }
     
-    func addUser(displayName: String, callback: @escaping
-        (String?, Error?) -> Void) {
+    func addUser(displayName: String, callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("addUser").call([
             "displayName": displayName
         ]) { result, error in
