@@ -13,7 +13,7 @@ class SubsectionGradient: CAGradientLayer {
     private func addStyling() {
         colors = [
             Colors.subsectionBackground.cgColor,
-            UIColor.clear.cgColor
+            Colors.subsectionBackground.cgColor
         ]
         cornerRadius = 15.0
     }
