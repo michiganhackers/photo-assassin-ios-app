@@ -67,59 +67,76 @@ class Player {
 
     func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
         // TODO: Grab game history from Firebase based on username
+        var gameStatsArray = [GameStats]()
         
-        //DB reference: user's completed games
-        let playerGameHistory = DB.collection("Users").document(Auth.auth().currentUser!.uid).collection("completedGames")
+        //users -> completedGames REFERENCING
+        let playerGameHistory = DB.collection("users").document(Auth.auth().currentUser!.uid).collection("completedGames")
+        print("Game ID successfully retrieved")
         
+        //users -> completedGames RETRIEVING
         playerGameHistory.getDocuments{ (gameHistory, error) in
             if let error = error{
                 print("Error getting documents: \(error)")
             }
             else {
-                //Looping through each game.
+                //LOOPING through each game ID
+                
                 for document in gameHistory!.documents{
-                    //PARAM: game ID
-                    //Retrieve game object from COLLECTION: "Games"
+                    //games -> gameID RETRIEVING
                     let game = self.DB.collection("games").document(document.documentID)
+                    print("Game object ID = \(document.documentID)")
+                    var kills : Int?
+                    var place : Int?
                     
-                    //UNUSED
+                    
                     let gameUserInfo = game.collection("players").document(Auth.auth().currentUser!.uid)
-                    
-                    //Retrieving data from game object: Status, Name
-                    //Creating an OBJECT: GameStats from data
-                    var didEnd : Bool = false;
+                    print("User ID is: \(gameUserInfo.documentID)")
+                    gameUserInfo.getDocument{(gameUserInfoData,error) in
+                        if let gameUserInfoData = gameUserInfoData, gameUserInfoData.exists{
+                            kills = gameUserInfoData.get("kills") as? Int
+                            place = gameUserInfoData.get("place") as? Int
+                            print("Kills: \(kills)")
+                            print("Place: \(place)")
+                        }
+                    }
+                    //Creating  GameStats OBJECT
+                    var didEnd : Bool = false
                     game.getDocument { (gameData, error) in
-                        if let gameData = gameData, gameData.exists{
-                            if (gameData.get("status") as! String == "ended"){
-                                didEnd = true;
+                        if let gameData = gameData, gameData.exists {
+                            if (gameData.get("status") as? String == "ended"){
+                                didEnd = true
                             }
-                            let gameTitle = gameData.get("name")
+                            guard let gameTitle = gameData.get("name") as? String else { return }
                             let gameInfo = GameStats(game:
-                                GameLobby(id: game.documentID,
-                                                title:gameTitle as! String, numberInLobby: 0 ),
-                                kills: gameData.get("kills") as! Int,
-                                place: gameData.get("place") as! Int,
+                                GameLobby(id: game.documentID, title:gameTitle, numberInLobby: 0 ),
+                                kills: kills,
+                                place: place,
                                 didGameEnd: didEnd)
+                            print("Game stats object created")
+                            //Add the current game to the userGames cell
+                            gameStatsArray.append(gameInfo)
+                            
                             //completionHandler(gameInfo)
                         }
                         else{
                             print("Error \(error)")
                         }
                     }
+                    
                 }
             }
             
         }
-        let games = [
-            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
-                      kills: 5, place: 2),
-            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0),
-                      kills: 15, place: 1),
-            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
-                      kills: 21, place: 7)
-        ]
-        self.gameHistory = games
-        completionHandler(games)
+//        let userGames = [
+//            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
+//                      kills: 5, place: 2),
+//            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0),
+//                      kills: 15, place: 1),
+//            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
+//                      kills: 21, place: 7)
+//        ]
+        self.gameHistory = gameStatsArray
+        completionHandler(gameStatsArray)
     }
 
     // MARK: - Public members
