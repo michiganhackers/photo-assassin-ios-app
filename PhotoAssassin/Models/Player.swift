@@ -88,44 +88,49 @@ class Player {
                     
                     var kills: Int?
                     var place: Int?
-                    //RETRIEVING player's data for the current game.
+                    //RETRIEVING player's data in the current game.
                     let gameUserInfo = game.collection("players").document(Auth.auth().currentUser!.uid)
                     print("Current user's id: \(gameUserInfo.documentID)")//SUCCESS
                     //TODO: gameUserInfoData is not getting pulled. kills and place are nil
-                    gameUserInfo.getDocument(source: .cache){(gameUserInfoData, error) in
-                        //.exists NOT TRUE, this section is passed.
-                        if let gameUserInfoData = gameUserInfoData, gameUserInfoData.exists
-                        {
-                            kills = gameUserInfoData.get("kills") as? Int
-                            place = gameUserInfoData.get("place") as? Int
+                    //CHANGES: deleted (source: .cache) and gameUserInfoData.exists
+                        gameUserInfo.getDocument{(gameUserInfoData, error) in
+                            //ISSUE: .exists NOT TRUE, this section is passed.
+                            if let gameUserInfoData = gameUserInfoData//, gameUserInfoData.exists
+                            {
+                                print("HASJHDAL")
+                                kills = gameUserInfoData.get("kills") as? Int
+                                place = gameUserInfoData.get("place") as? Int
+                            }
+                            else{
+                                print(error)
+                            }
                         }
-                    }
-                    print("Number of kills: \(kills)")
-                    print("Place: \(place)")
+                        print("Number of kills: \(kills)")
+                        print("Place: \(place)")
                     //Retrieving data from game object: Status, Name
                     //Creating an OBJECT: GameStats from data
-                    var didEnd : Bool = false;
+                        var didEnd : Bool = false;
                     game.getDocument { (gameData, error) in
-                        if let gameData = gameData, gameData.exists{
-                            if (gameData.get("status") as? String == "ended"){
-                                didEnd = true;
-                            }
-                            guard let gameTitle = gameData.get("name") as? String else { return }
-                            let gameInfo = GameStats(game:
-                                GameLobby(id: game.documentID,
-                                                title: gameTitle,
-                                                numberInLobby: 0),
-                                                kills: kills,
-                                                place: place,
-                                                didGameEnd: didEnd)
+                            if let gameData = gameData, gameData.exists{
+                                if (gameData.get("status") as? String == "ended"){
+                                    didEnd = true;
+                                }
+                                guard let gameTitle = gameData.get("name") as? String else { return }
+                                let gameInfo = GameStats(game:
+                                    GameLobby(id: game.documentID,
+                                                    title: gameTitle,
+                                                    numberInLobby: 0),
+                                                    kills: kills,
+                                                    place: place,
+                                                    didGameEnd: didEnd)
 
-                            //completionHandler(gameInfo)
-                            gameStatsArray.append(gameInfo)
-                            print("DATA COLLECTION SUCCESSFUL :)")
-                        }
-                        else{
-                            print("Error \(error)")
-                        }
+                                //completionHandler(gameInfo)
+                                gameStatsArray.append(gameInfo)
+                                print("DATA COLLECTION SUCCESSFUL :)")
+                            }
+                            else{
+                                print("Error \(error)")
+                            }
                     }
                     
                 }
