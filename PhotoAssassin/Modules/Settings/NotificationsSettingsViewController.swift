@@ -93,7 +93,7 @@ class NotificationsSettingsViewController: NavigatingViewController {
                                           constant: verticalSpacing).isActive = true
         overallLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         voteNotifLabel.topAnchor.constraint(equalTo: overallLabel.bottomAnchor,
-                                            constant: verticalSpacing).isActive = true
+                                            constant: verticalSpacing + 20).isActive = true
         voteNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor,
                                              constant: leftOffset).isActive = true
         voteNotifSwitch.topAnchor.constraint(equalTo: voteNotifLabel.topAnchor).isActive = true
