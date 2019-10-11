@@ -18,7 +18,6 @@ class AttributionsViewController: NavigatingViewController {
     let verticalSpacing: CGFloat = 10.0
     let sameASpacing: CGFloat = 0.0
     // MARK: - Attributions list
-    let listBreak = TranslucentLabel(text: "", size: fieldSpacing)
     let attribution1 = TranslucentLabel(text: "Icons made by Icons8", size: largeTextSize)
     let a1c = TranslucentLabel(text: "from www.flaticon.com", size: largeTextSize)
     let attribution2 = TranslucentLabel(text: "Icons made by Freepik", size: largeTextSize)
@@ -28,10 +27,7 @@ class AttributionsViewController: NavigatingViewController {
     // MARK: - Custom functions
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
-        listBreak.topAnchor.constraint(equalTo: margins.topAnchor,
-                                       constant: verticalSpacing).isActive = true
-        listBreak.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        attribution1.topAnchor.constraint(equalTo: listBreak.bottomAnchor,
+        attribution1.topAnchor.constraint(equalTo: margins.topAnchor,
                                           constant: verticalSpacing).isActive = true
         attribution1.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
         a1c.topAnchor.constraint(equalTo: attribution1.bottomAnchor,
@@ -51,7 +47,6 @@ class AttributionsViewController: NavigatingViewController {
         a3c.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
     }
     func addSubviews() {
-        view.addSubview(listBreak)
         view.addSubview(attribution1)
         view.addSubview(a1c)
         view.addSubview(attribution2)
