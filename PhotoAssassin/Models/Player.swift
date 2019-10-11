@@ -85,38 +85,42 @@ class Player {
                     //games -> gameID RETRIEVING
                     let game = self.DB.collection("games").document(document.documentID)
                     print("Game object ID = \(document.documentID)")
-                    var kills : Int?
-                    var place : Int?
                     
-                    
+                    var kills: Int?
+                    var place: Int?
+                   
                     let gameUserInfo = game.collection("players").document(Auth.auth().currentUser!.uid)
-                    print("User ID is: \(gameUserInfo.documentID)")
-                    gameUserInfo.getDocument{(gameUserInfoData,error) in
-                        if let gameUserInfoData = gameUserInfoData, gameUserInfoData.exists{
+                    print(gameUserInfo.documentID)
+                    //TODO: gameUserInfoData is not getting pulled. kills and place are nil
+                    gameUserInfo.getDocument(source: .cache){(gameUserInfoData, error) in
+                        if let gameUserInfoData = gameUserInfoData, gameUserInfoData.exists
+                        {
                             kills = gameUserInfoData.get("kills") as? Int
-                            place = gameUserInfoData.get("place") as? Int
-                            print("Kills: \(kills)")
-                            print("Place: \(place)")
+                            place = gameUserInfoData.get("field") as? Int
                         }
                     }
-                    //Creating  GameStats OBJECT
-                    var didEnd : Bool = false
+                    print(kills)
+                    print(place)
+                    //Retrieving data from game object: Status, Name
+                    //Creating an OBJECT: GameStats from data
+                    var didEnd : Bool = false;
                     game.getDocument { (gameData, error) in
-                        if let gameData = gameData, gameData.exists {
+                        if let gameData = gameData, gameData.exists{
                             if (gameData.get("status") as? String == "ended"){
-                                didEnd = true
+                                didEnd = true;
                             }
                             guard let gameTitle = gameData.get("name") as? String else { return }
                             let gameInfo = GameStats(game:
-                                GameLobby(id: game.documentID, title:gameTitle, numberInLobby: 0 ),
-                                kills: kills,
-                                place: place,
-                                didGameEnd: didEnd)
-                            print("Game stats object created")
-                            //Add the current game to the userGames cell
-                            gameStatsArray.append(gameInfo)
-                            
+                                GameLobby(id: game.documentID,
+                                                title: gameTitle,
+                                                numberInLobby: 0),
+                                                kills: kills,
+                                                place: place,
+                                                didGameEnd: didEnd)
+
                             //completionHandler(gameInfo)
+                            gameStatsArray.append(gameInfo)
+                            print("DATA COLLECTION SUCCESSFUL :)")
                         }
                         else{
                             print("Error \(error)")
@@ -127,15 +131,17 @@ class Player {
             }
             
         }
-//        let userGames = [
-//            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
-//                      kills: 5, place: 2),
-//            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0),
-//                      kills: 15, place: 1),
-//            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
-//                      kills: 21, place: 7)
-//        ]
-        self.gameHistory = gameStatsArray
+
+        /*
+        let games = [
+            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
+                      kills: 5, place: 2),
+            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0),
+                      kills: 15, place: 1),
+            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
+                      kills: 21, place: 7)
+        ]*/
+        self.gameHistory = gameStatsArray;
         completionHandler(gameStatsArray)
     }
 
