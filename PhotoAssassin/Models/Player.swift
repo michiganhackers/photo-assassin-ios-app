@@ -82,25 +82,26 @@ class Player {
                 //LOOPING through each game ID
                 
                 for document in gameHistory!.documents{
-                    //games -> gameID RETRIEVING
+                    //RETRIEVING game object from "games" using gameID
                     let game = self.DB.collection("games").document(document.documentID)
-                    print("Game object ID = \(document.documentID)")
+                    print("Game object ID = \(document.documentID)")//SUCCESS
                     
                     var kills: Int?
                     var place: Int?
-                   
+                    //RETRIEVING player's data for the current game.
                     let gameUserInfo = game.collection("players").document(Auth.auth().currentUser!.uid)
-                    print(gameUserInfo.documentID)
+                    print("Current user's id: \(gameUserInfo.documentID)")//SUCCESS
                     //TODO: gameUserInfoData is not getting pulled. kills and place are nil
                     gameUserInfo.getDocument(source: .cache){(gameUserInfoData, error) in
+                        //.exists NOT TRUE, this section is passed.
                         if let gameUserInfoData = gameUserInfoData, gameUserInfoData.exists
                         {
                             kills = gameUserInfoData.get("kills") as? Int
-                            place = gameUserInfoData.get("field") as? Int
+                            place = gameUserInfoData.get("place") as? Int
                         }
                     }
-                    print(kills)
-                    print(place)
+                    print("Number of kills: \(kills)")
+                    print("Place: \(place)")
                     //Retrieving data from game object: Status, Name
                     //Creating an OBJECT: GameStats from data
                     var didEnd : Bool = false;
