@@ -75,9 +75,9 @@ class LobbyInfo {
         self.otherPlayers = otherPlayers.sorted { player1, player2 in
             if player1.relationship == .dead && player2.relationship == .dead {
                 guard let place1 = player1.stats.place, let place2 = player2.stats.place else {
-                    return player1.player.username < player2.player.username
+                    return player1.player.username > player2.player.username
                 }
-                return place1 > place2
+                return place1 < place2
             }
             if player1.relationship == .dead {
                 return true
@@ -87,7 +87,7 @@ class LobbyInfo {
             }
 
             if player1.relationship == .target && player2.relationship == .target {
-                return player1.player.username < player2.player.username
+                return player1.player.username > player2.player.username
             }
             if player1.relationship == .target {
                 return false
@@ -97,12 +97,12 @@ class LobbyInfo {
             }
 
             guard let kills1 = player1.stats.kills, let kills2 = player2.stats.kills else {
-                return player1.player.username < player2.player.username
+                return player1.player.username > player2.player.username
             }
             if kills1 == kills2 {
-                return player1.player.username < player2.player.username
+                return player1.player.username > player2.player.username
             }
-            return kills1 < kills2
+            return kills1 > kills2
         }
         self.startDate = startDate
         self.endDate = endDate
