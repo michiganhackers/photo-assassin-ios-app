@@ -66,11 +66,11 @@ class Player {
     func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
         // TODO: Grab game history from Firebase based on username
         let games = [
-            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
+            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0, maxPlayers: 0),
                       kills: 5, place: 2, didGameEnd: true),
-            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0),
+            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0, maxPlayers: 0),
                       kills: 15, place: 1, didGameEnd: true),
-            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
+            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0, maxPlayers: 0),
                       kills: 21, place: 7, didGameEnd: true)
         ]
         self.gameHistory = games
