@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Player {
     // MARK: - Nested types
@@ -53,14 +54,24 @@ class Player {
     }
 
     func loadFriends(completionHandler: ([Player]) -> Void) {
+        var friends: [String] = []
+        let db = Firestore.firestore()
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let userRef = db.collection("users").document(userID)
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                for data in document.get("friends") as? [String] ?? [] {
+                    print(data)
+                }
+                print("Document data: \(dataDescription)")
+            } else {
+                print("Document does not exist")
+            }
+        }
         // TODO: Grab friends from Firebase based on username
-        let friends = [
-            Player(username: "dummy_friend_1", relationship: .friend),
-            Player(username: "dummy_2_me", relationship: .myself),
-            Player(username: "dummy_3...", relationship: .none)
-        ]
-        self.friends = friends
-        completionHandler(friends)
+        //self.friends = friends
+        //completionHandler(friends)
     }
 
     func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
