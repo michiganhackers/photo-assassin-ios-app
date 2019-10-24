@@ -25,6 +25,8 @@
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		DE458EA5233D926500C4B491 /* AttributionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE458EA4233D926500C4B491 /* AttributionsViewController.swift */; };
+		E8E2315D2359387C0032853A /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E2315C2359387C0032853A /* LocalSettings.swift */; };
+		E8E2315F235946AA0032853A /* NotifSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E2315E235946AA0032853A /* NotifSwitch.swift */; };
 		E914C38F22F774FF00E51514 /* LobbyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914C38E22F774FF00E51514 /* LobbyInfo.swift */; };
 		E914C39122F7778500E51514 /* GameStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914C39022F7778500E51514 /* GameStats.swift */; };
 		E9217880223F3B150006AFB0 /* TransitionLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */; };
@@ -131,6 +133,8 @@
 		DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAssassinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.staging.xcconfig"; sourceTree = "<group>"; };
 		DE458EA4233D926500C4B491 /* AttributionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionsViewController.swift; sourceTree = "<group>"; };
+		E8E2315C2359387C0032853A /* LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSettings.swift; sourceTree = "<group>"; };
+		E8E2315E235946AA0032853A /* NotifSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifSwitch.swift; sourceTree = "<group>"; };
 		E914C38E22F774FF00E51514 /* LobbyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyInfo.swift; sourceTree = "<group>"; };
 		E914C39022F7778500E51514 /* GameStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStats.swift; sourceTree = "<group>"; };
 		E921787F223F3B150006AFB0 /* TransitionLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionLinkButton.swift; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 				E914C39022F7778500E51514 /* GameStats.swift */,
 				E9BF8072225FFEA7002B11C3 /* Player.swift */,
 				E914C38E22F774FF00E51514 /* LobbyInfo.swift */,
+				E8E2315C2359387C0032853A /* LocalSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				E9C72B4522BEF47F00FC21EB /* SettingsViewController.swift */,
 				E9C72B4722BEF7F400FC21EB /* SettingsCell.swift */,
 				E9ED300722DA48C600884ACC /* NotificationsSettingsViewController.swift */,
+				E8E2315E235946AA0032853A /* NotifSwitch.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -811,6 +817,7 @@
 				E95AE4C92257C5350030D35B /* MenuNavigationTitle.swift in Sources */,
 				EE65636222446DCB00885F8B /* MenuViewController.swift in Sources */,
 				E97FD39A22592BCD0027B8EF /* PickerButton.swift in Sources */,
+				E8E2315D2359387C0032853A /* LocalSettings.swift in Sources */,
 				E925D6FD2256C2A2008F266B /* SubsectionGradient.swift in Sources */,
 				E9B2DFED224003890093BFC5 /* BackgroundGradient.swift in Sources */,
 				E991BE9722F601260043C198 /* GameDataCell.swift in Sources */,
@@ -827,6 +834,7 @@
 				E991BE9322F5FD370043C198 /* GameHistoryViewController.swift in Sources */,
 				E9BF8073225FFEA7002B11C3 /* Player.swift in Sources */,
 				E9E45AE722C7AED300663744 /* TranslucentLabel.swift in Sources */,
+				E8E2315F235946AA0032853A /* NotifSwitch.swift in Sources */,
 				C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */,
 				E9DF173D224BEBFD00ECFCA2 /* GameLobbyListCell.swift in Sources */,
 				E9EB1C8B2220E7ED00424DB9 /* LoginTextField.swift in Sources */,
