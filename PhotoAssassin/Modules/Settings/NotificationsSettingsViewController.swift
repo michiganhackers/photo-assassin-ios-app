@@ -15,45 +15,65 @@ class NotificationsSettingsViewController: NavigatingViewController {
     let leftOffset: CGFloat = 10.0
     let rightOffset: CGFloat = -10.0
     let verticalSpacing: CGFloat = 10.0
-
+    
+    let settings: LocalSettings = {
+        let settings = LocalSettings()
+        settings.updateFromSaved()
+        return settings
+    }()
     // MARK: - UI elements
     let gradient = SubsectionGradient()
     let voteNotifSwitch: UISwitch = {
-        let theSwitch = UISwitch(frame: .zero)
+        let theSwitch = NotifSwitch(name: "pendingVote")
+        theSwitch.addTarget(self, action: #selector(saveButtonChange(switchIn:)), for: .valueChanged)
         theSwitch.translatesAutoresizingMaskIntoConstraints = false
         theSwitch.isOn = true
         return theSwitch
     }()
     let eliminationNotifSwitch: UISwitch = {
-        let theSwitch = UISwitch(frame: .zero)
+        let theSwitch = NotifSwitch(name: "someoneEliminated")
+        theSwitch.addTarget(self, action: #selector(saveButtonChange(switchIn:)), for: .valueChanged)
         theSwitch.translatesAutoresizingMaskIntoConstraints = false
         theSwitch.isOn = true
         return theSwitch
     }()
     let eliminatedNotifSwitch: UISwitch = {
-        let theSwitch = UISwitch(frame: .zero)
+        let theSwitch = NotifSwitch(name: "youEliminated")
+        theSwitch.addTarget(self, action: #selector(saveButtonChange(switchIn:)), for: .valueChanged)
         theSwitch.translatesAutoresizingMaskIntoConstraints = false
         theSwitch.isOn = true
         return theSwitch
     }()
     let voteResultNotifSwitch: UISwitch = {
-        let theSwitch = UISwitch(frame: .zero)
+        let theSwitch = NotifSwitch(name: "votingResults")
+        theSwitch.addTarget(self, action: #selector(saveButtonChange(switchIn:)), for: .valueChanged)
         theSwitch.translatesAutoresizingMaskIntoConstraints = false
         theSwitch.isOn = true
         return theSwitch
     }()
     let invitedNotifSwitch: UISwitch = {
-        let theSwitch = UISwitch(frame: .zero)
+        let theSwitch = NotifSwitch(name: "invited")
+        theSwitch.addTarget(self, action: #selector(saveButtonChange(switchIn:)), for: .valueChanged)
         theSwitch.translatesAutoresizingMaskIntoConstraints = false
         theSwitch.isOn = true
         return theSwitch
     }()
     let notifsOnOffSwitch: UISwitch = {
-        let theSwitch = UISwitch(frame: .zero)
+        let theSwitch = NotifSwitch(name: "allNotifs")
+        theSwitch.addTarget(self, action: #selector(saveButtonChange(switchIn:)), for: .valueChanged)
         theSwitch.translatesAutoresizingMaskIntoConstraints = false
         theSwitch.isOn = true
         return theSwitch
     }()
+    lazy var switches = [
+        "pendingVote": voteNotifSwitch,
+        "someoneEliminated": eliminationNotifSwitch,
+        "youEliminated": eliminatedNotifSwitch,
+        "votingResults": voteResultNotifSwitch,
+        "invited": invitedNotifSwitch,
+        "allNotifs": notifsOnOffSwitch
+    ]
+    
     let notifsOnOffLabel = TranslucentLabel(text: "Turn all notifications on/off", size: largeTextSize)
     let overallLabel = TranslucentLabel(text: "Receive notifications when:", size: largeTextSize)
     let voteNotifLabel = TranslucentLabel(text: "You have a pending vote", size: textSize)
@@ -149,6 +169,7 @@ class NotificationsSettingsViewController: NavigatingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
+        updateAllSwitches(settings1: settings)
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -163,5 +184,30 @@ class NotificationsSettingsViewController: NavigatingViewController {
         super.init(title: "Notifications")
         voteNotifSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
         eliminationNotifSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+    }
+    
+    @objc func saveButtonChange(switchIn: NotifSwitch) -> Void {
+        if (switchIn.name == "allNotifs") {
+            settings.updateAllNotifs(allNotif: switchIn.isOn)
+            liveChangeAll(allNotifSwitch: switchIn)
+        }
+        else {
+        settings.notifications[switchIn.name] = switchIn.isOn
+        }
+        settings.saveAll()
+    }
+    
+    func updateAllSwitches(settings1 : LocalSettings) -> Void {
+        for (name1, switch1) in switches {
+            switch1.isOn = settings1.getSettings(forName: name1)
+        }
+    }
+    
+    func liveChangeAll(allNotifSwitch: NotifSwitch) -> Void {
+        voteNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)
+        eliminationNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)
+        eliminatedNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)
+        voteResultNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)
+        invitedNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)
     }
 }
