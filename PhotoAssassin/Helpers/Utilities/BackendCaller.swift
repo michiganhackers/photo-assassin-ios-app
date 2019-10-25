@@ -48,6 +48,16 @@ class BackendCaller {
         }
     }
     
+    func submitVote(gameID: String, snipeID: String, vote: Bool, callback: @escaping (Error?) -> Void) {
+        type(of: self).functions.httpsCallable("submitVote").call([
+            "gameID": gameID,
+            "snipeID": snipeID,
+            "vote": vote
+        ]) { result, error in
+            callback(error)
+        }
+    }
+    
     func addUser(displayName: String, callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("addUser").call([
             "displayName": displayName
