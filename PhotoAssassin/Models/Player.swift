@@ -83,75 +83,32 @@ class Player {
                 for currGame in gameHistory!.documents{
                     //RETRIEVING game object from "games" using gameID
                     let game = self.DB.collection("games").document(currGame.documentID)
-                    print("Game object ID = \(game.documentID)")//SUCCESS
+                    
                     var kills: Int?
                     var place: Int?
                     var isOwner: Bool?
                     //RETRIEVING player's data in the current game.
                     let player = game.collection("players").document(Auth.auth().currentUser!.uid)
-                    print("Player ID: \(player.documentID)")
                     
-                    player.getDocument{(document, error2) in
-                        if let document = document, document.exists{
-                            
-                            for data in document.get("kills") as? [Int] ?? [-1] {
-                                //kills = data
-                                print("HERE1: \(data)")
-                            }
-                            
-                            for data in document.get("place") as? [Int] ?? [-1]{
-                                //place = data
-                                print("HERE2: \(data)")
-                            }
-                            
-                            
+                    player.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            //document.get("")
+                            kills = document.get("kills") as? Int
+                            place = document.get("place") as? Int
+                            print("Kills \(kills)")
+                            print("Place \(place)")
+
                         }
                         else{
-                            print("Error getting documents2: \(error2)")
+                            print("Error getting documents: \(error)")
                         }
+
                     }
-//                    player.getDocument{ (document, error2) in
-//                        if let document = document, document.exists {
-//                            //document.get("")
-//                            print(document.get("isOwner"))
-//                            //isOwner = document.get("isOwner") as? Bool
-//                            //print("Is Owner: \(isOwner)")
-//
-////                            kills = document.get("kills") as? Int
-////                            place = document.get("place") as? Int
-////                            print("Number of kills: \(kills)")
-////                            print("Place: \(place)")
-//                        }
-//                        else{
-//                            print("Error getting documents: \(error2)")
-//                        }
-//
-//                    }
-                    
-                    
-                    //TODO: gameUserInfoData is not getting pulled. kills and place are nil
-                    //TRY: Add a completion handler in the .getDocument block, so it only exits that block ones it successfully retrieves the data needed.
-                  
-                    //CHANGES: deleted (source: .cache) and gameUserInfoData.exists, include ONLY ONE OF THEM, or neither of them
-                    
-//                    gameUserInfo.getDocument{ (gameUserInfoData, error) in
-//                            //ISSUE: .exists is FALSE, this section is passed.
-//                            print("ASJKHKJHF")
-//
-//                        else{
-//                            for userInfo
-//                              kills = gameUserInfoData.get("kills") as? Int
-//                              place = gameUserInfoData.get("place") as? Int
-//
-//                        }
-//
-//
-//                    }
                         
                     //Retrieving data from game object: Status, Name
                     //Creating an OBJECT: GameStats from data
-                        var didEnd : Bool = false;
-                    game.getDocument { (gameData, error3) in
+                    var didEnd : Bool = false;
+                    game.getDocument { (gameData, error) in
                             if let gameData = gameData, gameData.exists{
                                 if (gameData.get("status") as? String == "ended"){
                                     didEnd = true;
@@ -165,12 +122,13 @@ class Player {
                                                     place: place,
                                                     didGameEnd: didEnd)
 
-                                //completionHandler(gameInfo)
                                 gameStatsArray.append(gameInfo)
-                                print("DATA COLLECTION SUCCESSFUL :)")
+                                
+                                print("Title \(gameTitle)")
+                                print("didEnd \(didEnd)")
                             }
                             else{
-                                print("Error in retrieving document3 \(error3)")
+                                print("Error in retrieving document \(error)")
                             }
                     }
                     
@@ -178,7 +136,6 @@ class Player {
             }
             
         }
-
         /*
         let games = [
             GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
