@@ -80,7 +80,7 @@ class MenuViewController: NavigatingViewController {
                                 }
                             }
                             
-                            list.games.append(GameLobby(id: gameID, title: "hey", numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: 30))
+                            list.games.append(GameLobby(id: gameID, title: name, numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: maxPlayers))
                             
                             if games.count == list.games.count {
                                 list.update()
