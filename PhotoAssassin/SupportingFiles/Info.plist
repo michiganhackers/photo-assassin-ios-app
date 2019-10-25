@@ -21,7 +21,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-                <string>com.googleusercontent.apps.924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c</string>
+				<string>com.googleusercontent.apps.924416786960-vsie4165ekq3s5vmicbrm5m71rp36j2c</string>
 				<string>fb306114270313529</string>
 			</array>
 		</dict>
@@ -44,7 +44,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>PhotoAssassin needs the user&apos;s camera to function</string>
+	<string>PhotoAssassin needs the user's camera to function</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PhotoAssassion needs access to your photos</string>
 	<key>UIAppFonts</key>
@@ -61,8 +61,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
