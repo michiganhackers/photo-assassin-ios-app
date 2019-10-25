@@ -58,6 +58,13 @@ class BackendCaller {
         }
     }
     
+    func leaveGame(gameID: String, callback: @escaping (Error?) -> Void) {
+        type(of: self).functions.httpsCallable("leaveGame").call([
+            "gameID": gameID
+        ]) { result, error in
+            callback(error)
+        }
+    }
     func addUser(displayName: String, callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("addUser").call([
             "displayName": displayName
