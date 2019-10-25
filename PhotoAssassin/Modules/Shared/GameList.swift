@@ -52,6 +52,10 @@ class GameList<CellType: GameDataCell>: UIViewController, UITableViewDelegate, U
         //  separators where there aren't cells.
         return UIView()
     }
+    
+    func update() {
+        tableView.reloadData()
+    }
 
     override func loadView() {
         view = tableView

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MenuViewController: NavigatingViewController {
     // MARK: - Class Constants
@@ -46,13 +47,56 @@ class MenuViewController: NavigatingViewController {
                           endDate: nil)
                 ))
         }
-        list.games = [
-            GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, numberAlive: nil, maxPlayers: 20),
-            GameLobby(id: "1cd", title: "Another Game", numberInLobby: 8, numberAlive: nil, maxPlayers: 20),
-            GameLobby(id: "2ef", title: "Game 3", numberInLobby: 20, numberAlive: 18, maxPlayers: 20),
-            GameLobby(id: "3gh", title: "Jason's Game", numberInLobby: 9, numberAlive: 3, maxPlayers: 20)
-        ]
-        return list
+        
+        var games: [String] = []
+        let db = Firestore.firestore()
+        if let userID = Auth.auth().currentUser?.uid {
+            db.collection("users").document(userID).collection("currentGames").getDocuments { (querySnapshot, error) in
+                if let err = error {
+                    print("Error: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        games.append(document.documentID)
+                    }
+                }
+                
+                for gameID in games {
+                    let gameRef = db.collection("games").document(gameID)
+                    gameRef.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            let name = document.get("name") as? String ?? "NO NAME"
+                            let numberAlive = document.get("numberAlive") as? Int ?? -1
+                            let maxPlayers = document.get("maxPlayers") as? Int ?? -1
+                            var numberInLobby = 0
+                            
+                            gameRef.collection("players").getDocuments() { (querySnapshot, error) in
+                                if let err = error {
+                                    print("Error: \(err)")
+                                } else {
+                                    
+                                    if let playerCount = querySnapshot?.count {
+                                        numberInLobby = playerCount
+                                    }
+                                }
+                            }
+                            
+                            list.games.append(GameLobby(id: gameID, title: "hey", numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: 30))
+                            
+                            if games.count == list.games.count {
+                                list.update()
+                            }
+                        } else {
+                            print("Document does not exist")
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+        
+        return list;
+        
     }()
 
     lazy var lobbiesLabel = UILabel("Lobbies", attributes: fadedHeadingAttributes, align: .left)
