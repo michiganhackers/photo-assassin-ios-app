@@ -65,39 +65,67 @@ class Player {
         completionHandler(friends)
     }
 
-    func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
+    func loadGameHistory(completionHandler: @escaping ([GameStats]) -> Void) {
         // TODO: Grab game history from Firebase based on username
         var gameStatsArray = [GameStats]()
-        
         //users -> completedGames REFERENCING
         let playerGameHistory = DB.collection("users").document(Auth.auth().currentUser!.uid).collection("completedGames")
         print("Game ID successfully retrieved")
         
         //users -> completedGames RETRIEVING
-        playerGameHistory.getDocuments{ (gameHistory, error) in
+        playerGameHistory.getDocuments{ (history, error) in
             if let error = error{
                 print("Error getting documents: \(error)")
             }
             else {
                 //LOOPING through each game ID
-                for currGame in gameHistory!.documents{
+                for currGame in history!.documents {
                     //RETRIEVING game object from "games" using gameID
                     let game = self.DB.collection("games").document(currGame.documentID)
                     
                     var kills: Int?
                     var place: Int?
                     var isOwner: Bool?
+                    var didEnd : Bool = false;
                     //RETRIEVING player's data in the current game.
                     let player = game.collection("players").document(Auth.auth().currentUser!.uid)
                     
                     player.getDocument { (document, error) in
                         if let document = document, document.exists {
-                            //document.get("")
                             kills = document.get("kills") as? Int
                             place = document.get("place") as? Int
                             print("Kills \(kills)")
                             print("Place \(place)")
-
+                            game.getDocument { (document, error) in
+                                    if let document = document, document.exists{
+                                        if (document.get("status") as? String == "ended"){
+                                            didEnd = true;
+                                        }
+                                        print("STATUS: \(didEnd)")
+                                        var gameTitle : String?
+                                        gameTitle = document.get("name") as? String
+                                        //else{print("ERROR casting gameTitle into string")}
+                                        print("TITLE: \(gameTitle)")
+                                        let gameInfo = GameStats(game:
+                                            GameLobby(id: game.documentID,
+                                                      title: gameTitle ?? "",
+                                                            numberInLobby: 0),
+                                                            kills: kills ?? 0,
+                                                            place: place ?? 0,
+                                                            didGameEnd: didEnd)
+                                        
+                                        gameStatsArray.append(gameInfo)
+                                        self.gameHistory = gameStatsArray
+                                        
+                                        if(gameStatsArray.count == history!.documents.count){
+                                            completionHandler(self.gameHistory ?? [GameStats]())
+                                        }
+                                        
+                                    }
+                                    else{
+                                        print("Error in retrieving document \(error)")
+                                    }
+                            }
                         }
                         else{
                             print("Error getting documents: \(error)")
@@ -107,36 +135,11 @@ class Player {
                         
                     //Retrieving data from game object: Status, Name
                     //Creating an OBJECT: GameStats from data
-                    var didEnd : Bool = false;
-                    game.getDocument { (gameData, error) in
-                            if let gameData = gameData, gameData.exists{
-                                if (gameData.get("status") as? String == "ended"){
-                                    didEnd = true;
-                                }
-                                guard let gameTitle = gameData.get("name") as? String else { return }
-                                let gameInfo = GameStats(game:
-                                    GameLobby(id: game.documentID,
-                                                    title: gameTitle,
-                                                    numberInLobby: 0),
-                                                    kills: kills,
-                                                    place: place,
-                                                    didGameEnd: didEnd)
-
-                                gameStatsArray.append(gameInfo)
-                                
-                                print("Title \(gameTitle)")
-                                print("didEnd \(didEnd)")
-                            }
-                            else{
-                                print("Error in retrieving document \(error)")
-                            }
-                    }
-                    
                 }
             }
             
         }
-        /*
+        print(gameStatsArray)
         let games = [
             GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
                       kills: 5, place: 2),
@@ -144,9 +147,8 @@ class Player {
                       kills: 15, place: 1),
             GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
                       kills: 21, place: 7)
-        ]*/
-        self.gameHistory = gameStatsArray;
-        completionHandler(gameStatsArray)
+        ]
+        //self.gameHistory = gameStatsArray
     }
 
     // MARK: - Public members

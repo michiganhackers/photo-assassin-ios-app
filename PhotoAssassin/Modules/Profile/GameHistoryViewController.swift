@@ -82,8 +82,8 @@ class GameHistoryViewController: NavigatingViewController {
         self.player = player
         super.init(title: "Game History")
         self.player.loadGameHistory { gameHistory in
-            gameList.games = gameHistory
-            gameList.tableView.reloadData()
+            self.gameList.games = gameHistory
+            self.gameList.tableView.reloadData()
         }
     }
 }
