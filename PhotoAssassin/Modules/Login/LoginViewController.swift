@@ -41,11 +41,11 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     lazy var googleRegisterButton: UIButton = {
         var button: UIButton
         if let image = R.image.googleLogo() {
-            button = SocialMediaLoginButton("continue with google",
+            button = SocialMediaLoginButton("continue \nwith google",
                                             height: socialMediaButtonHeight, textSize: sizeOfText, image: image)
         } else {
             button = UIButton()
-            button.setTitle("continue with google", for: .normal)
+            button.setTitle("continue \nwith google", for: .normal)
         }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(googleLoginTapped), for: .touchUpInside)
@@ -104,11 +104,12 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
             equalTo: googleRegisterButton.bottomAnchor,
             constant: linkSpacing).isActive = true
         forgotPasswordLink.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-
+        //forgotPasswordLink.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -50.0).isActive = true
         registerLink.topAnchor.constraint(
             equalTo: googleRegisterButton.bottomAnchor,
             constant: linkSpacing).isActive = true
         registerLink.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        //registerLink.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -50.0).isActive = true
     }
 
     override func getBottomSubview() -> UIView {
