@@ -26,17 +26,17 @@ class GameHistoryViewController: NavigatingViewController {
             myselfPermission: .viewer,
             otherPlayers: [
                 LobbyInfo.PlayerWithStatus(
-                    player: Player(username: "Bendudeman", relationship: .none),
+                    player: Player(username: "Bendudeman", relationship: .none, profilePicture: "TODO"),
                     relationship: .neutral,
                     stats: GameStats(game: gameStats.game, kills: 3, place: 3, didGameEnd: true)
                 ),
                 LobbyInfo.PlayerWithStatus(
-                    player: Player(username: "Owain", relationship: .none),
+                    player: Player(username: "Owain", relationship: .none, profilePicture: "TODO"),
                     relationship: .neutral,
                     stats: GameStats(game: gameStats.game, kills: 5, place: 2, didGameEnd: true)
                 ),
                 LobbyInfo.PlayerWithStatus(
-                    player: Player(username: "Vincent", relationship: .none),
+                    player: Player(username: "Vincent", relationship: .none, profilePicture: "TODO"),
                     relationship: .neutral,
                     stats: GameStats(game: gameStats.game, kills: 0, place: 4, didGameEnd: true)
                 )

@@ -27,17 +27,17 @@ class MenuViewController: NavigatingViewController {
             self.push(navigationScreen: .lobbyInfo(
                 LobbyInfo(gameLobby: lobby, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: [
                     LobbyInfo.PlayerWithStatus(
-                        player: Player(username: "Bendudeman", relationship: .none),
+                        player: Player(username: "Bendudeman", relationship: .none, profilePicture: "TODO"),
                         relationship: .neutral,
                         stats: GameStats(game: lobby, kills: 5)
                     ),
                     LobbyInfo.PlayerWithStatus(
-                        player: Player(username: "Owain", relationship: .none),
+                        player: Player(username: "Owain", relationship: .none, profilePicture: "TODO"),
                         relationship: .target,
                         stats: GameStats(game: lobby, kills: 1)
                     ),
                     LobbyInfo.PlayerWithStatus(
-                        player: Player(username: "Vincent", relationship: .none),
+                        player: Player(username: "Vincent", relationship: .none, profilePicture: "TODO"),
                         relationship: .dead,
                         stats: GameStats(game: lobby, kills: 3)
                     )

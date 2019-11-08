@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseUI
 
 class Player {
     // MARK: - Nested types
@@ -33,11 +35,11 @@ class Player {
             return Double(gamesWon) / Double(gamesFinished)
         }
     }
-
     // MARK: - Static members
     static var myself = Player(
         username: "hi_there_its_me",
-        relationship: .myself,
+        relationship: .myself, profilePicture:
+"https://firebasestorage.googleapis.com/v0/b/photo-assassin.appspot.com/o/images%2Fprofile_pictures%2F5QC6Wt8bIiXBSWHmBAMm1JwdN6l2?alt=media&token=57a23100-abad-429d-8ce2-60cf7368dd19",
         stats: Stats(
             deaths: 8,
             gamesWon: 1,
@@ -55,9 +57,9 @@ class Player {
     func loadFriends(completionHandler: ([Player]) -> Void) {
         // TODO: Grab friends from Firebase based on username
         let friends = [
-            Player(username: "dummy_friend_1", relationship: .friend),
-            Player(username: "dummy_2_me", relationship: .myself),
-            Player(username: "dummy_3...", relationship: .none)
+            Player(username: "dummy_friend_1", relationship: .friend, profilePicture: "TODO"),
+            Player(username: "dummy_2_me", relationship: .myself, profilePicture: "TODO"),
+            Player(username: "dummy_3...", relationship: .none, profilePicture: "TODO")
         ]
         self.friends = friends
         completionHandler(friends)
@@ -80,9 +82,8 @@ class Player {
     // MARK: - Public members
     var username: String
     var relationship: Relationship
-    var profilePicture: UIImage?
-    var stats: Stats?
-
+    var profilePicture: String
+    var stats: Player.Stats?
     var friends: [Player]?
     var gameHistory: [GameStats]?
 
@@ -90,7 +91,7 @@ class Player {
     // NOTE: Be careful to avoid reference loops with the array of friends.
     init(username: String,
          relationship: Relationship,
-         profilePicture: UIImage? = nil,
+         profilePicture: String,
          stats: Stats? = nil
     ) {
         self.username = username
