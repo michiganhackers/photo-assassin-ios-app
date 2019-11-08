@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseUI
 
 class ProfileViewController: NavigatingViewController {
     // MARK: - Class members
@@ -36,14 +38,23 @@ class ProfileViewController: NavigatingViewController {
         .font: R.font.economicaBold.orDefault(size: 36.0)
     ]
     let player: Player
-
     // MARK: - UI elements
     lazy var profilePicture: UIImageView = {
-        let view = UIImageView(image: player.profilePicture)
+        let view: UIImageView = UIImageView(image: R.image.profileLogo())
         view.backgroundColor = Colors.subsectionBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = imageRounding
-        return view
+        let imageURLString = player.profilePicture
+         if let imageURL = URL(string: imageURLString) {
+            if let imageData = NSData(contentsOf: imageURL) {
+            view.image = UIImage(data: imageData as Data)
+            }
+        }
+        UIGraphicsBeginImageContext(CGSize(width: 125, height: 150))
+        view.image?.draw(in: CGRect(x: 25, y: 50, width: 125, height: 150))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return UIImageView(image: newImage)
     }()
 
     lazy var usernameLabel = UILabel(player.username, attributes: headingAttributes)
@@ -227,7 +238,7 @@ class ProfileViewController: NavigatingViewController {
     func searchForUser() {
         if let username = userSearchField.text {
             print("TODO: Find user with username \(username)")
-            push(navigationScreen: .profile(Player(username: username, relationship: .none)))
+            push(navigationScreen: .profile(Player(username: username, relationship: .none, profilePicture: "TODO")))
         }
     }
 

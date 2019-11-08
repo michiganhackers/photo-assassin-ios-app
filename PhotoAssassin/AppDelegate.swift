@@ -40,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         // App structure
         router.loadMainAppStructure()
-
         return true
     }
 
