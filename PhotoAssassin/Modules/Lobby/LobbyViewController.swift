@@ -182,12 +182,18 @@ class LobbyViewController: NavigatingViewController {
 
     @objc
     func leaveGameTapped() {
-        print("TODO: Leave the game")
+        backend.leaveGame(gameID: info.gameLobby.id) { error in
+            if let theError = error {
+                print("Error leaving game: \(theError)")
+            } else {
+                print("Successfully left the game with ID \(self.info.gameLobby.id)")
+            }
+        }
     }
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
-        self.info = LobbyInfo(gameLobby: GameLobby(id: "", title: "", numberInLobby: 0),
+        self.info = LobbyInfo(gameLobby: GameLobby(id: "", title: "", numberInLobby: 0, maxPlayers: 0),
                               focusedPlayer: nil,
                               myselfPermission: .viewer,
                               otherPlayers: [])

@@ -15,13 +15,15 @@ class GameLobby {
     let title: String
     let numberInLobby: Int
     let numberAlive: Int?
+    let maxPlayers: Int
 
     // Note: If numberAlive is nil, the game has not yet started or has ended.
     //  Otherwise, it is in progress.
-    init(id: String, title: String, numberInLobby: Int, numberAlive: Int? = nil) {
+    init(id: String, title: String, numberInLobby: Int, numberAlive: Int? = nil, maxPlayers: Int) {
         self.id = id
         self.title = title
         self.numberInLobby = numberInLobby
         self.numberAlive = numberAlive
+        self.maxPlayers = maxPlayers
     }
 }
