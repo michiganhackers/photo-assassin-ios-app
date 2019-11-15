@@ -38,7 +38,9 @@ extension CameraController {
                                                        mediaType: AVMediaType.video,
                                                        position: .unspecified)
         let cameras = session.devices.compactMap { $0 }
-        guard !cameras.isEmpty else { throw CameraControllerError.noCamerasAvailable }
+        guard !cameras.isEmpty else {
+            throw CameraControllerError.noCamerasAvailable
+        }
         for camera in cameras {
             if camera.position == .front {
                 self.frontCamera = camera
@@ -75,7 +77,7 @@ extension CameraController {
         let photoOutput = AVCapturePhotoOutput()
         self.photoOutput = photoOutput
         photoOutput.setPreparedPhotoSettingsArray(
-            [AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecJPEG])],
+            [AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])],
             completionHandler: nil)
         if captureSession.canAddOutput(photoOutput) { captureSession.addOutput(photoOutput) }
         captureSession.startRunning()
@@ -122,7 +124,9 @@ extension CameraController {
 
         func switchToFrontCamera() throws {
             guard let rearCameraInput = self.rearCameraInput, captureSession.inputs.contains(rearCameraInput),
-                let frontCamera = self.frontCamera else { throw CameraControllerError.invalidOperation }
+                let frontCamera = self.frontCamera else {
+                    throw CameraControllerError.invalidOperation
+            }
 
             self.frontCameraInput = try AVCaptureDeviceInput(device: frontCamera)
 
@@ -167,8 +171,22 @@ extension CameraController {
             return
         }
 
-        let settings = AVCapturePhotoSettings()
-        settings.flashMode = self.flashMode
+        let settings = AVCapturePhotoSettings(
+            format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+        var currentCamera: AVCaptureDevice?
+        switch currentCameraPosition {
+        case .front:
+            currentCamera = self.frontCamera
+        case .rear:
+            currentCamera = self.rearCamera
+        case .none:
+            currentCamera = nil
+        }
+        if let camera = currentCamera, camera.isFlashAvailable {
+            settings.flashMode = self.flashMode
+        } else {
+            settings.flashMode = .off
+        }
         self.photoOutput?.capturePhoto(with: settings, delegate: self)
         self.photoCaptureCompletionBlock = completion
     }
@@ -228,19 +246,13 @@ extension CameraController {
 }
 
 extension CameraController: AVCapturePhotoCaptureDelegate {
-    public func photoOutput(_ captureOutput: AVCapturePhotoOutput,
-                            didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?,
-                            previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
-                            resolvedSettings: AVCaptureResolvedPhotoSettings,
-                            bracketSettings: AVCaptureBracketedStillImageSettings?,
-                            error: Swift.Error?) {
+    public func photoOutput(_ output: AVCapturePhotoOutput,
+                            didFinishProcessingPhoto photo: AVCapturePhoto,
+                            error: Error?) {
         if let error = error {
             self.photoCaptureCompletionBlock?(nil, error)
-        } else if let buffer = photoSampleBuffer,
-                  let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(
-                    forJPEGSampleBuffer: buffer,
-                    previewPhotoSampleBuffer: nil),
-                  let image = UIImage(data: data) {
+        } else if let data = photo.fileDataRepresentation() {
+            let image = UIImage(data: data)
             self.photoCaptureCompletionBlock?(image, nil)
         } else {
             self.photoCaptureCompletionBlock?(nil, CameraControllerError.unknown)

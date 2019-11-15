@@ -113,14 +113,24 @@ extension ViewController {
         }
     }
 
-    @objc
-    func toggleFlash(sender: UIButton) {
-        if cameraController.flashMode == .on {
-            cameraController.flashMode = .off
-            toggleFlashButton.setImage(#imageLiteral(resourceName: "Flash Off Icon"), for: .normal)
-        } else {
+    func setFlash(isEnabled: Bool) {
+        if isEnabled {
             cameraController.flashMode = .on
             toggleFlashButton.setImage(#imageLiteral(resourceName: "Flash On Icon"), for: .normal)
+        } else {
+            cameraController.flashMode = .off
+            toggleFlashButton.setImage(#imageLiteral(resourceName: "Flash Off Icon"), for: .normal)
+        }
+    }
+
+    @objc
+    func toggleFlash(sender: UIButton) {
+        if !cameraController.isFront() {
+            if cameraController.flashMode == .on {
+                setFlash(isEnabled: false)
+            } else {
+                setFlash(isEnabled: true)
+            }
         }
     }
 
@@ -135,9 +145,15 @@ extension ViewController {
         switch cameraController.currentCameraPosition {
         case .some(.front):
             toggleCameraButton.setImage(#imageLiteral(resourceName: "Front Camera Icon"), for: .normal)
-
+            if cameraController.flashMode == .on {
+                setFlash(isEnabled: false)
+            }
+            toggleFlashButton.isEnabled = false
+            toggleFlashButton.tintColor = .gray
         case .some(.rear):
             toggleCameraButton.setImage(#imageLiteral(resourceName: "Rear Camera Icon"), for: .normal)
+            toggleFlashButton.isEnabled = true
+            toggleFlashButton.tintColor = .systemBlue
 
         case .none:
             return

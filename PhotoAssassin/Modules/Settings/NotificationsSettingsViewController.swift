@@ -155,7 +155,6 @@ class NotificationsSettingsViewController: NavigatingViewController {
         notifsView.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         notifsView.layoutIfNeeded()
         gradient.layoutInView(notifsView)
-
     }
 
     // MARK: - Event listeners
