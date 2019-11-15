@@ -16,13 +16,15 @@ class ChangeEmailViewController: NavigatingViewController {
     static let fieldSpacing: CGFloat = 30.0
 
     // MARK: - UI elements
-    let currentEmailLabel = TranslucentLabel(text: "Current email", size: labelTextSize)
-    let newEmailLabel = TranslucentLabel(text: "New email", size: labelTextSize)
+    let currentEmailLabel = TranslucentLabel(text: "Current Email:", size: labelTextSize)
+    let emailLabel = TranslucentLabel(text: (Auth.auth().currentUser?.email)!, size: labelTextSize)
+    let newEmailLabel = TranslucentLabel(text: "New Email", size: labelTextSize)
+    let confirmNewEmailLabel = TranslucentLabel(text: "Confirm New Email", size: labelTextSize)
     let passwordLabel = TranslucentLabel(text: "Enter your password", size: labelTextSize)
 
-    let currentEmailField = LoginTextField("Current email", isSecure: false, isEmail: true)
-    let newEmailField = LoginTextField("New email", isSecure: false, isEmail: true)
+    let newEmailField = LoginTextField("New Email", isSecure: false, isEmail: true)
     let passwordField = LoginTextField("Password", isSecure: true, isEmail: false)
+    let confirmNewEmailField = LoginTextField("Confirm New Email", isSecure: false, isEmail: true)
 
     let submitButton: UIButton = {
         let button = TransparentButton("Submit")
@@ -35,21 +37,25 @@ class ChangeEmailViewController: NavigatingViewController {
         let margins = view.layoutMarginsGuide
         currentEmailLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         currentEmailLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        currentEmailField.topAnchor.constraint(equalTo:
-            currentEmailLabel.bottomAnchor).isActive = true
-        currentEmailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        currentEmailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        emailLabel.topAnchor.constraint(equalTo: currentEmailLabel.bottomAnchor).isActive = true
+        emailLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
 
         newEmailLabel.topAnchor.constraint(
-            equalTo: currentEmailField.bottomAnchor,
+            equalTo: emailLabel.bottomAnchor,
             constant: ChangePasswordViewController.fieldSpacing).isActive = true
         newEmailLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         newEmailField.topAnchor.constraint(equalTo: newEmailLabel.bottomAnchor).isActive = true
         newEmailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         newEmailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+        confirmNewEmailLabel.topAnchor.constraint(equalTo: newEmailField.bottomAnchor,
+            constant: ChangePasswordViewController.fieldSpacing).isActive = true
+        confirmNewEmailLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        confirmNewEmailField.topAnchor.constraint(equalTo: confirmNewEmailLabel.bottomAnchor).isActive = true
+        confirmNewEmailField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        confirmNewEmailField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
         passwordLabel.topAnchor.constraint(
-            equalTo: newEmailField.bottomAnchor,
+            equalTo: confirmNewEmailField.bottomAnchor,
             constant: ChangePasswordViewController.fieldSpacing).isActive = true
         passwordLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         passwordField.topAnchor.constraint(equalTo:
@@ -64,9 +70,11 @@ class ChangeEmailViewController: NavigatingViewController {
 
     func addSubviews() {
         view.addSubview(currentEmailLabel)
+        view.addSubview(emailLabel)
         view.addSubview(newEmailLabel)
+        view.addSubview(confirmNewEmailLabel)
+        view.addSubview(confirmNewEmailField)
         view.addSubview(passwordLabel)
-        view.addSubview(currentEmailField)
         view.addSubview(newEmailField)
         view.addSubview(passwordField)
         view.addSubview(submitButton)
@@ -75,22 +83,35 @@ class ChangeEmailViewController: NavigatingViewController {
     // MARK: - Event listeners
     @objc
     func fieldEdited() {
-        submitButton.isEnabled = currentEmailField.text != nil &&
-            currentEmailField.text != "" &&
+        submitButton.isEnabled =
             newEmailField.text != nil &&
             newEmailField.text != "" &&
+            confirmNewEmailField.text == newEmailField.text &&
             passwordField.text != nil &&
             passwordField.text != ""
     }
 
     @objc
     func submit() {
-        print("TODO: Change email")
-        currentEmailField.text = ""
-        newEmailField.text = ""
-        passwordField.text = ""
-
-        pop()
+        let credential = EmailAuthProvider.credential(withEmail: (Auth.auth().currentUser?.email)!, password: passwordField.text!)
+        Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential) { _, error in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            let newEmail: String = self.newEmailField.text!
+            Auth.auth().currentUser?.updateEmail(to: newEmail) { (error) in
+                // ...
+                if error == nil {
+                    self.emailLabel.setText(text: newEmail)
+                }
+            }
+            self.newEmailField.text = ""
+            self.confirmNewEmailField.text = ""
+            self.passwordField.text = ""
+            
+            self.pop()
+        }
     }
 
     // MARK: - Overrides
@@ -109,8 +130,8 @@ class ChangeEmailViewController: NavigatingViewController {
     }
     init() {
         super.init(title: "Change Email")
-        currentEmailField.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         newEmailField.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
+        confirmNewEmailField.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
         submitButton.addTarget(self, action: #selector(submit), for: .touchUpInside)
     }
