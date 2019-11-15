@@ -6,9 +6,9 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import UIKit
 import FirebaseStorage
 import FirebaseUI
+import UIKit
 
 class Player {
     // MARK: - Nested types
@@ -38,8 +38,10 @@ class Player {
     // MARK: - Static members
     static var myself = Player(
         username: "hi_there_its_me",
-        relationship: .myself, profilePicture:
-"https://firebasestorage.googleapis.com/v0/b/photo-assassin.appspot.com/o/images%2Fprofile_pictures%2F5QC6Wt8bIiXBSWHmBAMm1JwdN6l2?alt=media&token=57a23100-abad-429d-8ce2-60cf7368dd19",
+        relationship: .myself,
+        profilePicture: "https://firebasestorage.googleapis.com/v0/b/photo-assassin.appspot.com" +
+            "/o/images%2Fprofile_pictures%2F5QC6Wt8bIiXBSWHmBAMm1JwdN6l2" +
+            "?alt=media&token=57a23100-abad-429d-8ce2-60cf7368dd19",
         stats: Stats(
             deaths: 8,
             gamesWon: 1,

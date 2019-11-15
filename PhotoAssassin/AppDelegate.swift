@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         var settingsDict = settings.notifications
         settingsDict["allNotifs"] = settings.allNotifs
         UserDefaults.standard.register(defaults: settingsDict)
-        
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 

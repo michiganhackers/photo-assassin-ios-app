@@ -10,13 +10,12 @@ import UIKit
 
 class NotifSwitch: UISwitch {
     let name: String
-    
-    
+
     required init?(coder: NSCoder) {
         self.name = ""
         super.init(coder: coder)
     }
-    
+
     init(name: String) {
         self.name = name
         super.init(frame: .zero)

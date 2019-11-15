@@ -21,7 +21,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     let socialMediaButtonHeight: CGFloat = 50.0
     let socialMediaSpace: CGFloat = 20.0
     let sizeOfText: CGFloat = 27.0
-    
+
     let backend = BackendCaller()
 
     // MARK: - UI Elements
@@ -225,7 +225,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     @objc
     func user_Registration() {
         if let email = emailField.text, let password = passwordField.text {
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            Auth.auth().createUser(withEmail: email, password: password) { _ /*authResult*/, error in
                 if let firebaseError = error {
                     print(firebaseError.localizedDescription)
                     self.failedRegistration()

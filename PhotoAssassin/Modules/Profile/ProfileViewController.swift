@@ -6,11 +6,11 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import UIKit
-import FirebaseStorage
-import FirebaseUI
 import Firebase
 import FirebaseAuth
+import FirebaseStorage
+import FirebaseUI
+import UIKit
 
 class ProfileViewController: NavigatingViewController {
     // MARK: - Class members
@@ -52,11 +52,7 @@ class ProfileViewController: NavigatingViewController {
             view.image = UIImage(data: imageData as Data)
             }
         }
-        UIGraphicsBeginImageContext(CGSize(width: 125, height: 150))
-        view.image?.draw(in: CGRect(x: 25, y: 50, width: 125, height: 150))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return UIImageView(image: newImage)
+        return view
     }()
 
     lazy var usernameLabel = UILabel(player.username, attributes: headingAttributes)
@@ -234,10 +230,12 @@ class ProfileViewController: NavigatingViewController {
     @objc
     func changeFriendStatus() {
         let database = Firestore.firestore()
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
         let userRef = database.collection("users").document(uid)
 
-         if (player.relationship != .friend) {
+         if player.relationship != .friend {
             // Atomically add a new region to the "regions" array field.
             userRef.updateData([
                 "friends": FieldValue.arrayUnion(["id"])

@@ -15,7 +15,7 @@ class NotificationsSettingsViewController: NavigatingViewController {
     let leftOffset: CGFloat = 10.0
     let rightOffset: CGFloat = -10.0
     let verticalSpacing: CGFloat = 10.0
-    
+
     let settings: LocalSettings = {
         let settings = LocalSettings()
         settings.updateFromSaved()
@@ -73,7 +73,7 @@ class NotificationsSettingsViewController: NavigatingViewController {
         "invited": invitedNotifSwitch,
         "allNotifs": notifsOnOffSwitch
     ]
-    
+
     let notifsOnOffLabel = TranslucentLabel(text: "Turn all notifications on/off", size: largeTextSize)
     let overallLabel = TranslucentLabel(text: "Receive notifications when:", size: largeTextSize)
     let voteNotifLabel = TranslucentLabel(text: "You have a pending vote", size: textSize)
@@ -185,25 +185,25 @@ class NotificationsSettingsViewController: NavigatingViewController {
         voteNotifSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
         eliminationNotifSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
     }
-    
-    @objc func saveButtonChange(switchIn: NotifSwitch) -> Void {
-        if (switchIn.name == "allNotifs") {
+
+    @objc
+    func saveButtonChange(switchIn: NotifSwitch) {
+        if switchIn.name == "allNotifs" {
             settings.updateAllNotifs(allNotif: switchIn.isOn)
             liveChangeAll(allNotifSwitch: switchIn)
-        }
-        else {
+        } else {
         settings.notifications[switchIn.name] = switchIn.isOn
         }
         settings.saveAll()
     }
-    
-    func updateAllSwitches(settings1 : LocalSettings) -> Void {
+
+    func updateAllSwitches(settings1: LocalSettings) {
         for (name1, switch1) in switches {
             switch1.isOn = settings1.getSettings(forName: name1)
         }
     }
-    
-    func liveChangeAll(allNotifSwitch: NotifSwitch) -> Void {
+
+    func liveChangeAll(allNotifSwitch: NotifSwitch) {
         voteNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)
         eliminationNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)
         eliminatedNotifSwitch.setOn(allNotifSwitch.isOn, animated: true)

@@ -17,35 +17,35 @@ class LocalSettings {
         "votingResults": false,
         "invited": false
     ]
-    
-    func updateAllNotifs(allNotif : Bool) -> Void {
+
+    func updateAllNotifs(allNotif: Bool) {
         allNotifs = allNotif
         for (notif, _) in notifications {
             notifications[notif] =  allNotif
         }
     }
-    
-    func saveAll() -> Void {
+
+    func saveAll() {
         var allOn = true
         for (notif, isOn) in notifications {
             UserDefaults.standard.set(isOn, forKey: notif)
-            if (!isOn) {
+            if !isOn {
                 allOn = false
             }
         }
         allNotifs = allOn
         UserDefaults.standard.set(allNotifs, forKey: "allNotifs")
     }
-    
-    func updateFromSaved() -> Void {
+
+    func updateFromSaved() {
         allNotifs = UserDefaults.standard.bool(forKey: "allNotifs")
         for (notif, _) in notifications {
             notifications[notif] = UserDefaults.standard.bool(forKey: notif)
         }
     }
-    
+
     func getSettings(forName: String) -> Bool {
-        if (forName == "allNotifs") {
+        if forName == "allNotifs" {
             return allNotifs
         }
         return notifications[forName] ?? false
