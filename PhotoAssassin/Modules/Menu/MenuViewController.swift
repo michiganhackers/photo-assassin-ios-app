@@ -47,11 +47,14 @@ class MenuViewController: NavigatingViewController {
                           endDate: nil)
                 ))
         }
-    
         
-        //DATA STRUCTURE: LobbyInfo contains one gameLobby and gameStats for each player
         var games: [String] = []
         let db = Firestore.firestore()
+        var players = [LobbyInfo.PlayerWithStatus]()
+        
+        var list2 = GameList<GameLobbyListCell>{ lobby2, _ in
+            self.push(navigationScreen : .lobbyInfo(LobbyInfo(gameLobby: lobby2, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: players,startDate: Date(timeIntervalSinceNow: 0.0), endDate: nil)))
+        }
         
         if let userID = Auth.auth().currentUser?.uid {
             db.collection("games").getDocuments { (querySnapshot, error) in
@@ -60,16 +63,14 @@ class MenuViewController: NavigatingViewController {
                     print("Error: \(err)")
                 } else {
                     for document in querySnapshot!.documents {
-                        
-                        var players = [LobbyInfo.PlayerWithStatus]()
-                        var currGameLobby : GameLobby?
+                        // var currGameLobby : GameLobby?
                         let gameID = document.documentID;
                         let gameStatus = document.get("status") as? String ?? "NO STATUS"
                         if (gameStatus == "notStarted" || gameStatus == "started"){
                             let title = document.get("name") as? String ?? "NO NAME"
                             let numberAlive = document.get("numberAlive") as? Int
                             let maxPlayers = document.get("maxPlayers") as? Int ?? 0
-                            var numberInLobby = 0
+                            var numberInLobby = 1
                             var username = String()
                             let gameRef = db.collection("games").document(gameID)
                             gameRef.collection("players").getDocuments() { (querySnapshot, error) in
@@ -79,23 +80,39 @@ class MenuViewController: NavigatingViewController {
                                     if let playerCount = querySnapshot?.count {
                                         numberInLobby = playerCount
                                     }
-                                    currGameLobby = GameLobby(id: gameID, title: title, numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: maxPlayers)
-                                    for player in querySnapshot!.documents{
-                                        db.collection("users").document(player.documentID).getDocument { (snapshot, error) in
-                                            if let snapshot = snapshot, snapshot.exists{
-                                                username = snapshot.value(forKey: "displayName") as? String ?? "NO USERNAME"                                            }
-                                        }
-                                        let kills = player.get("kills") as? Int
-                                        let place = player.get("place") as? Int
-                                        let currGameStat = GameStats(game: currGameLobby!, kills: kills, place: place, didGameEnd: gameStatus == "ended" ? true : false)
-                                        let currPlayer = Player(username: username, relationship: .none)
-                                    }
+                                    let currGameLobby = GameLobby(id: gameID, title: title, numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: maxPlayers)
+//                                    for player in querySnapshot!.documents{
+//
+//
+//                                        db.collection("users").document(player.documentID).getDocument { (snapshot, error) in
+//                                            // if let snapshot = snapshot, snapshot.exists {
+//                                              //  username = snapshot.value(forKey: "displayName") as? String ?? "NO USERNAME"}
+//                                            username = "Hello"
+//                                            let kills = player.get("kills") as? Int
+//                                            let place = player.get("place") as? Int
+//                                            let currGameStat = GameStats(game: currGameLobby, kills: kills, place: place, didGameEnd: gameStatus == "ended" ? true : false)
+//                                            let currPlayer = Player(username: username, relationship: .none)
+//                                            players.append(LobbyInfo.PlayerWithStatus(player: currPlayer, relationship: .neutral, stats: currGameStat))
+//
+//                                            if (players.count == querySnapshot!.documents.count) {
+//
+//                                                list2.games.append(currGameLobby)
+//                                                list2.update()
+//                                            }
+//                                        }
+                                        
+                                        
+                                    list2.games.append(currGameLobby)
+                                    list2.update()
+                                        //list2.update()
+                                    
                                     
                                 }
-                                list.games.append(currGameLobby!)
-                                list.update()
+                                //                                list2.games.append(currGameLobby!)
                                 
-                                self.push(navigationScreen: .lobbyInfo(LobbyInfo(gameLobby: currGameLobby!, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: players)))
+                                //Isn't pushing below only used when you tap on the game?
+                                // self.push(navigationScreen: .lobbyInfo(LobbyInfo(gameLobby: currGameLobby!,
+                                //focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: players)))
                             }
                             
                             
@@ -104,9 +121,11 @@ class MenuViewController: NavigatingViewController {
                 }
             }
         }
+        return list2
+    }()
+    
         
-        return list;
-}()
+        //DATA STRUCTURE: LobbyInfo contains one gameLobby and gameStats for each player
 
     lazy var lobbiesLabel = UILabel("Lobbies", attributes: fadedHeadingAttributes, align: .left)
 
