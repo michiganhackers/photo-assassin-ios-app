@@ -24,7 +24,7 @@ class MenuViewController: NavigatingViewController {
 
     lazy var gameLobbyList: GameList<GameLobbyListCell> = {
         let list = GameList<GameLobbyListCell> { lobby, _ in
-            // TODO: Grab full lobby info from Firebase
+             //TODO: Grab full lobby info from Firebase
             self.push(navigationScreen: .lobbyInfo(
                 LobbyInfo(gameLobby: lobby, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: [
                     LobbyInfo.PlayerWithStatus(
@@ -47,57 +47,60 @@ class MenuViewController: NavigatingViewController {
                           endDate: nil)
                 ))
         }
+    
         
+        //DATA STRUCTURE: LobbyInfo contains one gameLobby and gameStats for each player
         var games: [String] = []
         let db = Firestore.firestore()
+        
         if let userID = Auth.auth().currentUser?.uid {
-            db.collection("users").document(userID).collection("currentGames").getDocuments { (querySnapshot, error) in
+            db.collection("games").getDocuments { (querySnapshot, error) in
+                
                 if let err = error {
                     print("Error: \(err)")
                 } else {
                     for document in querySnapshot!.documents {
-                        games.append(document.documentID)
-                    }
-                }
-                
-                for gameID in games {
-                    let gameRef = db.collection("games").document(gameID)
-                    gameRef.getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            let name = document.get("name") as? String ?? "NO NAME"
-                            let numberAlive = document.get("numberAlive") as? Int ?? -1
-                            let maxPlayers = document.get("maxPlayers") as? Int ?? -1
+                        
+                        var players = [LobbyInfo.PlayerWithStatus]()
+                        var currGameLobby : GameLobby?
+                        let gameID = document.documentID;
+                        let gameStatus = document.get("status") as? String ?? "NO STATUS"
+                        if (gameStatus == "notStarted" || gameStatus == "started"){
+                            let title = document.get("name") as? String ?? "NO NAME"
+                            let numberAlive = document.get("numberAlive") as? Int
+                            let maxPlayers = document.get("maxPlayers") as? Int ?? 0
                             var numberInLobby = 0
                             
-                            gameRef.collection("players").getDocuments() { (querySnapshot, error) in
+                            let gameRef = db.collection("games").document(gameID)
+                            gameRef.collection("players").getDocuments() { [weak currGameLobby](querySnapshot, error) in
                                 if let err = error {
                                     print("Error: \(err)")
                                 } else {
-                                    
+                                    for player in querySnapshot!.documents{
+                                        var username = db.collection("users").document(player.documentID).get("displayName") as? String ?? "NO USERNAME"
+                                        let kills = player.get("kills") as? Int
+                                        let place = player.get("place") as? Int
+                                        let currGameStat = GameStats(game: currGameLobby, kills: kills, place: place, didGameEnd: gameStatus == "ended" ? true : false)
+                                        let currPlayer = Player(username: username, relationship: <#T##Player.Relationship#>)
+                                    }
                                     if let playerCount = querySnapshot?.count {
                                         numberInLobby = playerCount
                                     }
                                 }
                             }
                             
-                            list.games.append(GameLobby(id: gameID, title: name, numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: maxPlayers))
+                            list.games.append(GameLobby(id: gameID, title: title, numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: maxPlayers))
+                            list.update()
                             
-                            if games.count == list.games.count {
-                                list.update()
-                            }
-                        } else {
-                            print("Document does not exist")
+                            self.push(navigationScreen: .lobbyInfo(LobbyInfo(gameLobby: GameLobby(id: gameID, title: title, numberInLobby: numberInLobby, maxPlayers: maxPlayers), focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: players)))
                         }
                     }
                 }
-                
             }
-            
         }
         
         return list;
-        
-    }()
+}()
 
     lazy var lobbiesLabel = UILabel("Lobbies", attributes: fadedHeadingAttributes, align: .left)
 
