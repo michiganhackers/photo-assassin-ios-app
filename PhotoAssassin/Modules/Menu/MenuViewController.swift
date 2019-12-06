@@ -70,29 +70,35 @@ class MenuViewController: NavigatingViewController {
                             let numberAlive = document.get("numberAlive") as? Int
                             let maxPlayers = document.get("maxPlayers") as? Int ?? 0
                             var numberInLobby = 0
-                            
+                            var username = String()
                             let gameRef = db.collection("games").document(gameID)
-                            gameRef.collection("players").getDocuments() { [weak currGameLobby](querySnapshot, error) in
+                            gameRef.collection("players").getDocuments() { (querySnapshot, error) in
                                 if let err = error {
                                     print("Error: \(err)")
                                 } else {
-                                    for player in querySnapshot!.documents{
-                                        var username = db.collection("users").document(player.documentID).get("displayName") as? String ?? "NO USERNAME"
-                                        let kills = player.get("kills") as? Int
-                                        let place = player.get("place") as? Int
-                                        let currGameStat = GameStats(game: currGameLobby, kills: kills, place: place, didGameEnd: gameStatus == "ended" ? true : false)
-                                        let currPlayer = Player(username: username, relationship: <#T##Player.Relationship#>)
-                                    }
                                     if let playerCount = querySnapshot?.count {
                                         numberInLobby = playerCount
                                     }
+                                    currGameLobby = GameLobby(id: gameID, title: title, numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: maxPlayers)
+                                    for player in querySnapshot!.documents{
+                                        db.collection("users").document(player.documentID).getDocument { (snapshot, error) in
+                                            if let snapshot = snapshot, snapshot.exists{
+                                                username = snapshot.value(forKey: "displayName") as? String ?? "NO USERNAME"                                            }
+                                        }
+                                        let kills = player.get("kills") as? Int
+                                        let place = player.get("place") as? Int
+                                        let currGameStat = GameStats(game: currGameLobby!, kills: kills, place: place, didGameEnd: gameStatus == "ended" ? true : false)
+                                        let currPlayer = Player(username: username, relationship: .none)
+                                    }
+                                    
                                 }
+                                list.games.append(currGameLobby!)
+                                list.update()
+                                
+                                self.push(navigationScreen: .lobbyInfo(LobbyInfo(gameLobby: currGameLobby!, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: players)))
                             }
                             
-                            list.games.append(GameLobby(id: gameID, title: title, numberInLobby: numberInLobby, numberAlive: numberAlive, maxPlayers: maxPlayers))
-                            list.update()
                             
-                            self.push(navigationScreen: .lobbyInfo(LobbyInfo(gameLobby: GameLobby(id: gameID, title: title, numberInLobby: numberInLobby, maxPlayers: maxPlayers), focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: players)))
                         }
                     }
                 }
