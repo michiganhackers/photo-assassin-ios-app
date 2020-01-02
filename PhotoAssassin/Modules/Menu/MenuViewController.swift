@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MenuViewController: NavigatingViewController {
     // MARK: - Class Constants
@@ -22,37 +23,64 @@ class MenuViewController: NavigatingViewController {
     ]
 
     lazy var gameLobbyList: GameList<GameLobbyListCell> = {
-        let list = GameList<GameLobbyListCell> { lobby, _ in
-            // TODO: Grab full lobby info from Firebase
+        var games: [String] = []
+        let database = Firestore.firestore()
+
+        var list = GameList<GameLobbyListCell> { lobby, _ in
             self.push(navigationScreen: .lobbyInfo(
-                LobbyInfo(gameLobby: lobby, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: [
-                        LobbyInfo.PlayerWithStatus(
-                            player: Player(uid: "ben", username: "Bendudeman", relationship: .none, profilePicture: "TODO"),
-                            relationship: .neutral,
-                            stats: GameStats(game: lobby, kills: 5)
-                        ),
-                        LobbyInfo.PlayerWithStatus(
-                            player: Player(uid: "owain", username: "Owain", relationship: .none, profilePicture: "TODO"),
-                            relationship: .target,
-                            stats: GameStats(game: lobby, kills: 1)
-                        ),
-                        LobbyInfo.PlayerWithStatus(
-                            player: Player(uid: "vincent", username: "Vincent", relationship: .none, profilePicture: "TODO"),
-                            relationship: .dead,
-                            stats: GameStats(game: lobby, kills: 3)
-                        )
-                    ],
-                    startDate: Date(timeIntervalSinceNow: 0.0),
-                    endDate: nil
+                LobbyInfo(
+                    gameLobby: lobby,
+                    focusedPlayer: nil,
+                    myselfPermission: .viewer,
+                    otherPlayers: TODO,
+                    startDate: TODO,
+                    endDate: nil)
                 )
-            ))
+            )
         }
-        list.games = [
-            GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, numberAlive: nil, maxPlayers: 20),
-            GameLobby(id: "1cd", title: "Another Game", numberInLobby: 8, numberAlive: nil, maxPlayers: 20),
-            GameLobby(id: "2ef", title: "Game 3", numberInLobby: 20, numberAlive: 18, maxPlayers: 20),
-            GameLobby(id: "3gh", title: "Jason's Game", numberInLobby: 9, numberAlive: 3, maxPlayers: 20)
-        ]
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return list
+        }
+        database.collection("games").getDocuments { querySnapshot, error in
+            if let err = error {
+                print("Error: \(err)")
+                return
+            }
+            guard let querySnapshot = querySnapshot else {
+                print("Could not retrieve current games")
+                return
+            }
+            for document in querySnapshot.documents {
+                let gameID = document.documentID
+                let gameStatus = document.get("status") as? String ?? "NO STATUS"
+                if gameStatus == "notStarted" || gameStatus == "started" {
+                    let title = document.get("name") as? String ?? "NO NAME"
+                    let numberAlive = document.get("numberAlive") as? Int
+                    let maxPlayers = document.get("maxPlayers") as? Int ?? 0
+                    var numberInLobby = 1
+                    var username = String()
+                    let gameRef = database.collection("games").document(gameID)
+                    gameRef.collection("players").getDocuments { querySnapshot, error in
+                        if let err = error {
+                            print("Error: \(err)")
+                        } else {
+                            if let playerCount = querySnapshot?.count {
+                                numberInLobby = playerCount
+                            }
+                            let currGameLobby = GameLobby(
+                                id: gameID,
+                                title: title,
+                                numberInLobby: numberInLobby,
+                                numberAlive: numberAlive,
+                                maxPlayers: maxPlayers
+                            )
+                            list.games.append(currGameLobby)
+                            list.update()
+                        }
+                    }
+                }
+            }
+        }
         return list
     }()
 
