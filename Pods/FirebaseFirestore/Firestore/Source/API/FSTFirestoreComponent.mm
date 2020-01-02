@@ -29,9 +29,9 @@
 #include <utility>
 
 #import "Firestore/Source/API/FIRFirestore+Internal.h"
+#import "Firestore/Source/Util/FSTUsageValidation.h"
 #include "Firestore/core/include/firebase/firestore/firestore_version.h"
 #include "Firestore/core/src/firebase/firestore/api/firestore.h"
-#include "Firestore/core/src/firebase/firestore/api/input_validation.h"
 #include "Firestore/core/src/firebase/firestore/auth/credentials_provider.h"
 #include "Firestore/core/src/firebase/firestore/auth/firebase_credentials_provider_apple.h"
 #include "Firestore/core/src/firebase/firestore/util/async_queue.h"
@@ -41,7 +41,6 @@
 
 namespace util = firebase::firestore::util;
 using firebase::firestore::api::Firestore;
-using firebase::firestore::api::ThrowInvalidArgument;
 using firebase::firestore::auth::CredentialsProvider;
 using firebase::firestore::auth::FirebaseCredentialsProvider;
 using util::AsyncQueue;
@@ -70,23 +69,14 @@ NS_ASSUME_NONNULL_BEGIN
   return self;
 }
 
-- (NSString *)keyForDatabase:(NSString *)database {
-  return [NSString stringWithFormat:@"%@|%@", self.app.name, database];
-}
-
 #pragma mark - FSTInstanceProvider Conformance
 
 - (FIRFirestore *)firestoreForDatabase:(NSString *)database {
   if (!database) {
-    ThrowInvalidArgument("Database identifier may not be nil.");
+    FSTThrowInvalidArgument(@"database identifier may not be nil.");
   }
 
-  NSString *projectID = self.app.options.projectID;
-  if (!projectID) {
-    ThrowInvalidArgument("FIROptions.projectID must be set to a valid project ID.");
-  }
-
-  NSString *key = [self keyForDatabase:database];
+  NSString *key = [NSString stringWithFormat:@"%@|%@", self.app.name, database];
 
   // Get the component from the container.
   @synchronized(self.instances) {
@@ -102,40 +92,28 @@ NS_ASSUME_NONNULL_BEGIN
       auto workerQueue = absl::make_unique<AsyncQueue>(std::move(executor));
 
       id<FIRAuthInterop> auth = FIR_COMPONENT(FIRAuthInterop, self.app.container);
-      auto credentialsProvider = std::make_shared<FirebaseCredentialsProvider>(self.app, auth);
+      auto credentialsProvider = absl::make_unique<FirebaseCredentialsProvider>(self.app, auth);
 
-      model::DatabaseId databaseID{util::MakeString(projectID), util::MakeString(database)};
+      std::string projectID = util::MakeString(self.app.options.projectID);
       std::string persistenceKey = util::MakeString(self.app.name);
-      firestore = [[FIRFirestore alloc] initWithDatabaseID:std::move(databaseID)
-                                            persistenceKey:std::move(persistenceKey)
-                                       credentialsProvider:std::move(credentialsProvider)
-                                               workerQueue:std::move(workerQueue)
-                                               firebaseApp:self.app
-                                          instanceRegistry:self];
+      firestore = [[FIRFirestore alloc] initWithProjectID:std::move(projectID)
+                                                 database:util::MakeString(database)
+                                           persistenceKey:std::move(persistenceKey)
+                                      credentialsProvider:std::move(credentialsProvider)
+                                              workerQueue:std::move(workerQueue)
+                                              firebaseApp:self.app];
       _instances[key] = firestore;
     }
-    return firestore;
-  }
-}
 
-- (void)removeInstanceWithDatabase:(NSString *)database {
-  @synchronized(_instances) {
-    NSString *key = [self keyForDatabase:database];
-    [_instances removeObjectForKey:key];
+    return firestore;
   }
 }
 
 #pragma mark - FIRComponentLifecycleMaintainer
 
 - (void)appWillBeDeleted:(FIRApp *)app {
-  NSDictionary<NSString *, FIRFirestore *> *instances;
-  @synchronized(_instances) {
-    instances = [_instances copy];
-    [_instances removeAllObjects];
-  }
-  for (NSString *key in instances) {
-    [instances[key] terminateInternalWithCompletion:nil];
-  }
+  // Stop any actions and clean up resources since instances of Firestore associated with this app
+  // will be removed. Currently does not do anything.
 }
 
 #pragma mark - Object Lifecycle

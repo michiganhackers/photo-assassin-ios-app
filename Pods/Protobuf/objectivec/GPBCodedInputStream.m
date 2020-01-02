@@ -93,22 +93,14 @@ static int8_t ReadRawByte(GPBCodedInputStreamState *state) {
 
 static int32_t ReadRawLittleEndian32(GPBCodedInputStreamState *state) {
   CheckSize(state, sizeof(int32_t));
-  // Not using OSReadLittleInt32 because it has undocumented dependency
-  // on reads being aligned.
-  int32_t value;
-  memcpy(&value, state->bytes + state->bufferPos, sizeof(int32_t));
-  value = OSSwapLittleToHostInt32(value);
+  int32_t value = OSReadLittleInt32(state->bytes, state->bufferPos);
   state->bufferPos += sizeof(int32_t);
   return value;
 }
 
 static int64_t ReadRawLittleEndian64(GPBCodedInputStreamState *state) {
   CheckSize(state, sizeof(int64_t));
-  // Not using OSReadLittleInt64 because it has undocumented dependency
-  // on reads being aligned.  
-  int64_t value;
-  memcpy(&value, state->bytes + state->bufferPos, sizeof(int64_t));
-  value = OSSwapLittleToHostInt64(value);
+  int64_t value = OSReadLittleInt64(state->bytes, state->bufferPos);
   state->bufferPos += sizeof(int64_t);
   return value;
 }

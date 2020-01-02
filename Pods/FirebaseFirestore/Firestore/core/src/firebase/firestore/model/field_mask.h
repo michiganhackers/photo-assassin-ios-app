@@ -23,12 +23,11 @@
 #include <utility>
 
 #include "Firestore/core/src/firebase/firestore/model/field_path.h"
+#include "Firestore/core/src/firebase/firestore/util/hashing.h"
 
 namespace firebase {
 namespace firestore {
 namespace model {
-
-class ObjectValue;
 
 /**
  * Provides a set of fields that can be used to partially patch a document.
@@ -43,8 +42,6 @@ class ObjectValue;
 class FieldMask {
  public:
   using const_iterator = std::set<FieldPath>::const_iterator;
-
-  FieldMask() = default;
 
   FieldMask(std::initializer_list<FieldPath> list) : fields_{list} {
   }
@@ -74,11 +71,34 @@ class FieldMask {
    *
    * This is an O(n) operation, where `n` is the size of the field mask.
    */
-  bool covers(const FieldPath& fieldPath) const;
+  bool covers(const FieldPath& fieldPath) const {
+    for (const FieldPath& fieldMaskPath : fields_) {
+      if (fieldMaskPath.IsPrefixOf(fieldPath)) {
+        return true;
+      }
+    }
 
-  std::string ToString() const;
+    return false;
+  }
 
-  size_t Hash() const;
+  std::string ToString() const {
+    // Ideally, one should use a string builder. Since this is only non-critical
+    // code for logging and debugging, the logic is kept simple here.
+    std::string result("{ ");
+    for (const FieldPath& field : fields_) {
+      result += field.CanonicalString() + " ";
+    }
+    return result + "}";
+  }
+
+#if defined(__OBJC__)
+  FieldMask() {
+  }
+
+  NSUInteger Hash() const {
+    return util::Hash(fields_);
+  }
+#endif
 
   friend bool operator==(const FieldMask& lhs, const FieldMask& rhs);
 

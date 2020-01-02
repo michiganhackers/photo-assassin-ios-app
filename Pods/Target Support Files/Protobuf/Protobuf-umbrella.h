@@ -49,6 +49,6 @@
 #import "Type.pbobjc.h"
 #import "Wrappers.pbobjc.h"
 
-FOUNDATION_EXPORT double protobufVersionNumber;
-FOUNDATION_EXPORT const unsigned char protobufVersionString[];
+FOUNDATION_EXPORT double ProtobufVersionNumber;
+FOUNDATION_EXPORT const unsigned char ProtobufVersionString[];
 

@@ -17,15 +17,25 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_CORE_QUERY_LISTENER_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_CORE_QUERY_LISTENER_H_
 
+#if !defined(__OBJC__)
+#error "This header only supports Objective-C++"
+#endif  // !defined(__OBJC__)
+
+#import <Foundation/Foundation.h>
+
 #include <memory>
 #include <utility>
 
 #include "Firestore/core/src/firebase/firestore/core/listen_options.h"
-#include "Firestore/core/src/firebase/firestore/core/query.h"
 #include "Firestore/core/src/firebase/firestore/core/view_snapshot.h"
 #include "Firestore/core/src/firebase/firestore/model/types.h"
-#include "Firestore/core/src/firebase/firestore/util/status_fwd.h"
+#include "Firestore/core/src/firebase/firestore/util/status.h"
+#include "Firestore/core/src/firebase/firestore/util/statusor_callback.h"
 #include "absl/types/optional.h"
+
+@class FSTQuery;
+
+NS_ASSUME_NONNULL_BEGIN
 
 namespace firebase {
 namespace firestore {
@@ -38,43 +48,43 @@ namespace core {
 class QueryListener {
  public:
   static std::shared_ptr<QueryListener> Create(
-      Query query,
+      FSTQuery* query,
       ListenOptions options,
       ViewSnapshot::SharedListener&& listener) {
-    return std::make_shared<QueryListener>(std::move(query), std::move(options),
+    return std::make_shared<QueryListener>(query, std::move(options),
                                            std::move(listener));
   }
 
   static std::shared_ptr<QueryListener> Create(
-      Query query, ViewSnapshot::SharedListener&& listener) {
-    return Create(std::move(query), ListenOptions::DefaultOptions(),
-                  std::move(listener));
+      FSTQuery* query, ViewSnapshot::SharedListener&& listener) {
+    return Create(query, ListenOptions::DefaultOptions(), std::move(listener));
   }
 
   static std::shared_ptr<QueryListener> Create(
-      Query query,
+      FSTQuery* query,
       ListenOptions options,
       util::StatusOrCallback<ViewSnapshot>&& listener) {
     auto event_listener =
         EventListener<ViewSnapshot>::Create(std::move(listener));
-    return Create(std::move(query), std::move(options),
-                  std::move(event_listener));
+    return Create(query, std::move(options), std::move(event_listener));
   }
 
   static std::shared_ptr<QueryListener> Create(
-      Query query, util::StatusOrCallback<ViewSnapshot>&& listener) {
-    return Create(std::move(query), ListenOptions::DefaultOptions(),
-                  std::move(listener));
+      FSTQuery* query, util::StatusOrCallback<ViewSnapshot>&& listener) {
+    return Create(query, ListenOptions::DefaultOptions(), std::move(listener));
   }
 
-  QueryListener(Query query,
+  QueryListener(FSTQuery* query,
                 ListenOptions options,
-                ViewSnapshot::SharedListener&& listener);
-
+                ViewSnapshot::SharedListener&& listener)
+      : query_(query),
+        options_(std::move(options)),
+        listener_(std::move(listener)) {
+  }
   virtual ~QueryListener() {
   }
 
-  const Query& query() const {
+  FSTQuery* query() const {
     return query_;
   }
 
@@ -83,18 +93,9 @@ class QueryListener {
     return snapshot_;
   }
 
-  /**
-   * Applies the new ViewSnapshot to this listener, raising a user-facing event
-   * if applicable (depending on what changed, whether the user has opted into
-   * metadata-only changes, etc.). Returns true if a user-facing event was
-   * indeed raised.
-   */
-  virtual bool OnViewSnapshot(ViewSnapshot snapshot);
-
+  virtual void OnViewSnapshot(ViewSnapshot snapshot);
   virtual void OnError(util::Status error);
-
-  /** Returns whether a snapshot was raised. */
-  virtual bool OnOnlineStateChanged(model::OnlineState online_state);
+  virtual void OnOnlineStateChanged(model::OnlineState online_state);
 
  private:
   bool ShouldRaiseInitialEvent(const ViewSnapshot& snapshot,
@@ -102,7 +103,7 @@ class QueryListener {
   bool ShouldRaiseEvent(const ViewSnapshot& snapshot) const;
   void RaiseInitialEvent(const ViewSnapshot& snapshot);
 
-  Query query_;
+  FSTQuery* query_ = nil;
   ListenOptions options_;
 
   /**
@@ -127,5 +128,7 @@ class QueryListener {
 }  // namespace core
 }  // namespace firestore
 }  // namespace firebase
+
+NS_ASSUME_NONNULL_END
 
 #endif  // FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_CORE_QUERY_LISTENER_H_

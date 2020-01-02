@@ -45,6 +45,20 @@ NS_SWIFT_NAME(AuthErrors)
 extern NSString *const FIRAuthErrorDomain NS_SWIFT_NAME(AuthErrorDomain);
 
 /**
+    @brief Please use `FIRAuthErrorUserInfoUpdatedCredentialKey` for Objective C or
+        `AuthErrorUserInfoUpdatedCredentialKey` for Swift instead.
+ */
+extern NSString *const FIRAuthUpdatedCredentialKey
+    NS_SWIFT_NAME(AuthUpdatedCredentialKey) __attribute__((deprecated));
+
+/**
+    @brief Please use `FIRAuthErrorUserInfoNameKey` for Objective C or
+        `AuthErrorUserInfoNameKey` for Swift instead.
+ */
+extern NSString *const FIRAuthErrorNameKey
+    NS_SWIFT_NAME(AuthErrorNameKey) __attribute__((deprecated));
+
+/**
     @brief The name of the key for the error short string of an error code.
  */
 extern NSString *const FIRAuthErrorUserInfoNameKey NS_SWIFT_NAME(AuthErrorUserInfoNameKey);
@@ -299,11 +313,11 @@ typedef NS_ENUM(NSInteger, FIRAuthErrorCode) {
      */
     FIRAuthErrorCodeInvalidClientID = 17060,
 
-    /** Indicates that a network request within a SFSafariViewController or WKWebView failed.
+    /** Indicates that a network request within a SFSafariViewController or UIWebview failed.
      */
     FIRAuthErrorCodeWebNetworkRequestFailed = 17061,
 
-    /** Indicates that an internal error occurred within a SFSafariViewController or WKWebView.
+    /** Indicates that an internal error occurred within a SFSafariViewController or UIWebview.
      */
     FIRAuthErrorCodeWebInternalError = 17062,
 
@@ -311,8 +325,7 @@ typedef NS_ENUM(NSInteger, FIRAuthErrorCode) {
      */
     FIRAuthErrorCodeWebSignInUserInteractionFailure = 17063,
 
-    /** Indicates that the local player was not authenticated prior to attempting Game Center
-        signin.
+    /** Indicates that the local player was not authenticated prior to attempting Game Center signin.
      */
     FIRAuthErrorCodeLocalPlayerNotAuthenticated = 17066,
 
@@ -321,31 +334,19 @@ typedef NS_ENUM(NSInteger, FIRAuthErrorCode) {
      */
     FIRAuthErrorCodeNullUser = 17067,
 
-    /** Indicates that a Firebase Dynamic Link is not activated.
-     */
-    FIRAuthErrorCodeDynamicLinkNotActivated = 17068,
-
     /**
      * Represents the error code for when the given provider id for a web operation is invalid.
      */
     FIRAuthErrorCodeInvalidProviderID = 17071,
 
-    /** Indicates that the Firebase Dynamic Link domain used is either not configured or is
-        unauthorized for the current project.
+    /** Indicates that the Firebase Dynamic Link domain used is either not configured or is unauthorized
+        for the current project.
      */
     FIRAuthErrorCodeInvalidDynamicLinkDomain = 17074,
-
-    /** Indicates that the credential is rejected because it's misformed or mismatching.
-     */
-    FIRAuthErrorCodeRejectedCredential = 17075,
 
     /** Indicates that the GameKit framework is not linked prior to attempting Game Center signin.
      */
     FIRAuthErrorCodeGameKitNotLinked = 17076,
-
-    /** Indicates an error for when the client identifier is missing.
-     */
-    FIRAuthErrorCodeMissingClientIdentifier = 17993,
 
     /** Indicates an error occurred while attempting to access the keychain.
      */

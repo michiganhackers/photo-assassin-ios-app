@@ -17,48 +17,53 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_API_FIRESTORE_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_API_FIRESTORE_H_
 
+#if !defined(__OBJC__)
+#error "This header only supports Objective-C++"
+#endif  // !defined(__OBJC__)
+
+#import <Foundation/Foundation.h>
+
 #include <memory>
 #include <mutex>  // NOLINT(build/c++11)
 #include <string>
 #include <utility>
+#include "dispatch/dispatch.h"
 
-#include "Firestore/core/src/firebase/firestore/api/listener_registration.h"
-#include "Firestore/core/src/firebase/firestore/api/settings.h"
 #include "Firestore/core/src/firebase/firestore/auth/credentials_provider.h"
-#include "Firestore/core/src/firebase/firestore/core/database_info.h"
-#include "Firestore/core/src/firebase/firestore/core/event_listener.h"
-#include "Firestore/core/src/firebase/firestore/core/transaction.h"
 #include "Firestore/core/src/firebase/firestore/model/database_id.h"
-#include "Firestore/core/src/firebase/firestore/objc/objc_class.h"
 #include "Firestore/core/src/firebase/firestore/util/async_queue.h"
-#include "Firestore/core/src/firebase/firestore/util/empty.h"
-#include "Firestore/core/src/firebase/firestore/util/nullability.h"
-#include "Firestore/core/src/firebase/firestore/util/status_fwd.h"
-#include "absl/types/any.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@class FIRApp;
+@class FIRCollectionReference;
+@class FIRFirestore;
+@class FIRFirestoreSettings;
+@class FIRQuery;
+@class FIRTransaction;
+@class FIRWriteBatch;
+@class FSTFirestoreClient;
 
 namespace firebase {
 namespace firestore {
-namespace core {
-
-class FirestoreClient;
-class Query;
-
-}  // namespace core
-
 namespace api {
 
-class CollectionReference;
 class DocumentReference;
-class WriteBatch;
 
-class Firestore : public std::enable_shared_from_this<Firestore> {
+class Firestore {
  public:
+  using TransactionBlock = id _Nullable (^)(FIRTransaction*, NSError** error);
+  using ErrorCompletion = void (^)(NSError* _Nullable error);
+  using ResultOrErrorCompletion = void (^)(id _Nullable result,
+                                           NSError* _Nullable error);
+
   Firestore() = default;
 
-  Firestore(model::DatabaseId database_id,
+  Firestore(std::string project_id,
+            std::string database,
             std::string persistence_key,
-            std::shared_ptr<auth::CredentialsProvider> credentials_provider,
-            std::shared_ptr<util::AsyncQueue> worker_queue,
+            std::unique_ptr<auth::CredentialsProvider> credentials_provider,
+            std::unique_ptr<util::AsyncQueue> worker_queue,
             void* extension);
 
   const model::DatabaseId& database_id() const {
@@ -69,51 +74,48 @@ class Firestore : public std::enable_shared_from_this<Firestore> {
     return persistence_key_;
   }
 
-  const std::shared_ptr<core::FirestoreClient>& client();
+  FSTFirestoreClient* client() {
+    return client_;
+  }
 
-  const std::shared_ptr<util::AsyncQueue>& worker_queue();
+  util::AsyncQueue* worker_queue();
 
   void* extension() {
     return extension_;
   }
 
-  const Settings& settings() const;
-  void set_settings(const Settings& settings);
+  FIRFirestoreSettings* settings() const;
+  void set_settings(FIRFirestoreSettings* settings);
 
-  void set_user_executor(std::unique_ptr<util::Executor> user_executor);
-
-  CollectionReference GetCollection(absl::string_view collection_path);
+  FIRCollectionReference* GetCollection(absl::string_view collection_path);
   DocumentReference GetDocument(absl::string_view document_path);
-  WriteBatch GetBatch();
-  core::Query GetCollectionGroup(std::string collection_id);
+  FIRWriteBatch* GetBatch();
+  FIRQuery* GetCollectionGroup(NSString* collection_id);
 
-  void RunTransaction(core::TransactionUpdateCallback update_callback,
-                      core::TransactionResultCallback result_callback);
+  void RunTransaction(TransactionBlock update_block,
+                      dispatch_queue_t queue,
+                      ResultOrErrorCompletion completion);
 
-  void Terminate(util::StatusCallback callback);
-  void ClearPersistence(util::StatusCallback callback);
-  void WaitForPendingWrites(util::StatusCallback callback);
-  std::unique_ptr<ListenerRegistration> AddSnapshotsInSyncListener(
-      std::unique_ptr<core::EventListener<util::Empty>> listener);
+  void Shutdown(ErrorCompletion completion);
 
-  void EnableNetwork(util::StatusCallback callback);
-  void DisableNetwork(util::StatusCallback callback);
+  void EnableNetwork(ErrorCompletion completion);
+  void DisableNetwork(ErrorCompletion completion);
 
  private:
   void EnsureClientConfigured();
-  core::DatabaseInfo MakeDatabaseInfo() const;
 
   model::DatabaseId database_id_;
-  std::shared_ptr<auth::CredentialsProvider> credentials_provider_;
+  std::unique_ptr<auth::CredentialsProvider> credentials_provider_;
   std::string persistence_key_;
-  std::shared_ptr<core::FirestoreClient> client_;
+  FSTFirestoreClient* client_ = nil;
 
-  std::shared_ptr<util::Executor> user_executor_;
-  std::shared_ptr<util::AsyncQueue> worker_queue_;
+  // Ownership will be transferred to `FSTFirestoreClient` as soon as the
+  // client is created.
+  std::unique_ptr<util::AsyncQueue> worker_queue_;
 
   void* extension_ = nullptr;
 
-  Settings settings_;
+  FIRFirestoreSettings* settings_ = nil;
 
   mutable std::mutex mutex_;
 };
@@ -121,5 +123,7 @@ class Firestore : public std::enable_shared_from_this<Firestore> {
 }  // namespace api
 }  // namespace firestore
 }  // namespace firebase
+
+NS_ASSUME_NONNULL_END
 
 #endif  // FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_API_FIRESTORE_H_

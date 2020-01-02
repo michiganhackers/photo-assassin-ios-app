@@ -22,7 +22,6 @@
 #include "Firestore/core/src/firebase/firestore/remote/grpc_connection.h"
 #include "Firestore/core/src/firebase/firestore/remote/grpc_util.h"
 #include "Firestore/core/src/firebase/firestore/util/log.h"
-#include "Firestore/core/src/firebase/firestore/util/status.h"
 
 namespace firebase {
 namespace firestore {
@@ -86,7 +85,7 @@ using internal::BufferedWriter;
 GrpcStream::GrpcStream(
     std::unique_ptr<grpc::ClientContext> context,
     std::unique_ptr<grpc::GenericClientAsyncReaderWriter> call,
-    const std::shared_ptr<util::AsyncQueue>& worker_queue,
+    AsyncQueue* worker_queue,
     GrpcConnection* grpc_connection,
     GrpcStreamObserver* observer)
     : context_{std::move(NOT_NULL(context))},

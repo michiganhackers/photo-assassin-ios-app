@@ -17,6 +17,12 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_MODEL_DOCUMENT_SET_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_MODEL_DOCUMENT_SET_H_
 
+#if !defined(__OBJC__)
+#error "This header only supports Objective-C++"
+#endif  // !defined(__OBJC__)
+
+#import <Foundation/Foundation.h>
+
 #include <iosfwd>
 #include <string>
 #include <utility>
@@ -24,25 +30,34 @@
 
 #include "Firestore/core/src/firebase/firestore/immutable/sorted_container.h"
 #include "Firestore/core/src/firebase/firestore/immutable/sorted_set.h"
-#include "Firestore/core/src/firebase/firestore/model/document.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
 #include "Firestore/core/src/firebase/firestore/model/document_map.h"
 #include "Firestore/core/src/firebase/firestore/util/comparison.h"
+
+@class FSTDocument;
+
+NS_ASSUME_NONNULL_BEGIN
 
 namespace firebase {
 namespace firestore {
 namespace model {
 
-class DocumentComparator : public util::FunctionComparator<Document> {
+/**
+ * A C++ comparator that returns less-than, implemented by delegating to
+ * an NSComparator.
+ */
+class DocumentSetComparator {
  public:
-  using FunctionComparator<Document>::FunctionComparator;
+  explicit DocumentSetComparator(NSComparator delegate = nil)
+      : delegate_(delegate) {
+  }
 
-  static DocumentComparator ByKey();
+  bool operator()(FSTDocument* lhs, FSTDocument* rhs) const {
+    return delegate_(lhs, rhs) == NSOrderedAscending;
+  }
 
-  // TODO(wilhuff): Remove this using statement
-  // This exists to put these two overloads on equal footing. Once the overload
-  // below is gone, this using statement can be removed as well.
-  using FunctionComparator<Document>::Compare;
+ private:
+  NSComparator delegate_;
 };
 
 /**
@@ -51,23 +66,24 @@ class DocumentComparator : public util::FunctionComparator<Document> {
  * comparator on top of what is provided to guarantee document equality based on
  * the key.
  */
-class DocumentSet : public immutable::SortedContainer {
+class DocumentSet : public immutable::SortedContainer,
+                    public util::Equatable<DocumentSet> {
  public:
   /**
    * The type of the main collection of documents in an DocumentSet.
    * @see sorted_set_.
    */
-  using SetType = immutable::SortedSet<Document, DocumentComparator>;
+  using SetType = immutable::SortedSet<FSTDocument*, DocumentSetComparator>;
 
   // STL container types
-  using value_type = Document;
+  using value_type = FSTDocument*;
   using const_iterator = SetType::const_iterator;
 
   /**
    * Creates a new, empty DocumentSet sorted by the given comparator, then by
    * keys.
    */
-  explicit DocumentSet(DocumentComparator&& comparator);
+  explicit DocumentSet(NSComparator comparator);
 
   size_t size() const {
     return index_.size();
@@ -81,10 +97,6 @@ class DocumentSet : public immutable::SortedContainer {
   /** Returns true if this set contains a document with the given key. */
   bool ContainsKey(const DocumentKey& key) const;
 
-  const DocumentComparator& comparator() const {
-    return sorted_set_.comparator();
-  }
-
   SetType::const_iterator begin() const {
     return sorted_set_.begin();
   }
@@ -96,19 +108,19 @@ class DocumentSet : public immutable::SortedContainer {
    * Returns the document from this set with the given key if it exists or nil
    * if it doesn't.
    */
-  absl::optional<Document> GetDocument(const DocumentKey& key) const;
+  FSTDocument* _Nullable GetDocument(const DocumentKey& key) const;
 
   /**
    * Returns the first document in the set according to its built in ordering,
    * or nil if the set is empty.
    */
-  absl::optional<Document> GetFirstDocument() const;
+  FSTDocument* _Nullable GetFirstDocument() const;
 
   /**
    * Returns the last document in the set according to its built in ordering, or
    * nil if the set is empty.
    */
-  absl::optional<Document> GetLastDocument() const;
+  FSTDocument* _Nullable GetLastDocument() const;
 
   /**
    * Returns the index of the document with the provided key in the document
@@ -117,7 +129,7 @@ class DocumentSet : public immutable::SortedContainer {
   size_t IndexOf(const DocumentKey& key) const;
 
   /** Returns a new DocumentSet that contains the given document. */
-  DocumentSet insert(const absl::optional<Document>& document) const;
+  DocumentSet insert(FSTDocument* _Nullable document) const;
 
   /**
    * Returns a new DocumentSet that excludes any document associated with
@@ -153,12 +165,10 @@ class DocumentSet : public immutable::SortedContainer {
   SetType sorted_set_;
 };
 
-inline bool operator!=(const DocumentSet& lhs, const DocumentSet& rhs) {
-  return !(lhs == rhs);
-}
-
 }  // namespace model
 }  // namespace firestore
 }  // namespace firebase
+
+NS_ASSUME_NONNULL_END
 
 #endif  // FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_MODEL_DOCUMENT_SET_H_

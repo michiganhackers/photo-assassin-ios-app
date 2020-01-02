@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 #import <GoogleUtilities/GULAppDelegateSwizzler.h>
 #import <GoogleUtilities/GULMutableDictionary.h>
 
-@class GULApplication;
+@class UIApplication;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GULAppDelegateSwizzler ()
 
+/** Returns the current sharedApplication.
+ *
+ *  @return the current UIApplication if in an app, or nil if in extension or if it doesn't exist.
+ */
++ (nullable UIApplication *)sharedApplication;
+
 /** ISA Swizzles the given appDelegate as the original app delegate would be.
  *
  *  @param appDelegate The object that needs to be isa swizzled. This should conform to the
- *      application delegate protocol.
+ *      UIApplicationDelegate protocol.
  */
-+ (void)proxyAppDelegate:(id<GULApplicationDelegate>)appDelegate;
++ (void)proxyAppDelegate:(id<UIApplicationDelegate>)appDelegate;
 
 /** Returns a dictionary containing interceptor IDs mapped to a GULZeroingWeakContainer.
  *
@@ -37,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
  *      the interceptorID.
  */
 + (GULMutableDictionary *)interceptors;
+
+#ifdef GUL_APP_DELEGATE_TESTING  // Methods only used in tests.
 
 /** Deletes all the registered interceptors. */
 + (void)clearInterceptors;
@@ -48,7 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The original app delegate instance that was proxied.
  */
-+ (id<GULApplicationDelegate>)originalDelegate;
++ (id<UIApplicationDelegate>)originalDelegate;
+
+#endif  // GUL_APP_DELEGATE_TESTING
 
 @end
 

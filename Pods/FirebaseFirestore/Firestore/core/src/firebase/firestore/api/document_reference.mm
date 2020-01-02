@@ -19,46 +19,48 @@
 #include <future>  // NOLINT(build/c++11)
 #include <memory>
 
-#include "Firestore/core/src/firebase/firestore/api/collection_reference.h"
-#include "Firestore/core/src/firebase/firestore/api/firestore.h"
-#include "Firestore/core/src/firebase/firestore/api/query_listener_registration.h"
-#include "Firestore/core/src/firebase/firestore/api/source.h"
-#include "Firestore/core/src/firebase/firestore/core/firestore_client.h"
-#include "Firestore/core/src/firebase/firestore/core/user_data.h"
+#import "Firestore/Source/API/FIRDocumentSnapshot+Internal.h"
+#import "Firestore/Source/API/FIRFirestore+Internal.h"
+#import "Firestore/Source/API/FIRListenerRegistration+Internal.h"
+#import "Firestore/Source/Core/FSTEventManager.h"
+#import "Firestore/Source/Core/FSTFirestoreClient.h"
+#import "Firestore/Source/Core/FSTQuery.h"
+#import "Firestore/Source/Model/FSTMutation.h"
+#import "Firestore/Source/Util/FSTUsageValidation.h"
+
 #include "Firestore/core/src/firebase/firestore/core/view_snapshot.h"
-#include "Firestore/core/src/firebase/firestore/model/delete_mutation.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
 #include "Firestore/core/src/firebase/firestore/model/document_set.h"
 #include "Firestore/core/src/firebase/firestore/model/precondition.h"
 #include "Firestore/core/src/firebase/firestore/model/resource_path.h"
-#include "Firestore/core/src/firebase/firestore/objc/objc_compatibility.h"
 #include "Firestore/core/src/firebase/firestore/util/error_apple.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "Firestore/core/src/firebase/firestore/util/hashing.h"
+#include "Firestore/core/src/firebase/firestore/util/objc_compatibility.h"
 #include "Firestore/core/src/firebase/firestore/util/status.h"
 #include "Firestore/core/src/firebase/firestore/util/statusor.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 namespace firebase {
 namespace firestore {
 namespace api {
 
+namespace objc = util::objc;
 using core::AsyncEventListener;
 using core::EventListener;
-using core::ListenOptions;
-using core::QueryListener;
 using core::ViewSnapshot;
-using model::DeleteMutation;
-using model::Document;
 using model::DocumentKey;
 using model::Precondition;
 using model::ResourcePath;
+using util::MakeNSError;
 using util::Status;
 using util::StatusOr;
 using util::StatusOrCallback;
 
 DocumentReference::DocumentReference(model::ResourcePath path,
-                                     std::shared_ptr<Firestore> firestore)
-    : firestore_{std::move(firestore)} {
+                                     Firestore* firestore)
+    : firestore_{firestore} {
   if (path.size() % 2 != 0) {
     HARD_FAIL(
         "Invalid document reference. Document references must have an even "
@@ -69,51 +71,54 @@ DocumentReference::DocumentReference(model::ResourcePath path,
 }
 
 size_t DocumentReference::Hash() const {
-  return util::Hash(firestore_.get(), key_);
+  return util::Hash(firestore_, key_);
 }
 
 const std::string& DocumentReference::document_id() const {
   return key_.path().last_segment();
 }
 
-CollectionReference DocumentReference::Parent() const {
-  return CollectionReference{key_.path().PopLast(), firestore_};
-}
+// TODO(varconst) uncomment when core API CollectionReference is implemented.
+// CollectionReference DocumentReference::Parent() const {
+//   return CollectionReference{firestore_, key_.path().PopLast()};
+// }
 
 std::string DocumentReference::Path() const {
   return key_.path().CanonicalString();
 }
 
-CollectionReference DocumentReference::GetCollectionReference(
-    const std::string& collection_path) const {
-  ResourcePath sub_path = ResourcePath::FromString(collection_path);
-  ResourcePath path = key_.path().Append(sub_path);
-  return CollectionReference{path, firestore_};
+// TODO(varconst) uncomment when core API CollectionReference is implemented.
+// CollectionReference DocumentReference::GetCollectionReference(
+//     const std::string& collection_path) const {
+//   ResourcePath sub_path = ResourcePath::FromString(collection_path);
+//   ResourcePath path = key_.path().Append(sub_path);
+//   return CollectionReference{firestore_, path};
+// }
+
+void DocumentReference::SetData(std::vector<FSTMutation*>&& mutations,
+                                Completion completion) {
+  [firestore_->client() writeMutations:std::move(mutations)
+                            completion:completion];
 }
 
-void DocumentReference::SetData(core::ParsedSetData&& set_data,
-                                util::StatusCallback callback) {
-  firestore_->client()->WriteMutations(
-      std::move(set_data).ToMutations(key(), Precondition::None()),
-      std::move(callback));
+void DocumentReference::UpdateData(std::vector<FSTMutation*>&& mutations,
+                                   Completion completion) {
+  return [firestore_->client() writeMutations:std::move(mutations)
+                                   completion:completion];
 }
 
-void DocumentReference::UpdateData(core::ParsedUpdateData&& update_data,
-                                   util::StatusCallback callback) {
-  firestore_->client()->WriteMutations(
-      std::move(update_data).ToMutations(key(), Precondition::Exists(true)),
-      std::move(callback));
+void DocumentReference::DeleteDocument(Completion completion) {
+  FSTDeleteMutation* mutation =
+      [[FSTDeleteMutation alloc] initWithKey:key_
+                                precondition:Precondition::None()];
+  [firestore_->client() writeMutations:{mutation} completion:completion];
 }
 
-void DocumentReference::DeleteDocument(util::StatusCallback callback) {
-  DeleteMutation mutation(key_, Precondition::None());
-  firestore_->client()->WriteMutations({mutation}, std::move(callback));
-}
-
-void DocumentReference::GetDocument(Source source,
-                                    DocumentSnapshot::Listener&& callback) {
-  if (source == Source::Cache) {
-    firestore_->client()->GetDocumentFromLocalCache(*this, std::move(callback));
+void DocumentReference::GetDocument(FIRFirestoreSource source,
+                                    DocumentSnapshot::Listener&& completion) {
+  if (source == FIRFirestoreSourceCache) {
+    [firestore_->client() getDocumentFromLocalCache:*this
+                                         completion:std::move(completion)];
     return;
   }
 
@@ -124,13 +129,14 @@ void DocumentReference::GetDocument(Source source,
 
   class ListenOnce : public EventListener<DocumentSnapshot> {
    public:
-    ListenOnce(Source source, DocumentSnapshot::Listener&& listener)
-        : source_(source), listener_(std::move(listener)) {
+    ListenOnce(FIRFirestoreSource source,
+               DocumentSnapshot::Listener&& completion)
+        : source_(source), completion_(std::move(completion)) {
     }
 
     void OnEvent(StatusOr<DocumentSnapshot> maybe_snapshot) override {
       if (!maybe_snapshot.ok()) {
-        listener_->OnEvent(std::move(maybe_snapshot));
+        completion_->OnEvent(std::move(maybe_snapshot));
         return;
       }
 
@@ -138,57 +144,59 @@ void DocumentReference::GetDocument(Source source,
 
       // Remove query first before passing event to user to avoid user actions
       // affecting the now stale query.
-      std::unique_ptr<ListenerRegistration> registration =
+      ListenerRegistration registration =
           registration_promise_.get_future().get();
-      registration->Remove();
+      registration.Remove();
 
       if (!snapshot.exists() && snapshot.metadata().from_cache()) {
         // TODO(dimond): Reconsider how to raise missing documents when
         // offline. If we're online and the document doesn't exist then we
-        // call the callback with a document with document.exists set to
-        // false. If we're offline however, we call the callback
+        // call the completion with a document with document.exists set to
+        // false. If we're offline however, we call the completion handler
         // with an error. Two options: 1) Cache the negative response from the
         // server so we can deliver that even when you're offline.
-        // 2) Actually call the callback with an error if the
+        // 2) Actually call the completion handler with an error if the
         // document doesn't exist when you are offline.
-        listener_->OnEvent(
-            Status{Error::Unavailable,
+        completion_->OnEvent(
+            Status{FirestoreErrorCode::Unavailable,
                    "Failed to get document because the client is offline."});
       } else if (snapshot.exists() && snapshot.metadata().from_cache() &&
-                 source_ == Source::Server) {
-        listener_->OnEvent(
-            Status{Error::Unavailable,
+                 source_ == FIRFirestoreSourceServer) {
+        completion_->OnEvent(
+            Status{FirestoreErrorCode::Unavailable,
                    "Failed to get document from server. (However, "
                    "this document does exist in the local cache. Run "
                    "again without setting source to "
-                   "FirestoreSourceServer to retrieve the cached "
+                   "FIRFirestoreSourceServer to retrieve the cached "
                    "document.)"});
       } else {
-        listener_->OnEvent(std::move(snapshot));
+        completion_->OnEvent(std::move(snapshot));
       }
     }
 
-    void Resolve(std::unique_ptr<ListenerRegistration> registration) {
+    void Resolve(ListenerRegistration&& registration) {
       registration_promise_.set_value(std::move(registration));
     }
 
    private:
-    Source source_;
-    DocumentSnapshot::Listener listener_;
+    FIRFirestoreSource source_;
+    DocumentSnapshot::Listener completion_;
 
-    std::promise<std::unique_ptr<ListenerRegistration>> registration_promise_;
+    std::promise<ListenerRegistration> registration_promise_;
   };
-  auto listener = absl::make_unique<ListenOnce>(source, std::move(callback));
+  auto listener = absl::make_unique<ListenOnce>(source, std::move(completion));
   auto listener_unowned = listener.get();
 
-  std::unique_ptr<ListenerRegistration> registration =
+  ListenerRegistration registration =
       AddSnapshotListener(std::move(options), std::move(listener));
 
   listener_unowned->Resolve(std::move(registration));
 }
 
-std::unique_ptr<ListenerRegistration> DocumentReference::AddSnapshotListener(
+ListenerRegistration DocumentReference::AddSnapshotListener(
     ListenOptions options, DocumentSnapshot::Listener&& user_listener) {
+  FSTQuery* query = [FSTQuery queryWithPath:key_.path()];
+
   // Convert from ViewSnapshots to DocumentSnapshots.
   class Converter : public EventListener<ViewSnapshot> {
    public:
@@ -208,8 +216,7 @@ std::unique_ptr<ListenerRegistration> DocumentReference::AddSnapshotListener(
       ViewSnapshot snapshot = std::move(maybe_snapshot).ValueOrDie();
       HARD_ASSERT(snapshot.documents().size() <= 1,
                   "Too many documents returned on a document query");
-      absl::optional<Document> document =
-          snapshot.documents().GetDocument(key_);
+      FSTDocument* document = snapshot.documents().GetDocument(key_);
 
       bool has_pending_writes =
           document ? snapshot.mutated_keys().contains(key_)
@@ -222,7 +229,7 @@ std::unique_ptr<ListenerRegistration> DocumentReference::AddSnapshotListener(
     }
 
    private:
-    std::shared_ptr<Firestore> firestore_;
+    Firestore* firestore_;
     DocumentKey key_;
     DocumentSnapshot::Listener user_listener_;
   };
@@ -231,16 +238,14 @@ std::unique_ptr<ListenerRegistration> DocumentReference::AddSnapshotListener(
 
   // Call the view_listener on the user Executor.
   auto async_listener = AsyncEventListener<ViewSnapshot>::Create(
-      firestore_->client()->user_executor(), std::move(view_listener));
+      firestore_->client().userExecutor, std::move(view_listener));
 
-  core::Query query(key_.path());
   std::shared_ptr<QueryListener> query_listener =
-      firestore_->client()->ListenToQuery(std::move(query), options,
-                                          async_listener);
-
-  return absl::make_unique<QueryListenerRegistration>(
-      firestore_->client(), std::move(async_listener),
-      std::move(query_listener));
+      [firestore_->client() listenToQuery:query
+                                  options:options
+                                 listener:async_listener];
+  return ListenerRegistration(firestore_->client(), std::move(async_listener),
+                              std::move(query_listener));
 }
 
 bool operator==(const DocumentReference& lhs, const DocumentReference& rhs) {
@@ -250,3 +255,5 @@ bool operator==(const DocumentReference& lhs, const DocumentReference& rhs) {
 }  // namespace api
 }  // namespace firestore
 }  // namespace firebase
+
+NS_ASSUME_NONNULL_END

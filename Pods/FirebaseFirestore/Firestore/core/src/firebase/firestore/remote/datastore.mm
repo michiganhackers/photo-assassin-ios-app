@@ -35,7 +35,7 @@
 #include "Firestore/core/src/firebase/firestore/remote/grpc_unary_call.h"
 #include "Firestore/core/src/firebase/firestore/util/async_queue.h"
 #include "Firestore/core/src/firebase/firestore/util/error_apple.h"
-#include "Firestore/core/src/firebase/firestore/util/executor.h"
+#include "Firestore/core/src/firebase/firestore/util/executor_libdispatch.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "Firestore/core/src/firebase/firestore/util/log.h"
 #include "Firestore/core/src/firebase/firestore/util/statusor.h"
@@ -45,24 +45,26 @@
 namespace firebase {
 namespace firestore {
 namespace remote {
-namespace {
 
 using auth::CredentialsProvider;
 using auth::Token;
 using core::DatabaseInfo;
 using model::DocumentKey;
-using model::MaybeDocument;
-using model::Mutation;
 using util::AsyncQueue;
 using util::Status;
 using util::StatusOr;
 using util::Executor;
+using util::ExecutorLibdispatch;
+
+namespace {
 
 const auto kRpcNameCommit = "/google.firestore.v1.Firestore/Commit";
 const auto kRpcNameLookup = "/google.firestore.v1.Firestore/BatchGetDocuments";
 
 std::unique_ptr<Executor> CreateExecutor() {
-  return Executor::CreateSerial("com.google.firebase.firestore.rpc");
+  auto queue = dispatch_queue_create("com.google.firebase.firestore.rpc",
+                                     DISPATCH_QUEUE_SERIAL);
+  return absl::make_unique<ExecutorLibdispatch>(queue);
 }
 
 std::string MakeString(grpc::string_ref grpc_str) {
@@ -88,18 +90,18 @@ void LogGrpcCallFinished(absl::string_view rpc_name,
 }  // namespace
 
 Datastore::Datastore(const DatabaseInfo& database_info,
-                     const std::shared_ptr<AsyncQueue>& worker_queue,
-                     std::shared_ptr<CredentialsProvider> credentials)
+                     AsyncQueue* worker_queue,
+                     CredentialsProvider* credentials)
     : Datastore{database_info, worker_queue, credentials,
                 ConnectivityMonitor::Create(worker_queue)} {
 }
 
 Datastore::Datastore(const DatabaseInfo& database_info,
-                     const std::shared_ptr<AsyncQueue>& worker_queue,
-                     std::shared_ptr<CredentialsProvider> credentials,
+                     AsyncQueue* worker_queue,
+                     CredentialsProvider* credentials,
                      std::unique_ptr<ConnectivityMonitor> connectivity_monitor)
     : worker_queue_{NOT_NULL(worker_queue)},
-      credentials_{std::move(credentials)},
+      credentials_{credentials},
       rpc_executor_{CreateExecutor()},
       connectivity_monitor_{std::move(connectivity_monitor)},
       grpc_connection_{database_info, worker_queue, &grpc_queue_,
@@ -162,7 +164,7 @@ std::shared_ptr<WriteStream> Datastore::CreateWriteStream(
                                        &grpc_connection_, callback);
 }
 
-void Datastore::CommitMutations(const std::vector<Mutation>& mutations,
+void Datastore::CommitMutations(const std::vector<FSTMutation*>& mutations,
                                 CommitCallback&& callback) {
   ResumeRpcWithCredentials(
       // TODO(c++14): move into lambda.
@@ -179,7 +181,7 @@ void Datastore::CommitMutations(const std::vector<Mutation>& mutations,
 
 void Datastore::CommitMutationsWithCredentials(
     const Token& token,
-    const std::vector<Mutation>& mutations,
+    const std::vector<FSTMutation*>& mutations,
     CommitCallback&& callback) {
   grpc::ByteBuffer message = serializer_bridge_.ToByteBuffer(
       serializer_bridge_.CreateCommitRequest(mutations));
@@ -251,7 +253,7 @@ void Datastore::OnLookupDocumentsResponse(
 
   Status parse_status;
   std::vector<grpc::ByteBuffer> responses = std::move(result).ValueOrDie();
-  std::vector<MaybeDocument> docs =
+  std::vector<FSTMaybeDocument*> docs =
       serializer_bridge_.MergeLookupResponses(responses, &parse_status);
   callback(docs, parse_status);
 }
@@ -285,7 +287,7 @@ void Datastore::ResumeRpcWithCredentials(const OnCredentials& on_credentials) {
 }
 
 void Datastore::HandleCallStatus(const Status& status) {
-  if (status.code() == Error::Unauthenticated) {
+  if (status.code() == FirestoreErrorCode::Unauthenticated) {
     credentials_->InvalidateToken();
   }
 }
@@ -300,35 +302,35 @@ void Datastore::RemoveGrpcCall(GrpcCall* to_remove) {
 }
 
 bool Datastore::IsAbortedError(const Status& error) {
-  return error.code() == Error::Aborted;
+  return error.code() == FirestoreErrorCode::Aborted;
 }
 
 bool Datastore::IsPermanentError(const Status& error) {
   switch (error.code()) {
-    case Error::Ok:
+    case FirestoreErrorCode::Ok:
       HARD_FAIL("Treated status OK as error");
-    case Error::Cancelled:
-    case Error::Unknown:
-    case Error::DeadlineExceeded:
-    case Error::ResourceExhausted:
-    case Error::Internal:
-    case Error::Unavailable:
+    case FirestoreErrorCode::Cancelled:
+    case FirestoreErrorCode::Unknown:
+    case FirestoreErrorCode::DeadlineExceeded:
+    case FirestoreErrorCode::ResourceExhausted:
+    case FirestoreErrorCode::Internal:
+    case FirestoreErrorCode::Unavailable:
       // Unauthenticated means something went wrong with our token and we need
       // to retry with new credentials which will happen automatically.
-    case Error::Unauthenticated:
+    case FirestoreErrorCode::Unauthenticated:
       return false;
-    case Error::InvalidArgument:
-    case Error::NotFound:
-    case Error::AlreadyExists:
-    case Error::PermissionDenied:
-    case Error::FailedPrecondition:
-    case Error::Aborted:
+    case FirestoreErrorCode::InvalidArgument:
+    case FirestoreErrorCode::NotFound:
+    case FirestoreErrorCode::AlreadyExists:
+    case FirestoreErrorCode::PermissionDenied:
+    case FirestoreErrorCode::FailedPrecondition:
+    case FirestoreErrorCode::Aborted:
       // Aborted might be retried in some scenarios, but that is dependant on
       // the context and should handled individually by the calling code.
       // See https://cloud.google.com/apis/design/errors
-    case Error::OutOfRange:
-    case Error::Unimplemented:
-    case Error::DataLoss:
+    case FirestoreErrorCode::OutOfRange:
+    case FirestoreErrorCode::Unimplemented:
+    case FirestoreErrorCode::DataLoss:
       return true;
   }
 

@@ -17,11 +17,7 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_MODEL_SNAPSHOT_VERSION_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_MODEL_SNAPSHOT_VERSION_H_
 
-#include <iosfwd>
-#include <string>
-
 #include "Firestore/core/include/firebase/firestore/timestamp.h"
-#include "Firestore/core/src/firebase/firestore/util/comparison.h"
 
 namespace firebase {
 namespace firestore {
@@ -31,13 +27,12 @@ namespace model {
  * A version of a document in Firestore. This corresponds to the version
  * timestamp, such as update_time or read_time.
  */
-class SnapshotVersion : public util::Comparable<SnapshotVersion> {
+class SnapshotVersion {
  public:
-  /**
-   * Creates a default SnapshotVersion equivalent to SnapshotVersion::None().
-   * Prefer SnapshotVersion::None() for readability.
-   */
-  SnapshotVersion() = default;
+#if __OBJC__
+  SnapshotVersion() {
+  }
+#endif  // __OBJC__
 
   explicit SnapshotVersion(const Timestamp& timestamp);
 
@@ -48,18 +43,40 @@ class SnapshotVersion : public util::Comparable<SnapshotVersion> {
   /** Creates a new version that is smaller than all other versions. */
   static const SnapshotVersion& None();
 
-  util::ComparisonResult CompareTo(const SnapshotVersion& rhs) const;
-
-  size_t Hash() const;
-
-  std::string ToString() const;
-
-  friend std::ostream& operator<<(std::ostream& os,
-                                  const SnapshotVersion& version);
+#if __OBJC__
+  size_t Hash() const {
+    return std::hash<Timestamp>{}(timestamp_);
+  }
+#endif  // __OBJC__
 
  private:
   Timestamp timestamp_;
 };
+
+/** Compares against another SnapshotVersion. */
+inline bool operator<(const SnapshotVersion& lhs, const SnapshotVersion& rhs) {
+  return lhs.timestamp() < rhs.timestamp();
+}
+
+inline bool operator>(const SnapshotVersion& lhs, const SnapshotVersion& rhs) {
+  return lhs.timestamp() > rhs.timestamp();
+}
+
+inline bool operator>=(const SnapshotVersion& lhs, const SnapshotVersion& rhs) {
+  return lhs.timestamp() >= rhs.timestamp();
+}
+
+inline bool operator<=(const SnapshotVersion& lhs, const SnapshotVersion& rhs) {
+  return lhs.timestamp() <= rhs.timestamp();
+}
+
+inline bool operator!=(const SnapshotVersion& lhs, const SnapshotVersion& rhs) {
+  return lhs.timestamp() != rhs.timestamp();
+}
+
+inline bool operator==(const SnapshotVersion& lhs, const SnapshotVersion& rhs) {
+  return lhs.timestamp() == rhs.timestamp();
+}
 
 }  // namespace model
 }  // namespace firestore

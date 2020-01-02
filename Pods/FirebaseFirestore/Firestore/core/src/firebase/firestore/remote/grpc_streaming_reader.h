@@ -26,7 +26,8 @@
 
 #include "Firestore/core/src/firebase/firestore/remote/grpc_stream.h"
 #include "Firestore/core/src/firebase/firestore/remote/grpc_stream_observer.h"
-#include "Firestore/core/src/firebase/firestore/util/status_fwd.h"
+#include "Firestore/core/src/firebase/firestore/util/status.h"
+#include "Firestore/core/src/firebase/firestore/util/statusor.h"
 #include "grpcpp/client_context.h"
 SUPPRESS_DOCUMENTATION_WARNINGS_BEGIN()
 #include "grpcpp/generic/generic_stub.h"
@@ -51,7 +52,7 @@ class GrpcStreamingReader : public GrpcCall, public GrpcStreamObserver {
   GrpcStreamingReader(
       std::unique_ptr<grpc::ClientContext> context,
       std::unique_ptr<grpc::GenericClientAsyncReaderWriter> call,
-      const std::shared_ptr<util::AsyncQueue>& worker_queue,
+      util::AsyncQueue* worker_queue,
       GrpcConnection* grpc_connection,
       const grpc::ByteBuffer& request);
 

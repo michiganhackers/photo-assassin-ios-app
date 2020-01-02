@@ -20,7 +20,6 @@
 
 #include "Firestore/core/src/firebase/firestore/remote/grpc_connection.h"
 #include "Firestore/core/src/firebase/firestore/remote/grpc_util.h"
-#include "Firestore/core/src/firebase/firestore/util/statusor.h"
 
 namespace firebase {
 namespace firestore {
@@ -33,7 +32,7 @@ using Type = GrpcCompletion::Type;
 GrpcUnaryCall::GrpcUnaryCall(
     std::unique_ptr<grpc::ClientContext> context,
     std::unique_ptr<grpc::GenericClientAsyncResponseReader> call,
-    const std::shared_ptr<util::AsyncQueue>& worker_queue,
+    AsyncQueue* worker_queue,
     GrpcConnection* grpc_connection,
     const grpc::ByteBuffer& request)
     : context_{std::move(context)},

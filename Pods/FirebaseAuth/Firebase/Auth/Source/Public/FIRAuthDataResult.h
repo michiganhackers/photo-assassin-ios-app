@@ -17,7 +17,6 @@
 #import <Foundation/Foundation.h>
 
 @class FIRAdditionalUserInfo;
-@class FIRAuthCredential;
 @class FIRUser;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -44,13 +43,6 @@ NS_SWIFT_NAME(AuthDataResult)
     @brief If available contains the additional IdP specific information about signed in user.
  */
 @property(nonatomic, readonly, nullable) FIRAdditionalUserInfo *additionalUserInfo;
-
-/** @property credential
-    @brief This property will be non-nil after a successful headful-lite sign-in via
-        signInWithProvider:UIDelegate:. May be used to obtain the accessToken and/or IDToken
-        pertaining to a recently signed-in user.
- */
-@property(nonatomic, readonly, nullable) FIRAuthCredential *credential;
 
 @end
 

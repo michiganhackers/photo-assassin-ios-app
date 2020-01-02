@@ -20,8 +20,6 @@
 
 #include "Firestore/core/src/firebase/firestore/remote/grpc_connection.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
-#include "Firestore/core/src/firebase/firestore/util/status.h"
-#include "Firestore/core/src/firebase/firestore/util/statusor.h"
 
 namespace firebase {
 namespace firestore {
@@ -34,7 +32,7 @@ using util::StatusOr;
 GrpcStreamingReader::GrpcStreamingReader(
     std::unique_ptr<grpc::ClientContext> context,
     std::unique_ptr<grpc::GenericClientAsyncReaderWriter> call,
-    const std::shared_ptr<util::AsyncQueue>& worker_queue,
+    util::AsyncQueue* worker_queue,
     GrpcConnection* grpc_connection,
     const grpc::ByteBuffer& request)
     : stream_{absl::make_unique<GrpcStream>(std::move(context),

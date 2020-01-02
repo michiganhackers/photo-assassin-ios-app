@@ -16,30 +16,32 @@
 
 #import "FIRDocumentSnapshot.h"
 
-#include <memory>
-
 #include "Firestore/core/src/firebase/firestore/api/document_snapshot.h"
 #include "Firestore/core/src/firebase/firestore/api/snapshot_metadata.h"
-#include "Firestore/core/src/firebase/firestore/model/document.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
 
-namespace api = firebase::firestore::api;
-namespace model = firebase::firestore::model;
+@class FIRFirestore;
+@class FSTDocument;
+
+using firebase::firestore::api::DocumentSnapshot;
+using firebase::firestore::api::Firestore;
+using firebase::firestore::api::SnapshotMetadata;
+using firebase::firestore::model::DocumentKey;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FIRDocumentSnapshot (/* Init */)
 
-- (instancetype)initWithSnapshot:(api::DocumentSnapshot &&)snapshot NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSnapshot:(DocumentSnapshot &&)snapshot NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithFirestore:(std::shared_ptr<api::Firestore>)firestore
-                      documentKey:(model::DocumentKey)documentKey
-                         document:(const absl::optional<model::Document> &)document
-                         metadata:(api::SnapshotMetadata)metadata;
+- (instancetype)initWithFirestore:(Firestore *)firestore
+                      documentKey:(DocumentKey)documentKey
+                         document:(nullable FSTDocument *)document
+                         metadata:(SnapshotMetadata)metadata;
 
-- (instancetype)initWithFirestore:(std::shared_ptr<api::Firestore>)firestore
-                      documentKey:(model::DocumentKey)documentKey
-                         document:(const absl::optional<model::Document> &)document
+- (instancetype)initWithFirestore:(Firestore *)firestore
+                      documentKey:(DocumentKey)documentKey
+                         document:(nullable FSTDocument *)document
                         fromCache:(bool)fromCache
                  hasPendingWrites:(bool)hasPendingWrites;
 
@@ -48,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** Internal FIRDocumentSnapshot API we don't want exposed in our public header files. */
 @interface FIRDocumentSnapshot (Internal)
 
-- (const absl::optional<model::Document> &)internalDocument;
+@property(nonatomic, strong, readonly, nullable) FSTDocument *internalDocument;
 
 @end
 

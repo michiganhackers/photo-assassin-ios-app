@@ -20,11 +20,10 @@
 #include <chrono>  // NOLINT(build/c++11)
 #include <functional>
 #include <future>  // NOLINT(build/c++11)
-#include <memory>
 #include <utility>
 
 #include "Firestore/core/src/firebase/firestore/util/async_queue.h"
-#include "Firestore/core/src/firebase/firestore/util/status_fwd.h"
+#include "Firestore/core/src/firebase/firestore/util/status.h"
 #include "grpcpp/support/byte_buffer.h"
 
 namespace firebase {
@@ -72,7 +71,7 @@ class GrpcCompletion {
   using Callback = std::function<void(bool, const GrpcCompletion*)>;
 
   GrpcCompletion(Type type,
-                 const std::shared_ptr<util::AsyncQueue>& worker_queue,
+                 util::AsyncQueue* firestore_queue,
                  Callback&& callback);
 
   /**
@@ -115,7 +114,7 @@ class GrpcCompletion {
   }
 
  private:
-  std::shared_ptr<util::AsyncQueue> worker_queue_;
+  util::AsyncQueue* worker_queue_ = nullptr;
   Callback callback_;
 
   void EnsureValidFuture();

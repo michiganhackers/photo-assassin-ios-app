@@ -22,10 +22,8 @@
 #include <string>
 #include <type_traits>
 
-#include "Firestore/core/src/firebase/firestore/objc/objc_type_traits.h"
 #include "Firestore/core/src/firebase/firestore/util/type_traits.h"
 #include "absl/meta/type_traits.h"
-#include "absl/types/optional.h"
 
 namespace firebase {
 namespace firestore {
@@ -94,7 +92,7 @@ using std_hash_type =
 /**
  * Combines a hash_value with whatever accumulated state there is so far.
  */
-constexpr size_t Combine(size_t state, size_t hash_value) {
+inline size_t Combine(size_t state, size_t hash_value) {
   return 31 * state + hash_value;
 }
 
@@ -123,7 +121,7 @@ template <int I>
 struct HashChoice : HashChoice<I + 1> {};
 
 template <>
-struct HashChoice<5> {};
+struct HashChoice<3> {};
 
 template <typename K>
 size_t InvokeHash(const K& value);
@@ -147,7 +145,7 @@ auto RankedInvokeHash(const K& value, HashChoice<0>) -> decltype(value.Hash()) {
  * @return The result of `[value hash]`, converted to `size_t`.
  */
 template <typename K,
-          typename = absl::enable_if_t<objc::is_objc_pointer<K>::value>>
+          typename = absl::enable_if_t<is_objective_c_pointer<K>::value>>
 size_t RankedInvokeHash(const K& value, HashChoice<1>) {
   return static_cast<size_t>([value hash]);
 }
@@ -170,7 +168,7 @@ std_hash_type<K> RankedInvokeHash(const K& value, HashChoice<2>) {
  */
 template <typename Range>
 auto RankedInvokeHash(const Range& range, HashChoice<3>)
-    -> decltype(InvokeHash(*std::begin(range))) {
+    -> decltype(impl::InvokeHash(*std::begin(range))) {
   size_t result = 0;
   size_t size = 0;
   for (auto&& element : range) {
@@ -181,22 +179,6 @@ auto RankedInvokeHash(const Range& range, HashChoice<3>)
   size_t size_hash = InvokeHash(size);
   result = Combine(result, size_hash);
   return result;
-}
-
-/**
- * Hashes the contents of the given optional value, only if the underlying
- * value can itself be hashed.
- */
-template <typename K>
-auto RankedInvokeHash(const absl::optional<K>& option, HashChoice<4>)
-    -> decltype(InvokeHash(*option)) {
-  return option ? InvokeHash(*option) : -1171;
-}
-
-template <typename K, typename = absl::enable_if_t<std::is_enum<K>::value>>
-size_t RankedInvokeHash(K value, HashChoice<5>) {
-  auto underlying = static_cast<typename std::underlying_type<K>::type>(value);
-  return InvokeHash(underlying);
 }
 
 template <typename K>

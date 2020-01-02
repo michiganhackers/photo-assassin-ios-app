@@ -23,11 +23,14 @@ namespace firestore {
 /**
  * Error codes used by Cloud Firestore.
  *
- * The codes are in sync across Firestore SDKs on various platforms.
+ * The codes are in sync with the Firestore iOS client SDK header file
+ * FIRFirestoreErrors.h.
  */
-enum Error {
-  /** The operation completed successfully. */
-  // Note: NSError objects will never have a code with this value.
+enum FirestoreErrorCode {
+  /**
+   * The operation completed successfully. NSError objects will never have a
+   * code with this value.
+   */
   Ok = 0,
 
   /** The operation was cancelled (typically by the caller). */
@@ -105,6 +108,10 @@ enum Error {
      operation. */
   Unauthenticated = 16
 };
+
+// TODO(zxu123): decide whether we actually want an Error class or just use
+// enum.
+using Error = FirestoreErrorCode;
 
 }  // namespace firestore
 }  // namespace firebase

@@ -118,7 +118,7 @@ class StatusOrData {
     return *this;
   }
 
-  StatusOrData& operator=(StatusOrData&& other) noexcept {
+  StatusOrData& operator=(StatusOrData&& other) {
     if (this == &other) return *this;
     if (other.ok())
       Assign(std::move(other.data_));
