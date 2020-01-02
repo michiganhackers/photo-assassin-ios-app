@@ -6,11 +6,13 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import Firebase
 import FirebaseStorage
 import FirebaseUI
 import UIKit
 
 class Player {
+    let database = Firestore.firestore()
     // MARK: - Nested types
     enum InvitationStatus {
         case invited
@@ -35,21 +37,31 @@ class Player {
             return Double(gamesWon) / Double(gamesFinished)
         }
     }
-    // MARK: - Static members
-    static var myself = Player(
-        username: "hi_there_its_me",
-        relationship: .myself,
-        profilePicture: "https://firebasestorage.googleapis.com/v0/b/photo-assassin.appspot.com" +
-            "/o/images%2Fprofile_pictures%2F5QC6Wt8bIiXBSWHmBAMm1JwdN6l2" +
-            "?alt=media&token=57a23100-abad-429d-8ce2-60cf7368dd19",
-        stats: Stats(
-            deaths: 8,
-            gamesWon: 1,
-            gamesFinished: 9,
-            kills: 19,
-            percentile: 0.57
-        )
-    )
+
+    // MARK: - Static members and functions
+    private static var myself: Player?
+    static func getMyself(completionHandler: @escaping (Player?) -> Void) {
+        let backend = BackendCaller()
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completionHandler(nil)
+            return
+        }
+        if let myself = myself, myself.uid == uid {
+            completionHandler(myself)
+            return
+        }
+        backend.player(fromUID: uid) { player in
+            myself = nil
+            if let player = player {
+                myself = player
+                myself?.profilePicture =
+                    "https://firebasestorage.googleapis.com/v0/b/photo-assassin.appspot.com" +
+                    "/o/images%2Fprofile_pictures%2F5QC6Wt8bIiXBSWHmBAMm1JwdN6l2" +
+                    "?alt=media&token=57a23100-abad-429d-8ce2-60cf7368dd19"
+            }
+            completionHandler(myself)
+        }
+    }
 
     // MARK: - Public member functions
     func canAddAsFriend() -> Bool {
@@ -59,29 +71,75 @@ class Player {
     func loadFriends(completionHandler: ([Player]) -> Void) {
         // TODO: Grab friends from Firebase based on username
         let friends = [
-            Player(username: "dummy_friend_1", relationship: .friend, profilePicture: "TODO"),
-            Player(username: "dummy_2_me", relationship: .myself, profilePicture: "TODO"),
-            Player(username: "dummy_3...", relationship: .none, profilePicture: "TODO")
+            Player(uid: "d1", username: "dummy_friend_1", relationship: .friend, profilePicture: "TODO"),
+            Player(uid: "d2", username: "dummy_2_me", relationship: .myself, profilePicture: "TODO"),
+            Player(uid: "d3", username: "dummy_3...", relationship: .none, profilePicture: "TODO")
         ]
         self.friends = friends
         completionHandler(friends)
     }
 
-    func loadGameHistory(completionHandler: ([GameStats]) -> Void) {
-        // TODO: Grab game history from Firebase based on username
-        let games = [
-            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0, maxPlayers: 0),
-                      kills: 5, place: 2, didGameEnd: true),
-            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0, maxPlayers: 0),
-                      kills: 15, place: 1, didGameEnd: true),
-            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0, maxPlayers: 0),
-                      kills: 21, place: 7, didGameEnd: true)
-        ]
-        self.gameHistory = games
-        completionHandler(games)
+    func loadGameHistory(completionHandler: @escaping ([GameStats]) -> Void) {
+        var gameStatsArray: [GameStats] = []
+        //users -> completedGames REFERENCING
+        let playerGameHistory = database.collection("users").document(uid).collection("completedGames")
+
+        //users -> completedGames RETRIEVING
+        playerGameHistory.getDocuments { history, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                guard let history = history else {
+                    print("Error getting history")
+                    return
+                }
+                //LOOPING through each game ID
+                for currGame in history.documents {
+                    //RETRIEVING game object from "games" using gameID
+                    let game = self.database.collection("games").document(currGame.documentID)
+
+                    //RETRIEVING player's data in the current game.
+                    let player = game.collection("players").document(self.uid)
+                    player.getDocument { document, error in
+                        guard let document = document, document.exists else {
+                            print("Error getting player document for game \(currGame)")
+                            if let error = error {
+                                print("  (error: \(error))")
+                            }
+                            return
+                        }
+                        let kills = document.get("kills") as? Int ?? -1
+                        let place = document.get("place") as? Int ?? -1
+                        game.getDocument { document, error in
+                            if let error = error {
+                                print("Error in retrieving document: \(error)")
+                                return
+                            }
+                            guard let document = document, document.exists else {
+                                print("Could not retrieve document")
+                                return
+                            }
+                            let didEnd = document.get("status") as? String == "ended"
+                            let gameTitle = document.get("name") as? String ?? ""
+                            let gameInfo = GameStats(
+                                game: GameLobby(
+                                    id: game.documentID, title: gameTitle,
+                                    numberInLobby: 0, maxPlayers: 0),
+                                kills: kills, place: place, didGameEnd: didEnd)
+                            gameStatsArray.append(gameInfo)
+                            if gameStatsArray.count == history.documents.count {
+                                self.gameHistory = gameStatsArray
+                                completionHandler(gameStatsArray)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Public members
+    var uid: String
     var username: String
     var relationship: Relationship
     var profilePicture: String
@@ -91,11 +149,13 @@ class Player {
 
     // MARK: - Initializers
     // NOTE: Be careful to avoid reference loops with the array of friends.
-    init(username: String,
+    init(uid: String,
+         username: String,
          relationship: Relationship,
          profilePicture: String,
          stats: Stats? = nil
     ) {
+        self.uid = uid
         self.username = username
         self.relationship = relationship
         self.profilePicture = profilePicture

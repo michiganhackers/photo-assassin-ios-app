@@ -53,9 +53,9 @@ class InvitePlayersViewController: NavigatingViewController {
 
     lazy var friendsListVC = InvitePlayerListViewController(
         players: [
-            (Player(username: "benjamincarney", relationship: .friend, profilePicture: "TODO"), .notInvited),
-            (Player(username: "calvin", relationship: .friend, profilePicture: "TODO"), .invited),
-            (Player(username: "brandon", relationship: .friend, profilePicture: "TODO"), .notInvited)
+            (Player(uid: "ben", username: "benjamincarney", relationship: .friend, profilePicture: "TODO"), .notInvited),
+            (Player(uid: "calvin", username: "calvin", relationship: .friend, profilePicture: "TODO"), .invited),
+            (Player(uid: "brandon", username: "brandon", relationship: .friend, profilePicture: "TODO"), .notInvited)
         ]
     ) { username in
         self.invitedPlayers.insert(username)

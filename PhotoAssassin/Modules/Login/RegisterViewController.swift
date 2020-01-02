@@ -15,7 +15,9 @@ import FirebaseAuth
 import GoogleSignIn
 import UIKit
 
-class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
+class RegisterViewController: LoginRegisterViewController, GIDSignInDelegate {
+    
+    
     // MARK: - Text and Number Class Constants
     let linkSpacing: CGFloat = 10.0
     let socialMediaButtonHeight: CGFloat = 50.0
@@ -95,7 +97,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
 
                 // Register with Facebook!!
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
-                Auth.auth().signIn(with: credential) { _ /* authResult */, error in
+                Auth.auth().signInAndRetrieveData(with: credential) { _ /* authResult */, error in
                     if let error = error {
                         print("Login error: \(error.localizedDescription)")
                         return
@@ -112,7 +114,8 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     func googleRegisterTapped() {
         print("Attempted Google registration")
         // Register with Google
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        // FIXME: GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().signIn()
         //GIDSignIn.sharedInstance().signInSilently()
     }
@@ -123,22 +126,11 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     }
 
     // MARK: - Custom Functions
-
-    // Handle errors
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        print("Error signing in: ", error)
-    }
-
-    // Present a view that prompts the user to sign in with Google
-    func sign(_ signIn: GIDSignIn!,
-              present viewController: UIViewController!) {
-        self.present(viewController, animated: true, completion: nil)
-    }
-
-    // Dismiss the "Sign in with Google" view
-    func sign(_ signIn: GIDSignIn!,
-              dismiss viewController: UIViewController!) {
-        self.dismiss(animated: true, completion: nil)
+    //Handle errors
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error{
+            print("Error signing in \(error)")
+        }
     }
 
     func failedRegistration() {

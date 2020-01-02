@@ -31,7 +31,7 @@ class ChangeFriendStatusAccessory: UIButton {
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
-        self.player = Player.myself
+        self.player = Player(uid: "", username: "", relationship: .none, profilePicture: "")
         super.init(coder: aDecoder)
     }
     init(player: Player) {

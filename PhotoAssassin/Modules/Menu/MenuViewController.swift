@@ -26,25 +26,26 @@ class MenuViewController: NavigatingViewController {
             // TODO: Grab full lobby info from Firebase
             self.push(navigationScreen: .lobbyInfo(
                 LobbyInfo(gameLobby: lobby, focusedPlayer: nil, myselfPermission: .viewer, otherPlayers: [
-                    LobbyInfo.PlayerWithStatus(
-                        player: Player(username: "Bendudeman", relationship: .none, profilePicture: "TODO"),
-                        relationship: .neutral,
-                        stats: GameStats(game: lobby, kills: 5)
-                    ),
-                    LobbyInfo.PlayerWithStatus(
-                        player: Player(username: "Owain", relationship: .none, profilePicture: "TODO"),
-                        relationship: .target,
-                        stats: GameStats(game: lobby, kills: 1)
-                    ),
-                    LobbyInfo.PlayerWithStatus(
-                        player: Player(username: "Vincent", relationship: .none, profilePicture: "TODO"),
-                        relationship: .dead,
-                        stats: GameStats(game: lobby, kills: 3)
-                    )
+                        LobbyInfo.PlayerWithStatus(
+                            player: Player(uid: "ben", username: "Bendudeman", relationship: .none, profilePicture: "TODO"),
+                            relationship: .neutral,
+                            stats: GameStats(game: lobby, kills: 5)
+                        ),
+                        LobbyInfo.PlayerWithStatus(
+                            player: Player(uid: "owain", username: "Owain", relationship: .none, profilePicture: "TODO"),
+                            relationship: .target,
+                            stats: GameStats(game: lobby, kills: 1)
+                        ),
+                        LobbyInfo.PlayerWithStatus(
+                            player: Player(uid: "vincent", username: "Vincent", relationship: .none, profilePicture: "TODO"),
+                            relationship: .dead,
+                            stats: GameStats(game: lobby, kills: 3)
+                        )
                     ],
-                          startDate: Date(timeIntervalSinceNow: 0.0),
-                          endDate: nil)
-                ))
+                    startDate: Date(timeIntervalSinceNow: 0.0),
+                    endDate: nil
+                )
+            ))
         }
         list.games = [
             GameLobby(id: "0ab", title: "Game 1", numberInLobby: 3, numberAlive: nil, maxPlayers: 20),
@@ -84,7 +85,11 @@ class MenuViewController: NavigatingViewController {
     }
     @objc
     func bringToProfile() {
-        push(navigationScreen: .profile(Player.myself))
+        Player.getMyself { myself in
+            if let myself = myself {
+                self.push(navigationScreen: .profile(myself))
+            }
+        }
     }
     @objc
     func onSwipeRight(_ recognizer: UIGestureRecognizer) {

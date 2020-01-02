@@ -187,7 +187,7 @@ class ChangePasswordViewController: NavigatingViewController, UITextFieldDelegat
         }
 
         // Prompt the user to re-provide their sign-in credentials
-        user?.reauthenticate(with: credential) { error in
+        user?.reauthenticateAndRetrieveData(with: credential) { _, error in
             if error != nil {
                 print("Password change unsuccessful")
                 self.passwordChangeFailed()

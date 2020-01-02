@@ -253,7 +253,7 @@ class ProfileViewController: NavigatingViewController {
     func searchForUser() {
         if let username = userSearchField.text {
             print("TODO: Find user with username \(username)")
-            push(navigationScreen: .profile(Player(username: username, relationship: .none, profilePicture: "TODO")))
+            push(navigationScreen: .profile(Player(uid: "TODO", username: username, relationship: .none, profilePicture: "TODO")))
         }
     }
 
@@ -269,7 +269,7 @@ class ProfileViewController: NavigatingViewController {
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
-        self.player = Player.myself
+        self.player = Player(uid: "", username: "", relationship: .none, profilePicture: "")
         super.init(coder: aDecoder)
     }
     init(player: Player) {

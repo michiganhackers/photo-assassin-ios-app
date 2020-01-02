@@ -14,7 +14,9 @@ import FirebaseAuth
 import GoogleSignIn
 import UIKit
 
-class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
+class LoginViewController: LoginRegisterViewController, GIDSignInDelegate {
+    
+    
     // MARK: - Text and Number Class Constants
     let linkSpacing: CGFloat = 10.0
     let logoSpacing: CGFloat = 20.0
@@ -131,20 +133,10 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     // MARK: - Custom Functions
 
     // Handle errors
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        print("Error signing in: ", error)
-    }
-
-    // Present a view that prompts the user to sign in with Google
-    func sign(_ signIn: GIDSignIn!,
-              present viewController: UIViewController!) {
-        self.present(viewController, animated: true, completion: nil)
-    }
-
-    // Dismiss the "Sign in with Google" view
-    func sign(_ signIn: GIDSignIn!,
-              dismiss viewController: UIViewController!) {
-        self.dismiss(animated: true, completion: nil)
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error{
+            print("Error signing in \(error)")
+        }
     }
 
     func loginFailed() {
@@ -208,8 +200,9 @@ class LoginViewController: LoginRegisterViewController, GIDSignInUIDelegate {
     @objc
     func googleLoginTapped() {
         print("Attempted Google login")
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance().delegate = self
+        // FIXME: GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.signIn()
         //GIDSignIn.sharedInstance().signInSilently()
     }
 
