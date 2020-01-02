@@ -6,8 +6,8 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
 
 class Player {
     let DB = Firestore.firestore()
@@ -66,89 +66,79 @@ class Player {
     }
 
     func loadGameHistory(completionHandler: @escaping ([GameStats]) -> Void) {
-        // TODO: Grab game history from Firebase based on username
-        var gameStatsArray = [GameStats]()
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("Error: Could not obtain current UID")
+            completionHandler([])
+            return
+        }
+        var gameStatsArray: [GameStats] = []
         //users -> completedGames REFERENCING
-        let playerGameHistory = DB.collection("users").document(Auth.auth().currentUser!.uid).collection("completedGames")
-        print("Game ID successfully retrieved")
-        
+        let playerGameHistory = DB.collection("users").document(uid).collection("completedGames")
+
         //users -> completedGames RETRIEVING
-        playerGameHistory.getDocuments{ (history, error) in
-            if let error = error{
+        playerGameHistory.getDocuments { history, error in
+            if let error = error {
                 print("Error getting documents: \(error)")
-            }
-            else {
+            } else {
+                guard let history = history else {
+                    print("Error getting history")
+                    return
+                }
                 //LOOPING through each game ID
-                for currGame in history!.documents {
+                for currGame in history.documents {
                     //RETRIEVING game object from "games" using gameID
                     let game = self.DB.collection("games").document(currGame.documentID)
-                    
-                    var kills: Int?
-                    var place: Int?
-                    var isOwner: Bool?
-                    var didEnd : Bool = false;
+
+                    var kills = -1
+                    var place = -1
+                    var isOwner = false
+                    var didEnd = false
                     //RETRIEVING player's data in the current game.
-                    let player = game.collection("players").document(Auth.auth().currentUser!.uid)
-                    
-                    player.getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            kills = document.get("kills") as? Int
-                            place = document.get("place") as? Int
-                            print("Kills \(kills)")
-                            print("Place \(place)")
-                            game.getDocument { (document, error) in
-                                    if let document = document, document.exists{
-                                        if (document.get("status") as? String == "ended"){
-                                            didEnd = true;
-                                        }
-                                        print("STATUS: \(didEnd)")
-                                        var gameTitle : String?
-                                        gameTitle = document.get("name") as? String
-                                        //else{print("ERROR casting gameTitle into string")}
-                                        print("TITLE: \(gameTitle)")
-                                        let gameInfo = GameStats(game:
-                                            GameLobby(id: game.documentID,
-                                                      title: gameTitle ?? "",
-                                                            numberInLobby: 0),
-                                                            kills: kills ?? 0,
-                                                            place: place ?? 0,
-                                                            didGameEnd: didEnd)
-                                        
-                                        gameStatsArray.append(gameInfo)
-                                        self.gameHistory = gameStatsArray
-                                        
-                                        if(gameStatsArray.count == history!.documents.count){
-                                            completionHandler(self.gameHistory ?? [GameStats]())
-                                        }
-                                        
-                                    }
-                                    else{
-                                        print("Error in retrieving document \(error)")
-                                    }
+                    let player = game.collection("players").document(uid)
+                    player.getDocument { document, error in
+                        guard let document = document, document.exists else {
+                            print("Error getting player document for game \(currGame)")
+                            if let error = error {
+                                print("  (error: \(error))")
+                            }
+                            return
+                        }
+                        kills = document.get("kills") as? Int ?? -1
+                        place = document.get("place") as? Int ?? -1
+                        game.getDocument { document, error in
+                            if let error = error {
+                                print("Error in retrieving document: \(error)")
+                                return
+                            }
+                            guard let document = document, document.exists else {
+                                print("Could not retrieve document")
+                                return
+                            }
+                            if document.get("status") as? String == "ended" {
+                                didEnd = true
+                            }
+                            let gameTitle = document.get("name") as? String
+                            let gameInfo = GameStats(
+                                game: GameLobby(
+                                    id: game.documentID,
+                                    title: gameTitle ?? "",
+                                    numberInLobby: 0
+                                ),
+                                kills: kills,
+                                place: place,
+                                didGameEnd: didEnd
+                            )
+                            gameStatsArray.append(gameInfo)
+                            self.gameHistory = gameStatsArray
+                            if gameStatsArray.count == history.documents.count {
+                                self.gameHistory = gameStatsArray
+                                completionHandler(gameStatsArray)
                             }
                         }
-                        else{
-                            print("Error getting documents: \(error)")
-                        }
-
                     }
-                        
-                    //Retrieving data from game object: Status, Name
-                    //Creating an OBJECT: GameStats from data
                 }
             }
-            
         }
-        print(gameStatsArray)
-        let games = [
-            GameStats(game: GameLobby(id: "0ab", title: "Snipefest", numberInLobby: 0),
-                      kills: 5, place: 2),
-            GameStats(game: GameLobby(id: "1cd", title: "Mhackers xD lolz", numberInLobby: 0),
-                      kills: 15, place: 1),
-            GameStats(game: GameLobby(id: "2ef", title: "Bonfire Party", numberInLobby: 0),
-                      kills: 21, place: 7)
-        ]
-        //self.gameHistory = gameStatsArray
     }
 
     // MARK: - Public members
