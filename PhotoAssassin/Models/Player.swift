@@ -10,9 +10,13 @@ import Firebase
 import FirebaseStorage
 import FirebaseUI
 import UIKit
+import Firebase
 
 class Player {
-    let database = Firestore.firestore()
+    // MARK: - Private members
+    private let backend = BackendCaller()
+    private let database = Firestore.firestore()
+
     // MARK: - Nested types
     enum InvitationStatus {
         case invited
@@ -68,15 +72,37 @@ class Player {
         return relationship == .none
     }
 
-    func loadFriends(completionHandler: ([Player]) -> Void) {
-        // TODO: Grab friends from Firebase based on username
-        let friends = [
-            Player(uid: "d1", username: "dummy_friend_1", relationship: .friend, profilePicture: "TODO"),
-            Player(uid: "d2", username: "dummy_2_me", relationship: .myself, profilePicture: "TODO"),
-            Player(uid: "d3", username: "dummy_3...", relationship: .none, profilePicture: "TODO")
-        ]
-        self.friends = friends
-        completionHandler(friends)
+    func loadFriends(completionHandler: @escaping ([Player]) -> Void) {
+        let db = Firestore.firestore()
+        let friendsRef = db.collection("users").document(uid).collection("friends")
+        friendsRef.getDocuments { friendRefs, error in
+            if let error = error {
+                print("Error retrieving friends: \(error)")
+                completionHandler([])
+                return
+            }
+            guard let friendRefs = friendRefs else {
+                print("Could not retrieve friends")
+                completionHandler([])
+                return
+            }
+            var friendCount = friendRefs.count
+            var friends: [Player] = []
+            for friend in friendRefs.documents {
+                self.backend.player(fromUID: friend.documentID) { player in
+                    if let player = player {
+                        friends.append(player)
+                    } else {
+                        print("Error retrieving friend")
+                        friendCount -= 1
+                    }
+
+                    if friendCount == friends.count {
+                        completionHandler(friends)
+                    }
+                }
+            }
+        }
     }
 
     func loadGameHistory(completionHandler: @escaping ([GameStats]) -> Void) {

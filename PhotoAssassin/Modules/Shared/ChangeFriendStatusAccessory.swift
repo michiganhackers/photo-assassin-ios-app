@@ -20,13 +20,27 @@ class ChangeFriendStatusAccessory: UIButton {
     // MARK: - Event handlers
     @objc
     func performAction() {
+        var titleText = ""
         if player.relationship == .friend {
             player.relationship = .none
+            titleText = "Add"
+            // changes the icon back to add friend
+            self.setImage(R.image.addFriend()?.withRenderingMode(.alwaysTemplate), for: .normal)
             print("TODO: Update friend status in Firebase as not a friend")
         } else if player.relationship == .none {
             player.relationship = .friend
+            titleText = "Remove"
+            // changes the icon to remove friend
+            self.setImage(R.image.removeFriend()?.withRenderingMode(.alwaysTemplate), for: .normal)
             print("TODO: Update friend status in Firebase as a friend")
         }
+        self.tintColor = Colors.text
+        self.setAttributedTitle(
+            NSAttributedString(string: titleText, attributes: titleAttributes),
+            for: .normal
+        )
+
+        self.addTarget(self, action: #selector(performAction), for: .touchUpInside)
     }
 
     // MARK: - Initializers

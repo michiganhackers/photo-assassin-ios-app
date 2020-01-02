@@ -236,12 +236,10 @@ class ProfileViewController: NavigatingViewController {
         let userRef = database.collection("users").document(uid)
 
          if player.relationship != .friend {
-            // Atomically add a new region to the "regions" array field.
             userRef.updateData([
                 "friends": FieldValue.arrayUnion(["id"])
             ])
         } else {
-            // Atomically remove a region from the "regions" array field.
             userRef.updateData([
                 "friends": FieldValue.arrayRemove(["id"])
             ])
@@ -276,7 +274,7 @@ class ProfileViewController: NavigatingViewController {
         self.player = player
         super.init(title: "Profile")
         self.player.loadFriends { friends in
-            friendList.update(newPlayers: friends)
+            self.friendList.update(newPlayers: friends)
         }
     }
 }
