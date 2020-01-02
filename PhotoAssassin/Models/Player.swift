@@ -10,7 +10,7 @@ import Firebase
 import UIKit
 
 class Player {
-    let DB = Firestore.firestore()
+    let database = Firestore.firestore()
     // MARK: - Nested types
     enum InvitationStatus {
         case invited
@@ -36,18 +36,23 @@ class Player {
         }
     }
 
-    // MARK: - Static members
-    static var myself = Player(
-        username: "hi_there_its_me",
-        relationship: .myself,
-        stats: Stats(
-            deaths: 8,
-            gamesWon: 1,
-            gamesFinished: 9,
-            kills: 19,
-            percentile: 0.57
-        )
-    )
+    // MARK: - Static members and functions
+    private static var myself: Player?
+    static func getMyself(completionHandler: @escaping (Player?) -> Void) {
+        let backend = BackendCaller()
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completionHandler(nil)
+            return
+        }
+        if let myself = myself, myself.uid == uid {
+            completionHandler(myself)
+            return
+        }
+        backend.player(fromUID: uid) { player in
+            myself = player
+            completionHandler(player)
+        }
+    }
 
     // MARK: - Public member functions
     func canAddAsFriend() -> Bool {
@@ -57,23 +62,18 @@ class Player {
     func loadFriends(completionHandler: ([Player]) -> Void) {
         // TODO: Grab friends from Firebase based on username
         let friends = [
-            Player(username: "dummy_friend_1", relationship: .friend),
-            Player(username: "dummy_2_me", relationship: .myself),
-            Player(username: "dummy_3...", relationship: .none)
+            Player(uid: "d1", username: "dummy_friend_1", relationship: .friend),
+            Player(uid: "d2", username: "dummy_2_me", relationship: .myself),
+            Player(uid: "d3", username: "dummy_3...", relationship: .none)
         ]
         self.friends = friends
         completionHandler(friends)
     }
 
     func loadGameHistory(completionHandler: @escaping ([GameStats]) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            print("Error: Could not obtain current UID")
-            completionHandler([])
-            return
-        }
         var gameStatsArray: [GameStats] = []
         //users -> completedGames REFERENCING
-        let playerGameHistory = DB.collection("users").document(uid).collection("completedGames")
+        let playerGameHistory = database.collection("users").document(uid).collection("completedGames")
 
         //users -> completedGames RETRIEVING
         playerGameHistory.getDocuments { history, error in
@@ -87,14 +87,10 @@ class Player {
                 //LOOPING through each game ID
                 for currGame in history.documents {
                     //RETRIEVING game object from "games" using gameID
-                    let game = self.DB.collection("games").document(currGame.documentID)
+                    let game = self.database.collection("games").document(currGame.documentID)
 
-                    var kills = -1
-                    var place = -1
-                    var isOwner = false
-                    var didEnd = false
                     //RETRIEVING player's data in the current game.
-                    let player = game.collection("players").document(uid)
+                    let player = game.collection("players").document(self.uid)
                     player.getDocument { document, error in
                         guard let document = document, document.exists else {
                             print("Error getting player document for game \(currGame)")
@@ -103,8 +99,8 @@ class Player {
                             }
                             return
                         }
-                        kills = document.get("kills") as? Int ?? -1
-                        place = document.get("place") as? Int ?? -1
+                        let kills = document.get("kills") as? Int ?? -1
+                        let place = document.get("place") as? Int ?? -1
                         game.getDocument { document, error in
                             if let error = error {
                                 print("Error in retrieving document: \(error)")
@@ -114,22 +110,12 @@ class Player {
                                 print("Could not retrieve document")
                                 return
                             }
-                            if document.get("status") as? String == "ended" {
-                                didEnd = true
-                            }
-                            let gameTitle = document.get("name") as? String
+                            let didEnd = document.get("status") as? String == "ended"
+                            let gameTitle = document.get("name") as? String ?? ""
                             let gameInfo = GameStats(
-                                game: GameLobby(
-                                    id: game.documentID,
-                                    title: gameTitle ?? "",
-                                    numberInLobby: 0
-                                ),
-                                kills: kills,
-                                place: place,
-                                didGameEnd: didEnd
-                            )
+                                game: GameLobby(id: game.documentID, title: gameTitle, numberInLobby: 0),
+                                kills: kills, place: place, didGameEnd: didEnd)
                             gameStatsArray.append(gameInfo)
-                            self.gameHistory = gameStatsArray
                             if gameStatsArray.count == history.documents.count {
                                 self.gameHistory = gameStatsArray
                                 completionHandler(gameStatsArray)
@@ -142,6 +128,7 @@ class Player {
     }
 
     // MARK: - Public members
+    var uid: String
     var username: String
     var relationship: Relationship
     var profilePicture: UIImage?
@@ -152,11 +139,13 @@ class Player {
 
     // MARK: - Initializers
     // NOTE: Be careful to avoid reference loops with the array of friends.
-    init(username: String,
+    init(uid: String,
+         username: String,
          relationship: Relationship,
          profilePicture: UIImage? = nil,
          stats: Stats? = nil
     ) {
+        self.uid = uid
         self.username = username
         self.relationship = relationship
         self.profilePicture = profilePicture

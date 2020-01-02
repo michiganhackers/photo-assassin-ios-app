@@ -6,45 +6,78 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 class GameHistoryViewController: NavigatingViewController {
     // MARK: - Class constants
     static let topMargin: CGFloat = 20.0
 
+    // MARK: - Private members
+    private let backend = BackendCaller()
+
     // MARK: - Public members
     let player: Player
     lazy var gameList = GameList<GameHistoryCell> { gameStats, _ in
-        // TODO: Get info from Firebase
-        let info = LobbyInfo(
-            gameLobby: gameStats.game,
-            focusedPlayer: LobbyInfo.PlayerWithStatus(
-                player: self.player,
-                relationship: .neutral,
-                stats: gameStats
-            ),
-            myselfPermission: .viewer,
-            otherPlayers: [
-                LobbyInfo.PlayerWithStatus(
-                    player: Player(username: "Bendudeman", relationship: .none),
-                    relationship: .neutral,
-                    stats: GameStats(game: gameStats.game, kills: 3, place: 3)
-                ),
-                LobbyInfo.PlayerWithStatus(
-                    player: Player(username: "Owain", relationship: .none),
-                    relationship: .neutral,
-                    stats: GameStats(game: gameStats.game, kills: 5, place: 2)
-                ),
-                LobbyInfo.PlayerWithStatus(
-                    player: Player(username: "Vincent", relationship: .none),
-                    relationship: .neutral,
-                    stats: GameStats(game: gameStats.game, kills: 0, place: 4)
-                )
-            ],
-            startDate: Date(timeIntervalSince1970: 0.0),
-            endDate: Date(timeIntervalSinceNow: 1.0)
+        let database = Firestore.firestore()
+        let focused = LobbyInfo.PlayerWithStatus(
+            player: self.player,
+            relationship: .neutral,
+            stats: gameStats
         )
-        self.push(navigationScreen: .lobbyInfo(info))
+        let gameDoc = database.collection("games").document(gameStats.game.id)
+        gameDoc.getDocument { game, error in
+            if let error = error {
+                print("Error retrieving game: \(error)")
+                return
+            }
+            guard let game = game else {
+                print("Could not retrieve game")
+                return
+            }
+            gameDoc.collection("players").getDocuments { players, error in
+                if let error = error {
+                    print("Error retrieving players: \(error)")
+                    return
+                }
+                guard let players = players else {
+                    print("Could not retrieve players")
+                    return
+                }
+                var otherPlayers: [LobbyInfo.PlayerWithStatus] = []
+                for playerDoc in players.documents {
+                    if playerDoc.documentID == self.player.uid {
+                        continue
+                    }
+                    self.backend.player(fromUID: playerDoc.documentID) { player in
+                        let stats = GameStats(
+                            game: gameStats.game,
+                            kills: playerDoc.get("kills") as? Int ?? -1,
+                            place: playerDoc.get("place") as? Int ?? -1,
+                            didGameEnd: true
+                        )
+                        // TODO: Handle case when player == nil better.
+                        otherPlayers.append(LobbyInfo.PlayerWithStatus(
+                            player: player ?? self.player,
+                            relationship: .neutral,
+                            stats: stats
+                        ))
+                        if otherPlayers.count == players.documents.count - 1 {
+                            let start = game.get("startTime") as? Timestamp ?? Timestamp()
+                            let end = game.get("endTime") as? Timestamp ?? Timestamp()
+                            self.push(navigationScreen: .lobbyInfo(LobbyInfo(
+                                gameLobby: gameStats.game,
+                                focusedPlayer: focused,
+                                myselfPermission: .viewer,
+                                otherPlayers: otherPlayers,
+                                startDate: start.dateValue(),
+                                endDate: end.dateValue()
+                            )))
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Custom methods
@@ -74,7 +107,7 @@ class GameHistoryViewController: NavigatingViewController {
 
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
-        self.player = Player.myself
+        self.player = Player(uid: "", username: "", relationship: .none)
         super.init(coder: aDecoder)
     }
 

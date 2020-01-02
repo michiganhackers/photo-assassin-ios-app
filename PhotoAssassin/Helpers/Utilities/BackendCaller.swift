@@ -6,17 +6,21 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
+import Firebase
 import FirebaseFunctions
 import Foundation
 
 class BackendCaller {
-    // MARK: - Private Singleton
+    // MARK: - Private Singletons
+    private static let database = Firestore.firestore()
     private static let functions = Functions.functions()
 
+    // MARK: - Nested Types
     enum ClientSideError: Error {
         case badImage
     }
 
+    // MARK: - Public functions
     func createGame(name: String, invitedUsernames: [String], callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("createGame").call([
             "name": name,
@@ -45,6 +49,50 @@ class BackendCaller {
             "base64JPEG": base64JPEG
         ]) { result, error in
             callback((result?.data as? [String: Any])?["pictureID"] as? String, error)
+        }
+    }
+
+    func player(fromUID uid: String, completionHandler: @escaping (Player?) -> Void) {
+        let userRef = type(of: self).database.collection("users").document(uid)
+        userRef.getDocument { user, error in
+            if let error = error {
+                print("Error retrieving player: \(error)")
+                completionHandler(nil)
+                return
+            }
+            guard let user = user else {
+                print("Could not retrieve player")
+                completionHandler(nil)
+                return
+            }
+            let username = user.get("displayName") as? String ?? ""
+            var relationship: Player.Relationship = .none
+            if uid == Auth.auth().currentUser?.uid {
+                completionHandler(Player(
+                    uid: uid,
+                    username: username,
+                    relationship: .myself
+                ))
+                return
+            }
+            userRef.collection("friends").getDocuments { friends, error in
+                if let error = error {
+                    print("Error retrieving friend list: \(error)")
+                    completionHandler(nil)
+                    return
+                }
+                for friend in friends?.documents ?? [] {
+                    if friend.documentID == Auth.auth().currentUser?.uid {
+                        relationship = .friend
+                        break
+                    }
+                }
+                completionHandler(Player(
+                    uid: uid,
+                    username: username,
+                    relationship: relationship
+                ))
+            }
         }
     }
 }
