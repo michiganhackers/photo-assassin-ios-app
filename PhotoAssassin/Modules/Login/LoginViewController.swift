@@ -198,10 +198,10 @@ class LoginViewController: LoginRegisterViewController, GIDSignInDelegate {
     @objc
     func googleLoginTapped() {
         print("Attempted Google login")
-        GIDSignIn.sharedInstance().delegate = self
-        // FIXME: GIDSignIn.sharedInstance()?.presentingViewController = self
+        //GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.signIn()
-        //GIDSignIn.sharedInstance().signInSilently()
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
     }
 
     // MARK: - Initializers
