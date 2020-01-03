@@ -17,7 +17,7 @@ class ChangeEmailViewController: NavigatingViewController {
 
     // MARK: - UI elements
     let currentEmailLabel = TranslucentLabel(text: "Current Email:", size: labelTextSize)
-    let emailLabel = TranslucentLabel(text: (Auth.auth().currentUser?.email)!, size: labelTextSize)
+    let emailLabel = TranslucentLabel(text: Auth.auth().currentUser?.email ?? "", size: labelTextSize)
     let newEmailLabel = TranslucentLabel(text: "New Email", size: labelTextSize)
     let confirmNewEmailLabel = TranslucentLabel(text: "Confirm New Email", size: labelTextSize)
     let passwordLabel = TranslucentLabel(text: "Enter your password", size: labelTextSize)
@@ -93,23 +93,30 @@ class ChangeEmailViewController: NavigatingViewController {
 
     @objc
     func submit() {
-        let credential = EmailAuthProvider.credential(withEmail: (Auth.auth().currentUser?.email)!, password: passwordField.text!)
-        Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential) { _, error in
-            guard error == nil else {
-                print(error)
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        guard let email = currentUser.email, let password = passwordField.text else {
+            return
+        }
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        currentUser.reauthenticateAndRetrieveData(with: credential) { _, error in
+            if let error = error {
+                print("Error reauthenticating: \(error)")
                 return
             }
-            let newEmail: String = self.newEmailField.text!
-            Auth.auth().currentUser?.updateEmail(to: newEmail) { (error) in
-                // ...
-                if error == nil {
-                    self.emailLabel.setText(text: newEmail)
+            let newEmail: String = self.newEmailField.text ?? ""
+            currentUser.updateEmail(to: newEmail) { error in
+                if let error = error {
+                    print("Error updating email: \(error)")
+                    return
                 }
+                self.emailLabel.setText(text: newEmail)
             }
             self.newEmailField.text = ""
             self.confirmNewEmailField.text = ""
             self.passwordField.text = ""
-            
+
             self.pop()
         }
     }

@@ -203,13 +203,8 @@ class BackendCaller {
     ) {
         let gameRef = type(of: self).database.collection("games").document(game.id)
         gameRef.getDocument { gameDoc, error in
-            if let error = error {
-                print("Error retrieving game: \(error)")
-                completionHandler(nil)
-                return
-            }
-            guard let gameDoc = gameDoc else {
-                print("Could not retrieve game")
+            guard error == nil, let gameDoc = gameDoc else {
+                print("Error retrieving game: \(error as Any? ?? "")")
                 completionHandler(nil)
                 return
             }
@@ -217,13 +212,8 @@ class BackendCaller {
             let start = gameDoc.get("startTime") as? Timestamp ?? Timestamp()
             let end = gameDoc.get("endTime") as? Timestamp ?? Timestamp()
             gameRef.collection("players").getDocuments { players, error in
-                if let error = error {
-                    print("Error retrieving players: \(error)")
-                    completionHandler(nil)
-                    return
-                }
-                guard let players = players else {
-                    print("Could not retrieve players")
+                guard error == nil, let players = players else {
+                    print("Error retrieving players: \(error as Any? ?? "")")
                     completionHandler(nil)
                     return
                 }
@@ -236,19 +226,12 @@ class BackendCaller {
                     self.player(fromUID: playerDoc.documentID) { player in
                         if let player = player {
                             let withStatus = self.playerWithStatus(
-                                for: player,
-                                in: game,
-                                from: playerDoc,
-                                gameStatus: gameStatus,
-                                focused: focused
+                                for: player, in: game, from: playerDoc,
+                                gameStatus: gameStatus, focused: focused
                             )
                             if withStatus.player.uid == Auth.auth().currentUser?.uid {
                                 let isOwner = playerDoc.get("isOwner") as? Bool ?? false
-                                if isOwner {
-                                    myselfPermission = .owner
-                                } else {
-                                    myselfPermission = .participant
-                                }
+                                myselfPermission = isOwner ? .owner : .participant
                             }
                             if playerDoc.documentID == focused.uid {
                                 focusedPlayer = withStatus
@@ -261,12 +244,9 @@ class BackendCaller {
                         }
                         if retrieved == toRetrieve {
                             completionHandler(LobbyInfo(
-                                gameLobby: game,
-                                focusedPlayer: focusedPlayer,
-                                myselfPermission: myselfPermission,
-                                otherPlayers: others,
-                                startDate: start.dateValue(),
-                                endDate: end.dateValue()
+                                gameLobby: game, focusedPlayer: focusedPlayer,
+                                myselfPermission: myselfPermission, otherPlayers: others,
+                                startDate: start.dateValue(), endDate: end.dateValue()
                             ))
                         }
                     }

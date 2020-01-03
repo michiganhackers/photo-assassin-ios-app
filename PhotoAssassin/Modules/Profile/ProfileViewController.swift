@@ -251,7 +251,12 @@ class ProfileViewController: NavigatingViewController {
     func searchForUser() {
         if let username = userSearchField.text {
             print("TODO: Find user with username \(username)")
-            push(navigationScreen: .profile(Player(uid: "TODO", username: username, relationship: .none, profilePicture: "TODO")))
+            push(navigationScreen: .profile(Player(
+                uid: "TODO",
+                username: username,
+                relationship: .none,
+                profilePicture: "TODO"
+            )))
         }
     }
 

@@ -16,8 +16,6 @@ import GoogleSignIn
 import UIKit
 
 class RegisterViewController: LoginRegisterViewController, GIDSignInDelegate {
-    
-    
     // MARK: - Text and Number Class Constants
     let linkSpacing: CGFloat = 10.0
     let socialMediaButtonHeight: CGFloat = 50.0
@@ -128,7 +126,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInDelegate {
     // MARK: - Custom Functions
     //Handle errors
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error{
+        if let error = error {
             print("Error signing in \(error)")
         }
     }

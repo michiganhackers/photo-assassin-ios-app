@@ -14,7 +14,7 @@ class NotificationsSettingsViewController: NavigatingViewController {
     static let textSize: CGFloat = 24.0
     let leftOffset: CGFloat = 10.0
     let rightOffset: CGFloat = -10.0
-    let verticalSpacing: CGFloat = 10.0
+    let vertical: CGFloat = 10.0
 
     let settings: LocalSettings = {
         let settings = LocalSettings()
@@ -104,53 +104,41 @@ class NotificationsSettingsViewController: NavigatingViewController {
     }
     func setUpConstraints() {
         let margins = view.layoutMarginsGuide
-        notifsOnOffLabel.topAnchor.constraint(equalTo: margins.topAnchor,
-                                              constant: verticalSpacing).isActive = true
+        notifsOnOffLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: vertical).isActive = true
         notifsOnOffLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         notifsOnOffSwitch.topAnchor.constraint(equalTo: notifsOnOffLabel.topAnchor).isActive = true
         notifsOnOffSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
-        overallLabel.topAnchor.constraint(equalTo: notifsOnOffLabel.bottomAnchor,
-                                          constant: verticalSpacing).isActive = true
+        overallLabel.topAnchor.constraint(equalTo: notifsOnOffLabel.bottomAnchor, constant: vertical).isActive = true
         overallLabel.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
-        voteNotifLabel.topAnchor.constraint(equalTo: overallLabel.bottomAnchor,
-                                            constant: verticalSpacing + 20).isActive = true
-        voteNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor,
-                                             constant: leftOffset).isActive = true
+        voteNotifLabel.topAnchor.constraint(equalTo: overallLabel.bottomAnchor, constant: vertical + 20).isActive = true
+        voteNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: leftOffset).isActive = true
         voteNotifSwitch.topAnchor.constraint(equalTo: voteNotifLabel.topAnchor).isActive = true
-        voteNotifSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor,
-                                               constant: rightOffset).isActive = true
+        voteNotifSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: rightOffset).isActive = true
         eliminationNotifLabel.topAnchor.constraint(equalTo: voteNotifLabel.bottomAnchor,
-                                                   constant: verticalSpacing).isActive = true
-        eliminationNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor,
-                                             constant: leftOffset).isActive = true
+                                                   constant: vertical).isActive = true
+        eliminationNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: leftOffset).isActive = true
         eliminationNotifSwitch.topAnchor.constraint(equalTo: eliminationNotifLabel.topAnchor).isActive = true
         eliminationNotifSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor,
                                                       constant: rightOffset).isActive = true
         eliminatedNotifLabel.topAnchor.constraint(equalTo: eliminationNotifLabel.bottomAnchor,
-                                                  constant: verticalSpacing).isActive = true
-        eliminatedNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor,
-                                                   constant: leftOffset).isActive = true
+                                                  constant: vertical).isActive = true
+        eliminatedNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: leftOffset).isActive = true
         eliminatedNotifSwitch.topAnchor.constraint(equalTo: eliminatedNotifLabel.topAnchor).isActive = true
         eliminatedNotifSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor,
                                                      constant: rightOffset).isActive = true
         voteResultNotifLabel.topAnchor.constraint(equalTo: eliminatedNotifLabel.bottomAnchor,
-                                                  constant: verticalSpacing).isActive = true
-        voteResultNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor,
-                                                   constant: leftOffset).isActive = true
+                                                  constant: vertical).isActive = true
+        voteResultNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: leftOffset).isActive = true
         voteResultNotifSwitch.topAnchor.constraint(equalTo: voteResultNotifLabel.topAnchor).isActive = true
         voteResultNotifSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor,
                                                      constant: rightOffset).isActive = true
         invitedNotifLabel.topAnchor.constraint(equalTo: voteResultNotifLabel.bottomAnchor,
-                                                  constant: verticalSpacing).isActive = true
-        invitedNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor,
-                                                   constant: leftOffset).isActive = true
+                                                  constant: vertical).isActive = true
+        invitedNotifLabel.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: leftOffset).isActive = true
         invitedNotifSwitch.topAnchor.constraint(equalTo: invitedNotifLabel.topAnchor).isActive = true
-        invitedNotifSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor,
-                                                  constant: rightOffset).isActive = true
-        notifsView.topAnchor.constraint(equalTo: voteNotifLabel.topAnchor,
-                                        constant: -verticalSpacing).isActive = true
-        notifsView.bottomAnchor.constraint(equalTo: invitedNotifLabel.bottomAnchor,
-                                           constant: verticalSpacing).isActive = true
+        invitedNotifSwitch.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: rightOffset).isActive = true
+        notifsView.topAnchor.constraint(equalTo: voteNotifLabel.topAnchor, constant: -vertical).isActive = true
+        notifsView.bottomAnchor.constraint(equalTo: invitedNotifLabel.bottomAnchor, constant: vertical).isActive = true
         notifsView.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         notifsView.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
         notifsView.layoutIfNeeded()
