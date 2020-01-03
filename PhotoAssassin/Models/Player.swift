@@ -10,7 +10,6 @@ import Firebase
 import FirebaseStorage
 import FirebaseUI
 import UIKit
-import Firebase
 
 class Player {
     // MARK: - Private members
@@ -73,8 +72,8 @@ class Player {
     }
 
     func loadFriends(completionHandler: @escaping ([Player]) -> Void) {
-        let db = Firestore.firestore()
-        let friendsRef = db.collection("users").document(uid).collection("friends")
+        let database = Firestore.firestore()
+        let friendsRef = database.collection("users").document(uid).collection("friends")
         friendsRef.getDocuments { friendRefs, error in
             if let error = error {
                 print("Error retrieving friends: \(error)")

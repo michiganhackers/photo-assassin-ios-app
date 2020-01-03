@@ -19,64 +19,11 @@ class GameHistoryViewController: NavigatingViewController {
     // MARK: - Public members
     let player: Player
     lazy var gameList = GameList<GameHistoryCell> { gameStats, _ in
-        let database = Firestore.firestore()
-        let focused = LobbyInfo.PlayerWithStatus(
-            player: self.player,
-            relationship: .neutral,
-            stats: gameStats
-        )
-        let gameDoc = database.collection("games").document(gameStats.game.id)
-        gameDoc.getDocument { game, error in
-            if let error = error {
-                print("Error retrieving game: \(error)")
+        self.backend.lobbyInfo(for: gameStats.game, focused: self.player) { lobbyInfo in
+            guard let lobbyInfo = lobbyInfo else {
                 return
             }
-            guard let game = game else {
-                print("Could not retrieve game")
-                return
-            }
-            gameDoc.collection("players").getDocuments { players, error in
-                if let error = error {
-                    print("Error retrieving players: \(error)")
-                    return
-                }
-                guard let players = players else {
-                    print("Could not retrieve players")
-                    return
-                }
-                var otherPlayers: [LobbyInfo.PlayerWithStatus] = []
-                for playerDoc in players.documents {
-                    if playerDoc.documentID == self.player.uid {
-                        continue
-                    }
-                    self.backend.player(fromUID: playerDoc.documentID) { player in
-                        let stats = GameStats(
-                            game: gameStats.game,
-                            kills: playerDoc.get("kills") as? Int ?? -1,
-                            place: playerDoc.get("place") as? Int ?? -1,
-                            didGameEnd: true
-                        )
-                        // TODO: Handle case when player == nil better.
-                        otherPlayers.append(LobbyInfo.PlayerWithStatus(
-                            player: player ?? self.player,
-                            relationship: .neutral,
-                            stats: stats
-                        ))
-                        if otherPlayers.count == players.documents.count - 1 {
-                            let start = game.get("startTime") as? Timestamp ?? Timestamp()
-                            let end = game.get("endTime") as? Timestamp ?? Timestamp()
-                            self.push(navigationScreen: .lobbyInfo(LobbyInfo(
-                                gameLobby: gameStats.game,
-                                focusedPlayer: focused,
-                                myselfPermission: .viewer,
-                                otherPlayers: otherPlayers,
-                                startDate: start.dateValue(),
-                                endDate: end.dateValue()
-                            )))
-                        }
-                    }
-                }
-            }
+            self.push(navigationScreen: .lobbyInfo(lobbyInfo))
         }
     }
 

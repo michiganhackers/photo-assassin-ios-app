@@ -123,4 +123,155 @@ class BackendCaller {
             }
         }
     }
+
+    func gameStats(
+        in game: GameLobby,
+        from playerDocument: DocumentSnapshot,
+        gameStatus: String
+    ) -> GameStats {
+        var stats: GameStats
+        if gameStatus == "notStarted" {
+            stats = GameStats(game: game)
+        } else if gameStatus == "started" {
+            let kills = playerDocument.get("kills") as? Int ?? -1
+            let place = playerDocument.get("place") as? Int
+            stats = GameStats(game: game, kills: kills, place: place, didGameEnd: false)
+        } else { // gameStatus == "ended"
+            let kills = playerDocument.get("kills") as? Int ?? -1
+            let place = playerDocument.get("place") as? Int ?? -1
+            stats = GameStats(game: game, kills: kills, place: place, didGameEnd: true)
+        }
+        return stats
+    }
+
+    func playerWithStatus(
+        for player: Player,
+        in game: GameLobby,
+        from playerDocument: DocumentSnapshot,
+        gameStatus: String,
+        focused: Player
+    ) -> LobbyInfo.PlayerWithStatus {
+        let alive = playerDocument.get("alive") as? Bool ?? false
+        let isTarget = playerDocument.get("target") as? String == focused.uid
+
+        var relationship: LobbyInfo.GameRelationship
+        if !alive {
+            relationship = .dead
+        } else if isTarget {
+            relationship = .target
+        } else {
+            relationship = .neutral
+        }
+
+        return LobbyInfo.PlayerWithStatus(
+            player: player,
+            relationship: relationship,
+            stats: gameStats(in: game, from: playerDocument, gameStatus: gameStatus)
+        )
+    }
+    func playerWithStatus(for player: Player,
+                          in game: GameLobby,
+                          gameStatus: String,
+                          focused: Player,
+                          completionHandler: @escaping (LobbyInfo.PlayerWithStatus?) -> Void
+    ) {
+        let gameRef = type(of: self).database.collection("games").document(game.id)
+        gameRef.collection("players").document(player.uid).getDocument { doc, error in
+            if let error = error {
+                print("Error retrieving player with statuses: \(error)")
+                completionHandler(nil)
+                return
+            }
+            guard let doc = doc else {
+                print("Could not retrieve player with statuses")
+                completionHandler(nil)
+                return
+            }
+            completionHandler(self.playerWithStatus(
+                for: player,
+                in: game,
+                from: doc,
+                gameStatus: gameStatus,
+                focused: focused
+            ))
+        }
+    }
+    func lobbyInfo(
+        for game: GameLobby,
+        focused: Player,
+        completionHandler: @escaping (LobbyInfo?) -> Void
+    ) {
+        let gameRef = type(of: self).database.collection("games").document(game.id)
+        gameRef.getDocument { gameDoc, error in
+            if let error = error {
+                print("Error retrieving game: \(error)")
+                completionHandler(nil)
+                return
+            }
+            guard let gameDoc = gameDoc else {
+                print("Could not retrieve game")
+                completionHandler(nil)
+                return
+            }
+            let gameStatus = gameDoc.get("status") as? String ?? ""
+            let start = gameDoc.get("startTime") as? Timestamp ?? Timestamp()
+            let end = gameDoc.get("endTime") as? Timestamp ?? Timestamp()
+            gameRef.collection("players").getDocuments { players, error in
+                if let error = error {
+                    print("Error retrieving players: \(error)")
+                    completionHandler(nil)
+                    return
+                }
+                guard let players = players else {
+                    print("Could not retrieve players")
+                    completionHandler(nil)
+                    return
+                }
+                var retrieved = 0
+                var toRetrieve = players.count
+                var others: [LobbyInfo.PlayerWithStatus] = []
+                var focusedPlayer: LobbyInfo.PlayerWithStatus?
+                var myselfPermission: LobbyInfo.PlayerPermissionLevel = .viewer
+                for playerDoc in players.documents {
+                    self.player(fromUID: playerDoc.documentID) { player in
+                        if let player = player {
+                            let withStatus = self.playerWithStatus(
+                                for: player,
+                                in: game,
+                                from: playerDoc,
+                                gameStatus: gameStatus,
+                                focused: focused
+                            )
+                            if withStatus.player.uid == Auth.auth().currentUser?.uid {
+                                let isOwner = playerDoc.get("isOwner") as? Bool ?? false
+                                if isOwner {
+                                    myselfPermission = .owner
+                                } else {
+                                    myselfPermission = .participant
+                                }
+                            }
+                            if playerDoc.documentID == focused.uid {
+                                focusedPlayer = withStatus
+                            } else {
+                                others.append(withStatus)
+                            }
+                            retrieved += 1
+                        } else {
+                            toRetrieve -= 1
+                        }
+                        if retrieved == toRetrieve {
+                            completionHandler(LobbyInfo(
+                                gameLobby: game,
+                                focusedPlayer: focusedPlayer,
+                                myselfPermission: myselfPermission,
+                                otherPlayers: others,
+                                startDate: start.dateValue(),
+                                endDate: end.dateValue()
+                            ))
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

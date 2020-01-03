@@ -6,8 +6,8 @@
 //  Copyright © 2019 Michigan Hackers. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
 
 class MenuViewController: NavigatingViewController {
     // MARK: - Class Constants
@@ -15,6 +15,9 @@ class MenuViewController: NavigatingViewController {
     let horizontalButtonSpacing: CGFloat = 12.0
     let navBarSpacing: CGFloat = 20.0
     let verticalButtonSpacing: CGFloat = 18.0
+
+    // MARK: - Private Members
+    private let backend = BackendCaller()
 
     // MARK: - UI Elements
     let fadedHeadingAttributes: [NSAttributedString.Key: Any] = [
@@ -27,16 +30,17 @@ class MenuViewController: NavigatingViewController {
         let database = Firestore.firestore()
 
         var list = GameList<GameLobbyListCell> { lobby, _ in
-            self.push(navigationScreen: .lobbyInfo(
-                LobbyInfo(
-                    gameLobby: lobby,
-                    focusedPlayer: nil,
-                    myselfPermission: .viewer,
-                    otherPlayers: TODO,
-                    startDate: TODO,
-                    endDate: nil)
-                )
-            )
+            Player.getMyself { myself in
+                guard let myself = myself else {
+                    return
+                }
+                self.backend.lobbyInfo(for: lobby, focused: myself) { lobbyInfo in
+                    guard let lobbyInfo = lobbyInfo else {
+                        return
+                    }
+                    self.push(navigationScreen: .lobbyInfo(lobbyInfo))
+                }
+            }
         }
         guard let uid = Auth.auth().currentUser?.uid else {
             return list
