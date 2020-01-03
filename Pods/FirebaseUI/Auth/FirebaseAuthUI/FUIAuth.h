@@ -128,10 +128,12 @@ __attribute__((deprecated("Instead use authUI:didSignInWithAuthDataResult:error:
     to allow sign-up UI customizations.
     @param authUI The @c FUIAuth instance sending the message.
     @param email The email user is using for sin-in.
+    @param requireDisplayName Whether the displayname field is required .
     @return an instance of @c FUIPasswordSignUpViewController subclass.
  */
 - (FUIPasswordSignUpViewController *)passwordSignUpViewControllerForAuthUI:(FUIAuth *)authUI
-                                                                     email:(NSString *)email;
+                                                                     email:(NSString *)email
+                                                        requireDisplayName:(BOOL)requireDisplayName;
 
 /** @fn passwordRecoveryViewControllerForAuthUI:email:
     @brief Sent to the receiver to ask for an instance of @c FUIPasswordRecoveryViewController subclass
@@ -186,9 +188,14 @@ __attribute__((deprecated("Instead use authUI:didSignInWithAuthDataResult:error:
 @property(nonatomic, copy) NSArray<id<FUIAuthProvider>> *providers;
 
 /** @property shouldHideCancelButton
- @brief Whether to hide the canel button, defaults to NO.
+    @brief Whether to hide the cancel button, defaults to NO.
  */
 @property(nonatomic, assign) BOOL shouldHideCancelButton;
+
+/** @property interactiveDismissEnabled
+    @brief Whether or not interactive dismiss should be enabled on iOS 13 and above devices.
+ */
+@property(nonatomic, assign, getter=isInteractiveDismissEnabled) BOOL interactiveDismissEnabled API_AVAILABLE(ios(13));
 
 /** @property customStringsBundle
     @brief Custom strings bundle supplied by the developer. Nil when there is no custom strings

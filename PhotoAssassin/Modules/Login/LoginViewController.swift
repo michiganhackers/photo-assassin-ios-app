@@ -162,12 +162,12 @@ class LoginViewController: LoginRegisterViewController, GIDSignInDelegate {
         let loginManager = LoginManager()
 
         // Log out
-        if let currentAccessToken = FBSDKAccessToken.current(), currentAccessToken.appID != FBSDKSettings.appID() {
+        if let currentAccessToken = AccessToken.current, currentAccessToken.appID != Settings.appID {
             loginManager.logOut()
         }
 
         // Log in
-        loginManager.logIn(readPermissions: [ .publicProfile ], viewController: self) { loginResult in
+        loginManager.logIn(permissions: [ .publicProfile ], viewController: self) { loginResult in
             switch loginResult {
             case .failed(let error):
                 print(error)
@@ -176,7 +176,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInDelegate {
                 print("User cancelled login.")
             case .success(_ /* grantedPermissions */, _ /* declinedPermissions */, _ /* accessToken */):
                 print("Logged in!")
-                guard let accessToken = FBSDKAccessToken.current() else {
+                guard let accessToken = AccessToken.current else {
                     print("Failed to get access token")
                     return
                 }

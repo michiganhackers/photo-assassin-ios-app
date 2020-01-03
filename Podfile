@@ -9,8 +9,8 @@ inhibit_all_warnings!
 
 target 'PhotoAssassin' do
 
-  pod 'R.swift', '5.0.0'
-  pod 'SwiftLint', '0.29.2'
+  pod 'R.swift'
+  pod 'SwiftLint'
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
@@ -18,8 +18,8 @@ target 'PhotoAssassin' do
   pod 'Firebase/Functions'
   pod 'Firebase/Storage'
   pod 'FirebaseUI'
-  pod 'FacebookCore', '~> 0.5.0'
-  pod 'FacebookLogin', '~> 0.5.0'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
   pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
 

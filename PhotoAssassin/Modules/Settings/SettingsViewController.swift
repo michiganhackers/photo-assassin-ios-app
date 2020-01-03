@@ -97,7 +97,7 @@ class SettingsViewController: NavigatingViewController,
             try firebaseAuth.signOut()
             print("Signed out!")
         } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
+            print("Error signing out: %@", signOutError)
         }
 
         routeTo(screen: .login)

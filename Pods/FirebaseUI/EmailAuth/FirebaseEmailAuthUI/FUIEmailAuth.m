@@ -81,6 +81,7 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
                  signInMethod:FIREmailPasswordAuthSignInMethod
               forceSameDevice:NO
         allowNewEmailAccounts:YES
+           requireDisplayName:YES
             actionCodeSetting:[[FIRActionCodeSettings alloc] init]];
 }
 
@@ -90,14 +91,29 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
                forceSameDevice:(BOOL)forceSameDevice
          allowNewEmailAccounts:(BOOL)allowNewEmailAccounts
              actionCodeSetting:(FIRActionCodeSettings *)actionCodeSettings {
+  return [self initAuthAuthUI:authUI
+                 signInMethod:signInMethod
+              forceSameDevice:forceSameDevice
+        allowNewEmailAccounts:allowNewEmailAccounts
+           requireDisplayName:YES
+            actionCodeSetting:actionCodeSettings];
+}
+
+- (instancetype)initAuthAuthUI:(FUIAuth *)authUI
+                  signInMethod:(NSString *)signInMethod
+               forceSameDevice:(BOOL)forceSameDevice
+         allowNewEmailAccounts:(BOOL)allowNewEmailAccounts
+            requireDisplayName:(BOOL)requireDisplayName
+             actionCodeSetting:(FIRActionCodeSettings *)actionCodeSettings {
   self = [super init];
   if (self) {
     _authUI = authUI;
     _authUI.emailAuthProvider = self;
     _signInMethod = signInMethod;
     _forceSameDevice = forceSameDevice;
-    _actionCodeSettings = actionCodeSettings;
     _allowNewEmailAccounts = allowNewEmailAccounts;
+    _requireDisplayName = requireDisplayName;
+    _actionCodeSettings = actionCodeSettings;
   }
   return self;
 }
@@ -183,9 +199,11 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
     }
   } else {
     if ([delegate respondsToSelector:@selector(emailEntryViewControllerForAuthUI:)]) {
-      controller = [delegate passwordSignInViewControllerForAuthUI:self.authUI email:@""];
+      controller = [delegate passwordSignInViewControllerForAuthUI:self.authUI
+                                                             email:defaultValue ?: @""];
     } else {
-      controller = [[FUIPasswordSignInViewController alloc] initWithAuthUI:self.authUI email:nil];
+      controller = [[FUIPasswordSignInViewController alloc] initWithAuthUI:self.authUI
+                                                                     email:defaultValue];
     }
   }
 
@@ -314,14 +332,15 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
                            presentingViewController:nil];
     };
 
-    [self.authUI.auth signInAndRetrieveDataWithCredential:emailLinkCredential
-                                               completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+    [self.authUI.auth signInWithCredential:emailLinkCredential
+                                completion:^(FIRAuthDataResult * _Nullable authResult,
+                                             NSError * _Nullable error) {
       if (error) {
         [FUIAuthBaseViewController showAlertWithMessage:error.description];
         return;
       }
 
-      [authResult.user linkAndRetrieveDataWithCredential:unverifiedProviderCredential completion:completeSignInBlock];
+      [authResult.user linkWithCredential:unverifiedProviderCredential completion:completeSignInBlock];
     }];
   }
 }
@@ -357,9 +376,9 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
     };
 
     [self.authUI.auth.currentUser
-     linkAndRetrieveDataWithCredential:credential
-     completion:^(FIRAuthDataResult *_Nullable authResult,
-                  NSError *_Nullable error) {
+        linkWithCredential:credential
+                completion:^(FIRAuthDataResult *_Nullable authResult,
+                            NSError *_Nullable error) {
        if (error) {
          if (error.code == FIRAuthErrorCodeEmailAlreadyInUse) {
            NSDictionary *userInfo = @{ FUIAuthCredentialKey : credential };
@@ -418,7 +437,7 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
                          presentingViewController:nil];
   };
 
-  [self.authUI.auth signInAndRetrieveDataWithCredential:credential completion:completeSignInBlock];
+  [self.authUI.auth signInWithCredential:credential completion:completeSignInBlock];
 }
 
 - (void)handleDifferentDevice {
@@ -487,9 +506,9 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
   // currently signed in user on the default auth instance.
   FIRAuth *tempAuth = [FIRAuth authWithApp:tempApp];
 
-  [self.authUI.auth fetchProvidersForEmail:emailHint
-                                completion:^(NSArray<NSString *> *_Nullable providers,
-                                             NSError *_Nullable error) {
+  [self.authUI.auth fetchSignInMethodsForEmail:emailHint
+                                    completion:^(NSArray<NSString *> *_Nullable providers,
+                                                 NSError *_Nullable error) {
     if (error) {
       if (completion) {
         completion(nil, error, nil);
@@ -555,9 +574,9 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
               return;
             }
 
-            [tempAuth signInAndRetrieveDataWithCredential:credential
-                                               completion:^(FIRAuthDataResult *_Nullable authResult,
-                                                            NSError *_Nullable error) {
+            [tempAuth signInWithCredential:credential
+                                completion:^(FIRAuthDataResult *_Nullable authResult,
+                                             NSError *_Nullable error) {
               if (error) {
                 if (completion) {
                   completion(nil, error, nil);
@@ -686,7 +705,7 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
             [FUIAuthBaseViewController showAlertWithMessage:error.description];
           } else {
             NSString *signInMessage = [NSString stringWithFormat:
-                                       @"A sign-in email with additional instrucitons was sent to %@. Check your "
+                                       @"A sign-in email with additional instructions was sent to %@. Check your "
                                        "email to complete sign-in.", email];
             [FUIAuthBaseViewController
              showAlertWithTitle:@"Sign-in email sent"
@@ -743,9 +762,9 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
           return;
         }
 
-        [self.authUI.auth signInAndRetrieveDataWithCredential:credential
-                                            completion:^(FIRAuthDataResult*_Nullable authResult,
-                                                         NSError *_Nullable error) {
+        [self.authUI.auth signInWithCredential:credential
+                                    completion:^(FIRAuthDataResult*_Nullable authResult,
+                                                 NSError *_Nullable error) {
           if (error) {
             [self.authUI invokeResultCallbackWithAuthDataResult:nil URL:nil error:error];
             if (result) {
@@ -755,9 +774,9 @@ static NSString *const kEmailLinkSignInLinkingCredentialKey = @"FIRAuthEmailLink
           }
 
           FIRUser *user = authResult.user;
-          [user linkAndRetrieveDataWithCredential:newCredential
-                                       completion:^(FIRAuthDataResult *_Nullable authResult,
-                                                    NSError *_Nullable error) {
+          [user linkWithCredential:newCredential
+                        completion:^(FIRAuthDataResult *_Nullable authResult,
+                                     NSError *_Nullable error) {
             if (result) {
               result(authResult.user, error);
             }

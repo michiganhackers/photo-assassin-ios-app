@@ -100,7 +100,7 @@ class ChangeEmailViewController: NavigatingViewController {
             return
         }
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
-        currentUser.reauthenticateAndRetrieveData(with: credential) { _, error in
+        currentUser.reauthenticate(with: credential) { _, error in
             if let error = error {
                 print("Error reauthenticating: \(error)")
                 return

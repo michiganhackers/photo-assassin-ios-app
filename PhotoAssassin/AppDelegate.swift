@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         FirebaseApp.configure()
 
         //Facebook Login configuration
-        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 
         //Google Login configuration
         GIDSignIn.sharedInstance().clientID =
@@ -51,8 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
-            // FIXME: Do we need this? || GIDSignIn.sharedInstance().handle(url)
+        return ApplicationDelegate.shared.application(app, open: url, options: options) ||
+               GIDSignIn.sharedInstance().handle(url)
     }
     /*
     @available(iOS 9.0, *)
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     */
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+        return GIDSignIn.sharedInstance().handle(url)
     }
 
     func application(_ application: UIApplication,
@@ -101,8 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                            accessToken: authentication.accessToken)
-            Auth.auth().signInAndRetrieveData(with: credential) { _, _ in
-                print("Successful sign-in")
+            Auth.auth().signIn(with: credential) { _, _ in
                 self.router.transitionTo(screen: .camera, animatedWithOptions: nil)
             }
         }

@@ -107,6 +107,7 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
   self = [super init];
   if (self) {
     _auth = auth;
+    _interactiveDismissEnabled = YES;
   }
   return self;
 }
@@ -178,7 +179,7 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
     if (self.auth.currentUser.isAnonymous && !credential) {
       if (result) {
         result(self.auth.currentUser, nil);
-      };
+      }
       // Hide Auth Picker Controller which was presented modally.
       if (isAuthPickerShown && presentingViewController.presentingViewController) {
         [presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -197,9 +198,9 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
                                   credential:credential
                               resultCallback:result];
     } else {
-      [self.auth signInAndRetrieveDataWithCredential:credential
-                                          completion:^(FIRAuthDataResult *_Nullable authResult,
-                                                       NSError *_Nullable error) {
+      [self.auth signInWithCredential:credential
+                           completion:^(FIRAuthDataResult *_Nullable authResult,
+                                        NSError *_Nullable error) {
         if (error && error.code == FIRAuthErrorCodeAccountExistsWithDifferentCredential) {
           NSString *email = error.userInfo[kErrorUserInfoEmailKey];
           [self.emailAuthProvider handleAccountLinkingForEmail:email
@@ -230,9 +231,9 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
                               credential:(nullable FIRAuthCredential *)credential
                           resultCallback:(nullable FIRAuthResultCallback)callback {
   [self.auth.currentUser
-      linkAndRetrieveDataWithCredential:credential
-                             completion:^(FIRAuthDataResult *_Nullable authResult,
-                                          NSError * _Nullable error) {
+      linkWithCredential:credential
+              completion:^(FIRAuthDataResult *_Nullable authResult,
+                           NSError * _Nullable error) {
     if (error) {
       // Check for "credential in use" conflict error and handle appropriately.
       if (error.code == FIRAuthErrorCodeCredentialAlreadyInUse) {
@@ -283,9 +284,9 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
               return;
             }
 
-            [authResult.user linkAndRetrieveDataWithCredential:credential
-                                                    completion:^(FIRAuthDataResult *authResult,
-                                                                 NSError *linkError) {
+            [authResult.user linkWithCredential:credential
+                                     completion:^(FIRAuthDataResult *authResult,
+                                                  NSError *linkError) {
               if (linkError) {
                 [self completeSignInWithResult:nil
                                          error:linkError

@@ -18,14 +18,14 @@
 
 #import "FBSDKEventBinding.h"
 
-#import <FBSDKCoreKit/FBSDKAppEvents.h>
-
+#import "FBSDKAppEvents.h"
 #import "FBSDKAppEventsUtility.h"
-#import "FBSDKCodelessMacros.h"
 #import "FBSDKCodelessParameterComponent.h"
 #import "FBSDKCodelessPathComponent.h"
 #import "FBSDKSwizzler.h"
+#import "FBSDKUtility.h"
 #import "FBSDKViewHierarchy.h"
+#import "FBSDKViewHierarchyMacros.h"
 
 #define CODELESS_PATH_TYPE_ABSOLUTE  @"absolute"
 #define CODELESS_PATH_TYPE_RELATIVE  @"relative"
@@ -175,7 +175,8 @@ pathComponent:(FBSDKCodelessPathComponent *)component
     if ((pathComponent.matchBitmask & FBSDKCodelessMatchBitmaskFieldText) > 0) {
       NSString *text = viewPathComponent.text;
       BOOL match = ((text.length == 0 && pathComponent.text.length == 0)
-                    || [text isEqualToString:pathComponent.text]);
+                    || [text isEqualToString:pathComponent.text]
+                    || [[FBSDKUtility SHA256Hash:text] isEqualToString:pathComponent.text]);
       if (!match) {
         return NO;
       }
@@ -189,7 +190,8 @@ pathComponent:(FBSDKCodelessPathComponent *)component
     if ((pathComponent.matchBitmask & FBSDKCodelessMatchBitmaskFieldHint) > 0) {
       NSString *hint = viewPathComponent.hint;
       BOOL match = ((hint.length == 0 && pathComponent.hint.length == 0)
-                    || [hint isEqualToString:pathComponent.hint]);
+                    || [hint isEqualToString:pathComponent.hint]
+                    || [[FBSDKUtility SHA256Hash:hint] isEqualToString:pathComponent.hint]);
       if (!match) {
         return NO;
       }
