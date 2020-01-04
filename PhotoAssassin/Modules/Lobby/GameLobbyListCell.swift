@@ -31,6 +31,8 @@ class GameLobbyListCell: UITableViewCell, GameDataCell {
         textLabel?.textColor = Colors.text
         textLabel?.textAlignment = .left
         textLabel?.font = R.font.economicaBold(size: GameLobbyListCell.textSize)
+        textLabel?.adjustsFontSizeToFitWidth = false
+        textLabel?.lineBreakMode = .byTruncatingTail
 
         contentView.addSubview(playerCountLabel)
         playerCountLabel.textAlignment = .right
@@ -54,8 +56,9 @@ class GameLobbyListCell: UITableViewCell, GameDataCell {
             titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor,
                 constant: GameLobbyListCell.horizontalMargin).isActive = true
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -playerCountLabel.intrinsicContentSize.width - 40).isActive = true
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
+            
             playerCountLabel.rightAnchor.constraint(equalTo: self.rightAnchor,
                 constant: -GameLobbyListCell.horizontalMargin).isActive = true
             playerCountLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
