@@ -58,7 +58,7 @@ class ProfileViewController: NavigatingViewController {
     lazy var usernameLabel = UILabel(player.username, attributes: headingAttributes)
 
     lazy var gamesWonLeftLabel = UILabel("Games Won:", attributes: fadedBodyAttributes)
-    lazy var gamesWonRightLabel = UILabel(String(player.stats?.gamesWon ?? 0),
+    lazy var gamesWonRightLabel = UILabel("\(player.stats?.gamesWon ?? 0)",
                                           attributes: fadedBodyAttributes,
                                           align: .right)
 
@@ -155,7 +155,7 @@ class ProfileViewController: NavigatingViewController {
         marginLeft: CGFloat = 0.0,
         marginRight: CGFloat = 0.0
     ) {
-        var lastTop = top
+        var lastTop = profilePicture.topAnchor
         for (leftLabel, rightLabel) in labelPairs {
             leftLabel.leftAnchor.constraint(
                 equalTo: left,
@@ -192,14 +192,16 @@ class ProfileViewController: NavigatingViewController {
                                             constant: navBarSpacing).isActive = true
         profilePicture.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
 
-        let imageRightConstraint = NSLayoutConstraint(
-            item: profilePicture, attribute: .right,
-            relatedBy: .equal, toItem: margins, attribute: .right,
-            multiplier: imageWidthMultiplier, constant: 0.0
-        )
-        imageRightConstraint.priority = .defaultLow
-        imageRightConstraint.isActive = true
+//        let imageRightConstraint = NSLayoutConstraint(
+//            item: profilePicture, attribute: .right,
+//            relatedBy: .equal, toItem: margins, attribute: .right,
+//            multiplier: imageWidthMultiplier, constant: 0.0
+//        )
+//        imageRightConstraint.priority = .defaultLow
+//        imageRightConstraint.isActive = true
 
+        profilePicture.widthAnchor.constraint(equalTo: margins.widthAnchor,
+                                              constant: -(view.frame.width / 2) - 40).isActive = true
         profilePicture.heightAnchor.constraint(equalTo: profilePicture.widthAnchor).isActive = true
 
         // Username label constraints
