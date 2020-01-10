@@ -16,7 +16,12 @@ class RootRouter {
         return controller
     }()
     private lazy var cameraVC: UIViewController = {
-        let controller = ViewController()
+        let controller = BaseCameraViewController()
+        controller.router = self
+        return controller
+    }()
+    private lazy var profilePictureCameraVC: UIViewController = {
+        let controller = BaseCameraViewController()
         controller.router = self
         return controller
     }()
@@ -44,6 +49,7 @@ class RootRouter {
     // MARK: - Nested Types
     enum Screen {
         case camera
+        case profilePictureCamera
         case forgotPassword
         case login
         case register
@@ -57,6 +63,8 @@ class RootRouter {
         switch screen {
         case .camera:
             controller = cameraVC
+        case .profilePictureCamera:
+            controller = profilePictureCameraVC
         case .forgotPassword:
             controller = forgotPasswordVC
         case .login:

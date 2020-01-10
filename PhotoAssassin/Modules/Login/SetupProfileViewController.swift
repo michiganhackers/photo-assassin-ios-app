@@ -167,6 +167,7 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
 
     @objc
     func changePicture() {
+        self.router?.transitionTo(screen: .camera, animatedWithOptions: nil)
         print("Change picture")
     }
 

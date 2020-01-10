@@ -13,7 +13,7 @@ class PhotoTakenViewController: NavigatingViewController {
 
     // MARK: - UI Elements
     let clearPhotoButton = UIButton()
-    let imageView = UIImageView(image: takenPhoto)
+    let imageView = UIImageView()
     let sendPhotoButton = UIButton()
 
     override func viewDidLoad() {
@@ -106,6 +106,11 @@ class PhotoTakenViewController: NavigatingViewController {
     }
 
     // MARK: - Initializers
+    init(takenPhoto: UIImage) {
+        super.init(title: "")
+        imageView.image = takenPhoto
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
