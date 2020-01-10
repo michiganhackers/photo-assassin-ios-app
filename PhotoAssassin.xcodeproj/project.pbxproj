@@ -17,6 +17,7 @@
 		2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABEE6D51F3886D700531205 /* RootRouter.swift */; };
 		453592BAE7D47041D989B3DA /* Pods_PhotoAssassinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */; };
 		553FC23C214047CB001D9362 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FC23B214047CB001D9362 /* R.generated.swift */; };
+		766739C223C7FDE20057E5DB /* VotingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766739C123C7FDE20057E5DB /* VotingScreenViewController.swift */; };
 		8ABDA52723627FE20087D933 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8ABDA52623627FE20087D933 /* GoogleService-Info.plist */; };
 		955DFEC12256D8A100DB40D8 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFEC02256D8A100DB40D8 /* NewGameViewController.swift */; };
 		955DFEC32256E92800DB40D8 /* UserEnterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DFEC22256E92800DB40D8 /* UserEnterTextField.swift */; };
@@ -121,6 +122,7 @@
 		45AEA0686ECF05A538683431 /* Pods-PhotoAssassin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.release.xcconfig"; sourceTree = "<group>"; };
 		553FC23B214047CB001D9362 /* R.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		55F50BE321404BDD00FAC039 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		766739C123C7FDE20057E5DB /* VotingScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VotingScreenViewController.swift; sourceTree = "<group>"; };
 		8ABDA52623627FE20087D933 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		955DFEC02256D8A100DB40D8 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		955DFEC22256E92800DB40D8 /* UserEnterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEnterTextField.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 		2AB31D9F1F38741400B7D1F3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				766739C023C7FDE20057E5DB /* VotingScreen */,
 				F3C33E1A228FB379001F6FFA /* MainScreen */,
 				E9C72B4422BEF42800FC21EB /* Settings */,
 				E9C126D22260F65A00015C9B /* Profile */,
@@ -404,6 +407,14 @@
 				553FC23B214047CB001D9362 /* R.generated.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		766739C023C7FDE20057E5DB /* VotingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				766739C123C7FDE20057E5DB /* VotingScreenViewController.swift */,
+			);
+			path = VotingScreen;
 			sourceTree = "<group>";
 		};
 		8E726112DE9087B6EBA3D998 /* Pods */ = {
@@ -742,7 +753,7 @@
 			);
 			name = R.swift;
 			outputPaths = (
-				"$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift",
+				$SRCROOT/PhotoAssassin/Resources/Generated/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -871,6 +882,7 @@
 				E9FC861C22625F16000C5832 /* UIView+constraints.swift in Sources */,
 				E9AE32F622FF7FD500C0AFE3 /* LobbyPlayerListCell.swift in Sources */,
 				955DFEC12256D8A100DB40D8 /* NewGameViewController.swift in Sources */,
+				766739C223C7FDE20057E5DB /* VotingScreenViewController.swift in Sources */,
 				E97F00DC2257F9E100FF8401 /* PickerViewController.swift in Sources */,
 				E95AE4CD2257D0520030D35B /* NavigatingViewController.swift in Sources */,
 				2A1DD4DF1F389C2200712195 /* DeeplinkHandler.swift in Sources */,
