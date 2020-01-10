@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VotingScreenViewController:  RoutedViewController {
+class VotingScreenViewController: RoutedViewController {
     static let largeTextSize: CGFloat = 64
     static let mediumTextSize: CGFloat = 38
     static let smallTextSize: CGFloat = 30
@@ -108,10 +108,12 @@ class VotingScreenViewController:  RoutedViewController {
         view.addSubview(imageViewOne)
         view.addSubview(imageViewTwo)
     }
-    @objc func vote_func_yes () {
+    @objc
+    func vote_func_yes () {
         print("Vote Yes")
     }
-    @objc func vote_func_no () {
+    @objc
+    func vote_func_no () {
         print("Vote No")
     }
 }
