@@ -24,6 +24,7 @@
 		C90395241FC622D2006F1DC0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395231FC622D2006F1DC0 /* main.swift */; };
 		C90395261FC62399006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
 		C90395271FC62425006F1DC0 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */; };
+		D67A640623D1363D001864CA /* BaseCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A640523D1363D001864CA /* BaseCameraViewController.swift */; };
 		D6BA132B23C8103600F85188 /* ProfilePictureCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BA132A23C8103600F85188 /* ProfilePictureCameraViewController.swift */; };
 		DE458EA5233D926500C4B491 /* AttributionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE458EA4233D926500C4B491 /* AttributionsViewController.swift */; };
 		E8E2315D2359387C0032853A /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E2315C2359387C0032853A /* LocalSettings.swift */; };
@@ -89,7 +90,6 @@
 		F3BD62132302CF9100127DD0 /* GameLobbyListCellDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD62122302CF9100127DD0 /* GameLobbyListCellDetailed.swift */; };
 		F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1B228FB39C001F6FFA /* CameraController.swift */; };
 		F3C33E1E228FB3CC001F6FFA /* PhotoTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */; };
-		F3C33E20228FB3DF001F6FFA /* BaseCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C33E1F228FB3DF001F6FFA /* BaseCameraViewController.swift */; };
 		FCB2C7CB1F57127800481080 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCB2C7CA1F57127800481080 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +131,7 @@
 		C90395251FC62399006F1DC0 /* TestsAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsAppDelegate.swift; sourceTree = "<group>"; };
 		CC236DEB12294412F387B307 /* Pods-PhotoAssassinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassinTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassinTests/Pods-PhotoAssassinTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD5823A07B8C53621396FBF3 /* Pods-PhotoAssassinTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassinTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassinTests/Pods-PhotoAssassinTests.staging.xcconfig"; sourceTree = "<group>"; };
+		D67A640523D1363D001864CA /* BaseCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCameraViewController.swift; sourceTree = "<group>"; };
 		D6BA132A23C8103600F85188 /* ProfilePictureCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureCameraViewController.swift; sourceTree = "<group>"; };
 		DCEE01467EB47FB4FBF4B858 /* Pods_PhotoAssassinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAssassinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2B0C473DF0611EF21D8951 /* Pods-PhotoAssassin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAssassin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAssassin/Pods-PhotoAssassin.staging.xcconfig"; sourceTree = "<group>"; };
@@ -198,7 +199,6 @@
 		F3BD62122302CF9100127DD0 /* GameLobbyListCellDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLobbyListCellDetailed.swift; sourceTree = "<group>"; };
 		F3C33E1B228FB39C001F6FFA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakenViewController.swift; sourceTree = "<group>"; };
-		F3C33E1F228FB3DF001F6FFA /* BaseCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCameraViewController.swift; sourceTree = "<group>"; };
 		FCB2C7CA1F57127800481080 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -533,9 +533,9 @@
 		F3C33E1A228FB379001F6FFA /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
+				D67A640523D1363D001864CA /* BaseCameraViewController.swift */,
 				F3C33E1B228FB39C001F6FFA /* CameraController.swift */,
 				F3C33E1D228FB3CC001F6FFA /* PhotoTakenViewController.swift */,
-				F3C33E1F228FB3DF001F6FFA /* BaseCameraViewController.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -817,7 +817,6 @@
 				E991BE9922F607E60043C198 /* GameHistoryCell.swift in Sources */,
 				F32791A922E7122200E92915 /* SetupProfileViewController.swift in Sources */,
 				2ABEE6D61F3886D700531205 /* RootRouter.swift in Sources */,
-				F3C33E20228FB3DF001F6FFA /* BaseCameraViewController.swift in Sources */,
 				E93545E4221F89D800F2CC2F /* LoginRegisterViewController.swift in Sources */,
 				E914C38F22F774FF00E51514 /* LobbyInfo.swift in Sources */,
 				C90395241FC622D2006F1DC0 /* main.swift in Sources */,
@@ -849,6 +848,7 @@
 				E942295E224067A8000D64DB /* RoutedViewController.swift in Sources */,
 				E9FE326922207C4F009857CF /* UIColor+hex.swift in Sources */,
 				F3BD62132302CF9100127DD0 /* GameLobbyListCellDetailed.swift in Sources */,
+				D67A640623D1363D001864CA /* BaseCameraViewController.swift in Sources */,
 				F3C33E1C228FB39C001F6FFA /* CameraController.swift in Sources */,
 				E991BE9522F600A30043C198 /* GameList.swift in Sources */,
 				E991BE9322F5FD370043C198 /* GameHistoryViewController.swift in Sources */,
