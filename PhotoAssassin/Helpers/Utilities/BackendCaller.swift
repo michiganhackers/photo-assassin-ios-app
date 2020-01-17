@@ -92,13 +92,17 @@ class BackendCaller {
             }
             let username = user.get("displayName") as? String ?? ""
             let profilePic = user.get("profilePicUrl") as? String ?? ""
+            let deaths = user.get("deaths") as? Int ?? -1
+            let kills = user.get("kills") as? Int ?? -1
+            let stats = Player.Stats( deaths: deaths, gamesWon: -1, gamesFinished: -1, kills: kills, percentile: 50)
             var relationship: Player.Relationship = .none
             if uid == Auth.auth().currentUser?.uid {
                 completionHandler(Player(
                     uid: uid,
                     username: username,
                     relationship: .myself,
-                    profilePicture: profilePic
+                    profilePicture: profilePic,
+                    stats: stats
                 ))
                 return
             }
@@ -118,7 +122,8 @@ class BackendCaller {
                     uid: uid,
                     username: username,
                     relationship: relationship,
-                    profilePicture: profilePic
+                    profilePicture: profilePic,
+                    stats: stats
                 ))
             }
         }
