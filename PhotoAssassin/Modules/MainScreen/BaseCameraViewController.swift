@@ -19,6 +19,7 @@ class BaseCameraViewController: RoutedViewController {
     
     // MARK: - Overrides
     override var prefersStatusBarHidden: Bool { return true }
+    
     // MARK: - Custom Functions
     func configureGestureRecognizer() {
         view.isUserInteractionEnabled = true
