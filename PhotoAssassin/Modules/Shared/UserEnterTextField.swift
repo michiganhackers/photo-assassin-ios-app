@@ -10,7 +10,7 @@ import UIKit
 
 class UserEnterTextField: UITextField {
     let cornerRadius: CGFloat = 15.0
-    let height: CGFloat = 67.0
+    let height: CGFloat
     let textInsetX: CGFloat = 15.0
     let textSize: CGFloat = 36.0
 
@@ -22,8 +22,9 @@ class UserEnterTextField: UITextField {
         return bounds.insetBy(dx: textInsetX, dy: 0)
     }
 
-    convenience init(_ textContent: String) {
-        self.init()
+     init(_ textContent: String, height: CGFloat =  67.0) {
+        self.height = height
+        super.init(frame: .zero)
         layer.cornerRadius = cornerRadius
         backgroundColor = Colors.seeThroughContrast
         textColor = Colors.text
@@ -44,5 +45,9 @@ class UserEnterTextField: UITextField {
             )
         }
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
