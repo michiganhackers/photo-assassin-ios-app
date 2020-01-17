@@ -212,7 +212,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInDelegate {
     init() {
         super.init(
             buttonText: "Log In",
-            screenTitle: "Photo Assassin", titleSize: 90) { (_ email: String, _ password: String) -> Void in
+            screenTitle: "Photo Snipe", titleSize: 90) { (_ email: String, _ password: String) -> Void in
                 // Ignored
         }
         self.onButtonTap = { (_ email: String, _ password: String) in
