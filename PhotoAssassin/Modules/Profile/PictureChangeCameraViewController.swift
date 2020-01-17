@@ -12,7 +12,7 @@ class PictureChangeCameraViewController: BaseCameraViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.gestureRecognizers?.removeAll()
         
+        view.gestureRecognizers?.removeAll()
     }
 }

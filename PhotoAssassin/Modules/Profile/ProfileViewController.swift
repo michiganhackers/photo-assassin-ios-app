@@ -54,6 +54,18 @@ class ProfileViewController: NavigatingViewController {
         }
         return view
     }()
+    
+    lazy var changeImageButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .red
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        button.layer.cornerRadius = 10
+       // button.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControl.State#>)
+        
+        return button
+    }()
 
     lazy var usernameLabel = UILabel(player.username, attributes: headingAttributes)
 
@@ -224,6 +236,14 @@ class ProfileViewController: NavigatingViewController {
         )
     }
 
+    @objc func changeImageTaped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+
+        // MARK: Handle change image being tapped here
+        
+    }
+    
     @objc
     func openGameHistory() {
         push(navigationScreen: .gameHistory(self.player))
