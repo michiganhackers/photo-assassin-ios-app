@@ -58,7 +58,6 @@ class GameLobbyListCell: UITableViewCell, GameDataCell {
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
             titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -playerCountLabel.intrinsicContentSize.width - 40).isActive = true
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            
             playerCountLabel.rightAnchor.constraint(equalTo: self.rightAnchor,
                 constant: -GameLobbyListCell.horizontalMargin).isActive = true
             playerCountLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
