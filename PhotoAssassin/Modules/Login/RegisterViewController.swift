@@ -222,7 +222,7 @@ class RegisterViewController: LoginRegisterViewController, GIDSignInDelegate {
                     return
                 }
                 // Add user to the database
-                self.backend.addUser(displayName: userFullName) { result, error in
+                self.backend.addUser(displayName: userFullName, username: userName) { result, error in
                     if let actualError = error {
                         print("Encountered error when creating game:\n\(actualError)")
                         // TODO: Show error to user
