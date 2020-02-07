@@ -24,7 +24,8 @@ class BackendCaller {
     func createGame(name: String, invitedUsernames: [String], callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("createGame").call([
             "name": name,
-            "invitedUsernames": invitedUsernames
+            "invitedUsernames": invitedUsernames,
+            "maxPlayers": 10
         ]) { result, error in
             callback((result?.data as? [String: Any])?["gameID"] as? String, error)
         }
@@ -69,9 +70,11 @@ class BackendCaller {
             callback(error)
         }
     }
-    func addUser(displayName: String, callback: @escaping (String?, Error?) -> Void) {
+    func addUser(displayName: String, username: String, callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("addUser").call([
-            "displayName": displayName
+            "displayName": displayName,
+            "username": username
+            
         ]) { result, error in
             callback((result?.data as? [String: Any])?["displayName"] as? String,
                      error)
@@ -214,8 +217,8 @@ class BackendCaller {
                 return
             }
             let gameStatus = gameDoc.get("status") as? String ?? ""
-            let start = gameDoc.get("startTime") as? Timestamp ?? Timestamp()
-            let end = gameDoc.get("endTime") as? Timestamp ?? Timestamp()
+            let start = gameDoc.get("startTime") as? Timestamp
+            let end = gameDoc.get("endTime") as? Timestamp
             gameRef.collection("players").getDocuments { players, error in
                 guard error == nil, let players = players else {
                     print("Error retrieving players: \(error as Any? ?? "")")
@@ -251,7 +254,7 @@ class BackendCaller {
                             completionHandler(LobbyInfo(
                                 gameLobby: game, focusedPlayer: focusedPlayer,
                                 myselfPermission: myselfPermission, otherPlayers: others,
-                                startDate: start.dateValue(), endDate: end.dateValue()
+                                startDate: start?.dateValue(), endDate: end?.dateValue()
                             ))
                         }
                     }
