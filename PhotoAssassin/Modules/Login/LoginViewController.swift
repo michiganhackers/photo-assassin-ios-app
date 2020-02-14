@@ -201,7 +201,7 @@ class LoginViewController: LoginRegisterViewController, GIDSignInDelegate {
         //GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.signIn()
-        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        // GIDSignIn.sharedInstance()?.restorePreviousSignIn()
     }
 
     // MARK: - Initializers
