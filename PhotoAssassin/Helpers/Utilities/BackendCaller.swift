@@ -21,10 +21,12 @@ class BackendCaller {
     }
 
     // MARK: - Public functions
-    func createGame(name: String, invitedUsernames: [String], callback: @escaping (String?, Error?) -> Void) {
+    func createGame(name: String, invitedUsernames: [String],
+                    maxPlayers: Int, callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("createGame").call([
             "name": name,
-            "invitedUsernames": invitedUsernames
+            "invitedUsernames": invitedUsernames,
+            "maxPlayers": maxPlayers
         ]) { result, error in
             callback((result?.data as? [String: Any])?["gameID"] as? String, error)
         }

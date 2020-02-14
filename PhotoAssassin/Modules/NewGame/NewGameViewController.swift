@@ -77,7 +77,7 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
     // MARK: - Custom Functions
     @objc
     func bringToCreate() {
-        guard let text: String = playerLimitTextField.text, let playerCount = Int(text), playerCount >= 3 else  {
+        guard let text: String = playerLimitTextField.text, let playerCount = Int(text), playerCount >= 3 else {
                 let alertTitle = " Error "
                 let alertText  = " Have to be at least 3 Players "
                 let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
@@ -94,7 +94,8 @@ class NewGameViewController: NavigatingViewController, UITextFieldDelegate {
             return
         }
             let invitedPlayersList = Array(invitedPlayers)
-            backend.createGame(name: name, invitedUsernames: invitedPlayersList) { result, error in
+            backend.createGame(name: name, invitedUsernames: invitedPlayersList,
+                               maxPlayers: playerCount) { result, error in
                 if let actualError = error {
                     print("Encountered error when creating game:\n\(actualError)")
                     let alertTitle = " Error "
