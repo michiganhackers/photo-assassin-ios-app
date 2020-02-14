@@ -22,6 +22,7 @@ class ProfileViewController: NavigatingViewController {
     let lineThickness: CGFloat = 3.0
     let navBarSpacing: CGFloat = 40.0
     let verticalButtonSpacing: CGFloat = 15.0
+    let backendCaller = BackendCaller()
 
     let bodyAttributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: Colors.text,
@@ -236,16 +237,12 @@ class ProfileViewController: NavigatingViewController {
             return
         }
         let userRef = database.collection("users").document(uid)
-
-         if player.relationship != .friend {
-            userRef.updateData([
-                "friends": FieldValue.arrayUnion(["id"])
-            ])
-        } else {
-            userRef.updateData([
-                "friends": FieldValue.arrayRemove(["id"])
-            ])
-        }
+        
+//        if player.relationship != .friend {
+//            backendCaller.removeFriend(userID: <#T##String#>, callback: <#T##(Error?) -> Void#>)
+//        } else {
+//            backendCaller.addFriend(userID: <#T##String#>, callback: <#T##(Error?) -> Void#>)
+//        }
         print("TODO: Change friend status to isFriend == \(player.relationship != .friend)")
     }
 
