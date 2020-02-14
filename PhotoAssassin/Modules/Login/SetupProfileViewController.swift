@@ -11,6 +11,7 @@ import UIKit
 
 // MARK: - Global Variables
 var userFullName = ""
+var userName = ""
 var userProfileImage = UIImage()
 
 class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
@@ -66,6 +67,16 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         return field
     }()
 
+    lazy var usernameField: UITextField = {
+        let field = UserEnterTextField("Username")
+        field.delegate = self as UITextFieldDelegate
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.returnKeyType = .done
+        field.autocapitalizationType = .words
+        field.addTarget(self, action: #selector(fieldEdited), for: .editingChanged)
+        return field
+    }()
+
     lazy var continueButton: UIButton = {
         let button = LoginRegisterButton("Continue", height: continueHeight)
         button.isEnabled = false
@@ -91,6 +102,7 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         contentView.addSubview(appTitle)
         contentView.addSubview(profilePicButton)
         contentView.addSubview(nameField)
+        contentView.addSubview(usernameField)
         contentView.addSubview(continueButton)
         contentView.addSubview(hasAccountLink)
         backgroundGradient.addToView(view)
@@ -112,8 +124,12 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         nameField.topAnchor.constraint(equalTo: profilePicButton.bottomAnchor, constant: buttonSpacing).isActive = true
         nameField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         nameField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
+    
+        usernameField.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: buttonSpacing).isActive = true
+        usernameField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
+        usernameField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        continueButton.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: buttonSpacing).isActive = true
+        continueButton.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: buttonSpacing).isActive = true
         continueButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         continueButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
@@ -151,6 +167,7 @@ class SetupProfileViewController: ScrollingViewController, UITextFieldDelegate {
         if isValidDisplayName(nameField.text ?? "") {
             print("continue tapped")
             userFullName = nameField.text ?? ""
+            userName = usernameField.text ?? ""
             //userProfileImage = profilePicButton
             routeTo(screen: .register)
         } else {

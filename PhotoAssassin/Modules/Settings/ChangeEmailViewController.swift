@@ -63,7 +63,7 @@ class ChangeEmailViewController: NavigatingViewController {
         passwordField.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         passwordField.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
 
-        submitButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        submitButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -25).isActive = true
         submitButton.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
         submitButton.rightAnchor.constraint(equalTo: margins.rightAnchor).isActive = true
     }

@@ -71,9 +71,11 @@ class BackendCaller {
             callback(error)
         }
     }
-    func addUser(displayName: String, callback: @escaping (String?, Error?) -> Void) {
+    func addUser(displayName: String, username: String, callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("addUser").call([
-            "displayName": displayName
+            "displayName": displayName,
+            "username": username
+            
         ]) { result, error in
             callback((result?.data as? [String: Any])?["displayName"] as? String,
                      error)
@@ -94,13 +96,17 @@ class BackendCaller {
             }
             let username = user.get("displayName") as? String ?? ""
             let profilePic = user.get("profilePicUrl") as? String ?? ""
+            let deaths = user.get("deaths") as? Int ?? -1
+            let kills = user.get("kills") as? Int ?? -1
+            let stats = Player.Stats( deaths: deaths, gamesWon: -1, gamesFinished: -1, kills: kills, percentile: 50)
             var relationship: Player.Relationship = .none
             if uid == Auth.auth().currentUser?.uid {
                 completionHandler(Player(
                     uid: uid,
                     username: username,
                     relationship: .myself,
-                    profilePicture: profilePic
+                    profilePicture: profilePic,
+                    stats: stats
                 ))
                 return
             }
@@ -120,7 +126,8 @@ class BackendCaller {
                     uid: uid,
                     username: username,
                     relationship: relationship,
-                    profilePicture: profilePic
+                    profilePicture: profilePic,
+                    stats: stats
                 ))
             }
         }
@@ -211,8 +218,8 @@ class BackendCaller {
                 return
             }
             let gameStatus = gameDoc.get("status") as? String ?? ""
-            let start = gameDoc.get("startTime") as? Timestamp ?? Timestamp()
-            let end = gameDoc.get("endTime") as? Timestamp ?? Timestamp()
+            let start = gameDoc.get("startTime") as? Timestamp
+            let end = gameDoc.get("endTime") as? Timestamp
             gameRef.collection("players").getDocuments { players, error in
                 guard error == nil, let players = players else {
                     print("Error retrieving players: \(error as Any? ?? "")")
@@ -248,7 +255,7 @@ class BackendCaller {
                             completionHandler(LobbyInfo(
                                 gameLobby: game, focusedPlayer: focusedPlayer,
                                 myselfPermission: myselfPermission, otherPlayers: others,
-                                startDate: start.dateValue(), endDate: end.dateValue()
+                                startDate: start?.dateValue(), endDate: end?.dateValue()
                             ))
                         }
                     }

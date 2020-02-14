@@ -65,12 +65,13 @@ class MenuViewController: NavigatingViewController {
                     var username = String()
                     let gameRef = database.collection("games").document(gameID)
                     gameRef.collection("players").getDocuments { querySnapshot, error in
+                        guard let querySnapshot = querySnapshot else {
+                            return
+                        }
                         if let err = error {
                             print("Error: \(err)")
                         } else {
-                            if let playerCount = querySnapshot?.count {
-                                numberInLobby = playerCount
-                            }
+                                numberInLobby = querySnapshot.count
                             let currGameLobby = GameLobby(
                                 id: gameID,
                                 title: title,
@@ -78,6 +79,15 @@ class MenuViewController: NavigatingViewController {
                                 numberAlive: numberAlive,
                                 maxPlayers: maxPlayers
                             )
+                            var exists = false
+                            for document in querySnapshot.documents where
+                                document.documentID == uid {
+                                    exists = true
+                                    break
+                            }
+                            if !exists {
+                                return
+                            }
                             list.games.append(currGameLobby)
                             list.update()
                         }
