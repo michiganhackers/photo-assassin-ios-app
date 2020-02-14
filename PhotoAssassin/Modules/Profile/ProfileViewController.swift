@@ -12,7 +12,8 @@ import FirebaseStorage
 import FirebaseUI
 import UIKit
 
-class ProfileViewController: NavigatingViewController {
+class ProfileViewController: NavigatingViewController, UIImagePickerControllerDelegate {
+    
     // MARK: - Class members
     let horizontalButtonSpacing: CGFloat = 10.0
     let imageWidthMultiplier: CGFloat = 0.35
@@ -57,13 +58,11 @@ class ProfileViewController: NavigatingViewController {
     
     lazy var changeImageButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .red
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        button.layer.cornerRadius = 10
-       // button.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControl.State#>)
-        
+        button.setImage(R.image.addPhoto(), for: .normal)
+        button.addTarget(self, action: #selector(changeImage), for: .touchUpInside)
         return button
     }()
 
@@ -157,6 +156,7 @@ class ProfileViewController: NavigatingViewController {
         view.addSubview(horizontalLine)
         view.addSubview(friendsLabel)
         view.addSubview(friendList.view)
+        view.addSubview(changeImageButton)
     }
 
     func addConsecutiveLabelConstraints(
@@ -234,14 +234,29 @@ class ProfileViewController: NavigatingViewController {
             top: usernameLabel.bottomAnchor,
             marginLeft: imageMargin
         )
+        
+        changeImageButton.trailingAnchor.constraint(equalTo: profilePicture.trailingAnchor).isActive = true
+        changeImageButton.topAnchor.constraint(equalTo: profilePicture.topAnchor).isActive = true
     }
 
-    @objc func changeImageTaped(tapGestureRecognizer: UITapGestureRecognizer)
+    @objc func changeImage()
     {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
-
-        // MARK: Handle change image being tapped here
+        print("Change Image Button Pressed")
         
+        pickImage()
+    }
+    
+    
+    func pickImage() {
+        ImagePickerManager().pickImage(self) { image in
+            self.profilePicture.image = image
+            
+            if let data = image.pngData() { // convert your UIImage into Data object using png representation
+                  FirebaseStorageManager().uploadImageData(data: data, serverFileName: "test_image_01019.png") { (isSuccess, url) in
+                         print("uploadImageData: \(isSuccess), \(url)")
+                   }
+            }
+        }
     }
     
     @objc
