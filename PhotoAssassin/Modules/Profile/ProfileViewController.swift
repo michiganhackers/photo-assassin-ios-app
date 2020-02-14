@@ -40,7 +40,7 @@ class ProfileViewController: NavigatingViewController {
         .font: R.font.economicaBold.orDefault(size: 36.0)
     ]
     let player: Player
-    // MARK: - UI elements
+    // MARK: - UI Elements
     lazy var profilePicture: UIImageView = {
         let view: UIImageView = UIImageView(image: R.image.profileLogo())
         view.backgroundColor = Colors.subsectionBackground
