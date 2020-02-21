@@ -45,9 +45,11 @@ class VotingScreenViewController: RoutedViewController {
         imageViewTwo.rightAnchor.constraint(equalTo: margin.rightAnchor, constant: 5).isActive = true
         imageViewTwo.leftAnchor.constraint(equalTo: margin.centerXAnchor, constant: 10).isActive = true
         photoTaken.topAnchor.constraint(equalTo: imageViewOne.bottomAnchor, constant: 10).isActive = true
-        photoTaken.leftAnchor.constraint(equalTo: margin.leftAnchor, constant: 5).isActive = true
+        // photoTaken.leftAnchor.constraint(equalTo: margin.leftAnchor, constant: 5).isActive = true
+        photoTaken.centerXAnchor.constraint(equalTo: imageViewOne.centerXAnchor).isActive = true
         profilePicture.topAnchor.constraint(equalTo: imageViewTwo.bottomAnchor, constant: 10).isActive = true
-        profilePicture.rightAnchor.constraint(equalTo: margin.rightAnchor, constant: -5).isActive = true
+        // profilePicture.rightAnchor.constraint(equalTo: margin.rightAnchor, constant: -5).isActive = true
+        profilePicture.centerXAnchor.constraint(equalTo: imageViewTwo.centerXAnchor).isActive = true
         voteYes.leftAnchor.constraint(equalTo: margin.leftAnchor, constant: 20).isActive = true
         voteYes.topAnchor.constraint(equalTo: photoTaken.bottomAnchor, constant: 10).isActive = true
         voteYes.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 10).isActive = true
@@ -67,12 +69,12 @@ class VotingScreenViewController: RoutedViewController {
          .font: R.font.economicaBold.orDefault(size: mediumTextSize)] )
     let photoTaken = UILabel("Photo Taken", attributes:
         [.foregroundColor: Colors.seeThroughText,
-     .font: R.font.economicaBold.orDefault(size: smallTextSize)])
+         .font: R.font.economicaBold.orDefault(size: smallTextSize)])
     let profilePicture = UILabel("Profile Picture", attributes:
         [.foregroundColor: Colors.seeThroughText,
         .font: R.font.economicaBold.orDefault(size: smallTextSize)] )
     lazy var voteYes: UIButton = {
-        let button = TransparentButton("vote Yes")
+        let button = TransparentButton("Vote Yes")
         button.isEnabled = false
         button.addTarget(self, action: #selector (vote_func_yes), for: .touchUpInside)
           button.translatesAutoresizingMaskIntoConstraints = false
@@ -80,8 +82,10 @@ class VotingScreenViewController: RoutedViewController {
     }()
 
     lazy var voteNo: UIButton = {
-           let button = TransparentButton("vote No")
+           let button = TransparentButton("Vote No")
            button.isEnabled = false
+           button.backgroundColor = UIColor(white:1, alpha: 0.2)
+        button.titleLabel?.textColor = UIColor.white
            button.addTarget(self, action: #selector (vote_func_no), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
            return button
