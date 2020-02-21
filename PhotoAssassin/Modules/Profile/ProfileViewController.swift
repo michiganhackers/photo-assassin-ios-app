@@ -22,6 +22,7 @@ class ProfileViewController: NavigatingViewController {
     let lineThickness: CGFloat = 3.0
     let navBarSpacing: CGFloat = 15.0
     let verticalButtonSpacing: CGFloat = 15.0
+    let backendCaller = BackendCaller()
 
     let bodyAttributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: Colors.text,
@@ -40,7 +41,7 @@ class ProfileViewController: NavigatingViewController {
         .font: R.font.economicaBold.orDefault(size: 36.0)
     ]
     let player: Player
-    // MARK: - UI elements
+    // MARK: - UI Elements
     lazy var profilePicture: UIImageView = {
         let view: UIImageView = UIImageView(image: R.image.profileLogo())
         view.backgroundColor = Colors.subsectionBackground
@@ -231,7 +232,6 @@ class ProfileViewController: NavigatingViewController {
             return
         }
         let userRef = database.collection("users").document(uid)
-
          if player.relationship != .friend {
             userRef.updateData([
             "friends": FieldValue.arrayUnion(["id"])

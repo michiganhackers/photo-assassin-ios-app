@@ -21,11 +21,12 @@ class BackendCaller {
     }
 
     // MARK: - Public functions
-    func createGame(name: String, invitedUsernames: [String], callback: @escaping (String?, Error?) -> Void) {
+    func createGame(name: String, invitedUsernames: [String],
+                    maxPlayers: Int, callback: @escaping (String?, Error?) -> Void) {
         type(of: self).functions.httpsCallable("createGame").call([
             "name": name,
             "invitedUsernames": invitedUsernames,
-            "maxPlayers": 10
+            "maxPlayers": maxPlayers
         ]) { result, error in
             callback((result?.data as? [String: Any])?["gameID"] as? String, error)
         }
@@ -80,6 +81,22 @@ class BackendCaller {
                      error)
         }
     }
+    func addFriend(userID: String, callback: @escaping (Error?) -> Void) {
+        type(of: self).functions.httpsCallable("addFriend").call([
+            "friendToAddId": userID
+        ]) { result, error in
+            callback(error)
+        }
+    }
+    
+    func removeFriend(userID: String, callback: @escaping (Error?) -> Void) {
+        type(of: self).functions.httpsCallable("removeFriend").call([
+            "friendToRemoveId": userID
+        ]) { result, error in
+            callback(error)
+        }
+    }
+    
     func player(fromUID uid: String, completionHandler: @escaping (Player?) -> Void) {
         let userRef = type(of: self).database.collection("users").document(uid)
         userRef.getDocument { user, error in

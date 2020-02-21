@@ -14,6 +14,8 @@ class ChangeFriendStatusAccessory: UIButton {
         .foregroundColor: Colors.text,
         .font: R.font.economicaBold.orDefault(size: 24.0)
     ]
+    let backendCaller = BackendCaller()
+    
     // MARK: - Private member variables
     private let player: Player
 
@@ -26,12 +28,18 @@ class ChangeFriendStatusAccessory: UIButton {
             titleText = "Add"
             // changes the icon back to add friend
             self.setImage(R.image.addFriend()?.withRenderingMode(.alwaysTemplate), for: .normal)
+            
+            // remove friend in Firebase
+            backendCaller.removeFriend(userID: player.uid) {_ in }
             print("TODO: Update friend status in Firebase as not a friend")
         } else if player.relationship == .none {
             player.relationship = .friend
             titleText = "Remove"
             // changes the icon to remove friend
             self.setImage(R.image.removeFriend()?.withRenderingMode(.alwaysTemplate), for: .normal)
+            
+            // add friend in Firebase
+            backendCaller.addFriend(userID: player.uid) {_ in }
             print("TODO: Update friend status in Firebase as a friend")
         }
         self.tintColor = Colors.text
