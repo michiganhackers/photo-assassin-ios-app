@@ -76,6 +76,9 @@ class VotingScreenViewController: RoutedViewController {
     lazy var voteYes: UIButton = {
         let button = TransparentButton("Vote Yes")
         button.isEnabled = false
+        button.layer.borderColor = UIColor(white:1, alpha: 0.8).cgColor
+        button.layer.borderWidth = 2
+        button.titleLabel?.textColor = UIColor(white:1, alpha: 0.8)
         button.addTarget(self, action: #selector (vote_func_yes), for: .touchUpInside)
           button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -85,9 +88,11 @@ class VotingScreenViewController: RoutedViewController {
            let button = TransparentButton("Vote No")
            button.isEnabled = false
            button.backgroundColor = UIColor(white:1, alpha: 0.2)
-        button.titleLabel?.textColor = UIColor.white
+           button.layer.borderColor = UIColor(white:1, alpha: 0.0).cgColor
+           button.titleLabel?.textColor = UIColor(white: 1, alpha: 1)
+           button.layer.borderWidth = 2
            button.addTarget(self, action: #selector (vote_func_no), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+           button.translatesAutoresizingMaskIntoConstraints = false
            return button
        }()
     var imageViewOne: UIImageView = {
