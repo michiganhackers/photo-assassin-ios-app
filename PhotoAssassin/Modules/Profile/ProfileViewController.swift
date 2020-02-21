@@ -20,7 +20,7 @@ class ProfileViewController: NavigatingViewController {
     let imageRounding: CGFloat = 5.0
     let leftRightSeparation: CGFloat = 3.0
     let lineThickness: CGFloat = 3.0
-    let navBarSpacing: CGFloat = 40.0
+    let navBarSpacing: CGFloat = 15.0
     let verticalButtonSpacing: CGFloat = 15.0
     let backendCaller = BackendCaller()
 
@@ -156,31 +156,26 @@ class ProfileViewController: NavigatingViewController {
         marginLeft: CGFloat = 0.0,
         marginRight: CGFloat = 0.0
     ) {
-        var lastTop = profilePicture.topAnchor
+        var lastTop = usernameLabel.bottomAnchor
         for (leftLabel, rightLabel) in labelPairs {
             leftLabel.leftAnchor.constraint(
                 equalTo: left,
                 constant: marginLeft
             ).isActive = true
-
             leftLabel.topAnchor.constraint(
                 equalTo: lastTop
             ).isActive = true
-
             rightLabel.rightAnchor.constraint(
                 equalTo: right,
                 constant: marginRight
             ).isActive = true
-
             rightLabel.topAnchor.constraint(
                 equalTo: lastTop
             ).isActive = true
-
             rightLabel.leftAnchor.constraint(
                 greaterThanOrEqualTo: leftLabel.rightAnchor,
                 constant: leftRightSeparation
             ).isActive = true
-
             lastTop = leftLabel.bottomAnchor
         }
     }
@@ -190,7 +185,7 @@ class ProfileViewController: NavigatingViewController {
 
         // Profile picture constraints
         profilePicture.topAnchor.constraint(equalTo: margins.topAnchor,
-                                            constant: navBarSpacing).isActive = true
+                                            constant: navBarSpacing + 16.0).isActive = true
         profilePicture.leftAnchor.constraint(equalTo: margins.leftAnchor).isActive = true
 
 //        let imageRightConstraint = NSLayoutConstraint(
@@ -237,12 +232,15 @@ class ProfileViewController: NavigatingViewController {
             return
         }
         let userRef = database.collection("users").document(uid)
-        
-//        if player.relationship != .friend {
-//            backendCaller.removeFriend(userID: <#T##String#>, callback: <#T##(Error?) -> Void#>)
-//        } else {
-//            backendCaller.addFriend(userID: <#T##String#>, callback: <#T##(Error?) -> Void#>)
-//        }
+         if player.relationship != .friend {
+            userRef.updateData([
+            "friends": FieldValue.arrayUnion(["id"])
+            ])
+        } else {
+            userRef.updateData([
+                "friends": FieldValue.arrayRemove(["id"])
+            ])
+        }
         print("TODO: Change friend status to isFriend == \(player.relationship != .friend)")
     }
 
