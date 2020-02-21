@@ -26,8 +26,6 @@ class MenuViewController: NavigatingViewController {
     ]
 
     lazy var gameLobbyList: GameList<GameLobbyListCell> = {
-        var games: [String] = []
-        let database = Firestore.firestore()
 
         var list = GameList<GameLobbyListCell> { lobby, _ in
             Player.getMyself { myself in
@@ -39,59 +37,6 @@ class MenuViewController: NavigatingViewController {
                         return
                     }
                     self.push(navigationScreen: .lobbyInfo(lobbyInfo))
-                }
-            }
-        }
-        guard let uid = Auth.auth().currentUser?.uid else {
-            return list
-        }
-        database.collection("games").getDocuments { querySnapshot, error in
-            if let err = error {
-                print("Error: \(err)")
-                return
-            }
-            guard let querySnapshot = querySnapshot else {
-                print("Could not retrieve current games")
-                return
-            }
-            for document in querySnapshot.documents {
-                let gameID = document.documentID
-                let gameStatus = document.get("status") as? String ?? "NO STATUS"
-                if gameStatus == "notStarted" || gameStatus == "started" {
-                    let title = document.get("name") as? String ?? "NO NAME"
-                    let numberAlive = document.get("numberAlive") as? Int
-                    let maxPlayers = document.get("maxPlayers") as? Int ?? 0
-                    var numberInLobby = 1
-                    var username = String()
-                    let gameRef = database.collection("games").document(gameID)
-                    gameRef.collection("players").getDocuments { querySnapshot, error in
-                        guard let querySnapshot = querySnapshot else {
-                            return
-                        }
-                        if let err = error {
-                            print("Error: \(err)")
-                        } else {
-                                numberInLobby = querySnapshot.count
-                            let currGameLobby = GameLobby(
-                                id: gameID,
-                                title: title,
-                                numberInLobby: numberInLobby,
-                                numberAlive: numberAlive,
-                                maxPlayers: maxPlayers
-                            )
-                            var exists = false
-                            for document in querySnapshot.documents where
-                                document.documentID == uid {
-                                    exists = true
-                                    break
-                            }
-                            if !exists {
-                                return
-                            }
-                            list.games.append(currGameLobby)
-                            list.update()
-                        }
-                    }
                 }
             }
         }
@@ -178,11 +123,71 @@ class MenuViewController: NavigatingViewController {
         recognizer.numberOfTouchesRequired = 1
         view.addGestureRecognizer(recognizer)
     }
+    func gameLobbyUpdate() {
+        gameLobbyList.games = []
+        let database = Firestore.firestore()
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        database.collection("games").getDocuments { querySnapshot, error in
+            if let err = error {
+                print("Error: \(err)")
+                return
+            }
+            guard let querySnapshot = querySnapshot else {
+                print("Could not retrieve current games")
+                return
+            }
+            for document in querySnapshot.documents {
+                let gameID = document.documentID
+                let gameStatus = document.get("status") as? String ?? "NO STATUS"
+                if gameStatus == "notStarted" || gameStatus == "started" {
+                    let title = document.get("name") as? String ?? "NO NAME"
+                    let numberAlive = document.get("numberAlive") as? Int
+                    let maxPlayers = document.get("maxPlayers") as? Int ?? 0
+                    var numberInLobby = 1
+//                    var username = String()
+                    let gameRef = database.collection("games").document(gameID)
+                    gameRef.collection("players").getDocuments { querySnapshot, error in
+                        guard let querySnapshot = querySnapshot else {
+                            return
+                        }
+                        if let err = error {
+                            print("Error: \(err)")
+                        } else {
+                                numberInLobby = querySnapshot.count
+                            let currGameLobby = GameLobby(
+                                id: gameID,
+                                title: title,
+                                numberInLobby: numberInLobby,
+                                numberAlive: numberAlive,
+                                maxPlayers: maxPlayers
+                            )
+                            var exists = false
+                            for document in querySnapshot.documents where
+                                document.documentID == uid {
+                                    exists = true
+                                    break
+                            }
+                            if !exists {
+                                return
+                            }
+                            self.gameLobbyList.games.append(currGameLobby)
+                            self.gameLobbyList.update()
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     // MARK: - Overrides
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setUpConstraints()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        gameLobbyUpdate()
     }
     override func viewDidLoad() {
         super.viewDidLoad()

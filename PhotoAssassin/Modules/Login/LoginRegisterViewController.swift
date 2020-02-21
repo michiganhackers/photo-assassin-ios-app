@@ -166,8 +166,11 @@ class LoginRegisterViewController: RoutedViewController, UITextFieldDelegate {
             let alertVC = UIAlertController(title: alertTitle, message: alertText, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
+            
         }
     }
+    
+
 
     @objc
     func fieldEdited() {
